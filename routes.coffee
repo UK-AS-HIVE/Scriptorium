@@ -6,7 +6,7 @@ Router.map ->
     path: '/dashboard'
 
   @route 'desk',
-    path '/desk'
+    path: '/desk'
 
   @route 'notFound',
     path: '*'
