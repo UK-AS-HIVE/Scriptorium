@@ -1,3 +1,6 @@
 Template.mirador.rendered = ->
-	#Add ckedit cdn
-  $("<script>", {type: "text/javscript", src: "//cdn.ckeditor.com/4.4.3/full/ckeditor.js"}).appendTo "head"
+  myObject = {"id": "viewer", "data": [{ "manifestUri": "http://manifests.ydc2.yale.edu/manifest/Osbornfa1.json", "location": "Yale University", "title": "Osborn fa1", "widgets": [] }]}
+
+  Meteor.setTimeout ( ->
+		Mirador(myObject) )
+  , 1000
