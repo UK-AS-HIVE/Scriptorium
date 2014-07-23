@@ -5,10 +5,229 @@
     GLOBAL STYLES
    =============================== */
 
+body {
+  font-family: 'Proxima Nova', 'Myriad Pro', Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
 img {
   max-width: 100%;
 }
 
+.wrapper, .container, .container-fluid {
+  min-width: 992px;
+}
+
+
+// HEADER
+
+header {
+  z-index: 1000;
+  position: relative;
+  width: 100%;
+
+  .top {
+    background: #323232;
+    height: 48px;
+    position: relative;
+
+    .logo {
+      float: left;
+      padding: 7px 0 7px 15px;
+      position: relative;
+
+      img {
+        max-height: 34px;
+      }
+    }
+
+    .title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      color: #FFF;
+      width: 100%;
+      text-align: center;
+      font-size: 26px;
+      font-family: 'Times New Roman', Serif;
+      padding: 4px 0 5px;
+    }
+
+    .menu {
+      position: relative;
+      float: right;
+      color: #fff;
+      padding: 16px 15px 14px 0;
+      cursor: pointer;
+      line-height: 1;
+
+      &:hover .menu-list {
+        .transform(translateY(0px));
+      }
+    }
+
+    .menu-button {
+      position: relative;
+      padding: 0 10px;
+      background: none;
+      border: none;
+      display: inline-block;
+
+      .icon-bar {
+        display: block;
+        width: 22px;
+        height: 2px;
+        border-radius: 1px;
+        background: #fff;
+
+        &+.icon-bar {
+          margin-top: 4px;
+        }
+      }
+    }
+
+    .menu-list {
+      padding: 0px;
+      border-radius: 0px;
+      border: 0px;
+      background: #000;
+      position: absolute;
+      margin: 0px;
+      top: 100%;
+      z-index: -1;
+      min-width: 190px;
+      font-size: 14px;
+      list-style: none;
+      right: 0;
+      float: right;
+      .transform(translateY(-264px));
+      .transition();
+
+      a {
+        display: block;
+        clear: both;
+        white-space: nowrap;
+        padding: 14px 15px;
+        color: #FFF;
+        font-size: 16px;
+
+        &:hover {
+          color: #fff;
+          opacity: 0.9;
+          text-decoration: none;
+        }
+
+        &.school {
+          background: @colorGreen;
+
+          &:hover {
+            background: @colorGreen;
+          }
+        }
+
+        &.library {
+          background: @colorYellow;
+
+          &:hover {
+            background: @colorYellow;
+          }
+        }
+
+        &.reading {
+          background: @colorOrange;
+
+          &:hover {
+            background: @colorOrange;
+          }
+        }
+
+        &.lexicon {
+          background: @colorRed;
+
+          &:hover {
+            background: @colorRed;
+          }
+        }
+
+        &.folio {
+          background: @colorBlue;
+
+          &:hover {
+            background: @colorBlue;
+          }
+        }
+
+        &.scriptorium {
+          background: @colorPurple;
+
+          &:hover {
+            background: @colorPurple;
+          }
+        }
+      }
+    }
+  }
+
+  .bottom {
+    background: @colorPurple;
+    color: #fff;
+    z-index: -2;
+    position: relative;
+    min-height: 5px;
+    overflow: auto;
+    padding: 0 5px;
+
+    .back-link {
+      color: #FFF;
+      padding: 6px 10px;
+      display: none;
+      left: 0px;
+      position: absolute;
+    }
+
+    ul {
+      padding-left: 0px;
+      display: inline-block;
+      margin: 0px;
+
+      li {
+        list-style: none;
+        display: inline-block;
+
+        a {
+          color: #fff;
+          padding: 6px 10px;
+          display: block;
+
+          &:hover {
+            color: #fff;
+            text-decoration: none;
+            background: rgba(0,0,0,0.1);
+          }
+        }
+
+        &.select {
+          padding: 0 10px 0 5px;
+        }
+
+        span {
+          padding-left: 6px;
+        }
+
+        select {
+          display: inline-block;
+          top: -2px;
+          position: relative;
+          font-size: 12px;
+          height: 24px;
+        }
+      }
+    }
+  }
+}
 
 // MISCELLANEOUS
 
