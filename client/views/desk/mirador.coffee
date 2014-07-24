@@ -1,6 +1,6 @@
 Template.mirador.rendered = ->
 
-  myObject = {"id": "viewer", "data": [{ "manifestUri": "http://manifests.ydc2.yale.edu/manifest/Osbornfa1.json", "location": "Yale University", "title": "Osborn fa1", "widgets": [] }]}
+  myObject = {"id": "viewer", "data": [{ "manifestUri": "http://manifests.ydc2.yale.edu/manifest/BeineckeMS10.json", "location": "Yale University", "title": "Beinecke MS 10", "widgets": [] }]}
 
   Meteor.setTimeout ( ->
 		Mirador(myObject) )
