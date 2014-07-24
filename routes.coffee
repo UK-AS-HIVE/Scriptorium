@@ -8,6 +8,9 @@ Router.map ->
   @route 'desk',
     path: '/desk'
 
+  @route 'files',
+    path: '/files'
+
   @route 'notFound',
     path: '*'
     where: 'server'

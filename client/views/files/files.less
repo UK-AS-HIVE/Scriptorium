@@ -1,0 +1,36 @@
+@import '../../stylesheets/mixins';
+@import '../../stylesheets/variables';
+
+ul.file-cabinet {
+  padding-left: 0px;
+  margin: 0px;
+
+  li {
+    list-style: none;
+    padding: 15px 20px;
+    border-bottom: 1px solid #E6E6E6;
+    line-height: 1.4;
+
+    small {
+      display: block;
+    }
+
+    i.file-icon {
+      float: left;
+      font-size: 40px;
+      width: 50px;
+    }
+
+    .actions {
+      float: right;
+      position: relative;
+      top: -38px;
+    }
+  }
+}
+
+.nofiles {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 30px;
+}
