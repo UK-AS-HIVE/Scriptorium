@@ -1,9 +1,12 @@
 Router.map ->
   @route 'home',
     path: '/'
+    action: ->
+      if Meteor.userId()
+        @redirect "desk"
+      else
+        @render()
 
-  @route 'dashboard',
-    path: '/dashboard'
 
   @route 'desk',
     path: '/desk'
@@ -23,3 +26,5 @@ Router.map ->
     action: ->
       @response.statusCode = 404
       @response.end Handlebars.templates['404']()
+    onBeforeAction: ->
+      AccountsEntry.signInRequired(@)
