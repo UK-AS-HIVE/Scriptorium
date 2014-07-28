@@ -1,0 +1,72 @@
+@import '../../stylesheets/mixins';
+@import '../../stylesheets/variables';
+
+ul.team {
+  padding-left: 0;
+  margin: 0;
+  margin-bottom: 20px;
+
+  h3 {
+    border-bottom: 1px solid #CCC;
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+  }
+
+  li {
+    list-style: none;
+    padding-left: 15px;
+    position: relative;
+    margin-bottom: 10px;
+
+    &:before {
+      content: "\f007";
+      font-size: 12px;
+      display: inline-block;
+      font-family: "FontAwesome";
+      margin-left: -15px;
+      float: left;
+      position: relative;
+      top: -2px;
+    }
+
+    &:hover {
+      span {
+        display: block;
+      }
+    }
+
+    b {
+      display: block;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    small {
+      display: block;
+      color: #999;
+    }
+
+    span {
+      position: absolute;
+      top: -1px;
+      right: 0px;
+      font-size: 14px;
+      line-height: 1;
+      display: none;
+
+      a {
+        padding-left: 3px;
+
+        &.delete {
+          color: @colorRed;
+        }
+
+        &.edit {
+          color: #555;
+        }
+      }
+    }
+  }
+}

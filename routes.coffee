@@ -11,6 +11,12 @@ Router.map ->
   @route 'files',
     path: '/files'
 
+  @route 'collaboration',
+    path: '/collaboration'
+
+  @route 'folio',
+    path: '/folio'
+
   @route 'notFound',
     path: '*'
     where: 'server'
