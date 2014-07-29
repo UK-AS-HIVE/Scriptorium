@@ -20,6 +20,9 @@ Router.map ->
   @route 'folio',
     path: '/folio'
 
+  @route 'folioEdit',
+    path: '/folio/edit'
+
   @route 'notFound',
     path: '*'
     where: 'server'
