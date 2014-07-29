@@ -14,4 +14,8 @@ Template.folioEdit.rendered = ->
     $("#lastDate").text slideEvt.value[1]
     return
 
-  $('textarea.editor').ckeditor
+  #CK EDITOR
+  CKEDITOR.replace('description')
+  CKEDITOR.replace('features')
+  CKEDITOR.replace('info')
+  CKEDITOR.replace('transcription')
