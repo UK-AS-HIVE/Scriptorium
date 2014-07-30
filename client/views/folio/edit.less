@@ -1,0 +1,20 @@
+@import '../../stylesheets/mixins';
+@import '../../stylesheets/variables';
+
+.date-slider label {
+  margin-right: 10px;
+}
+
+.slider.slider-horizontal {
+  width: calc(~'100% - 20px');
+  margin: 10px 10px 0;
+}
+
+.slider-handle {
+  background: @colorBlue;
+  opacity: 1;
+
+  &:active, &:focus {
+    outline: none;
+  }
+}
