@@ -14,6 +14,9 @@ Router.map ->
   @route 'files',
     path: '/files'
 
+  @route 'bookshelf',
+    path: '/bookshelf'
+
   @route 'collaboration',
     path: '/collaboration'
 

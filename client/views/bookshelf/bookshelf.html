@@ -1,0 +1,44 @@
+<template name="bookshelf">
+
+  <div class="page-wrapper">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2><i class="fa fa-book"></i> Bookshelf</h2>
+      <p>File Cabinet is where you add and store files for reviewing and editing on your <a href="/desk">Desk</a>.</p>
+      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-image-o"></i> Upload New Image</a>
+      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-text-o"></i> Upload New Document</a>
+    </div>
+
+    <!-- CONTENT CONTAINER -->
+    <div class="page-content">
+
+      <!-- IF NO FILES -->
+      <!-- <div class="nofiles">
+        <p>You don't have any files yet.</p>
+        <a href="#" class="btn btn-lg btn-default"><i class="fa fa-cloud-upload"></i> Upload New File</a>
+      </div> -->
+
+    </div>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="modal fade" id="filesUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Upload to File Cabinet</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Save File</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>
