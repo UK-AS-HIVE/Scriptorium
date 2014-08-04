@@ -11,141 +11,142 @@
 
     <!-- MANUSCRIPT FORM -->
     <div class="page-content folio">
-      <h2>Folio Manuscript Details</h2>
-      <h3>Shelfmark</h3>
-      <div class="row">
-        <div class="form-group col-xs-6">
-          <label>City</label>
+      <form>
+        <h2>Folio Manuscript Details</h2>
+        <h3>Shelfmark</h3>
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label>City<span>*</span></label>
+            <input type="text" class="form-control"/>
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Repository<span>*</span></label>
+            <input type="text" class="form-control"/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label>Collection (fond)<span>*</span></label>
+            <input type="text" class="form-control"/>
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Number<span>*</span></label>
+            <input type="text" class="form-control"/>
+          </div>
+        </div>
+        <h3>Details</h3>
+        <div class="form-group">
+          <label>Common (“pet”) Name (if any)</label>
           <input type="text" class="form-control"/>
         </div>
-        <div class="form-group col-xs-6">
-          <label>Repository</label>
-          <input type="text" class="form-control"/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-xs-6">
-          <label>Collection (fond)</label>
-          <input type="text" class="form-control"/>
-        </div>
-        <div class="form-group col-xs-6">
-          <label>Number</label>
-          <input type="text" class="form-control"/>
-        </div>
-      </div>
-      <h3>Details</h3>
-      <div class="form-group">
-        <label>Common (“pet”) Name</label>
-        <input type="text" class="form-control"/>
-      </div>
 
-      <div class="row">
-        <div class="form-group col-xs-6">
-          <label>Place of Origin</label>
-          <input type="text" class="form-control"/>
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label>Place of Origin</label>
+            <input type="text" class="form-control"/>
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Provenance</label>
+            <input type="text" class="form-control"/>
+            <span class="help-block">Subsequent locations, or rationale for Place of Origin, etc.</span>
+          </div>
         </div>
-        <div class="form-group col-xs-6">
-          <label>Provenance</label>
-          <input type="text" class="form-control"/>
-          <span class="help-block">Subsequent locations, or rationale for Place of Origin, etc.</span>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="form-group col-xs-6">
-          <label>Date Expression</label>
-          <input type="text" class="form-control"/>
-          <span class="help-block">Ex. 'ca. 698' or 'Early 19th Century'</span>
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label>Date Expression</label>
+            <input type="text" class="form-control"/>
+            <span class="help-block">Ex. 'ca. 698' or 'Early 19th Century'</span>
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Date Range<span>*</span></label>
+            <span id="firstDate">100</span> - <span id="lastDate">2025</span>
+            <input id="dateSlider" type="text" />
+          </div>
         </div>
-        <div class="form-group col-xs-6">
-          <label>Date Range</label>
-          <span id="firstDate">100</span> - <span id="lastDate">2025</span>
-          <input id="dateSlider" type="text" />
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label>Author(s) of work(s) in manuscript</label>
+            <input type="text" class="form-control"/>
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Title(s) of work(s) in manuscript</label>
+            <input type="text" class="form-control"/>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-xs-6">
-          <label>Author(s) of work(s) in manuscript</label>
-          <input type="text" class="form-control"/>
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label>Script<span>*</span></label>
+            <input type="text" class="form-control"/>
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Script Family<span>*</span></label>
+            <select id="scriptFam" class="form-control">
+              <option></option>
+              <option>Option 1</option>
+              <option>Option 2</option>
+              <option>Option 3</option>
+            </select>
+          </div>
         </div>
-        <div class="form-group col-xs-6">
-          <label>Title(s) of work(s) in manuscript</label>
-          <input type="text" class="form-control"/>
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label>Language<span>*</span></label>
+            <select class="form-control">
+              <option></option>
+              <option>Option 1</option>
+              <option>Option 2</option>
+              <option>Option 3</option>
+            </select>
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Alphabet<span>*</span></label>
+            <select class="form-control">
+              <option></option>
+              <option>Option 1</option>
+              <option>Option 2</option>
+              <option>Option 3</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-xs-6">
-          <label>Script</label>
-          <input type="text" class="form-control"/>
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label>Contributor(s)</label>
+            <input type="text" class="form-control"/>
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Link to full manuscript (URL)</label>
+            <input type="text" class="form-control"/>
+          </div>
         </div>
-        <div class="form-group col-xs-6">
-          <label>Script Family</label>
-          <select class="form-control">
-            <option></option>
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-          </select>
+        <div class="row">
+          <div class="form-group col-xs-6">
+            <label>Specific Folio Text<span>*</span></label>
+            <input type="text" class="form-control"/>
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Specific Folio Number<span>*</span></label>
+            <input type="text" class="form-control"/>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-xs-6">
-          <label>Language</label>
-          <select class="form-control">
-            <option></option>
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-          </select>
+        <div class="form-group">
+          <label>Paleographic Description<span>*</span></label>
+          <textarea id="description"></textarea>
         </div>
-        <div class="form-group col-xs-6">
-          <label>Alphabet</label>
-          <select class="form-control">
-            <option></option>
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-          </select>
+        <div class="form-group">
+          <label>Special Paleographic Features<span>*</span></label>
+          <textarea id="features"></textarea>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-xs-6">
-          <label>Contributor(s)</label>
-          <input type="text" class="form-control"/>
+        <div class="form-group">
+          <label>Further Information / Bibliography<span>*</span></label>
+          <textarea id="info"></textarea>
         </div>
-        <div class="form-group col-xs-6">
-          <label>Link to full manuscript (URL)</label>
-          <input type="text" class="form-control"/>
+        <div class="form-group">
+          <label>Transcription<span>*</span></label>
+          <textarea id="transcription"></textarea>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-xs-6">
-          <label>Specific Folio Text</label>
-          <input type="text" class="form-control"/>
-        </div>
-        <div class="form-group col-xs-6">
-          <label>Specific Folio Number</label>
-          <input type="text" class="form-control"/>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Paleographic Description</label>
-        <textarea id="description"></textarea>
-      </div>
-      <div class="form-group">
-        <label>Special Paleographic Features</label>
-        <textarea id="features"></textarea>
-      </div>
-      <div class="form-group">
-        <label>Further Information / Bibliography</label>
-        <textarea id="info"></textarea>
-      </div>
-      <div class="form-group">
-        <label>Transcription</label>
-        <textarea id="transcription"></textarea>
-      </div>
-      <a href="#" class="btn btn-lg btn-danger"><i class="fa fa-save"></i> Save to Folio</a>
-
+        <a href="#" class="btn btn-lg btn-danger"><i class="fa fa-save"></i> Save to Folio</a>
+      </form>
     </div>
   </div>
 

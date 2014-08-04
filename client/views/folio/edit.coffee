@@ -19,3 +19,9 @@ Template.folioEdit.rendered = ->
   CKEDITOR.replace('features')
   CKEDITOR.replace('info')
   CKEDITOR.replace('transcription')
+
+  #SELECT FIELDS
+  $("#scriptFam").select2 {
+    placeholder: "Select a Script Family"
+    allowClear: true
+  }
