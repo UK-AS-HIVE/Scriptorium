@@ -1,6 +1,6 @@
 <template name="bookshelf">
 
-  <div class="page-wrapper">
+  <div class="bookshelf page-wrapper">
 
     <!-- SIDEBAR -->
     <div class="sidebar">
@@ -20,6 +20,96 @@
         <a href="#" class="btn btn-lg btn-default"><i class="fa fa-cloud-upload"></i> Upload New File</a>
       </div> -->
 
+      <ul class="books">
+
+        <!-- SHELF 1 -->
+        <li class="shelf" style="background: #B73939;">
+          Category 1
+          <div class="actions">
+            <a href="#" data-toggle="modal" data-target="#categoryModal"><i class="fa fa-pencil"></i></a>
+          </div>
+        </li>
+        <li style="border-left-color:#B73939">
+          <h3><a href="#"><i class="fa fa-globe"></i> Cappelli abbreviations</a></h3>
+          <div class="actions">
+            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="red"><i class="fa fa-times"></i></a>
+          </div>
+        </li>
+        <li style="border-left-color:#B73939">
+          <h3><a href="#"><i class="fa fa-globe"></i> Cassiodorus, Variae</a></h3>
+          <div class="actions">
+            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="red"><i class="fa fa-times"></i></a>
+          </div>
+        </li>
+        <li style="border-left-color:#B73939">
+          <h3><a href="#"><i class="fa fa-globe"></i> Lewis & Short</a></h3>
+          <div class="actions">
+            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="red"><i class="fa fa-times"></i></a>
+          </div>
+        </li>
+
+        <!-- SHELF 2 -->
+        <li class="shelf" style="background: #3973B7;">
+          Category 2
+          <div class="actions">
+            <a href="#" data-toggle="modal" data-target="#categoryModal"><i class="fa fa-pencil"></i></a>
+          </div>
+        </li>
+        <li style="border-left-color:#3973B7">
+          <h3><a href="#"><i class="fa fa-globe"></i> Cappelli abbreviations</a></h3>
+          <div class="actions">
+            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="red"><i class="fa fa-times"></i></a>
+          </div>
+        </li>
+        <li style="border-left-color:#3973B7">
+          <h3><a href="#"><i class="fa fa-globe"></i> Cassiodorus, Variae</a></h3>
+          <div class="actions">
+            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="red"><i class="fa fa-times"></i></a>
+          </div>
+        </li>
+        <li style="border-left-color:#3973B7">
+          <h3><a href="#"><i class="fa fa-globe"></i> Lewis & Short</a></h3>
+          <div class="actions">
+            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="red"><i class="fa fa-times"></i></a>
+          </div>
+        </li>
+
+        <!-- SHELF 3 -->
+        <li class="shelf" style="background: #13AB1C;">
+          Category 3
+          <div class="actions">
+            <a href="#" data-toggle="modal" data-target="#categoryModal"><i class="fa fa-pencil"></i></a>
+          </div>
+        </li>
+        <li style="border-left-color:#13AB1C">
+          <h3><a href="#"><i class="fa fa-globe"></i> Cappelli abbreviations</a></h3>
+          <div class="actions">
+            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="red"><i class="fa fa-times"></i></a>
+          </div>
+        </li>
+        <li style="border-left-color:#13AB1C">
+          <h3><a href="#"><i class="fa fa-globe"></i> Cassiodorus, Variae</a></h3>
+          <div class="actions">
+            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="red"><i class="fa fa-times"></i></a>
+          </div>
+        </li>
+        <li style="border-left-color:#13AB1C">
+          <h3><a href="#"><i class="fa fa-globe"></i> Lewis & Short</a></h3>
+          <div class="actions">
+            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
+            <a href="#" class="red"><i class="fa fa-times"></i></a>
+          </div>
+        </li>
+      </ul>
+
     </div>
   </div>
 
@@ -37,6 +127,31 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Save File</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category Modal -->
+  <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Category Name</label>
+            <input type="text" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label>Category Color</label>
+            <div class="input-group color-picker">
+              <input type="text" class="form-control"/>
+              <span class="input-group-addon"><i></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Save Category</button>
         </div>
       </div>
     </div>
