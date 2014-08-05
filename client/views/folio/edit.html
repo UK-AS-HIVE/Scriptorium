@@ -17,21 +17,21 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>City<span>*</span></label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" required/>
           </div>
           <div class="form-group col-xs-6">
             <label>Repository<span>*</span></label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" required/>
           </div>
         </div>
         <div class="row">
           <div class="form-group col-xs-6">
-            <label>Collection (fond)<span>*</span></label>
+            <label>Collection (fond)</label>
             <input type="text" class="form-control"/>
           </div>
           <div class="form-group col-xs-6">
             <label>Number<span>*</span></label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" required/>
           </div>
         </div>
         <h3>Details</h3>
@@ -61,7 +61,7 @@
           <div class="form-group col-xs-6">
             <label>Date Range<span>*</span></label>
             <span id="firstDate">100</span> - <span id="lastDate">2025</span>
-            <input id="dateSlider" type="text" />
+            <input id="dateSlider" type="text" required/>
           </div>
         </div>
         <div class="row">
@@ -77,11 +77,11 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Script<span>*</span></label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" required/>
           </div>
           <div class="form-group col-xs-6">
             <label>Script Family<span>*</span></label>
-            <select id="scriptFam" class="form-control">
+            <select id="scriptFam" class="form-control" required>
               <option></option>
               <option>Option 1</option>
               <option>Option 2</option>
@@ -92,7 +92,7 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Language<span>*</span></label>
-            <select class="form-control">
+            <select class="form-control" required>
               <option></option>
               <option>Option 1</option>
               <option>Option 2</option>
@@ -101,7 +101,7 @@
           </div>
           <div class="form-group col-xs-6">
             <label>Alphabet<span>*</span></label>
-            <select class="form-control">
+            <select class="form-control" required>
               <option></option>
               <option>Option 1</option>
               <option>Option 2</option>
@@ -122,28 +122,28 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Specific Folio Text<span>*</span></label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" required/>
           </div>
           <div class="form-group col-xs-6">
             <label>Specific Folio Number<span>*</span></label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" required/>
           </div>
         </div>
         <div class="form-group">
           <label>Paleographic Description<span>*</span></label>
-          <textarea id="description"></textarea>
+          <textarea id="description" required></textarea>
         </div>
         <div class="form-group">
           <label>Special Paleographic Features<span>*</span></label>
-          <textarea id="features"></textarea>
+          <textarea id="features" required></textarea>
         </div>
         <div class="form-group">
-          <label>Further Information / Bibliography<span>*</span></label>
+          <label>Further Information / Bibliography</label>
           <textarea id="info"></textarea>
         </div>
         <div class="form-group">
           <label>Transcription<span>*</span></label>
-          <textarea id="transcription"></textarea>
+          <textarea id="transcription" required></textarea>
         </div>
         <a href="#" class="btn btn-lg btn-danger"><i class="fa fa-save"></i> Save to Folio</a>
       </form>
