@@ -60,7 +60,7 @@
           </div>
           <div class="form-group col-xs-6">
             <label>Date Range<span>*</span></label>
-            <span id="firstDate">100</span> - <span id="lastDate">2025</span>
+            <span id="firstDate">500 BC</span> - <span id="lastDate">2025 AD</span>
             <input id="dateSlider" type="text" required/>
           </div>
         </div>
@@ -77,35 +77,35 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Script<span>*</span></label>
-            <input type="text" class="form-control" required/>
+            <input id="scriptName" type="text" class="form-control" required/>
           </div>
           <div class="form-group col-xs-6">
             <label>Script Family<span>*</span></label>
-            <select id="scriptFam" class="form-control" required>
+            <select id="scriptSelect" class="form-control" required>
               <option></option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+              {{#each scripts}}
+                <option>{{this}}</option>
+              {{/each}}
             </select>
           </div>
         </div>
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Language<span>*</span></label>
-            <select class="form-control" required>
+            <select id="languageSelect" class="form-control" required>
               <option></option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+              {{#each languages}}
+                <option>{{this}}</option>
+              {{/each}}
             </select>
           </div>
           <div class="form-group col-xs-6">
             <label>Alphabet<span>*</span></label>
-            <select class="form-control" required>
+            <select id="alphabetSelect" class="form-control" required>
               <option></option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+              {{#each alphabet}}
+                <option>{{this}}</option>
+              {{/each}}
             </select>
           </div>
         </div>
