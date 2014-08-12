@@ -16,3 +16,7 @@ Template.bookshelf.rendered = ->
   $ ->
     $(".color-picker").colorpicker()
     return
+
+  # SORTABLE
+  $(".books").sortable
+    items: ":not(.shelf)"

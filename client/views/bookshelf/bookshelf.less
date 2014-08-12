@@ -12,8 +12,9 @@ ul.books {
     list-style: none;
     padding: 10px;
     margin: 5px 0;
-    overflow: auto;
+    overflow: hidden;
     border-radius: 10px;
+    height: 45px;
     border: 1px solid #DEDEDE;
     border-left: 3px solid #333;
     .verticalGradient(#F4F3F3, #E5E2E2);
@@ -23,6 +24,7 @@ ul.books {
       border-radius: 0px;
       padding: 5px 14px;
       margin: 10px 0;
+      height: auto;
       font-weight: bold;
       background: none;
       background-color: @colorBackground;
@@ -42,6 +44,7 @@ ul.books {
       float: right;
       display: none;
       line-height: 1;
+      font-size: 20px;
 
       a {
         margin-left: 4px;
