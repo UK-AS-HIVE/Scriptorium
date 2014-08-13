@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2014-08-08
+//! Built on 2014-08-13
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -11141,6 +11141,12 @@ jQuery.fn.scrollStop = function(callback) {
       this.olMap.zoomToMaxExtent();
 
       anno.makeAnnotatable(this.olMap);
+      anno.addHandler('onAnnotationCreated', function(annotation) {
+        var annoObject = annotation;
+        console.log(annoObject.shapes[0].geometry.height);
+        console.log(annoObject.text);
+        console.log(annoObject.src);
+      });
     },
 
 
