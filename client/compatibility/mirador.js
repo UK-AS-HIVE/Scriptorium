@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2014-08-13
+//! Built on 2014-08-14
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -11143,9 +11143,15 @@ jQuery.fn.scrollStop = function(callback) {
       anno.makeAnnotatable(this.olMap);
       anno.addHandler('onAnnotationCreated', function(annotation) {
         var annoObject = annotation;
-        console.log(annoObject.shapes[0].geometry.height);
-        console.log(annoObject.text);
-        console.log(annoObject.src);
+        // console.log("height = " +annoObject.shapes[0].geometry.height);
+        // console.log("width = " +annoObject.shapes[0].geometry.width);
+        // console.log("x = " +annoObject.shapes[0].geometry.x);
+        // console.log("y = " +annoObject.shapes[0].geometry.y);
+        // console.log("text = " + annoObject.text);
+        // console.log("source = " + annoObject.src);
+
+        Meteor.call("saveAnnotoriusAnnos", annotation.src, annotation.x, annotation.y, annotation.width, annotation.height, annotation.text);
+
       });
     },
 
