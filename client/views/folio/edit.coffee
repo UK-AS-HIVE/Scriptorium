@@ -54,3 +54,32 @@ Template.folioEdit.scripts = ->
 
 Template.folioEdit.alphabet = ->
   Manuscript.alphabet
+
+Template.folioEdit.events 
+  "click #submit": ->
+    folioItem = {}
+    folioItem.city = $("#city-field").val()
+    folioItem.repository = $("#repository-field").val()
+    folioItem.collection = $("#collection-field").val()
+    folioItem.collectionNumber = $("#collectionNumber-field").val()
+    folioItem.commonName = $("#commonName-field").val()
+    folioItem.origin = $("#origin-field").val()
+    folioItem.provenance = $("#provenance-field").val()
+    folioItem.dateExpression = $("#dateExpression-field").val()
+    folioItem.dateRange = $("#dateSlider").slider('getValue')
+    folioItem.author = $("#author-field").val()
+    folioItem.title = $("#title-field").val()
+    folioItem.scriptName = $("#scriptName").val()
+    folioItem.scrptFamily = $("#scriptSelect").select2('val')
+    folioItem.scriptLanguage = $("#languageSelect").select2('val')
+    folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
+    folioItem.contributors = $("#contributor-field").val()
+    folioItem.manuscriptLink = $("#link-field").val()
+    folioItem.specificText = $("#folioText-field").val()
+    folioItem.folioNumber = $("#folioNumber-field").val()
+    folioItem.description = CKEDITOR.instances.description.getData()
+    folioItem.features = CKEDITOR.instances.features.getData()
+    folioItem.info = CKEDITOR.instances.info.getData()
+    folioItem.transcription = CKEDITOR.instances.transcription.getData()
+
+    Meteor.call("saveFolioForm", folioItem)
