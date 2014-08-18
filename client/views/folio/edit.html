@@ -17,37 +17,37 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>City<span>*</span></label>
-            <input type="text" class="form-control" required/>
+            <input type="text" class="form-control" id="city-field" required/>
           </div>
           <div class="form-group col-xs-6">
             <label>Repository<span>*</span></label>
-            <input type="text" class="form-control" required/>
+            <input type="text" class="form-control" id="repository-field" required/>
           </div>
         </div>
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Collection (fond)</label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" id="collection-field"/>
           </div>
           <div class="form-group col-xs-6">
             <label>Number<span>*</span></label>
-            <input type="text" class="form-control" required/>
+            <input type="text" class="form-control" id="collectionNumber-field" required/>
           </div>
         </div>
         <h3>Details</h3>
         <div class="form-group">
           <label>Common (“pet”) Name (if any)</label>
-          <input type="text" class="form-control"/>
+          <input type="text" class="form-control" id="commonName-field"/>
         </div>
 
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Place of Origin</label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" id="origin-field"/>
           </div>
           <div class="form-group col-xs-6">
             <label>Provenance</label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" id="provenance-field"/>
             <span class="help-block">Subsequent locations, or rationale for Place of Origin, etc.</span>
           </div>
         </div>
@@ -55,7 +55,7 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Date Expression</label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" id="dateExpression-field"/>
             <span class="help-block">Ex. 'ca. 698' or 'Early 19th Century'</span>
           </div>
           <div class="form-group col-xs-6">
@@ -67,11 +67,11 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Author(s) of work(s) in manuscript</label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" id="author-field"/>
           </div>
           <div class="form-group col-xs-6">
             <label>Title(s) of work(s) in manuscript</label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" id="title-field"/>
           </div>
         </div>
         <div class="row">
@@ -112,21 +112,21 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Contributor(s)</label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" id="contributor-field"/>
           </div>
           <div class="form-group col-xs-6">
             <label>Link to full manuscript (URL)</label>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" id="link-field"/>
           </div>
         </div>
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Specific Folio Text<span>*</span></label>
-            <input type="text" class="form-control" required/>
+            <input type="text" class="form-control" id="folioText-field" required/>
           </div>
           <div class="form-group col-xs-6">
             <label>Specific Folio Number<span>*</span></label>
-            <input type="text" class="form-control" required/>
+            <input type="text" class="form-control" id="folioNumber-field" required/>
           </div>
         </div>
         <div class="form-group">
@@ -145,7 +145,7 @@
           <label>Transcription<span>*</span></label>
           <textarea id="transcription" required></textarea>
         </div>
-        <a href="#" class="btn btn-lg btn-danger"><i class="fa fa-save"></i> Save to Folio</a>
+        <a href="#" class="btn btn-lg btn-danger" id="submit"><i class="fa fa-save"></i> Save to Folio</a>
       </form>
     </div>
   </div>
