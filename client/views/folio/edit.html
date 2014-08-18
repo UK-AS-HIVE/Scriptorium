@@ -6,6 +6,7 @@
     <div class="sidebar">
       <h2>New Folio Entry</h2>
       <p>Complete the required fields to submit a new entry to Folio.</p>
+      <img class="folio-edit-image" src="/img/temp/temp-manuscript.jpg"/>
       <a href="/folio" class="btn btn-default btn-block"><i class="fa fa-angle-left"></i> Back to Manager</a>
     </div>
 
@@ -145,7 +146,18 @@
           <label>Transcription<span>*</span></label>
           <textarea id="transcription" required></textarea>
         </div>
-        <a href="#" class="btn btn-lg btn-danger"><i class="fa fa-save"></i> Save to Folio</a>
+        <div class="folio-form-footer">
+
+          <!-- IF UNPUBLISHED -->
+          <a href="#" class="btn btn-lg btn-default"><i class="fa fa-save"></i> Save</a>
+          <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Publish to Folio</a>
+
+          <!-- IF PUBLISHED
+          <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Save & Publish</a>
+          <a href="#" class="btn btn-lg btn-default"><i class="fa fa-history"></i> Unpublish</a> -->
+
+          <a href="#" class="btn btn-lg btn-danger pull-right"><i class="fa fa-trash-o"></i> Delete</a>
+        </div>
       </form>
     </div>
   </div>
