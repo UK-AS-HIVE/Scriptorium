@@ -7961,6 +7961,7 @@ jQuery.fn.scrollStop = function(callback) {
           '<a href="javascript:;" class="mirador-btn mirador-icon-thumbnails-view"></a>',
           '<a href="javascript:;" class="mirador-btn mirador-icon-scroll-view"></a>',
           '<a href="javascript:;" class="mirador-btn mirador-icon-metadata-view"></a>',
+          '<a href="javascript:;" class="mirador-btn mirador-icon-add-mani"><i class="fa fa-plus" data-toggle="modal" data-target="#addManifestModal"></i></a>',
           '{{#collections}}',
             '{{#list}}',
               '<ul class="ul-{{manifestId}}">',
@@ -8365,6 +8366,7 @@ jQuery.fn.scrollStop = function(callback) {
           selectorScrollView      = selectorListing + ' a.mirador-icon-scroll-view',
           selectorMetadataView    = selectorListing + ' a.mirador-icon-metadata-view',
           selectorThumbnailsView  = selectorListing + ' a.mirador-icon-thumbnails-view',
+          selectorAddMani         = selectorListing + ' a.mirador-icon-add-mani',
           _this                   = this;
 
       // attach onChange event handler for collections select list
@@ -8395,6 +8397,10 @@ jQuery.fn.scrollStop = function(callback) {
 
         $.viewer.loadView("thumbnailsView", manifestId);
       });
+
+      jQuery(document).on('click', selectorAddMani, function() {
+        Meteor.miradorFunctions.addMani();
+      });      
 
       // attach click event for scroll view icon
       jQuery(document).on('click', selectorScrollView, function() {
@@ -10300,7 +10306,7 @@ jQuery.fn.scrollStop = function(callback) {
       });
 
       navToolbar.on('click', selectorAddFolio, function() {
-        console.log("clicked add folio");
+        console.log(_this.manifestId + " " + _this.currentImg.id);
       });
 
       navToolbar.on('click', selectorScrollView, function() {

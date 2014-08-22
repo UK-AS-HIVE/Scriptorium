@@ -1,3 +1,33 @@
 <template name="desk">
 	{{> mirador}}
+
+  <div class="modal fade" id="addManifestModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <div class="row">
+            <div class="form-group col-xs-12">
+              <label>Manifest URL<span>*</span></label>
+              <input type="text" class="form-control" id="newManifestURL">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-xs-12">
+              <label>Location<span>*</span></label>
+              <input type="text" class="form-control" id="newManifestLocation">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-xs-12">
+              <label>Title<span>*</span></label>
+              <input type="text" class="form-control" id="newManifestTitle">
+            </div>
+          </div>
+          <a href="#" class="btn btn-block btn-default" id="addManiButton">Add manifest to this project</a>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>

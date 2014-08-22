@@ -3,3 +3,4 @@
 # class @folioItems extends Minimongoid
 # 	 @_collection: new Meteor.Collection('folioitems')
 @folioItems = new Meteor.Collection('folioitems')
+
