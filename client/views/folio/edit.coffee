@@ -46,6 +46,15 @@ Template.folioEdit.rendered = ->
     allowClear: true
   }
 
+Template.folioEdit.helpers
+  editThumbnail: ->
+    image = folioItems.findOne({_id: Session.get("editFolioItem")})
+    console.log(image.imageURL + "/full/200,/0/native.jpg")
+    image.imageURL + "/full/200,/0/native.jpg"
+  folioTitle:->
+    image = folioItems.findOne({_id: Session.get("editFolioItem")})
+    image.canvas.label
+
 Template.folioEdit.languages = ->
   Manuscript.languages
 
@@ -82,4 +91,8 @@ Template.folioEdit.events
     folioItem.info = CKEDITOR.instances.info.getData()
     folioItem.transcription = CKEDITOR.instances.transcription.getData()
 
-    Meteor.call("saveFolioForm", folioItem)
+    folioItems.update({_id: Session.get("editFolioItem")}, {$set: {metadata: folioItem}})
+
+  "click #publish": ->
+    console.log("presses")
+    folioItems.update({_id: Session.get("editFolioItem")}, {$set: {published: true}})

@@ -8,5 +8,10 @@ Meteor.methods({
             manifestLocation: location,
             manifestTitle: title
         });
-	}
+	},
+
+    getRootUrl: function(){
+        console.log("foo");
+        return process.env.ROOT_URL;
+    }
 })

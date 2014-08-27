@@ -6,7 +6,7 @@
     <div class="sidebar">
       <h2>New Folio Entry</h2>
       <p>Complete the required fields to submit a new entry to Folio.</p>
-      <img class="folio-edit-image" src="/img/temp/temp-manuscript.jpg"/>
+      <img class="folio-edit-image" src="{{editThumbnail}}"/>
       <a href="/folio" class="btn btn-default btn-block"><i class="fa fa-angle-left"></i> Back to Manager</a>
     </div>
 
@@ -150,8 +150,8 @@
         <div class="folio-form-footer">
 
           <!-- IF UNPUBLISHED -->
-          <a href="#" id="submit" class="btn btn-lg btn-default"><i class="fa fa-save"></i> Save</a>
-          <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Publish to Folio</a>
+          <a href="#" class="btn btn-lg btn-default" data-toggle="modal" data-target="#folioSaveConfirm"><i class="fa fa-save"></i> Save</a>
+          <a href="#" id="publish" class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Publish to Folio</a>
 
           <!-- IF PUBLISHED
           <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Save & Publish</a>
@@ -170,6 +170,17 @@
         <div class="modal-body text-center">
           <p>Are you sure you want to delete?</p>
           <a href="#" class="btn btn-block btn-danger"><i class="fa fa-trash-o"></i> Yes, Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="folioSaveConfirm">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <p>Confirm saving information for {{folioTitle}}</p>
+          <a href="#" id="submit" class="btn btn-lg btn-default" data-toggle="modal" data-target="#folioSaveConfirm"><i class="fa fa-save"></i> Save</a> 
         </div>
       </div>
     </div>
