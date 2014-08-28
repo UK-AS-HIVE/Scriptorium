@@ -51,7 +51,7 @@ Template.folioEdit.helpers
     image = folioItems.findOne({_id: Session.get("editFolioItem")})
     console.log(image.imageURL + "/full/200,/0/native.jpg")
     image.imageURL + "/full/200,/0/native.jpg"
-  folioTitle:->
+  folioTitle: ->
     image = folioItems.findOne({_id: Session.get("editFolioItem")})
     image.canvas.label
 

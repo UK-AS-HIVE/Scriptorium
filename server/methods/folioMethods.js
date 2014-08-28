@@ -8,7 +8,7 @@ Meteor.methods({
 			lastUpdatedBy: userID,
 			canvas: null,
 			imageURL: imageID,
-			metadata: null,
+			metadata: {},
 			dateAdded: theDate,
 			lastUpdated: theDate,
 			published: false,
@@ -16,19 +16,6 @@ Meteor.methods({
 		}); 
 
 		return newFolioID
-	},
-
-	saveFolioForm: function(formData){
-
-		console.log("Saving Folio item...");
-
-		folioItems.insert({
-			user: 'andy',
-			project: 000,
-			folioItem: formData
-		});
-
-
 	},
 
 	sendFolioPrep: function(imageID, height, width, title){

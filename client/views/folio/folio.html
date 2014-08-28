@@ -26,14 +26,33 @@
           <a href="#" class="btn btn-block btn-default"><i class="fa fa-image"></i> Annotate Image</a>
         </div>
         <div class="meta meta-folio">
-          <strong>London, British Library, Additional 89000 f. 1r
-</strong>
+          <strong>London, British Library, Additional 89000 f. 1r</strong>
           <small>Latin &bull; Uncial &bull; 698 AD</small>
           <small>Last saved by Abigail Firey on 7/16/14</small>
           <small>Published</small>
         </div>
       </li>
-      <li>
+      {{#each items}}
+        <li>
+          <img src="{{imageURL}}/full/50,/0/native.jpg"/>
+          <div class="actions actions-folio">
+            <a href="/folio/edit" class="btn btn-block btn-default"><i class="fa fa-edit"></i> Edit Entry</a>
+            <a href="#" class="btn btn-block btn-default"><i class="fa fa-image"></i> Annotate Image</a>
+          </div>
+          <div class="meta meta-folio">
+            <strong>{{metadata.city}}, {{metadata.repository}}, {{metadata.collection}} 89000 f. 1r</strong>
+            <small>{{metadata.scriptLanguage}} &bull; {{metadata.scriptFamily}} &bull; {{metadata.dateExpression}}</small>
+            <small>Last saved by {{lastUpdatedBy}} on {{lastUpdated}}</small>
+            {{#if isPublished true}}
+              <small>Published</small>
+            {{/if}}
+            {{#if isPublished false}}
+              <small>Not Published</small>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+ <!--      <li>
         <img src="/img/temp/temp-manuscript.jpg"/>
         <div class="actions actions-folio">
           <a href="/folio/edit" class="btn btn-block btn-default"><i class="fa fa-edit"></i> Edit Entry</a>
@@ -88,7 +107,7 @@
           <small>Last saved by Abigail Firey on 7/16/14</small>
           <small>Published</small>
         </div>
-      </li>
+      </li> -->
     </ul>
 
   </div>
