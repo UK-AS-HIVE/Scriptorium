@@ -79,7 +79,7 @@ Template.folioEdit.events
     folioItem.author = $("#author-field").val()
     folioItem.title = $("#title-field").val()
     folioItem.scriptName = $("#scriptName").val()
-    folioItem.scrptFamily = $("#scriptSelect").select2('val')
+    folioItem.scriptFamily = $("#scriptSelect").select2('val')
     folioItem.scriptLanguage = $("#languageSelect").select2('val')
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
     folioItem.contributors = $("#contributor-field").val()
