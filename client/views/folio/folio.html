@@ -19,28 +19,15 @@
           </span>
         </div>
       </li>
-      <li>
-        <img src="/img/temp/temp-manuscript.jpg"/>
-        <div class="actions actions-folio">
-          <a href="/folio/edit" class="btn btn-block btn-default"><i class="fa fa-edit"></i> Edit Entry</a>
-          <a href="#" class="btn btn-block btn-default"><i class="fa fa-image"></i> Annotate Image</a>
-        </div>
-        <div class="meta meta-folio">
-          <strong>London, British Library, Additional 89000 f. 1r</strong>
-          <small>Latin &bull; Uncial &bull; 698 AD</small>
-          <small>Last saved by Abigail Firey on 7/16/14</small>
-          <small>Published</small>
-        </div>
-      </li>
       {{#each items}}
         <li>
           <img src="{{imageURL}}/full/50,/0/native.jpg"/>
           <div class="actions actions-folio">
-            <a href="/folio/edit" class="btn btn-block btn-default"><i class="fa fa-edit"></i> Edit Entry</a>
+            <a href="#" class="btn btn-block btn-default folio-edit-btn" id="{{_id}}"><i class="fa fa-edit"></i> Edit Entry</a>
             <a href="#" class="btn btn-block btn-default"><i class="fa fa-image"></i> Annotate Image</a>
           </div>
           <div class="meta meta-folio">
-            <strong>{{metadata.city}}, {{metadata.repository}}, {{metadata.collection}} 89000 f. 1r</strong>
+            <strong>{{metadata.city}}, {{metadata.repository}}, {{metadata.collection}} {{metadata.collectionNumber}} {{metadata.folioNumber}}</strong>
             <small>{{metadata.scriptLanguage}} &bull; {{metadata.scriptFamily}} &bull; {{metadata.dateExpression}}</small>
             <small>Last saved by {{lastUpdatedBy}} on {{lastUpdated}}</small>
             {{#if isPublished true}}
@@ -52,62 +39,6 @@
           </div>
         </li>
       {{/each}}
- <!--      <li>
-        <img src="/img/temp/temp-manuscript.jpg"/>
-        <div class="actions actions-folio">
-          <a href="/folio/edit" class="btn btn-block btn-default"><i class="fa fa-edit"></i> Edit Entry</a>
-          <a href="#" class="btn btn-block btn-default"><i class="fa fa-image"></i> Annotate Image</a>
-        </div>
-        <div class="meta meta-folio">
-          <strong>London, British Library, Additional 89000 f. 1r
-</strong>
-          <small>Latin &bull; Uncial &bull; 698 AD</small>
-          <small>Last saved by Abigail Firey on 7/16/14</small>
-          <small>Draft</small>
-        </div>
-      </li>
-      <li>
-        <img src="/img/temp/temp-manuscript.jpg"/>
-        <div class="actions actions-folio">
-          <a href="/folio/edit" class="btn btn-block btn-default"><i class="fa fa-edit"></i> Edit Entry</a>
-          <a href="#" class="btn btn-block btn-default"><i class="fa fa-image"></i> Annotate Image</a>
-        </div>
-        <div class="meta meta-folio">
-          <strong>London, British Library, Additional 89000 f. 1r
-</strong>
-          <small>Latin &bull; Uncial &bull; 698 AD</small>
-          <small>Last saved by Abigail Firey on 7/16/14</small>
-          <small>Published</small>
-        </div>
-      </li>
-      <li>
-        <img src="/img/temp/temp-manuscript.jpg"/>
-        <div class="actions actions-folio">
-          <a href="/folio/edit" class="btn btn-block btn-default"><i class="fa fa-edit"></i> Edit Entry</a>
-          <a href="#" class="btn btn-block btn-default"><i class="fa fa-image"></i> Annotate Image</a>
-        </div>
-        <div class="meta meta-folio">
-          <strong>London, British Library, Additional 89000 f. 1r
-</strong>
-          <small>Latin &bull; Uncial &bull; 698 AD</small>
-          <small>Last saved by Abigail Firey on 7/16/14</small>
-          <small>Published</small>
-        </div>
-      </li>
-      <li>
-        <img src="/img/temp/temp-manuscript.jpg"/>
-        <div class="actions actions-folio">
-          <a href="/folio/edit" class="btn btn-block btn-default"><i class="fa fa-edit"></i> Edit Entry</a>
-          <a href="#" class="btn btn-block btn-default"><i class="fa fa-image"></i> Annotate Image</a>
-        </div>
-        <div class="meta meta-folio">
-          <strong>London, British Library, Additional 89000 f. 1r
-</strong>
-          <small>Latin &bull; Uncial &bull; 698 AD</small>
-          <small>Last saved by Abigail Firey on 7/16/14</small>
-          <small>Published</small>
-        </div>
-      </li> -->
     </ul>
 
   </div>

@@ -18,37 +18,37 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>City<span>*</span></label>
-            <input type="text" class="form-control" id="city-field" required/>
+            <input type="text" class="form-control" id="city-field" value="{{getFolioById.metadata.city}}" required/>
           </div>
           <div class="form-group col-xs-6">
             <label>Repository<span>*</span></label>
-            <input type="text" class="form-control" id="repository-field" required/>
+            <input type="text" class="form-control" id="repository-field" value="{{getFolioById.metadata.repository}}" required/>
           </div>
         </div>
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Collection (fond)</label>
-            <input type="text" class="form-control" id="collection-field"/>
+            <input type="text" class="form-control" id="collection-field" value="{{getFolioById.metadata.collection}}"/>
           </div>
           <div class="form-group col-xs-6">
             <label>Number<span>*</span></label>
-            <input type="text" class="form-control" id="collectionNumber-field" required/>
+            <input type="text" class="form-control" id="collectionNumber-field"  value="{{getFolioById.metadata.collectionNumber}}" required/>
           </div>
         </div>
         <h3>Details</h3>
         <div class="form-group">
           <label>Common (“pet”) Name (if any)</label>
-          <input type="text" class="form-control" id="commonName-field"/>
+          <input type="text" class="form-control" id="commonName-field" value="{{getFolioById.metadata.commonName}}"/>
         </div>
 
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Place of Origin</label>
-            <input type="text" class="form-control" id="origin-field"/>
+            <input type="text" class="form-control" id="origin-field" value="{{getFolioById.metadata.origin}}"/>
           </div>
           <div class="form-group col-xs-6">
             <label>Provenance</label>
-            <input type="text" class="form-control" id="provenance-field"/>
+            <input type="text" class="form-control" id="provenance-field" value="{{getFolioById.metadata.provenance}}"/>
             <span class="help-block">Subsequent locations, or rationale for Place of Origin, etc.</span>
           </div>
         </div>
@@ -56,7 +56,7 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Date Expression</label>
-            <input type="text" class="form-control" id="dateExpression-field"/>
+            <input type="text" class="form-control" id="dateExpression-field" value="{{getFolioById.metadata.dateExpression}}"/>
             <span class="help-block">Ex. 'ca. 698' or 'Early 19th Century'</span>
           </div>
           <div class="form-group col-xs-6">
@@ -68,11 +68,11 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Author(s) of work(s) in manuscript</label>
-            <input type="text" class="form-control" id="author-field"/>
+            <input type="text" class="form-control" id="author-field" value="{{getFolioById.metadata.author}}"/>
           </div>
           <div class="form-group col-xs-6">
             <label>Title(s) of work(s) in manuscript</label>
-            <input type="text" class="form-control" id="title-field"/>
+            <input type="text" class="form-control" id="title-field" value="{{getFolioById.metadata.title}}"/>
           </div>
         </div>
         <div class="row">
@@ -113,21 +113,21 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Contributor(s)</label>
-            <input type="text" class="form-control" id="contributor-field"/>
+            <input type="text" class="form-control" id="contributor-field" value="{{getFolioById.metadata.contributors}}"/>
           </div>
           <div class="form-group col-xs-6">
             <label>Link to full manuscript (URL)</label>
-            <input type="text" class="form-control" id="link-field"/>
+            <input type="text" class="form-control" id="link-field" value="{{getFolioById.metadata.manuscriptLink}}"/>
           </div>
         </div>
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Specific Folio Text<span>*</span></label>
-            <input type="text" class="form-control" id="folioText-field" required/>
+            <input type="text" class="form-control" id="folioText-field" value="{{getFolioById.metadata.specificText}}" required/>
           </div>
           <div class="form-group col-xs-6">
             <label>Specific Folio Number<span>*</span></label>
-            <input type="text" class="form-control" id="folioNumber-field" required/>
+            <input type="text" class="form-control" id="folioNumber-field" value="{{getFolioById.metadata.folioNumber}}" required/>
           </div>
         </div>
         <div class="form-group">
@@ -150,12 +150,17 @@
         <div class="folio-form-footer">
 
           <!-- IF UNPUBLISHED -->
-          <a href="#" class="btn btn-lg btn-default" data-toggle="modal" data-target="#folioSaveConfirm"><i class="fa fa-save"></i> Save</a>
-          <a href="#" id="publish" class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Publish to Folio</a>
-
           <!-- IF PUBLISHED
           <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Save & Publish</a>
           <a href="#" class="btn btn-lg btn-default"><i class="fa fa-history"></i> Unpublish</a> -->
+          <a href="#" id="submitFolioItem" class="btn btn-lg btn-default" data-toggle="modal" data-target="#folioSaveConfirm"><i class="fa fa-save"></i> Save</a>
+          {{#if isPublished false}}
+            <a href="#" id="publish" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#folioPublishConfirm"><i class="fa fa-globe"></i> Publish to Folio</a>
+          {{/if}}
+          {{#if isPublished true}}
+            <a href="#" id="publish" class="btn btn-lg btn-default" data-toggle="modal" data-target="#folioUnpublishConfirm"><i class="fa fa-history"></i> Unpublish</a>
+          {{/if}}
+
 
           <a href="#" class="btn btn-lg btn-danger pull-right" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-o"></i> Delete</a>
         </div>
@@ -169,21 +174,46 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <p>Are you sure you want to delete?</p>
-          <a href="#" class="btn btn-block btn-danger"><i class="fa fa-trash-o"></i> Yes, Delete</a>
+          <a href="#" id="deleteFolioRecord" class="btn btn-block btn-danger"><i class="fa fa-trash-o"></i> Yes, Delete</a>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- save confirm modal -->
   <div class="modal fade" id="folioSaveConfirm">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body text-center">
-          <p>Confirm saving information for {{folioTitle}}</p>
-          <a href="#" id="submit" class="btn btn-lg btn-default" data-toggle="modal" data-target="#folioSaveConfirm"><i class="fa fa-save"></i> Save</a> 
+          <p>Folio entry for {{folioTitle}} has been saved!</p>
+          <a href="#" id="folioSaveOkBtn" class="btn btn-lg btn-default"><i class="fa fa-thumbs-o-up"></i> OK</a> 
         </div>
       </div>
     </div>
   </div>
 
+  <!-- publish confirm modal -->
+  <div class="modal fade" id="folioPublishConfirm">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <p>Folio entry for {{folioTitle}} has been {{publishAction}}!</p>
+          <a href="#" id="folioPublishOkBtn" class="btn btn-lg btn-default ok-btn"><i class="fa fa-thumbs-o-up"></i> OK</a> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- unpublish confirm modal -->
+  <div class="modal fade" id="folioUnpublishConfirm">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <p>Entry for {{folioTitle}} has been unpublished from Folio!</p>
+          <a href="#" id="folioUnpublishOkBtn" class="btn btn-lg btn-default ok-btn"><i class="fa fa-thumbs-o-up"></i> OK</a> 
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2014-08-26
+//! Built on 2014-09-12
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -6978,7 +6978,7 @@ window.Mirador = window.Mirador || function(config) {
    */
   $.DEFAULT_SETTINGS = {
 
-    'workspaceAutoSave': true,
+    'workspaceAutoSave': false,
 
     'showNoImageChoiceOption': true,
 
@@ -7667,6 +7667,7 @@ jQuery.fn.scrollStop = function(callback) {
       });
 
       if (typeof this.initialLayout !== 'undefined') {
+        console.log("undefined" + " " + this.initialLayout);
         $.viewer.layout.applyLayout(this.initialLayout);
         this.currentLayout = this.initialLayout;
       }
@@ -8590,7 +8591,7 @@ jQuery.fn.scrollStop = function(callback) {
 
     cascadeAll: function() {
       var _this = this,
-          offset = 0,
+          offset = 100,
           x, y,
           canvas = {};
 
@@ -8628,7 +8629,7 @@ jQuery.fn.scrollStop = function(callback) {
           columnIndex,
           rowIndex = 0;
 
-      canvas.top    = $.viewer.mainMenu.element.outerHeight(true) + this.rowPadding;
+      canvas.top    = $.viewer.mainMenu.element.outerHeight(true) + this.rowPadding + 75; //change made to suit scriptorium window
       canvas.width  = $.viewer.canvas.width() - this.columnPadding;
       canvas.height = $.viewer.canvas.height() - this.rowPadding;
 
