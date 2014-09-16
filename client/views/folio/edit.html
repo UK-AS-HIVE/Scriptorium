@@ -75,10 +75,17 @@
             <input type="text" class="form-control" id="title-field" value="{{getFolioById.metadata.title}}"/>
           </div>
         </div>
+        <div class="form-group">
+          <label>Script<span>*</span></label>
+          <input id="scriptName" type="text" class="form-control" required/>
+        </div>
         <div class="row">
           <div class="form-group col-xs-6">
-            <label>Script<span>*</span></label>
-            <input id="scriptName" type="text" class="form-control" required/>
+            <label>Script Tradition<span>*</span></label>
+            <select id="traditionSelect" class="form-control" required>
+              <option></option>
+              <option>Option 1</option>
+            </select>
           </div>
           <div class="form-group col-xs-6">
             <label>Script Family<span>*</span></label>
@@ -186,7 +193,7 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <p>Folio entry for {{folioTitle}} has been saved!</p>
-          <a href="#" id="folioSaveOkBtn" class="btn btn-lg btn-default"><i class="fa fa-thumbs-o-up"></i> OK</a> 
+          <a href="#" id="folioSaveOkBtn" class="btn btn-lg btn-default"><i class="fa fa-thumbs-o-up"></i> OK</a>
         </div>
       </div>
     </div>
@@ -198,7 +205,7 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <p>Folio entry for {{folioTitle}} has been {{publishAction}}!</p>
-          <a href="#" id="folioPublishOkBtn" class="btn btn-lg btn-default ok-btn"><i class="fa fa-thumbs-o-up"></i> OK</a> 
+          <a href="#" id="folioPublishOkBtn" class="btn btn-lg btn-default ok-btn"><i class="fa fa-thumbs-o-up"></i> OK</a>
         </div>
       </div>
     </div>
@@ -211,7 +218,7 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <p>Entry for {{folioTitle}} has been unpublished from Folio!</p>
-          <a href="#" id="folioUnpublishOkBtn" class="btn btn-lg btn-default ok-btn"><i class="fa fa-thumbs-o-up"></i> OK</a> 
+          <a href="#" id="folioUnpublishOkBtn" class="btn btn-lg btn-default ok-btn"><i class="fa fa-thumbs-o-up"></i> OK</a>
         </div>
       </div>
     </div>
