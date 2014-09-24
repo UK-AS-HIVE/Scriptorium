@@ -3,6 +3,8 @@ Template.folio.helpers
 		folioItems.find()
 	isPublished: (published)->
 		this.published == published
+	emailById: ->
+		(Meteor.users.findOne({_id: this.lastUpdatedBy})).emails[0].address
 
 Template.folio.events
 	"click .folio-edit-btn": ->

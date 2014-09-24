@@ -11,7 +11,6 @@ Meteor.methods({
 	},
 
     getRootUrl: function(){
-        console.log("foo");
         return process.env.ROOT_URL;
     }
 })

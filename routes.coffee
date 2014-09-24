@@ -10,6 +10,11 @@ Router.map ->
 
   @route 'desk',
     path: '/desk'
+    action: ->
+      if !Meteor.userId()
+        @redirect "home"
+      else
+        @render()
 
   @route 'files',
     path: '/files'
@@ -30,23 +35,6 @@ Router.map ->
     path :'/folio/manifest.json',
     where: 'server',
     action: ->
-      # manifestStart = '''
-      #   {
-      #     "@context": "http://www.shared-canvas.org/ns/context.json",
-      #     "@id": "''' + process.env.ROOT_URL + '''folio/manifest",
-      #     "@type": "sc:Manifest",
-      #     "attribution": "HMML and various",
-      #     "description": "HMML images for Folio",
-      #     "label": "Folio Images",
-      #     "metadata": [],
-      #     "viewingDirection": "left-to-right",
-      #     "viewingHint": "paged",
-      #     "sequences": [
-      #       "@id": "''' + process.env.ROOT_URL + '''folio/sequence/normal.json",
-      #       "@type": "sc:Sequence",
-      #       "label": "Normal Order",
-      #       "canvases": 
-      #     '''
 
       canvases = folioItems.find({"published": true}, {fields: {canvas: 1, _id: 0}}).fetch()
       canvArray = []

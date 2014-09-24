@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2014-09-12
+//! Built on 2014-09-24
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -10308,7 +10308,7 @@ jQuery.fn.scrollStop = function(callback) {
 
       navToolbar.on('click', selectorAddFolio, function() {
 
-        Meteor.miradorFunctions.createFolioEntry(_this.currentImg.imageUrl, _this.currentImg.height, _this.currentImg.width, _this.currentImg.title);
+        Meteor.miradorFunctions.createFolioEntry(_this.currentImg.imageUrl, _this.currentImg.height, _this.currentImg.width, _this.currentImg.title, Meteor.userId());
       });
 
       navToolbar.on('click', selectorScrollView, function() {

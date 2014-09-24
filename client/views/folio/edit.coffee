@@ -1,3 +1,5 @@
+Meteor.subscribe('stuff')
+
 Template.folioEdit.rendered = ->
 
   #get database record for this item to populate special fields
@@ -112,10 +114,22 @@ Template.folioEdit.alphabet = ->
 Template.folioEdit.events 
   "click #submitFolioItem": ->
     folioItem = {}
-    folioItem.city = $("#city-field").val()
-    folioItem.repository = $("#repository-field").val()
+    emptyFields = []
+
+    if $("#city-field").val() != ''
+      folioItem.city = $("#city-field").val()
+    else
+      emptyFields.push("City")
+    if $("#repository-field").val()
+      folioItem.repository = $("#repository-field").val()
+    else
+      emptyFields.push("Repository")
+
     folioItem.collection = $("#collection-field").val()
-    folioItem.collectionNumber = $("#collectionNumber-field").val()
+    if $("#collectionNumber-field").val()
+      folioItem.collectionNumber = $("#collectionNumber-field").val()
+    else
+      emptyFields.push("Number")
     folioItem.commonName = $("#commonName-field").val()
     folioItem.origin = $("#origin-field").val()
     folioItem.provenance = $("#provenance-field").val()

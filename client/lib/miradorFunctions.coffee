@@ -2,9 +2,9 @@ Meteor.miradorFunctions =
 	addMani: ->
 		console.log("added a manifest")
 
-	createFolioEntry:(imageID, height, width, title) ->
+	createFolioEntry:(imageID, height, width, title, userID) ->
 		rootURL = Meteor.call("getRootUrl")
-		Meteor.call "addFolioItem", imageID, "aqmcdo0", (err, data) ->
+		Meteor.call "addFolioItem", imageID, userID, (err, data) ->
 			if err
 				console.log("error adding folio item")
 			else
