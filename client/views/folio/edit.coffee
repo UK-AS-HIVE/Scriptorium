@@ -86,6 +86,12 @@ Template.folioEdit.rendered = ->
   }
   $("#alphabetSelect").select2("val", item.metadata.scriptAlphabet)
 
+  $("#traditionSelect").select2 {
+    placeholder: "Select an Tradition"
+    allowClear: true
+  }
+  $("#traditionSelect").select2("val", item.metadata.scriptTradition)
+
 
 Template.folioEdit.helpers
   editThumbnail: ->
@@ -110,6 +116,9 @@ Template.folioEdit.scripts = ->
 
 Template.folioEdit.alphabet = ->
   Manuscript.alphabet
+
+Template.folioEdit.traditions = ->
+  Manuscript.traditions
 
 Template.folioEdit.events 
   "click #submitFolioItem": ->
@@ -141,6 +150,7 @@ Template.folioEdit.events
     folioItem.scriptFamily = $("#scriptSelect").select2('val')
     folioItem.scriptLanguage = $("#languageSelect").select2('val')
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
+    folioItem.scriptTradition = $("#scriptTradition").select2('val')
     folioItem.contributors = $("#contributor-field").val()
     folioItem.manuscriptLink = $("#link-field").val()
     folioItem.specificText = $("#folioText-field").val()

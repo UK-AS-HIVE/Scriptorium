@@ -18,18 +18,43 @@ Router.map ->
 
   @route 'files',
     path: '/files'
+    action: ->
+      if !Meteor.userId()
+        @redirect "home"
+      else
+        @render()
 
   @route 'bookshelf',
     path: '/bookshelf'
+    action: ->
+      if !Meteor.userId()
+        @redirect "home"
+      else
+        @render()
 
   @route 'collaboration',
     path: '/collaboration'
+    action: ->
+      if !Meteor.userId()
+        @redirect "home"
+      else
+        @render()
 
   @route 'folio',
     path: '/folio'
+    action: ->
+      if !Meteor.userId()
+        @redirect "home"
+      else
+        @render()
 
   @route 'folioEdit',
     path: '/folio/edit'
+    action: ->
+      if !Meteor.userId()
+        @redirect "home"
+      else
+        @render()
 
   @route 'folioAPI',
     path :'/folio/manifest.json',
