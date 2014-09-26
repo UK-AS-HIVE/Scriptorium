@@ -162,7 +162,9 @@
           <!-- IF PUBLISHED
           <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Save & Publish</a>
           <a href="#" class="btn btn-lg btn-default"><i class="fa fa-history"></i> Unpublish</a> -->
-          <a href="#" id="submitFolioItem" class="btn btn-lg btn-default" data-toggle="modal" data-target="#folioSaveConfirm"><i class="fa fa-save"></i> Save</a>
+          <a href="#" id="submitFolioItem" class="btn btn-lg btn-default"><i class="fa fa-save"></i> Save</a>
+
+
           {{#if isPublished false}}
             <a href="#" id="publish" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#folioPublishConfirm"><i class="fa fa-globe"></i> Publish to Folio</a>
           {{/if}}
@@ -196,6 +198,19 @@
         <div class="modal-body text-center">
           <p>Folio entry for {{folioTitle}} has been saved!</p>
           <a href="#" id="folioSaveOkBtn" class="btn btn-lg btn-default"><i class="fa fa-thumbs-o-up"></i> OK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Required Field empty -->
+  <div class="modal fade" id="folioInvalidField">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <p>Folio entry for {{folioTitle}} could not be saved.  Please complete all required fields</p>
+          <a href="#" id="folioInvalidOkBtn" class="btn btn-lg btn-default"><i class="fa fa-thumbs-o-up"></i> OK</a>
         </div>
       </div>
     </div>
