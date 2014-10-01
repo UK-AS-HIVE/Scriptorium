@@ -7,6 +7,8 @@ Router.map ->
       else
         @render()
 
+  @route 'signUp',
+    path: '/signup'
 
   @route 'desk',
     path: '/desk'
