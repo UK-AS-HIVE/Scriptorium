@@ -42,6 +42,14 @@ Router.map ->
       else
         @render()
 
+  @route 'collaborationThread',
+    path: '/collaboration/thread'
+    action: ->
+      if !Meteor.userId()
+        @redirect "home"
+      else
+        @render()
+
   @route 'folio',
     path: '/folio'
     action: ->

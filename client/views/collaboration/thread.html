@@ -1,0 +1,68 @@
+<template name="collaborationThread">
+
+  <div class="page-wrapper">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2><i class="fa fa-comments"></i> Collaboration</h2>
+      <p>Manage and communicate with your team.</p>
+
+      <!-- TEAM MANAGEMENT -->
+      <ul class="team">
+        <h3>Manage Team</h3>
+        <li>
+          <b>Abigail Firey</b>
+          <small>Admin</small>
+          <span>
+            <a href="#" data-toggle="modal" data-target="#userModal" class="edit" title="Edit"><i class="fa fa-pencil"></i></a>
+            <a href="#" data-toggle="modal" data-target="#deleteUserModal" class="delete" title="Delete"><i class="fa fa-times"></i></a>
+          </span>
+        </li>
+        <li>
+          <b>David Pearce</b>
+          <small>Contributor</small>
+          <span>
+            <a href="#" data-toggle="modal" data-target="#userModal" class="edit" title="Edit"><i class="fa fa-pencil"></i></a>
+            <a href="#" data-toggle="modal" data-target="#deleteUserModal" class="delete" title="Delete"><i class="fa fa-times"></i></a>
+          </span>
+        </li>
+        <li>
+          <b>Andy McDonald</b>
+          <small>Contributor</small>
+          <span>
+            <a href="#" data-toggle="modal" data-target="#userModal" class="edit" title="Edit"><i class="fa fa-pencil"></i></a>
+            <a href="#" data-toggle="modal" data-target="#deleteUserModal" class="delete" title="Delete"><i class="fa fa-times"></i></a>
+          </span>
+        </li>
+      </ul>
+      <a href="#" data-toggle="modal" data-target="#userModal" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Team Member</a>
+    </div>
+
+    <!-- COMMENTS -->
+    <ul class="page-list">
+      <li>
+        <h3>Sample subject or topic</h3>
+        <p><small>by Abigail Firey 10 days ago</small></p>
+        <p>Etiam rhoncus consectetur sem, non ornare lacus efficitur a. Praesent consequat magna eu urna aliquam, a feugiat tellus consequat. Fusce ut arcu molestie, tempor nulla sed, sollicitudin orci. Mauris et tellus ut risus luctus convallis porta ac eros. Vivamus at tincidunt lectus, quis malesuada nibh. Sed in lectus sit amet ante rutrum lacinia non vitae mi.</p>
+        <div class="form-group">
+          <textarea rows="5" class="form-control" placeholder="Type a reply..." style="margin: 20px 0 10px;"></textarea>
+          <button type="submit" class="btn btn-sm btn-default pull-right"><i class="fa fa-reply"></i> Add Reply</button>
+        </div>
+      </li>
+      <li>
+        <p><strong>Abigail Firey</strong><small>2 hours ago</small></p>
+        <p>Nam interdum est vel dictum aliquam. Aenean porttitor mi risus, sed gravida purus scelerisque vitae. Nullam vestibulum nunc turpis, ut venenatis lacus euismod ac. In aliquet libero eget nulla ultricies, sed pulvinar lacus rutrum.</p>
+        <p>Proin luctus leo id dolor semper malesuada. Donec molestie commodo arcu sit amet tempor. Mauris at lorem sapien. Integer nisi sapien, facilisis nec placerat ut, commodo eget tellus. Nam et magna urna. Sed condimentum, nunc eget blandit consequat, ipsum ex accumsan velit, nec porttitor tortor tellus ut turpis. Maecenas a ante a orci facilisis efficitur.</p>
+      </li>
+      <li>
+        <p><strong>David Pearce</strong><small>3 hours ago</small></p>
+        <p>Nam interdum est vel dictum aliquam. Aenean porttitor mi risus, sed gravida purus scelerisque vitae. Nullam vestibulum nunc turpis, ut venenatis lacus euismod ac. In aliquet libero eget nulla ultricies, sed pulvinar lacus rutrum.</p>
+      </li>
+      <li>
+        <p><strong>Andy McDonald</strong><small>2 days ago</small></p>
+        <p>Nam interdum est vel dictum aliquam. Aenean porttitor mi risus, sed gravida purus scelerisque vitae. Nullam vestibulum nunc turpis, ut venenatis lacus euismod ac. In aliquet libero eget nulla ultricies, sed pulvinar lacus rutrum.</p>
+      </li>
+    </ul>
+
+  </div>
+</template>
