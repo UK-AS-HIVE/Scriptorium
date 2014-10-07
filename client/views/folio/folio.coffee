@@ -4,7 +4,8 @@ Template.folio.helpers
 	isPublished: (published)->
 		this.published == published
 	emailById: ->
-		(Meteor.users.findOne({_id: this.lastUpdatedBy})).emails[0].address
+		lastUpdate = Meteor.users.findOne({_id: this.lastUpdatedBy}).profile
+		lastUpdate.firstName + " " + lastUpdate.lastName
 
 Template.folio.events
 	"click .folio-edit-btn": ->
