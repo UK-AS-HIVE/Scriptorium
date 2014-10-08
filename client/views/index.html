@@ -1,5 +1,6 @@
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="/plugins/ckeditor/ckeditor.js"></script>
+	
 </head>
 
 <template name="layout">
@@ -7,7 +8,10 @@
     <p class="browser-warning"><strong><i class="icon-exclamation-sign"></i> Warning</strong> - You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a> to properly view this website.</p>
   <![endif]-->
 
-  {{> yield region="header"}}
-  {{> yield}}
-  {{> yield region="footer"}}
+
+  <div class="wrapper">
+    {{> yield region="header"}}
+      {{> yield}}
+    {{> yield region="footer"}}
+  </div>
 </template>

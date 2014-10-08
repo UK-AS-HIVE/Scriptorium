@@ -1,0 +1,94 @@
+@import '../../stylesheets/mixins';
+@import '../../stylesheets/variables';
+
+ul.team {
+  padding-left: 0;
+  margin: 0;
+  margin-bottom: 20px;
+
+  h3 {
+    border-bottom: 1px solid #CCC;
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+  }
+
+  li {
+    list-style: none;
+    padding-left: 15px;
+    position: relative;
+    margin-bottom: 10px;
+
+    &:before {
+      content: "\f1ae";
+      font-size: 14px;
+      display: inline-block;
+      font-family: "FontAwesome";
+      margin-left: -15px;
+      float: left;
+      position: relative;
+      top: -4px;
+    }
+
+    &:hover {
+      span {
+        display: block;
+      }
+    }
+
+    b {
+      display: block;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    small {
+      display: block;
+      color: #999;
+    }
+
+    span {
+      position: absolute;
+      top: -1px;
+      right: 0px;
+      font-size: 14px;
+      line-height: 1;
+      display: none;
+
+      a {
+        padding-left: 3px;
+
+        &.delete {
+          color: @colorRed;
+        }
+
+        &.edit {
+          color: #555;
+        }
+      }
+    }
+  }
+}
+
+.post-meta {
+  overflow: auto;
+}
+
+.post-count {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.post-unread {
+  display: block;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  color: #fff;
+  background: @colorWarning;
+  text-align: center;
+  border-radius: 50%;
+  float: left;
+  margin: 6px 10px 6px 0;
+}

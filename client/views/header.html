@@ -1,4 +1,52 @@
 <template name="header">
   <header>
+    <div class="top">
+      <div class="title">Scriptorium</div>
+      <a href="/" class="logo">
+        <img src="/img/vhmml-logo.png"/>
+      </a>
+      <div class="menu">
+        Menu
+        <div class="menu-button">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </div>
+        <ul class="menu-list">
+          <li><a href="#" class="school">School</a></li>
+          <li><a href="#" class="library">Library</a></li>
+          <li><a href="#" class="reading">Reading Room</a></li>
+          <li><a href="#" class="lexicon">Lexicon</a></li>
+          <li><a href="#" class="folio">Folio</a></li>
+          <li><a href="#" class="scriptorium">Scriptorium</a></li>
+        </ul>
+      </div>
+      {{#if currentUser}}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/sign-out"><i class="fa fa-lock"></i> Sign Out</a></li>
+      </ul>
+      {{/if}}
+    </div>
+    <div class="bottom">
+      {{#if currentUser}}
+      <ul class="pull-left">
+        <li><a href="/desk">Desk</a></li>
+        <li><a href="/files">File Cabinet</a></li>
+        <li><a href="/bookshelf">Bookshelf</a></li>
+        <li><a href="/collaboration">Collaboration</a></li>
+        <li><a href="/folio">Folio Manager</a></li>
+      </ul>
+      <ul class="pull-right">
+        <li><a href="#"><i class="fa fa-save"></i> Save as New Project</a></li>
+        <li><span>Current Project:</span></li>
+        <li class="select">
+          <select class="form-control">
+            <option>Free Space</option>
+            <option>Manuscript with Extra Long Title 2</option>
+          </select>
+        </li>
+      </ul>
+      {{/if}}
+    </div>
   </header>
 </template>

@@ -16,13 +16,13 @@
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.7.1",
-        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
+        "tag": "v0.8.2",
+        "commit": "05415a8891ea87a00fb1e2388585f2ca5a38e0da"
       },
       "accounts-entry": {
         "git": "https://github.com/Differential/accounts-entry.git",
         "branch": "master",
-        "commit": "4d830f21b3e084a7896869d5b28d1755327845c4"
+        "commit": "653c92e0b31c1f8cfe5378749807826c31cc7b06"
       },
       "handlebars-server": {
         "git": "https://github.com/EventedMind/meteor-handlebars-server.git",
@@ -34,10 +34,10 @@
         "tag": "v0.8.8",
         "commit": "cf8d0bec44934d617544965977f270f2a8cdca02"
       },
-      "blaze-layout": {
-        "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.4",
-        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
+      "iron-layout": {
+        "git": "https://github.com/EventedMind/iron-layout.git",
+        "tag": "v0.2.0",
+        "commit": "4a2d53e35ba036b0c189c7ceca34be494d4c6c97"
       },
       "accounts-t9n": {
         "git": "https://github.com/softwarerero/meteor-accounts-t9n.git",
@@ -53,6 +53,21 @@
         "git": "https://github.com/TimHeckel/meteor-underscore-string.git",
         "tag": "v2.3.3",
         "commit": "4a5d70eee48fbd90a6e6fc78747250d704a0b3bb"
+      },
+      "blaze-layout": {
+        "git": "https://github.com/EventedMind/blaze-layout.git",
+        "tag": "v0.2.5",
+        "commit": "273e3ab7d005d91a1a59c71bd224533b4dae2fbd"
+      },
+      "iron-core": {
+        "git": "https://github.com/EventedMind/iron-core.git",
+        "tag": "v0.2.0",
+        "commit": "0e48b5dc50d03f01025b7b900fb5ce2f13d52cad"
+      },
+      "iron-dynamic-template": {
+        "git": "https://github.com/EventedMind/iron-dynamic-template.git",
+        "tag": "v0.2.1",
+        "commit": "4dd1185c4d9d616c9abdb3f33e4a7d5a88db7e18"
       }
     }
   }

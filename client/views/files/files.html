@@ -1,0 +1,105 @@
+<template name="files">
+
+  <div class="page-wrapper">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2><i class="fa fa-archive"></i> File Cabinet</h2>
+      <p>File Cabinet is where you add and store files for reviewing and editing on your <a href="/desk">Desk</a>.</p>
+      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-image-o"></i> Upload New Image</a>
+      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-text-o"></i> Upload New Document</a>
+    </div>
+
+    <!-- CONTENT CONTAINER -->
+    <div class="page-content">
+
+      <!-- IF NO FILES -->
+      <!-- <div class="nofiles">
+        <p>You don't have any files yet.</p>
+        <a href="#" class="btn btn-lg btn-default"><i class="fa fa-cloud-upload"></i> Upload New File</a>
+      </div> -->
+
+      <!-- FILE LIST -->
+      <ul class="page-list file-cabinet">
+        <li>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search file cabinet..."/>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+            </span>
+          </div>
+        </li>
+        <li>
+          <i class="file-icon fa fa-file-o"></i>
+          <div class="actions">
+            <a class="btn btn-default"><i class="fa fa-download"></i> Download</a>
+            <a class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+          </div>
+          <div class="meta">
+            <strong>Hi-Res Manuscript Image</strong>
+            <small>manuscript.jpg - 2MB</small>
+            <small>by Abigail Firey on 7/16/14</small>
+            <small>Etiam ultrices hendrerit lacinia. Phasellus malesuada nisi quam, non iaculis dolor consequat eget. Phasellus pulvinar iaculis magna, eu ultricies mauris tempor id.</small>
+          </div>
+        </li>
+        <li>
+          <i class="file-icon fa fa-file-o"></i>
+          <div class="actions">
+            <a class="btn btn-default"><i class="fa fa-download"></i> Download</a>
+            <a class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+          </div>
+          <div class="meta">
+            <strong>Hi-Res Manuscript Image</strong>
+            <small>manuscript.jpg - 2MB</small>
+            <small>by Abigail Firey on 7/16/14</small>
+          </div>
+        </li>
+        <li>
+          <i class="file-icon fa fa-file-o"></i>
+          <div class="actions">
+            <a class="btn btn-default"><i class="fa fa-download"></i> Download</a>
+            <a class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+          </div>
+          <div class="meta">
+            <strong>Hi-Res Manuscript Image</strong>
+            <small>manuscript.jpg - 2MB</small>
+            <small>by Abigail Firey on 7/16/14</small>
+          </div>
+        </li>
+        <li>
+          <i class="file-icon fa fa-file-o"></i>
+          <div class="actions">
+            <a class="btn btn-default"><i class="fa fa-download"></i> Download</a>
+            <a class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+          </div>
+          <div class="meta">
+            <strong>Hi-Res Manuscript Image</strong>
+            <small>manuscript.jpg - 2MB</small>
+            <small>by Abigail Firey on 7/16/14</small>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="modal fade" id="filesUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Upload to File Cabinet</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Save File</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>

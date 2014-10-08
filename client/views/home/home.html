@@ -1,3 +1,39 @@
 <template name="home">
-  Welcome to my new meteor app
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="content-wrapper home">
+        <div class="page-header">
+          <h1><img src="/img/man.png">Welcome to Scriptorium</h1>
+        </div>
+        <div class="row">
+          <div class="col-md-7">
+            <div class="text-center">
+              <p class="lead">Entry to Scriptorium is by special permission only.</p>
+              <a href="#" class="btn btn-lg btn-primary" style="margin-bottom: 20px;">Request Access to Scriptorium</a>
+              <p>Scriptorium is a workspace for collaborative study of manuscripts. Users may select images for close study and for ready comparison, and can create documents, including transcriptions, for collaborative editing. Users may also store relevant research materials and customise their workspace with one-click access to regularly-used reference works.</p>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <!-- <div class="row">
+              <div class="col-md-10 col-md-offset-1">
+                <p>Already a member? Sign in.</p>
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-lock"></i> Sign In</button>
+              </div>
+            </div> -->
+            {{> loginButtons}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
