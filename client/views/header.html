@@ -41,8 +41,9 @@
         <li><span>Current Project:</span></li>
         <li class="select">
           <select class="form-control">
-            <option>Free Space</option>
-            <option>Manuscript with Extra Long Title 2</option>
+            {{#each availableProjects}}
+              <option>{{this.projectName}}</option>
+            {{/each}}
           </select>
         </li>
       </ul>
