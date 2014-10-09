@@ -3,7 +3,12 @@ Template.collaboration.helpers({
     projectId = Session.get("current_project")
     Projects.findOne(projectId)
 
-  username: () ->
-    user = Meteor.users.findOne(@user)
-    "#{user.profile.firstName} #{user.profile.lastName}"
+  user: () ->
+    User.first({_id: @user})
+})
+
+Template.collaboration.events({
+    'click .team .edit': (e) ->
+      e.preventDefault()
+      Session.set("editing_user", @user)
 })

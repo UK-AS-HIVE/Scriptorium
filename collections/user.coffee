@@ -5,3 +5,6 @@ class @User extends Minimongoid
   @current: ->
     if Meteor.userId()
       User.init Meteor.user()
+
+  fullName: () ->
+    "#{@profile.firstName} #{@profile.lastName}"
