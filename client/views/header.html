@@ -40,7 +40,7 @@
         <li><a href="#"><i class="fa fa-save"></i> Save as New Project</a></li>
         <li><span>Current Project:</span></li>
         <li class="select">
-          <select class="form-control">
+          <select id="projectSelector" class="form-control">
             {{#each availableProjects}}
               <option>{{this.projectName}}</option>
             {{/each}}
