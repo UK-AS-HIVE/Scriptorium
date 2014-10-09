@@ -6,12 +6,12 @@
 standard-app-packages
 autopublish
 insecure
-iron-router
+iron:router
 coffeescript
 less
 accounts-ui
-accounts-entry
+joshowens:accounts-entry
 accounts-password
-handlebars-server
-minimongoid
+cmather:handlebars-server
+kaptron:minimongoid
 http
