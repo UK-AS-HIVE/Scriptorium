@@ -15,7 +15,7 @@
           <b>{{user.fullName}}</b>
           <small>{{level}}</small>
           <span>
-            <a href="#" data-toggle="modal" data-target="#userModal" class="edit" title="Edit"><i class="fa fa-pencil"></i></a>
+            <a href="#" data-toggle="modal" data-target="#editUserModal" class="edit" title="Edit"><i class="fa fa-pencil"></i></a>
             <a href="#" data-toggle="modal" data-target="#deleteUserModal" class="delete" title="Delete"><i class="fa fa-times"></i></a>
           </span>
         </li>
@@ -100,7 +100,7 @@
 
   </div>
 
-  <!-- ADD/EDIT TEAM MEMBER MODAL -->
+  <!-- ADD TEAM MEMBER MODAL -->
   <div class="modal fade" id="userModal">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
@@ -108,7 +108,7 @@
           <form>
             <div class="form-group">
               <label>Email Address</label>
-              <input type="email" class="form-control"/>
+              <input type="email" class="form-control" value="{{editingUser.primaryEmail}}"/>
             </div>
             <div class="form-group">
               <label>Role</label>
@@ -122,6 +122,33 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add User</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT TEAM MEMBER MODAL -->
+  <div class="modal fade" id="editUserModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <h3>{{editingUser.fullName}}</h3>
+              <h5>{{editingUser.primaryEmail}}</h5>
+            </div>
+            <div class="form-group">
+              <label>Role</label>
+              <select class="form-control">
+                <option selected="{{isRole 'contributor'}}">Contributor</option>
+                <option selected="{{isRole 'admin'}}">Admin</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save User</button>
         </div>
       </div>
     </div>
