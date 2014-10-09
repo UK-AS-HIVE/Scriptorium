@@ -18,4 +18,12 @@ Template.collaboration.events({
       e.preventDefault()
       Session.set("editing_user", @user)
       Session.set("editing_user_role", @level)
+
+    'click .team .delete': (e) ->
+      e.preventDefault()
+      Session.set("editing_user", @user)
+
+    'click #deleteUserModal .btn-danger': (e) ->
+      Meteor.call('removeUserFromProject', Session.get('current_project'), Session.get('editing_user'))
+      $('#deleteUserModal').modal('hide')
 })

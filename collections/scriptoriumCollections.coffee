@@ -4,4 +4,19 @@
 # 	 @_collection: new Meteor.Collection('folioitems')
 @folioItems = new Meteor.Collection('folioitems')
 @Projects = new Meteor.Collection('projects')
+
+Meteor.publish('projects', () ->
+  if @userId
+    Projects.find({$or: [
+        {personal: @userId},
+        {"permissions.user": @userId}
+    ]})
+)
+
+Meteor.publish('contributors', (projectId) ->
+  project = Projects.findOne(projectId)
+  if project
+    Meteor.users.find({_id: {$in: _.map(project.permissions, (p) -> p.user)}})
+)
+
 @ProjectPermissions = new Meteor.Collection('projectpermissions')
