@@ -10,6 +10,17 @@
       <!-- TEAM MANAGEMENT -->
       <ul class="team">
         <h3>Manage Team</h3>
+      {{#each project.permissions}}
+        <li>
+          <b>{{username}}</b>
+          <small>{{level}}</small>
+          <span>
+            <a href="#" data-toggle="modal" data-target="#userModal" class="edit" title="Edit"><i class="fa fa-pencil"></i></a>
+            <a href="#" data-toggle="modal" data-target="#deleteUserModal" class="delete" title="Delete"><i class="fa fa-times"></i></a>
+          </span>
+        </li>
+      {{/each}}
+      <!--
         <li>
           <b>Abigail Firey</b>
           <small>Admin</small>
@@ -34,6 +45,7 @@
             <a href="#" data-toggle="modal" data-target="#deleteUserModal" class="delete" title="Delete"><i class="fa fa-times"></i></a>
           </span>
         </li>
+      -->
       </ul>
       <a href="#" data-toggle="modal" data-target="#userModal" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Team Member</a>
     </div>
