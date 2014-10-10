@@ -40,7 +40,8 @@ if Meteor.isClient
       waitOn: () ->
         [
           Meteor.subscribe('projects'),
-          Meteor.subscribe('contributors', Session.get('current_project'))
+          Meteor.subscribe('contributors', Session.get('current_project')),
+          Meteor.subscribe('findUser', Session.get('user_search'))
         ]
       action: ->
         if !Meteor.userId()

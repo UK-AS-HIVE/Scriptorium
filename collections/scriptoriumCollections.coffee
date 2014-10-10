@@ -19,4 +19,8 @@ Meteor.publish('contributors', (projectId) ->
     Meteor.users.find({_id: {$in: _.map(project.permissions, (p) -> p.user)}})
 )
 
+Meteor.publish('findUser', (token) ->
+  User.search(token)
+)
+
 @ProjectPermissions = new Meteor.Collection('projectpermissions')
