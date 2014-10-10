@@ -27,4 +27,20 @@ Meteor.methods({
     Projects.update({_id: project._id},
                     {$addToSet: {permissions: {user: person._id, level: role}}})
 
+  editUserInProject: (projectId, userId, role) ->
+    #check to make sure this is an admin user
+    project = Projects.findOne({
+      _id: projectId,
+      permissions: {$elemMatch: {user: @userId, level: 'admin'}}
+    })
+
+    if !project
+      throw new Meteor.Error("Access Denied")
+
+    if !_.any(project.permissions, (p) -> p.user == userId)
+      throw new Meteor.Error("User In Not In Project")
+
+    Meteor.call('removeUserFromProject', projectId, userId)
+    Projects.update({_id: projectId},
+                    {$addToSet: {permissions: {user: userId, level: role}}})
 })

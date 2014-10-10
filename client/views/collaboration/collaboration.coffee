@@ -55,4 +55,11 @@ Template.collaboration.events({
 
     'click #userModal .addUser': (e, t) ->
       Collab.addUser(e,t)
+
+    'click #editUserModal .save': (e,t) ->
+      e.preventDefault()
+      userId = Session.get('editing_user')
+      role = $(t.find('select.role')).val()
+      Meteor.call('editUserInProject', Session.get('current_project'), userId, role)
+      $('#editUserModal').modal('hide')
 })
