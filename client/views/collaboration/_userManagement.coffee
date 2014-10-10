@@ -5,6 +5,14 @@ Template._userManagement.helpers({
 
   user: () ->
     User.first({_id: @user})
+
+  isAdmin: () ->
+    projectId = Session.get("current_project")
+    Projects.findOne({
+      _id: projectId,
+      permissions: {$elemMatch: {user: Meteor.userId(), level: 'admin'}}
+    })
+
 })
 
 Template._userManagement.events({

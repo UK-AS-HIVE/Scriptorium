@@ -9,14 +9,18 @@
     <li>
       <b>{{user.fullName}}</b>
       <small>{{level}}</small>
+      {{#if isAdmin}}
       <span>
         <a href="#" data-toggle="modal" data-target="#editUserModal" class="edit" title="Edit"><i class="fa fa-pencil"></i></a>
         <a href="#" data-toggle="modal" data-target="#deleteUserModal" class="delete" title="Delete"><i class="fa fa-times"></i></a>
       </span>
+      {{/if}}
     </li>
   {{/each}}
   </ul>
+  {{#if isAdmin}}
   <a href="#" data-toggle="modal" data-target="#userModal" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Team Member</a>
+  {{/if}}
 </template>
 
 <template name="addUserToProject">
