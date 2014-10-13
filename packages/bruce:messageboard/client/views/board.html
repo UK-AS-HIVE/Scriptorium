@@ -1,0 +1,76 @@
+<template name="mbBoard">
+  <!-- COMMENTS -->
+  <ul class="page-list">
+    <li>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search messages..."/>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <a href="#" data-toggle="modal" data-target="#newTopicModal" class="btn btn-default btn-block"><i class="fa fa-edit"></i> New Topic</a>
+        </div>
+      </div>
+    </li>
+  {{#unless topics}}
+    <li>
+      <div class="pull-left post-meta">
+        <div><strong>No messages yet. Add one above.</strong></div>
+      </div>
+    </li>
+  {{/unless}}
+  {{#each topics}}
+    <li>
+      <!--
+      <span class="post-unread">3</span>
+      -->
+      <div class="pull-left post-meta">
+        <div><strong><a href="/collaboration/thread">{{subject}} {{subject2}}</a></strong></div>
+        <div><small>Lastest by {{author.fullName}} {{> timeago lastPost.timestamp}}</small></div>
+      </div>
+      <div class="pull-right post-count">
+        {{postCount}} {{#if onlyOnePost}}Post{{else}}Posts{{/if}}
+      </div>
+    </li>
+  {{/each}}
+  <!--
+    <li>
+      <span class="post-unread">3</span>
+      <div class="pull-left post-meta">
+        <div><strong><a href="/collaboration/thread">Sample subject or topic</a></strong></div>
+        <div><small>Lastest by Abigail Firey 24 minutes ago</small></div>
+      </div>
+      <div class="pull-right post-count">
+        24 Posts
+      </div>
+    </li>
+    <li>
+      <span class="post-unread">10</span>
+      <div class="pull-left post-meta">
+        <div><strong><a href="/collaboration/thread">Sample subject or topic</a></strong></div>
+        <div><small>Lastest by Abigail Firey 38 minutes ago</small></div>
+      </div>
+      <div class="pull-right post-count">
+        4 Posts
+      </div>
+    </li>
+    <li>
+      <div class="pull-left post-meta">
+        <div><strong><a href="/collaboration/thread">Sample subject or topic</a></strong></div>
+        <div><small>Lastest by Abigail Firey 1 month ago</small></div>
+      </div>
+      <div class="pull-right post-count">
+        10 Posts
+      </div>
+    </li>
+  -->
+  </ul>
+</template>
+
+<template name="timeago">
+  <time class="timeago" datetime="{{timestamp}}">{{pretty}}</time>
+</template>

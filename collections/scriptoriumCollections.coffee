@@ -5,6 +5,8 @@
 @folioItems = new Meteor.Collection('folioitems')
 @Projects = new Meteor.Collection('projects')
 
+@ProjectPermissions = new Meteor.Collection('projectpermissions')
+
 Meteor.publish('projects', () ->
   if @userId
     Projects.find({$or: [
@@ -22,5 +24,3 @@ Meteor.publish('contributors', (projectId) ->
 Meteor.publish('findUser', (token) ->
   User.search(token)
 )
-
-@ProjectPermissions = new Meteor.Collection('projectpermissions')

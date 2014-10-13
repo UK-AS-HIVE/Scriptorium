@@ -10,12 +10,14 @@ binary-heap@1.0.0
 blaze-tools@1.0.0
 blaze@2.0.1
 boilerplate-generator@1.0.0
+bruce:messageboard@0.0.1
 callback-hook@1.0.0
 check@1.0.1
 cmather:handlebars-server@2.0.0
 coffeescript@1.0.3
 ctl-helper@1.0.3
 ctl@1.0.1
+dburles:collection-helpers@1.0.0
 ddp@1.0.9
 deps@1.0.4
 ejson@1.0.3
@@ -47,8 +49,10 @@ meteor@1.1.1
 minifiers@1.1.0
 minimongo@1.0.3
 mobile-status-bar@1.0.0
+mongo-livedata@1.0.5
 mongo@1.0.6
 mrt:accounts-t9n@0.0.13
+mrt:moment@1.7.0
 mrt:underscore-string-latest@2.3.3
 npm-bcrypt@0.7.7
 observe-sequence@1.0.2
