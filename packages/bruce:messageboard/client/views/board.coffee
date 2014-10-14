@@ -5,7 +5,7 @@ Template.mbBoard.rendered = () ->
 
 Template.mbBoard.helpers({
   topics: () ->
-    Messages.find({roomId: Session.get("current_project")}, {sort: {"posts.timestamp": -1}}).fetch()
+    Messages.forRoom(Session.get("current_project")).fetch()
 })
 
 
@@ -15,7 +15,6 @@ Template.mbBoard.events({
       subject = t.$(".subject").val()
       message = t.$(".message").val()
       #save new message
-      console.log('save', projectId, subject, message)
       Meteor.call('addThread', projectId, subject, message)
       #route the user to it
       $('#newTopicModal').modal('hide')
@@ -39,13 +38,9 @@ Template.timeago.rendered = (a,b,c) ->
     @$('.timeago').timeago('updateFromDOM')
     @$('.timeago').timeago()
   )
-  #console.log('rendered', @, a,b,c, @$)
-
-  #console.log('rendered')
 
 Template.timeago.helpers({
   pretty: () ->
-    #console.log('pretty', @)
     moment(@).format('MMMM D, YYYY')
 
   timestamp: () ->

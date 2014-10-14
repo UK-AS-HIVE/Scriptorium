@@ -1,4 +1,8 @@
 @Messages = new Mongo.Collection('messages')
+
+@Messages.forRoom = (roomId) ->
+  Messages.find({roomId: roomId}, {sort: {"posts.timestamp": -1}})
+
 @Messages.helpers({
   author: () ->
     User.first({_id: @startedBy})
