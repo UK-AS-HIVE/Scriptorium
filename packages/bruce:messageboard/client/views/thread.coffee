@@ -1,3 +1,12 @@
+Template.mbThread.rendered = () ->
+  Tracker.autorun(() ->
+    currentProject = Session.get('current_project')
+    data = Router.current().data()
+
+    if currentProject && data && data.roomId != currentProject
+      Router.go('collaboration')
+  )
+
 Template.mbThread.helpers({
   oldestFirst: () ->
     !Session.get('mbSortThreadAsc')
