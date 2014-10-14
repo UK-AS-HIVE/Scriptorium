@@ -17,7 +17,9 @@ Package.onUse(function(api) {
   api.addFiles([
     'client/lib/jquery.timeago.js',
     'client/views/board.html',
-    'client/views/board.coffee'
+    'client/views/board.coffee',
+    'client/views/thread.html',
+    'client/views/thread.coffee'
     ], 'client');
   api.addFiles('bruce:messageboard.coffee', ['client', 'server']);
   api.addFiles('server/methods.coffee', 'server');

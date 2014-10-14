@@ -4,6 +4,9 @@ console.log('package code????')
   author: () ->
     User.first({_id: @startedBy})
 
+  postAuthor: (userId) ->
+    User.first({_id: userId}).fullName()
+
   postCount: () ->
     @posts.length
 

@@ -50,12 +50,14 @@ if Meteor.isClient
           @render()
 
     @route 'collaborationThread',
-      path: '/collaboration/thread'
+      path: '/collaboration/thread/:_id'
       action: ->
         if !Meteor.userId()
           @redirect "home"
         else
           @render()
+      data: () ->
+        Messages.findOne({_id: @params._id})
 
     @route 'folio',
       path: '/folio'
