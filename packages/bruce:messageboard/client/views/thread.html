@@ -7,18 +7,37 @@
       <p><small>by {{author.fullName}} {{> timeago lastPost.timestamp}}</small></p>
       <p>Etiam rhoncus consectetur sem, non ornare lacus efficitur a. Praesent consequat magna eu urna aliquam, a feugiat tellus consequat. Fusce ut arcu molestie, tempor nulla sed, sollicitudin orci. Mauris et tellus ut risus luctus convallis porta ac eros. Vivamus at tincidunt lectus, quis malesuada nibh. Sed in lectus sit amet ante rutrum lacinia non vitae mi.</p>
     -->
+      <div class="pull-right sort-by">
+        Sort by: <select>
+          <option value="false" selected="{{oldestFirst}}">Oldest First</option>
+          <option value="true" selected="{{newestFirst}}">Newest First</option>
+        </select>
+      </div>
     </li>
+  {{#if oldestFirst}}
+    {{> mbPosts}}
+    {{> mbReply}}
+  {{else}}
+    {{> mbReply}}
+    {{> mbPosts}}
+  {{/if}}
+  </ul>
+</template>
+
+<template name="mbPosts">
   {{#each posts}}
     <li>
       <p><strong>{{../postAuthor user}}</strong><small>{{> timeago timestamp}}</small></p>
       {{{breaklines message}}}
     </li>
   {{/each}}
-    <li class="reply">
-      <div class="form-group">
-        <textarea rows="5" class="form-control" placeholder="Type a reply..." style="margin: 20px 0 10px;"></textarea>
-        <button type="submit" class="btn btn-sm btn-default pull-right"><i class="fa fa-reply"></i> Add Reply</button>
-      </div>
-    </li>
-  </ul>
+</template>
+
+<template name="mbReply">
+  <li class="reply">
+    <div class="form-group">
+      <textarea rows="5" class="form-control" placeholder="Type a reply..." style="margin: 20px 0 10px;"></textarea>
+      <button type="submit" class="btn btn-sm btn-default pull-right"><i class="fa fa-reply"></i> Add Reply</button>
+    </div>
+  </li>
 </template>

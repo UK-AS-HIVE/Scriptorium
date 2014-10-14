@@ -1,4 +1,3 @@
-console.log('package code????')
 @Messages = new Mongo.Collection('messages')
 @Messages.helpers({
   author: () ->
