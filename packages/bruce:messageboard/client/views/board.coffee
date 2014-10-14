@@ -1,3 +1,8 @@
+Template.mbBoard.rendered = () ->
+  $('#newTopicModal').on('shown.bs.modal', () ->
+    $('#newTopicModal input').first().focus();
+  )
+
 Template.mbBoard.helpers({
   topics: () ->
     Messages.find({roomId: Session.get("current_project")}, {sort: {"posts.timestamp": -1}}).fetch()
@@ -18,6 +23,12 @@ Template.mbBoard.events({
     'submit #newTopicModal form': (e) ->
       e.preventDefault()
       console.log('submit')
+
+    'click #newTopicModal .closeMe': (e, t) ->
+      t.$('input, textarea').val('')
+
+    'click .newTopic': (e) ->
+      e.preventDefault()
 })
 
 

@@ -43,6 +43,11 @@ Collab = {
     )
 }
 
+Template.addUserToProject.rendered = () ->
+  $('#userModal').on('shown.bs.modal', () ->
+    $('#userModal input').first().focus();
+  )
+
 Template.addUserToProject.helpers({
   modalError: () ->
     Session.get('modal_error')
