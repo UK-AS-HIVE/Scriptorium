@@ -5,9 +5,11 @@ Template.mbBoard.rendered = () ->
 
 Template.mbBoard.helpers({
   topics: () ->
-    Messages.forRoom(Session.get("current_project")).fetch()
-})
+    Messages.forRoom(Session.get("current_project"), Session.get('message_search')).fetch()
 
+  searchText: () ->
+    Session.get('message_search')
+})
 
 Template.mbBoard.events({
     'click #newTopicModal .save': (e,t) ->
@@ -28,6 +30,10 @@ Template.mbBoard.events({
 
     'click .newTopic': (e) ->
       e.preventDefault()
+
+    'keyup .search input': (e,t) ->
+      searchText = t.$('input').val()
+      Session.set('message_search', searchText)
 })
 
 

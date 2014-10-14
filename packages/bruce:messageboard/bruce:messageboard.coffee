@@ -1,7 +1,15 @@
 @Messages = new Mongo.Collection('messages')
 
-@Messages.forRoom = (roomId) ->
-  Messages.find({roomId: roomId}, {sort: {"posts.timestamp": -1}})
+@Messages.forRoom = (roomId, searchText) ->
+  selector = {roomId: roomId}
+
+  if searchText
+    search = {$regex: ".*#{searchText}.*", $options: 'i'}
+    selector.$or = [
+      {subject: search},
+      {"posts.message": search}
+    ]
+  Messages.find(selector, {sort: {"posts.timestamp": -1}})
 
 @Messages.helpers({
   author: () ->
