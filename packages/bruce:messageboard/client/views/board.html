@@ -69,8 +69,42 @@
     </li>
   -->
   </ul>
+  {{> mbNewTopic}}
 </template>
 
 <template name="timeago">
   <time class="timeago" datetime="{{timestamp}}">{{pretty}}</time>
+</template>
+
+
+<template name="mbNewTopic">
+  <!-- NEW TOPIC MODAL -->
+  <div class="modal fade" id="newTopicModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          Add New Topic
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" class="form-control subject"/>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="5" class="form-control message" placeholder="Add a message..."></textarea>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+            <div class="col-xs-6">
+              <button type="button" class="btn btn-block btn-default save"><i class="fa fa-edit"></i> Add Topic</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>

@@ -1,6 +1,6 @@
 Template.mbBoard.helpers({
   topics: () ->
-    Messages.find({}, {sort: {"posts.timestamp": -1}}).fetch()
+    Messages.find({roomId: Session.get("current_project")}, {sort: {"posts.timestamp": -1}}).fetch()
 })
 
 
@@ -10,9 +10,9 @@ Template.mbBoard.events({
       subject = t.$(".subject").val()
       message = t.$(".message").val()
       #save new message
+      console.log('save', projectId, subject, message)
       Meteor.call('addThread', projectId, subject, message)
       #route the user to it
-      console.log('save', projectId, subject, message)
       $('#newTopicModal').modal('hide')
 
     'submit #newTopicModal form': (e) ->
