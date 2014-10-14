@@ -12,4 +12,14 @@ Meteor.methods({
           }
         ]
     })
+
+  postToThread: (roomId, message) ->
+    Messages.update({_id: roomId},
+                    {$addToSet: {
+                      posts: {
+                        user: @userId,
+                        message: message,
+                        timestamp: new Date()
+                      }
+                    }})
 })
