@@ -5,7 +5,8 @@ console.log('package code????')
     User.first({_id: @startedBy})
 
   postAuthor: (userId) ->
-    User.first({_id: userId}).fullName()
+    user = User.first({_id: userId})
+    if user then user.fullName() else ""
 
   postCount: () ->
     @posts.length
