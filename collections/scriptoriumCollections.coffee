@@ -17,12 +17,11 @@ if Meteor.isServer
       ]})
   )
 
-  Meteor.publish('contributors', (projectId) ->
+  Meteor.publish('collaboration', (projectId) ->
     project = Projects.findOne(projectId)
     if project
-      Meteor.users.find({_id: {$in: _.map(project.permissions, (p) -> p.user)}})
-  )
-
-  Meteor.publish('findUser', (token) ->
-    User.search(token)
+      [
+        Meteor.users.find({}),
+        Messages.find({roomId: projectId})
+      ]
   )

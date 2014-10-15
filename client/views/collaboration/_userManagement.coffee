@@ -48,9 +48,37 @@ Template.addUserToProject.rendered = () ->
     $('#userModal input').first().focus();
   )
 
+  Meteor.typeahead($('#userModal .typeahead'));
+
 Template.addUserToProject.helpers({
   modalError: () ->
     Session.get('modal_error')
+
+  userSearch: () ->
+    users = User.find({}).fetch()
+    names = []
+
+    if users
+      name = (u) -> "#{u.profile.firstName} #{u.profile.lastName}"
+      email = (u) -> u.emails[0].address
+
+      names = _.map(users, (u) ->
+        {
+          name: name(u),
+          value: email(u),
+          email: email(u),
+          tokens: [
+            email(u),
+            u.profile.firstName,
+            u.profile.lastName
+          ]
+        }
+      )
+
+    #console.log('search', names, users)
+
+    #Session.get('typeahead_users') || []
+    names
 })
 
 Template.addUserToProject.events({

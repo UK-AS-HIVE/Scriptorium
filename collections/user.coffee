@@ -8,11 +8,12 @@ class @User extends Minimongoid
 
   @search: (token) ->
     console.log('search', token)
+    search = {$regex: ".*#{token}.*", $options: 'i'}
     Meteor.users.find({
       $or: [
-          {"profile.firstName": {$regex: ".*#{token}.*", $options: 'i'}},
-          {"profile.lastName": {$regex: ".*#{token}.*", $options: 'i'}}
-          {"emails.address": {$regex: ".*#{token}.*", $options: 'i'}}
+          {"profile.firstName": search},
+          {"profile.lastName": search}
+          {"emails.address": search}
       ]
     })
 
