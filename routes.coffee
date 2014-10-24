@@ -99,7 +99,7 @@ Router.map ->
       manifest["sequences"] = seqArray
 
 
-      this.response.writeHead(200, {'content-type': 'application/json'})
+      this.response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
       this.response.end(JSON.stringify(manifest))
 
   @route 'notFound',
