@@ -210,7 +210,7 @@ Template.folioEdit.events
 
     if emptyFields.length < 1
       $("#folioSaveConfirm").modal('show')
-      folioItems.update({_id: Session.get("editFolioItem")}, {$set: {metadata: folioItem, lastUpdated: theDate}})
+      folioItems.update({_id: Session.get("editFolioItem")}, {$set: {metadata: folioItem, lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
     else
       $("#folioInvalidField").modal('show')
     
@@ -236,7 +236,7 @@ Template.folioEdit.events
       folioItems.update({_id: Session.get("editFolioItem")}, {$set: {published: true}})
     
     theDate = new Date
-    folioItems.update({_id: Session.get("editFolioItem")}, {$set: {lastUpdated: theDate}})
+    folioItems.update({_id: Session.get("editFolioItem")}, {$set: {lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
 
   "click #deleteFolioRecord": ->
     console.log "delete"
