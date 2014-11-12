@@ -59,7 +59,7 @@ class @Manuscript extends Minimongoid
     "Cursive"
     "Dīwānī"
     "Early Jewish"
-    "Eash Syriac"
+    "East Syriac"
     "Erkat’agir"
     "Erkat’agir-bolorgir"
     "Estrangela"
