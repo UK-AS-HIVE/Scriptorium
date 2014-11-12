@@ -126,7 +126,7 @@ Template.folioEdit.traditions = ->
 Template.folioEdit.events
   "click #submitFolioItem": ->
     folioItem = {}
-    emptyFields = []
+    # emptyFields = []
 
     #required fields
     # if $("#city-field").val() != ''
@@ -187,10 +187,6 @@ Template.folioEdit.events
     # else
     #   emptyFields.push("Special Paleographic Features")
 
-    # if CKEDITOR.instances.info.getData() != ''
-    #   folioItem.info = CKEDITOR.instances.info.getData()
-    # else
-    #   emptyFields.push("Further Information / Bibliography")
 
     # if CKEDITOR.instances.transcription.getData() != ''
     #   folioItem.transcription = CKEDITOR.instances.transcription.getData()
@@ -218,13 +214,13 @@ Template.folioEdit.events
 
     folioItem.scriptTradition = $("#traditionSelect").select2('val')
 
+    folioItem.specificText = $("#folioText-field").val()
+
     folioItem.folioNumber = $("#folioNumber-field").val()
 
     folioItem.description = CKEDITOR.instances.description.getData()
 
     folioItem.features = CKEDITOR.instances.features.getData()
-
-    folioItem.info = CKEDITOR.instances.info.getData()
 
     folioItem.transcription = CKEDITOR.instances.transcription.getData()
 
@@ -238,7 +234,7 @@ Template.folioEdit.events
     folioItem.title = $("#title-field").val()
     folioItem.contributors = $("#contributor-field").val()
     folioItem.manuscriptLink = $("#link-field").val()
-    folioItem.specificText = $("#folioText-field").val()
+    folioItem.info = CKEDITOR.instances.info.getData()
 
     theDate = new Date
 
