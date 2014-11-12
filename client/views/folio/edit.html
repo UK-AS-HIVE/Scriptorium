@@ -6,9 +6,11 @@
     <div class="sidebar">
       <h2>New Folio Entry</h2>
       <p>Complete the required fields to submit a new entry to Folio.</p>
-      <img class="folio-edit-image" src="{{editThumbnail}}"/>
-      <a href="/folio" class="btn btn-default btn-block"><i class="fa fa-angle-left"></i> Back to Manager</a>
-      <a href="/desk" class="btn btn-default btn-block"><i class="fa fa-angle-left"></i> Back to Desk</a>
+      <div class="sidebar-affix">
+        <img class="folio-edit-image" src="{{editThumbnail}}"/>
+        <a href="/folio" class="btn btn-default btn-block"><i class="fa fa-angle-left"></i> Back to Manager</a>
+        <a href="/desk" class="btn btn-default btn-block"><i class="fa fa-angle-left"></i> Back to Desk</a>
+      </div>
     </div>
 
     <!-- MANUSCRIPT FORM -->
@@ -46,6 +48,7 @@
           <div class="form-group col-xs-6">
             <label>Place of Origin</label>
             <input type="text" class="form-control" id="origin-field" value="{{getFolioById.metadata.origin}}"/>
+            <span class="help-block">Please name country as well as region or site: e.g., "England; Northumbria", or "Italy; Milan".</span>
           </div>
           <div class="form-group col-xs-6">
             <label>Provenance</label>
@@ -124,6 +127,7 @@
           <div class="form-group col-xs-6">
             <label>Contributor(s)</label>
             <input type="text" class="form-control" id="contributor-field" value="{{getFolioById.metadata.contributors}}"/>
+            <span class="help-block">e.g., scribe, illuminator, etc.</span>
           </div>
           <div class="form-group col-xs-6">
             <label>Link to full manuscript (URL)</label>
@@ -163,18 +167,19 @@
           <!-- IF PUBLISHED
           <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Save & Publish</a>
           <a href="#" class="btn btn-lg btn-default"><i class="fa fa-history"></i> Unpublish</a> -->
-          <a href="#" id="submitFolioItem" class="btn btn-lg btn-default"><i class="fa fa-save"></i> Save</a>
-
-
-          {{#if isPublished false}}
-            <a href="#" id="publish" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#folioPublishConfirm"><i class="fa fa-globe"></i> Publish to Folio</a>
-          {{/if}}
-          {{#if isPublished true}}
-            <a href="#" id="publish" class="btn btn-lg btn-default" data-toggle="modal" data-target="#folioUnpublishConfirm"><i class="fa fa-history"></i> Unpublish</a>
-          {{/if}}
+          <a href="#" id="submitFolioItem" class="btn btn-lg btn-primary"><i class="fa fa-save"></i> Save</a>
 
 
           <a href="#" class="btn btn-lg btn-danger pull-right" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-o"></i> Delete</a>
+
+          <p style="margin-top: 50px;">*Please ask your HMML staff collaborator to click the Publish button, after you have saved your work.</p>
+          {{#if isPublished false}}
+            <a href="#" id="publish" class="btn btn-default" data-toggle="modal" data-target="#folioPublishConfirm"><i class="fa fa-lock"></i> Admin Publish</a>
+          {{/if}}
+
+          {{#if isPublished true}}
+            <a href="#" id="publish" class="btn btn-default" data-toggle="modal" data-target="#folioUnpublishConfirm"><i class="fa fa-history"></i> Unpublish</a>
+          {{/if}}
         </div>
       </form>
     </div>

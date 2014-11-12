@@ -12,7 +12,7 @@ Template.folioEdit.rendered = ->
   else
     dateLow = -500
     dateHigh = 2025
-    
+
 
   # set the label
   if dateLow < 0
@@ -50,7 +50,7 @@ Template.folioEdit.rendered = ->
 
 
   $("#deleteModal").on 'hidden.bs.modal', ->
-    Router.go 'folio' 
+    Router.go 'folio'
 
   #CK EDITOR
   CKEDITOR.replace('description')
@@ -92,6 +92,11 @@ Template.folioEdit.rendered = ->
   }
   $("#traditionSelect").select2("val", item.metadata.scriptTradition)
 
+  # FIX SIDEBAR ON SCROLL
+  $('.sidebar-affix').affix
+    offset:
+      top: 240
+
 
 Template.folioEdit.helpers
   editThumbnail: ->
@@ -118,7 +123,7 @@ Template.folioEdit.alphabet = ->
 Template.folioEdit.traditions = ->
   Manuscript.traditions
 
-Template.folioEdit.events 
+Template.folioEdit.events
   "click #submitFolioItem": ->
     folioItem = {}
     emptyFields = []
@@ -192,6 +197,7 @@ Template.folioEdit.events
     # else
     #   emptyFields.push("Transcription")
 
+
     #required fields
 
     folioItem.city = $("#city-field").val()
@@ -241,7 +247,7 @@ Template.folioEdit.events
       folioItems.update({_id: Session.get("editFolioItem")}, {$set: {metadata: folioItem, lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
     else
       $("#folioInvalidField").modal('show')
-    
+
 
 
   "click #folioSaveOkBtn": ->
@@ -255,14 +261,14 @@ Template.folioEdit.events
 
   "click #folioUnpublishOkBtn": ->
     $("#folioUnpublishConfirm").modal('hide')
-  
+
   "click #publish": ->
     item = folioItems.findOne({_id: Session.get("editFolioItem")}, {fields: {published: 1}})
     if item.published == true
       folioItems.update({_id: Session.get("editFolioItem")}, {$set: {published: false}})
     else
       folioItems.update({_id: Session.get("editFolioItem")}, {$set: {published: true}})
-    
+
     theDate = new Date
     folioItems.update({_id: Session.get("editFolioItem")}, {$set: {lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
 
@@ -271,5 +277,3 @@ Template.folioEdit.events
     folioItems.remove({_id: Session.get("editFolioItem")})
     $("#deleteModal").modal('hide')
     console.log "deleted"
-   
-
