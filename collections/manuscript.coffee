@@ -64,7 +64,7 @@ class @Manuscript extends Minimongoid
     "Erkat’agir-bolorgir"
     "Estrangela"
     "Gǝʿǝz"
-    "Glagothic"
+    "Glagolitic"
     "Gothic"
     "Half-Uncial"
     "Hasmonean"
