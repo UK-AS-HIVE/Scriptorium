@@ -12,7 +12,7 @@ Template.folioEdit.rendered = ->
   else
     dateLow = -500
     dateHigh = 2025
-    
+
 
   # set the label
   if dateLow < 0
@@ -50,7 +50,7 @@ Template.folioEdit.rendered = ->
 
 
   $("#deleteModal").on 'hidden.bs.modal', ->
-    Router.go 'folio' 
+    Router.go 'folio'
 
   #CK EDITOR
   CKEDITOR.replace('description')
@@ -92,6 +92,11 @@ Template.folioEdit.rendered = ->
   }
   $("#traditionSelect").select2("val", item.metadata.scriptTradition)
 
+  # FIX SIDEBAR ON SCROLL
+  $('.sidebar-affix').affix
+    offset:
+      top: 240
+
 
 Template.folioEdit.helpers
   editThumbnail: ->
@@ -120,7 +125,7 @@ Template.folioEdit.alphabet = ->
 Template.folioEdit.traditions = ->
   Manuscript.traditions
 
-Template.folioEdit.events 
+Template.folioEdit.events
   "click #submitFolioItem": ->
     folioItem = {}
     emptyFields = []
@@ -131,17 +136,17 @@ Template.folioEdit.events
     else
       emptyFields.push("City")
 
-    if $("#repository-field").val() != '' 
+    if $("#repository-field").val() != ''
       folioItem.repository = $("#repository-field").val()
     else
       emptyFields.push("Repository")
 
-    if $("#collectionNumber-field").val() != ''  
+    if $("#collectionNumber-field").val() != ''
       folioItem.collectionNumber = $("#collectionNumber-field").val()
     else
       emptyFields.push("Collection Number")
 
-    #dunno how to really validate this one  
+    #dunno how to really validate this one
     folioItem.dateRange = $("#dateSlider").slider('getValue')
 
     if $("#scriptName").select2('val') != ''
@@ -154,12 +159,12 @@ Template.folioEdit.events
     else
       emptyFields.push("Script Family")
 
-    if $("#languageSelect").select2('val') != ''  
+    if $("#languageSelect").select2('val') != ''
       folioItem.scriptLanguage = $("#languageSelect").select2('val')
     else
       emptyFields.push("Language")
 
-    if $("#alphabetSelect").select2('val') != ''  
+    if $("#alphabetSelect").select2('val') != ''
       folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
     else
       emptyFields.push("Alphabet")
@@ -169,11 +174,11 @@ Template.folioEdit.events
     else
       emptyFields.push("Script Tradition")
 
-    if $("#folioNumber-field").val() != ''  
+    if $("#folioNumber-field").val() != ''
       folioItem.folioNumber = $("#folioNumber-field").val()
     else
       emptyFields.push("Folio Number")
-    
+
     if CKEDITOR.instances.description.getData() != ''
       folioItem.description = CKEDITOR.instances.description.getData()
     else
@@ -213,7 +218,7 @@ Template.folioEdit.events
       folioItems.update({_id: Session.get("editFolioItem")}, {$set: {metadata: folioItem, lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
     else
       $("#folioInvalidField").modal('show')
-    
+
 
 
   "click #folioSaveOkBtn": ->
@@ -227,14 +232,14 @@ Template.folioEdit.events
 
   "click #folioUnpublishOkBtn": ->
     $("#folioUnpublishConfirm").modal('hide')
-  
+
   "click #publish": ->
     item = folioItems.findOne({_id: Session.get("editFolioItem")}, {fields: {published: 1}})
     if item.published == true
       folioItems.update({_id: Session.get("editFolioItem")}, {$set: {published: false}})
     else
       folioItems.update({_id: Session.get("editFolioItem")}, {$set: {published: true}})
-    
+
     theDate = new Date
     folioItems.update({_id: Session.get("editFolioItem")}, {$set: {lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
 
@@ -243,5 +248,3 @@ Template.folioEdit.events
     folioItems.remove({_id: Session.get("editFolioItem")})
     $("#deleteModal").modal('hide')
     console.log "deleted"
-   
-
