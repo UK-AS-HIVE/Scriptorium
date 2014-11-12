@@ -106,8 +106,6 @@ Template.folioEdit.helpers
     item = folioItems.findOne({_id: Session.get("editFolioItem")}, {fields: {published: 1}})
     item.published == published
 
-
-
 Template.folioEdit.languages = ->
   Manuscript.languages
 
@@ -126,73 +124,103 @@ Template.folioEdit.events
     emptyFields = []
 
     #required fields
-    if $("#city-field").val() != ''
-      folioItem.city = $("#city-field").val()
-    else
-      emptyFields.push("City")
+    # if $("#city-field").val() != ''
+    #   folioItem.city = $("#city-field").val()
+    # else
+    #   emptyFields.push("City")
 
-    if $("#repository-field").val() != '' 
-      folioItem.repository = $("#repository-field").val()
-    else
-      emptyFields.push("Repository")
+    # if $("#repository-field").val() != '' 
+    #   folioItem.repository = $("#repository-field").val()
+    # else
+    #   emptyFields.push("Repository")
 
-    if $("#collectionNumber-field").val() != ''  
-      folioItem.collectionNumber = $("#collectionNumber-field").val()
-    else
-      emptyFields.push("Collection Number")
+    # if $("#collectionNumber-field").val() != ''  
+    #   folioItem.collectionNumber = $("#collectionNumber-field").val()
+    # else
+    #   emptyFields.push("Collection Number")
 
-    #dunno how to really validate this one  
+    # #dunno how to really validate this one  
+    # folioItem.dateRange = $("#dateSlider").slider('getValue')
+
+    # if $("#scriptName").select2('val') != ''
+    #   folioItem.scriptName = $("#scriptName").select2('val')
+    # else
+    #   emptyFields.push("Script")
+
+    # if $("#scriptSelect").select2('val') != ''
+    #   folioItem.scriptFamily = $("#scriptSelect").select2('val')
+    # else
+    #   emptyFields.push("Script Family")
+
+    # if $("#languageSelect").select2('val') != ''  
+    #   folioItem.scriptLanguage = $("#languageSelect").select2('val')
+    # else
+    #   emptyFields.push("Language")
+
+    # if $("#alphabetSelect").select2('val') != ''  
+    #   folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
+    # else
+    #   emptyFields.push("Alphabet")
+
+    # if $("#traditionSelect").select2('val') != ''
+    #   folioItem.scriptTradition = $("#traditionSelect").select2('val')
+    # else
+    #   emptyFields.push("Script Tradition")
+
+    # if $("#folioNumber-field").val() != ''  
+    #   folioItem.folioNumber = $("#folioNumber-field").val()
+    # else
+    #   emptyFields.push("Folio Number")
+    
+    # if CKEDITOR.instances.description.getData() != ''
+    #   folioItem.description = CKEDITOR.instances.description.getData()
+    # else
+    #   emptyFields.push("Paleographic Description")
+
+    # if CKEDITOR.instances.features.getData() != ''
+    #   folioItem.features = CKEDITOR.instances.features.getData()
+    # else
+    #   emptyFields.push("Special Paleographic Features")
+
+    # if CKEDITOR.instances.info.getData() != ''
+    #   folioItem.info = CKEDITOR.instances.info.getData()
+    # else
+    #   emptyFields.push("Further Information / Bibliography")
+
+    # if CKEDITOR.instances.transcription.getData() != ''
+    #   folioItem.transcription = CKEDITOR.instances.transcription.getData()
+    # else
+    #   emptyFields.push("Transcription")
+
+    #required fields
+
+    folioItem.city = $("#city-field").val()
+
+    folioItem.repository = $("#repository-field").val()
+
+    folioItem.collectionNumber = $("#collectionNumber-field").val()
+
     folioItem.dateRange = $("#dateSlider").slider('getValue')
 
-    if $("#scriptName").select2('val') != ''
-      folioItem.scriptName = $("#scriptName").select2('val')
-    else
-      emptyFields.push("Script")
+    folioItem.scriptName = $("#scriptName").select2('val')
 
-    if $("#scriptSelect").select2('val') != ''
-      folioItem.scriptFamily = $("#scriptSelect").select2('val')
-    else
-      emptyFields.push("Script Family")
+    folioItem.scriptFamily = $("#scriptSelect").select2('val')
 
-    if $("#languageSelect").select2('val') != ''  
-      folioItem.scriptLanguage = $("#languageSelect").select2('val')
-    else
-      emptyFields.push("Language")
+    folioItem.scriptLanguage = $("#languageSelect").select2('val')
 
-    if $("#alphabetSelect").select2('val') != ''  
-      folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
-    else
-      emptyFields.push("Alphabet")
+    folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
 
-    if $("#traditionSelect").select2('val') != ''
-      folioItem.scriptTradition = $("#traditionSelect").select2('val')
-    else
-      emptyFields.push("Script Tradition")
+    folioItem.scriptTradition = $("#traditionSelect").select2('val')
 
-    if $("#folioNumber-field").val() != ''  
-      folioItem.folioNumber = $("#folioNumber-field").val()
-    else
-      emptyFields.push("Folio Number")
-    
-    if CKEDITOR.instances.description.getData() != ''
-      folioItem.description = CKEDITOR.instances.description.getData()
-    else
-      emptyFields.push("Paleographic Description")
+    folioItem.folioNumber = $("#folioNumber-field").val()
 
-    if CKEDITOR.instances.features.getData() != ''
-      folioItem.features = CKEDITOR.instances.features.getData()
-    else
-      emptyFields.push("Special Paleographic Features")
+    folioItem.description = CKEDITOR.instances.description.getData()
 
-    if CKEDITOR.instances.info.getData() != ''
-      folioItem.info = CKEDITOR.instances.info.getData()
-    else
-      emptyFields.push("Further Information / Bibliography")
+    folioItem.features = CKEDITOR.instances.features.getData()
 
-    if CKEDITOR.instances.transcription.getData() != ''
-      folioItem.transcription = CKEDITOR.instances.transcription.getData()
-    else
-      emptyFields.push("Transcription")
+    folioItem.info = CKEDITOR.instances.info.getData()
+
+    folioItem.transcription = CKEDITOR.instances.transcription.getData()
 
     # Non required fields
     folioItem.collection = $("#collection-field").val()
