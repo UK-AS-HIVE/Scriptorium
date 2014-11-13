@@ -110,89 +110,19 @@ Template.folioEdit.helpers
   isPublished: (published) ->
     item = folioItems.findOne({_id: Session.get("editFolioItem")}, {fields: {published: 1}})
     item.published == published
+  languages: ->
+    Manuscript.languages
+  scripts: ->
+    Manuscript.scripts
+  alphabet: ->
+    Manuscript.alphabet
+  traditions: ->
+    Manuscript.traditions
 
-Template.folioEdit.languages = ->
-  Manuscript.languages
-
-Template.folioEdit.scripts = ->
-  Manuscript.scripts
-
-Template.folioEdit.alphabet = ->
-  Manuscript.alphabet
-
-Template.folioEdit.traditions = ->
-  Manuscript.traditions
 
 Template.folioEdit.events
   "click #submitFolioItem": ->
     folioItem = {}
-    # emptyFields = []
-
-    #required fields
-    # if $("#city-field").val() != ''
-    #   folioItem.city = $("#city-field").val()
-    # else
-    #   emptyFields.push("City")
-
-    # if $("#repository-field").val() != '' 
-    #   folioItem.repository = $("#repository-field").val()
-    # else
-    #   emptyFields.push("Repository")
-
-    # if $("#collectionNumber-field").val() != ''  
-    #   folioItem.collectionNumber = $("#collectionNumber-field").val()
-    # else
-    #   emptyFields.push("Collection Number")
-
-    # #dunno how to really validate this one  
-    # folioItem.dateRange = $("#dateSlider").slider('getValue')
-
-    # if $("#scriptName").select2('val') != ''
-    #   folioItem.scriptName = $("#scriptName").select2('val')
-    # else
-    #   emptyFields.push("Script")
-
-    # if $("#scriptSelect").select2('val') != ''
-    #   folioItem.scriptFamily = $("#scriptSelect").select2('val')
-    # else
-    #   emptyFields.push("Script Family")
-
-    # if $("#languageSelect").select2('val') != ''  
-    #   folioItem.scriptLanguage = $("#languageSelect").select2('val')
-    # else
-    #   emptyFields.push("Language")
-
-    # if $("#alphabetSelect").select2('val') != ''  
-    #   folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
-    # else
-    #   emptyFields.push("Alphabet")
-
-    # if $("#traditionSelect").select2('val') != ''
-    #   folioItem.scriptTradition = $("#traditionSelect").select2('val')
-    # else
-    #   emptyFields.push("Script Tradition")
-
-    # if $("#folioNumber-field").val() != ''  
-    #   folioItem.folioNumber = $("#folioNumber-field").val()
-    # else
-    #   emptyFields.push("Folio Number")
-    
-    # if CKEDITOR.instances.description.getData() != ''
-    #   folioItem.description = CKEDITOR.instances.description.getData()
-    # else
-    #   emptyFields.push("Paleographic Description")
-
-    # if CKEDITOR.instances.features.getData() != ''
-    #   folioItem.features = CKEDITOR.instances.features.getData()
-    # else
-    #   emptyFields.push("Special Paleographic Features")
-
-
-    # if CKEDITOR.instances.transcription.getData() != ''
-    #   folioItem.transcription = CKEDITOR.instances.transcription.getData()
-    # else
-    #   emptyFields.push("Transcription")
-
 
     #required fields
 
@@ -238,11 +168,9 @@ Template.folioEdit.events
 
     theDate = new Date
 
-    if emptyFields.length < 1
-      $("#folioSaveConfirm").modal('show')
-      folioItems.update({_id: Session.get("editFolioItem")}, {$set: {metadata: folioItem, lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
-    else
-      $("#folioInvalidField").modal('show')
+
+    $("#folioSaveConfirm").modal('show')
+    folioItems.update({_id: Session.get("editFolioItem")}, {$set: {metadata: folioItem, lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
 
 
 
@@ -255,18 +183,112 @@ Template.folioEdit.events
   "click #folioPublishOkBtn": ->
     $("#folioPublishConfirm").modal('hide')
 
-  "click #folioUnpublishOkBtn": ->
-    $("#folioUnpublishConfirm").modal('hide')
+  "hidden.bs.modal #folioPublishConfirm": (e) ->
+    Router.go 'folio'
 
   "click #publish": ->
+    #validate required fields
+    emptyFields = []
+
+    #required fields
+    if $("#city-field").val() == ''
+      emptyFields.push("City")
+
+    if $("#repository-field").val() == '' 
+      emptyFields.push("Repository")
+
+    if $("#collectionNumber-field").val() == ''  
+      emptyFields.push("Collection Number")
+
+    if $("#scriptName").select2('val') == ''
+      emptyFields.push("Script")
+
+    if $("#scriptSelect").select2('val') == ''
+      emptyFields.push("Script Family")
+
+    if $("#languageSelect").select2('val') == ''  
+      emptyFields.push("Language")
+
+    if $("#alphabetSelect").select2('val') == ''  
+      emptyFields.push("Alphabet")
+
+    if $("#traditionSelect").select2('val') == ''
+      emptyFields.push("Script Tradition")
+
+    if $("#folioNumber-field").val() == ''  
+      emptyFields.push("Folio Number")
+    
+    if CKEDITOR.instances.description.getData() == ''
+      emptyFields.push("Paleographic Description")
+
+    if CKEDITOR.instances.features.getData() == ''
+      emptyFields.push("Special Paleographic Features")
+
+    if CKEDITOR.instances.transcription.getData() == ''
+      emptyFields.push("Transcription")
+
+
+    #save everything
+    folioItem = {}
+
+    #required fields
+
+    folioItem.city = $("#city-field").val()
+
+    folioItem.repository = $("#repository-field").val()
+
+    folioItem.collectionNumber = $("#collectionNumber-field").val()
+
+    folioItem.dateRange = $("#dateSlider").slider('getValue')
+
+    folioItem.scriptName = $("#scriptName").select2('val')
+
+    folioItem.scriptFamily = $("#scriptSelect").select2('val')
+
+    folioItem.scriptLanguage = $("#languageSelect").select2('val')
+
+    folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
+
+    folioItem.scriptTradition = $("#traditionSelect").select2('val')
+
+    folioItem.specificText = $("#folioText-field").val()
+
+    folioItem.folioNumber = $("#folioNumber-field").val()
+
+    folioItem.description = CKEDITOR.instances.description.getData()
+
+    folioItem.features = CKEDITOR.instances.features.getData()
+
+    folioItem.transcription = CKEDITOR.instances.transcription.getData()
+
+    # Non required fields
+    folioItem.collection = $("#collection-field").val()
+    folioItem.commonName = $("#commonName-field").val()
+    folioItem.origin = $("#origin-field").val()
+    folioItem.provenance = $("#provenance-field").val()
+    folioItem.dateExpression = $("#dateExpression-field").val()
+    folioItem.author = $("#author-field").val()
+    folioItem.title = $("#title-field").val()
+    folioItem.contributors = $("#contributor-field").val()
+    folioItem.manuscriptLink = $("#link-field").val()
+    folioItem.info = CKEDITOR.instances.info.getData()
+
+    theDate = new Date
+    folioItems.update({_id: Session.get("editFolioItem")}, {$set: {metadata: folioItem, lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
+
+
     item = folioItems.findOne({_id: Session.get("editFolioItem")}, {fields: {published: 1}})
     if item.published == true
       folioItems.update({_id: Session.get("editFolioItem")}, {$set: {published: false}})
+      $("#folioPublishConfirm").modal("show")
     else
-      folioItems.update({_id: Session.get("editFolioItem")}, {$set: {published: true}})
+      if emptyFields.length < 1
+        folioItems.update({_id: Session.get("editFolioItem")}, {$set: {published: true}})
+        $("#folioPublishConfirm").modal("show")
+      else
+        $("#folioInvalidField").modal("show")
 
-    theDate = new Date
-    folioItems.update({_id: Session.get("editFolioItem")}, {$set: {lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
+
 
   "click #deleteFolioRecord": ->
     console.log "delete"

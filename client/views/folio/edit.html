@@ -174,11 +174,11 @@
 
           <p style="margin-top: 50px;">*Please ask your HMML staff collaborator to click the Publish button, after you have saved your work.</p>
           {{#if isPublished false}}
-            <a href="#" id="publish" class="btn btn-default" data-toggle="modal" data-target="#folioPublishConfirm"><i class="fa fa-lock"></i> Admin Publish</a>
+            <a href="#" id="publish" class="btn btn-default"><i class="fa fa-lock"></i> Admin Publish</a>
           {{/if}}
 
           {{#if isPublished true}}
-            <a href="#" id="publish" class="btn btn-default" data-toggle="modal" data-target="#folioUnpublishConfirm"><i class="fa fa-history"></i> Unpublish</a>
+            <a href="#" id="publish" class="btn btn-default"><i class="fa fa-history"></i> Unpublish</a>
           {{/if}}
         </div>
       </form>
@@ -215,7 +215,7 @@
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body text-center">
-          <p>Folio entry for {{folioTitle}} could not be saved.  Please complete all required fields</p>
+          <p>Folio entry for {{folioTitle}} has been saved but could not be published.  Please complete all required fields</p>
           <a href="#" id="folioInvalidOkBtn" class="btn btn-lg btn-default"><i class="fa fa-thumbs-o-up"></i> OK</a>
         </div>
       </div>
@@ -227,21 +227,8 @@
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body text-center">
-          <p>Folio entry for {{folioTitle}} has been {{publishAction}}!</p>
+          <p>Folio entry for {{folioTitle}} has been {{#if isPublished false}}unpublished{{/if}}{{#if isPublished true}}published{{/if}}!</p>
           <a href="#" id="folioPublishOkBtn" class="btn btn-lg btn-default ok-btn"><i class="fa fa-thumbs-o-up"></i> OK</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- unpublish confirm modal -->
-  <div class="modal fade" id="folioUnpublishConfirm">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body text-center">
-          <p>Entry for {{folioTitle}} has been unpublished from Folio!</p>
-          <a href="#" id="folioUnpublishOkBtn" class="btn btn-lg btn-default ok-btn"><i class="fa fa-thumbs-o-up"></i> OK</a>
         </div>
       </div>
     </div>
