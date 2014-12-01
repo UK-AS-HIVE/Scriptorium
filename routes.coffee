@@ -3,12 +3,20 @@ Router.map ->
     path: '/'
     action: ->
       if Meteor.userId()
-        @redirect "desk"
+        @redirect "welcome"
       else
         @render()
 
   @route 'signUp',
     path: '/signup'
+
+  @route 'welcome',
+    path: '/welcome'
+    action: ->
+      if !Meteor.userId()
+        @redirect "home"
+      else
+        @render()
 
   @route 'desk',
     path: '/desk'
