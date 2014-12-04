@@ -1,7 +1,7 @@
 <template name="header">
   <header>
     <div class="top">
-      <div class="title">Scriptorium</div>
+      <a href="/" class="title">Scriptorium</a>
       <a href="/" class="logo">
         <img src="/img/vhmml-logo.png"/>
       </a>
@@ -30,6 +30,7 @@
     <div class="bottom">
       {{#if currentUser}}
       <ul class="pull-left">
+        <li><a href="/">Home</a></li>
         <li><a href="/desk">Desk</a></li>
         <li><a href="/files">File Cabinet</a></li>
         <li><a href="/bookshelf">Bookshelf</a></li>
