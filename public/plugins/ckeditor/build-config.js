@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/fdb9500520fe2bb4428bc2c03252fa61
+ * (2) http://ckeditor.com/builder/32f108227299c4f33495a98d899087c8
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/fdb9500520fe2bb4428bc2c03252fa61
+ * (3) http://ckeditor.com/builder/download/32f108227299c4f33495a98d899087c8
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -26,7 +26,7 @@
 
 var CKBUILDER_CONFIG = {
 	skin: 'moono',
-	preset: 'basic',
+	preset: 'full',
 	ignore: [
 		'.bender',
 		'bender.js',
@@ -36,7 +36,7 @@ var CKBUILDER_CONFIG = {
 		'.DS_Store',
 		'.gitattributes',
 		'.gitignore',
-		'Gruntfile.js',
+		'gruntfile.js',
 		'.idea',
 		'.jscsrc',
 		'.jshintignore',
@@ -48,20 +48,35 @@ var CKBUILDER_CONFIG = {
 		'tests'
 	],
 	plugins : {
-		'about' : 1,
 		'basicstyles' : 1,
 		'bidi' : 1,
+		'clipboard' : 1,
+		'colorbutton' : 1,
+		'colordialog' : 1,
 		'contextmenu' : 1,
+		'dialogadvtab' : 1,
 		'enterkey' : 1,
-		'entities' : 1,
-		'floatingspace' : 1,
+		'font' : 1,
+		'image' : 1,
 		'indentlist' : 1,
-		'link' : 1,
+		'justify' : 1,
 		'list' : 1,
-		'richcombo' : 1,
+		'liststyle' : 1,
+		'pagebreak' : 1,
+		'pastefromword' : 1,
+		'pastetext' : 1,
+		'print' : 1,
+		'removeformat' : 1,
+		'scayt' : 1,
+		'selectall' : 1,
 		'specialchar' : 1,
+		'stylescombo' : 1,
+		'tab' : 1,
+		'table' : 1,
+		'tabletools' : 1,
 		'toolbar' : 1,
 		'undo' : 1,
+		'wsc' : 1,
 		'wysiwygarea' : 1
 	},
 	languages : {
