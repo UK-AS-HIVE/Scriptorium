@@ -1,10 +1,12 @@
+@import '../../stylesheets/lib/lesshat';
+
 #viewer {
   background: #333 url(images/debut_dark.png) left top repeat;
-  width: 100%;
+  width: 100vw;
   height: calc(~"100% - 84px");
   position: fixed;
+  overflow-x: hidden;
 }
-
 #editorWindow {
 	width: 500;
 	background: #000;
@@ -14,26 +16,57 @@
 	position: absolute;
 	z-index: 500;
 }
-
 .mirador-viewer, .mirador-main-menu-bar, .mirador-status-bar {
   font-size: 14px;
 }
-
 .mirador-main-menu {
   padding: 0px;
 }
-
 .mirador-main-menu-bar {
   height: auto !important;
   overflow: auto;
 }
-
 .mirador-status-bar-msg-left, .mirador-status-bar-msg-right {
   padding: 0px 10px;
 }
-
 .mirador-listing-collections li {
   padding: 10px 5px;
   width: 150px;
+}
 
+
+// Desk document panel
+.desk-document-panel {
+  position: absolute;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  z-index: 99999;
+  background: #fff;
+  padding: 8px;
+  .transition(all 0.2s ease);
+}
+.desk-document-panel.is-open {
+  .translateX(-300px);
+}
+.desk-document-panel .js-close-panel {
+  color: #bbb;
+  font-size: 22px;
+  cursor: pointer;
+}
+.desk-document-panel .page-list {
+  li {
+    padding: 10px 0px;
+    cursor: pointer;
+    i.file-icon {
+      margin-top: 4px;
+      margin-right: 4px;
+      font-size: 20px;
+      width: 28px;
+      text-align: center;
+    }
+    .meta {
+      margin-right: 0;
+    }
+  }
 }

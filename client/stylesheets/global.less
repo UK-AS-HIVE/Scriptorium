@@ -1,5 +1,5 @@
 @import 'variables';
-@import 'mixins';
+@import 'lib/lesshat';
 
 /* ===============================
     GLOBAL STYLES
@@ -71,48 +71,52 @@ a {
       margin-bottom: 30px;
     }
   }
+}
 
-  ul.page-list {
-    padding-left: 0px;
-    margin: 0px;
+ul.page-list {
+  padding-left: 0px;
+  margin: 0px;
 
-    li {
-      list-style: none;
-      padding: 15px 20px;
-      border-bottom: 1px solid #E6E6E6;
-      line-height: 1.4;
-      overflow: auto;
+  li {
+    list-style: none;
+    padding: 15px 20px;
+    border-bottom: 1px solid #E6E6E6;
+    line-height: 1.4;
+    overflow: auto;
 
-      .meta {
-        display: block;
-        overflow: hidden;
-        margin-right: 200px;
+    .meta {
+      display: block;
+      overflow: hidden;
+      margin-right: 200px;
 
-        a {
-          color: #333;
-        }
+      a {
+        color: #333;
       }
+    }
 
-      small {
-        display: block;
-        margin-bottom: 2px;
-      }
+    small {
+      display: block;
+      margin-bottom: 2px;
+    }
 
-      i.file-icon {
-        float: left;
-        font-size: 40px;
-        width: 50px;
-      }
+    i.file-icon {
+      float: left;
+      font-size: 40px;
+      width: 50px;
+    }
 
-      img {
-        float: left;
-        width: 50px;
-        margin-right: 15px;
-      }
+    img {
+      float: left;
+      width: 50px;
+      margin-right: 15px;
+    }
 
-      .actions {
-        float: right;
-        position: relative;
+    .actions {
+      float: right;
+      text-align: right;
+      position: relative;
+      .btn {
+        margin-bottom: 8px;
       }
     }
   }

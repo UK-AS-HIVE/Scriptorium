@@ -1,4 +1,4 @@
-@import '../../stylesheets/mixins';
+@import '../../stylesheets/lib/lesshat';
 @import '../../stylesheets/variables';
 
 .bookshelf .page-content {
@@ -17,7 +17,7 @@ ul.books {
     height: 45px;
     border: 1px solid #DEDEDE;
     border-left: 3px solid #333;
-    .verticalGradient(#F4F3F3, #E5E2E2);
+    .background-image(linear-gradient(to bottom, #F4F3F3 0%,#E5E2E2 100%));
 
     &.shelf {
       border: none;

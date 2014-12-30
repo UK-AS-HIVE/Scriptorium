@@ -20,4 +20,7 @@ Template.header.events({
 	"change #projectSelector": (e) ->
 	  projId = $(e.target).val()
 	  Session.set("current_project", projId)
+
+	"click .js-toggle-desk-panel": ->
+		$('.desk-document-panel').toggleClass('is-open')
 })
