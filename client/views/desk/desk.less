@@ -5,16 +5,40 @@
   width: 100vw;
   height: calc(~"100% - 84px");
   position: fixed;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 #editorWindow {
-	width: 500;
-	background: #000;
-	height: 100%;
-	top: 100px;
-	right: 500px;
-	position: absolute;
+	width: 500px;
+	height: 100px;
+  margin-top: 30px;
 	z-index: 500;
+  position: absolute;
+  left: 500px;
+
+  &.ui-dialog {
+    padding: 0;
+  }
+
+  .ui-dialog-titlebar {
+    background-color: #F0F0F0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 1px dotted #CCC;
+    padding: .6em;
+  }
+
+  .ui-dialog-titlebar-buttonpane button, .ui-dialog-titlebar-collapse {
+    border: 0;
+    background: 0 0;
+  }
+
+  .ui-dialog-titlebar-close {
+    position: relative;
+    right: auto;
+    top: auto;
+    margin: 0;
+    float: right;
+  }
 }
 .mirador-viewer, .mirador-main-menu-bar, .mirador-status-bar {
   font-size: 14px;
