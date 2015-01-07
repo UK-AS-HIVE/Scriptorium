@@ -5,10 +5,13 @@ Template.mirador.rendered = ->
   thisObject = {"id": "viewer", "data": []}
 
   myMani = AvailableManifests.find().fetch()
+  root = Session.get("rootURL")
+
+  console.log root
 
   for item in myMani
     console.log "item: " + item
-    thisObject["data"].push({"manifestUri": "http://localhost:3000/manifest/" + item["_id"], "location": item["manifestLocation"], "title": item["manifestTitle"]})
+    thisObject["data"].push({"manifestUri": root + "manifest/" + item["_id"], "location": item["manifestLocation"], "title": item["manifestTitle"]})
 
   console.log thisObject
 

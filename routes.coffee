@@ -121,7 +121,7 @@ Router.map ->
         manifest.manifestPayload.scriptorium = @params.manifestId + "|" + @params.project
       else
         manifest.manifestPayload.scriptorium = @params.manifestId
-      this.response.writeHead(200, {'content-type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+      this.response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
       this.response.end(JSON.stringify(manifest.manifestPayload))
 
 
