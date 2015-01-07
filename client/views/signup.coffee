@@ -22,7 +22,7 @@ Template.signUp.events
 
 				console.log "project: " + newProjectId
 
-				Session.set "currentProject", newProjectId
+				Session.set "current_project", newProjectId
 			return false
 
 

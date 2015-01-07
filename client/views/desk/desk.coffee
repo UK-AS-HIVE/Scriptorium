@@ -11,5 +11,4 @@ Template.desk.rendered = ->
 
 Template.desk.events
 	"click #addManiButton": ->
-		console.log($("#newManifestURL").val())
-		Meteor.call("getManifest", $("#newManifestURL").val(), $("#newManifestLocation").val(), $("#newManifestTitle").val())
+		Meteor.call("getManifest", $("#newManifestURL").val(), $("#newManifestLocation").val(), $("#newManifestTitle").val(), Meteor.userId(), Session.get("current_project"))

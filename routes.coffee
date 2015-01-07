@@ -110,6 +110,21 @@ Router.map ->
       this.response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
       this.response.end(JSON.stringify(manifest))
 
+  @route 'iiifManifests',
+    path: '/manifest/:manifestId/:project?',
+    where: 'server',
+    action: ->
+      manifest = AvailableManifests.findOne({"_id": @params.manifestId})
+      if @params.project
+        console.log @params.project
+      if @params.project
+        manifest.manifestPayload.scriptorium = @params.manifestId + "|" + @params.project
+      else
+        manifest.manifestPayload.scriptorium = @params.manifestId
+      this.response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
+      this.response.end(JSON.stringify(manifest.manifestPayload))
+
+
   @route 'notFound',
     path: '*'
     where: 'server'
