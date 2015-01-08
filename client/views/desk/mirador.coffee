@@ -5,7 +5,7 @@ Template.mirador.rendered = ->
   thisObject = {"id": "viewer", "data": []}
 
   myMani = AvailableManifests.find().fetch()
-  root = Session.get("rootURL")
+  root = Meteor.absoluteUrl()
 
   console.log root
 
