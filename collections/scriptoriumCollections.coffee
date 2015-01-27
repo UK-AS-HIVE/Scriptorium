@@ -4,6 +4,7 @@
 # 	 @_collection: new Meteor.Collection('folioitems')
 @folioItems = new Meteor.Collection('folioitems')
 @Projects = new Meteor.Collection('projects')
+@Annotations = new Meteor.Collection('annotations')
 
 @ProjectPermissions = new Meteor.Collection('projectpermissions')
 

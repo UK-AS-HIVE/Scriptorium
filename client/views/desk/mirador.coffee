@@ -11,8 +11,10 @@ Template.mirador.rendered = ->
 
   for item in myMani
     console.log "item: " + item
-    thisObject["data"].push({"manifestUri": root + "manifest/" + item["_id"], "location": item["manifestLocation"], "title": item["manifestTitle"]})
+    thisObject["data"].push({"manifestUri": root + "manifest/" + item["_id"] + "/" + Session.get("current_project"), "location": item["manifestLocation"], "title": item["manifestTitle"]})
 
+
+  thisObject["data"].push({"manifestUri": "http://dms-data.stanford.edu/data/manifests/Stanford/ege1/manifest.json", "title": "testing", "location": "UK"})
   console.log thisObject
 
   Meteor.setTimeout ( ->

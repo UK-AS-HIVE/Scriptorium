@@ -115,6 +115,19 @@ Router.map ->
     where: 'server',
     action: ->
       manifest = AvailableManifests.findOne({"_id": @params.manifestId})
+
+      #loop through canvases in the payload
+      for sequence in manifest.manifestPayload.sequences
+        for canvas in sequence.canvases
+          annoArr = []
+          availAnnos = Annotations.find({"canvas": canvas["@id"], "manifest": @params.manifestId, "project": @params.project}).fetch()
+          for anno in availAnnos
+            annoArr.push {"@id": process.env.ROOT_URL + "annotations/" + anno["_id"] + ".json", "@type": "sc:AnnotationList"}
+
+          if annoArr.length > 0
+            canvas.otherContent = annoArr
+
+
       if @params.project
         console.log @params.project
       if @params.project
@@ -123,6 +136,41 @@ Router.map ->
         manifest.manifestPayload.scriptorium = @params.manifestId
       this.response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
       this.response.end(JSON.stringify(manifest.manifestPayload))
+
+
+  @route 'iifAnnotations',
+    path: '/annotations/:canvasId',
+    where: 'server',
+    action: ->
+
+      annotationList = {
+        "@context": "http://www.shared-canvas.org/ns/context.json",
+        "@id": process.env.ROOT_URL + "annotations/" + @params.canvasId,
+        "@type": "sc:AnnotationList",
+        "resources": []
+      }
+
+      canvasId = (@params.canvasId).split(".")[0]
+
+      annos = Annotations.findOne({"_id": canvasId})
+
+
+      for i in annos["annotations"]
+        annotationList["resources"].push {
+          "@type": "oa:Annotation",
+          "motivation": "sc:painting",
+          "on": annos.canvas + "#xywh=" + Math.floor(i.x) + "," + Math.floor(i.y) + "," + Math.floor(i.w) + "," + Math.floor(i.h),
+          "resource": {
+            "@type": "cnt:ContentAsText",
+            "chars": i.text,
+            "format": "text/plain",
+            "language": "eng"
+          }
+
+        }
+
+      this.response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
+      this.response.end(JSON.stringify(annotationList))
 
 
   @route 'notFound',

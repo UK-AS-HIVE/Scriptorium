@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2014-12-18
+//! Built on 2015-01-27
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -7391,9 +7391,16 @@ window.Mirador = window.Mirador || function(config) {
   $.getOsdFrame = function(region, currentImg) {
     var imgWidth = currentImg.width,
     imgHeight = currentImg.height,
-    canvasWidth = currentImg.canvasWidth,
-    canvasHeight = currentImg.canvasHeight,
-    widthNormaliser = imgWidth/canvasWidth,
+    canvasHeight,
+    canvasWidth = currentImg.canvasWidth;
+
+    if(currentImg.canvasHeight === undefined){
+      canvasHeight = currentImg.height;
+    }else{
+      canvasHeight = currentImg.canvasHeight;  
+    }
+
+    var widthNormaliser = imgWidth/canvasWidth,
     heightNormaliser = imgHeight/canvasHeight,
     rectX = (region[0]*widthNormaliser)/imgWidth,
     rectY = (region[1]*heightNormaliser)/imgWidth,
@@ -8921,7 +8928,7 @@ jQuery.fn.scrollStop = function(callback) {
       this.metadata.about = {
         '@context': this.jsonLd['@context'] || '',
         '@id':      this.jsonLd['@id'] || '',
-        'scriptorium': this.jsonLd.scriptorium || 'foo'
+        'scriptorium': this.jsonLd.scriptorium || ''
       };
     },
 
@@ -9053,6 +9060,7 @@ jQuery.fn.scrollStop = function(callback) {
             }
 
             jQuery.each(_this.annotationUrls, function(index, url) {
+                console.log(url);
                 var request =  jQuery.ajax(
                     {
                     url: url,
@@ -11105,7 +11113,10 @@ jQuery.fn.scrollStop = function(callback) {
       this.currentImgIndex = this.getImageIndexById(this.imageId);
     }
 
+    this.metadata = $.getMetadataByManifestId(this.manifestId);
+
     this.currentImg = this.imagesList[this.currentImgIndex];
+
 
     annotorious.plugin.Parse.prototype.addSrc(this.currentImg.canvasId);
 
@@ -11156,17 +11167,18 @@ jQuery.fn.scrollStop = function(callback) {
       this.olMap.zoomToMaxExtent();
 
       anno.makeAnnotatable(this.olMap);
+
+      var self = this;
+
+      anno.addHandler('onAnnotationRemoved', function(annotation){
+        console.log(annotation);
+      });
+
       anno.addHandler('onAnnotationCreated', function(annotation) {
         var annoObject = annotation;
-        console.log("height = " +annoObject.shapes[0].geometry.height);
-        console.log("width = " +annoObject.shapes[0].geometry.width);
-        console.log("x = " +annoObject.shapes[0].geometry.x);
-        console.log("y = " +annoObject.shapes[0].geometry.y);
-        console.log("text = " + annoObject.text);
-        console.log("source = " + annoObject.src);
-        console.log(annoObject);
-
-        Meteor.call("saveAnnotoriusAnnos", annotation.src, annotation.x, annotation.y, annotation.width, annotation.height, annotation.text);
+        console.log(self.currentImg.height);
+        //we flip the y value because of differences in how annotorius and mirador conside the 0,0 point
+        Meteor.call("saveAnnotoriusAnnos", annotation.src, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
 
       });
     },
@@ -11871,6 +11883,8 @@ jQuery.fn.scrollStop = function(callback) {
       // instead of sorting it in place, which would shuffle the list order of 
       // annotations, an undesired effect.
       annotationsBySize = this.parent.get('annotations').slice().sort(this.sortRegionsBySize);
+
+      console.log(annotationsBySize);
 
       if (_this.parent.get('visible')) {
 
