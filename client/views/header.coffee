@@ -16,6 +16,11 @@ Template.header.helpers
 	isCurrentProject: (projectId) ->
 		Session.get('current_project') == projectId
 
+	hasCurrentProject: ->
+		if Session.get('current_project')
+			return true
+		else return false
+
 Template.header.events({
 	"change #projectSelector": (e) ->
 	  projId = $(e.target).val()
