@@ -19,6 +19,16 @@ Meteor.methods({
 
 	},
 
+    saveWorkSpace: function(workspace, user, project){
+        workspaceJSON = JSON.parse(workspace);
+        for(i = 0; i < workspaceJSON.data.length; i++){
+            console.log(Meteor.userId() + " " + project);
+            console.log(workspaceJSON.data[i].manifestUri);
+            console.log(workspaceJSON.data[i].widgets);
+            Workspaces.upsert({"user": user, "project": project, "manifestUri": workspaceJSON.data[i].manifestUri}, {$set: {"widgets": workspaceJSON.data[i].widgets}})         
+        } 
+    },
+
     getRootUrl: function(){
         return process.env.ROOT_URL;
     }

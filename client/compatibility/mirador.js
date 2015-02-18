@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2015-01-27
+//! Built on 2015-02-09
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -6978,7 +6978,7 @@ window.Mirador = window.Mirador || function(config) {
    */
   $.DEFAULT_SETTINGS = {
 
-    'workspaceAutoSave': false,
+    'workspaceAutoSave': true,
 
     'showNoImageChoiceOption': true,
 
@@ -9891,8 +9891,6 @@ jQuery.fn.scrollStop = function(callback) {
     this.parent.element.find('.mirador-widget-content').addClass(this.imageViewBgCls);
 
     this.currentImg = this.imagesList[this.currentImgIndex];
-    console.log(this.currentImg);
-    console.log($.getMetadataByManifestId(this.manifestId));
   };
 
 
@@ -11176,7 +11174,6 @@ jQuery.fn.scrollStop = function(callback) {
 
       anno.addHandler('onAnnotationCreated', function(annotation) {
         var annoObject = annotation;
-        console.log(self.currentImg.height);
         //we flip the y value because of differences in how annotorius and mirador conside the 0,0 point
         Meteor.call("saveAnnotoriusAnnos", annotation.src, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
 
@@ -11668,7 +11665,6 @@ jQuery.fn.scrollStop = function(callback) {
 
 
       buildWidgetJSON = function(widget) {
-
         var widgetState = {
           height: widget.getHeight(),
           width: widget.getWidth(),
@@ -11677,7 +11673,8 @@ jQuery.fn.scrollStop = function(callback) {
         };
 
         if (widgetState.type === 'imageView') {
-          widgetState.openAt = widget.openAt,
+          // widgetState.openAt = widget.openAt,
+          widgetState.openAt = widget.viewObj.currentImg.title,
 
           widgetState.zoomState = (function(bounds) {
             return {
@@ -11735,13 +11732,13 @@ jQuery.fn.scrollStop = function(callback) {
 
         configData.data.push(manifestEntry);
       });
-
       return JSON.stringify(configData);
     },
 
     save : function() {
       if ($.viewer) {
-        localStorage.setItem('Mirador_data', this.buildJSON());
+        // localStorage.setItem('Mirador_data', this.buildJSON());
+        Meteor.call("saveWorkSpace", this.buildJSON(), Meteor.userId(), Session.get("current_project"));
       }
 
       setTimeout(function() {

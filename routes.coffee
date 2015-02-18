@@ -25,6 +25,8 @@ Router.map ->
         @redirect "home"
       else
         @render()
+    onStop: ->
+      #delete Mirador
 
   @route 'files',
     path: '/files'
