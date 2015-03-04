@@ -43,4 +43,17 @@ Meteor.methods({
     Meteor.call('removeUserFromProject', projectId, userId)
     Projects.update({_id: projectId},
                     {$addToSet: {permissions: {user: userId, level: role}}})
+
+
+  saveNewProject: (name, uid, workspaces) ->
+    newProject = {}
+    newProject.projectName = name
+    newProject.permissions = []
+    newProject.miradorData = []
+    newProject.permissions.push {"level": "admin", "user": uid}
+
+    for space in workspaces
+      uri = space.manifestUri.split "/manifest/"
+      newProject.miradorData.push {"manifestId": uri[1].split("/")[0], "widgets": space.widgets}
+    Projects.insert newProject
 })

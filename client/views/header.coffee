@@ -28,4 +28,7 @@ Template.header.events({
 
 	"click .js-toggle-desk-panel": ->
 		$('.desk-document-panel').toggleClass('is-open')
+
+	"click #saveAsProject": ->
+		$('.desk-save-panel').toggleClass('is-open')
 })
