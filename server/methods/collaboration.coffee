@@ -55,5 +55,6 @@ Meteor.methods({
     for space in workspaces
       uri = space.manifestUri.split "/manifest/"
       newProject.miradorData.push {"manifestId": uri[1].split("/")[0], "widgets": space.widgets}
-    Projects.insert newProject
+    newProjectId = Projects.insert newProject
+    newProjectId
 })

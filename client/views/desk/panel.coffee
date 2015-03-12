@@ -9,7 +9,13 @@ Template.savePanel.events
     $('.desk-save-panel').removeClass('is-open');
 
   "click #saveAsProject": ->
-    name = $("#newGroupName").val()
-    workspaces = Workspaces.find("user": Meteor.userId(), "project": Session.get("current_project")).fetch()
+    if $("#newGroupName").val() != ""
 
-    Meteor.call("saveNewProject", name, Meteor.userId(), workspaces)
+      name = $("#newGroupName").val()
+      workspaces = Workspaces.find("user": Meteor.userId(), "project": Session.get("current_project")).fetch()
+
+      Meteor.call("saveNewProject", name, Meteor.userId(), workspaces, (err, data) ->
+        Session.set "current_project", data
+        $('.desk-save-panel').removeClass('is-open');
+        Router.go "collaboration"
+      )
