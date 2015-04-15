@@ -20,3 +20,6 @@ Template.mirador.rendered = ->
   # Mirador thisObject
 
   Meteor.miradorFunctions.loadMirador()
+  $( -> 
+    $("#editorWindow").draggable()
+  )
