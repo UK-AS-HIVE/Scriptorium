@@ -19,3 +19,16 @@ Template.savePanel.events
         $('.desk-save-panel').removeClass('is-open');
         Router.go "collaboration"
       )
+
+Template.editorPanel.rendered = ->
+  console.log "rendered: " + this.data.eId
+  myId = "#editorWindow-" + this.data.eId
+  $( -> 
+    $(myId).draggable()
+  )
+  CKEDITOR.replace("editor-" + this.data.eId)
+
+Template.editorPanel.helpers
+  editorId: ->
+    console.log this
+    return this.eId

@@ -32,3 +32,26 @@
     </div>
   </div>
 </template>
+
+<template name="editorPanel">
+  <div id="editorWindow-{{editorId}}" class="editor-draggable ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-draggable ui-resizable">
+    <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+      <span class="ui-dialog-title">Editor - {{editorId}}</span>
+      <div class="ui-dialog-titlebar-buttonpane">
+        <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close">
+          <span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>
+        </button>
+        <a href="#" class="ui-dialog-titlebar-collapse ui-corner-all ui-state-default">
+          <span class="ui-icon ui-icon-minus"></span>
+        </a>
+        <a href="#" class="ui-dialog-titlebar-collapse ui-corner-all ui-state-default">
+          <span class="ui-icon ui-icon-arrow-4-diag"></span>
+        </a>
+      </div>
+    </div>
+    <div class="mirador-widget ui-dialog-content ui-widget-content ui-dialog-normal"></div>
+    <div id="editorDiv-{{editorId}}">
+      <textarea name="editor-{{editorId}}" id="editor-{{editorId}}"></textarea>
+    </div>
+  </div>
+</template>
