@@ -58,3 +58,7 @@ Meteor.miradorFunctions =
 
 			thisObject["data"].push({"manifestUri": maniUri, "location": item["manifestLocation"], "title": item["manifestTitle"], "widgets": widgets})
 		Mirador thisObject
+
+	newDoc: (filename) ->
+		$("#newDocName").val(filename)
+		$('.desk-new-doc-panel').toggleClass('is-open')

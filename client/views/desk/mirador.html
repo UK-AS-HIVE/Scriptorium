@@ -2,9 +2,12 @@
 
 	<div id="viewer">
 
-		{{> editorPanel eId="1"}}
-		{{> editorPanel eId="2"}}
+    {{#each getOpenEditors}}
+      {{> editorPanel eId=this._id}}
+    {{/each}}
+
 		{{> deskPanel}}
 		{{> savePanel}}
+		{{> newDocPanel}}
 	</div>
 </template>

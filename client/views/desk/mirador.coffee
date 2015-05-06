@@ -20,3 +20,9 @@ Template.mirador.rendered = ->
   # Mirador thisObject
 
   Meteor.miradorFunctions.loadMirador()
+
+Template.mirador.helpers
+  getOpenEditors: ->
+    FileCabinet.find({'project': Session.get('current_project'), 'open': true})
+  foo: ->
+    console.log eId

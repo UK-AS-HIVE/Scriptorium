@@ -2,7 +2,7 @@
   <div class="desk-document-panel">
     <i class="fa fa-times js-close-panel"></i>
     <ul class="page-list file-cabinet">
-      <li>
+<!--       <li>
         <i class="file-icon fa fa-file-o"></i>
         <div class="meta">
           <strong>Hi-Res Manuscript Image</strong>
@@ -15,7 +15,18 @@
           <strong>Hi-Res Manuscript Image</strong>
           <small>manuscript.jpg - 2MB</small>
         </div>
-      </li>
+      </li> -->
+      {{#each documents}}
+          <li>
+            <div class="editorItem">
+              <i class="file-icon fa fa-file-o"></i>
+              <div class="meta">
+                <strong>{{title}}</strong>
+                <small>Editor Document</small>
+              </div>
+            </div>
+          </li>
+      {{/each}}
     </ul>
   </div>
 </template>
@@ -36,22 +47,38 @@
 <template name="editorPanel">
   <div id="editorWindow-{{editorId}}" class="editor-draggable ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-draggable ui-resizable">
     <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-      <span class="ui-dialog-title">Editor - {{editorId}}</span>
+      <span class="ui-dialog-title">Editor - {{editorTitle}}</span>
       <div class="ui-dialog-titlebar-buttonpane">
         <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close">
-          <span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>
+          <span class="ui-button-icon-primary ui-icon ui-icon-closethick editor-close"></span>
         </button>
         <a href="#" class="ui-dialog-titlebar-collapse ui-corner-all ui-state-default">
+          <span class="fa fa-floppy-o editor-save"></span>
+        </a>
+<!--         <a href="#" class="ui-dialog-titlebar-collapse ui-corner-all ui-state-default">
           <span class="ui-icon ui-icon-minus"></span>
         </a>
         <a href="#" class="ui-dialog-titlebar-collapse ui-corner-all ui-state-default">
           <span class="ui-icon ui-icon-arrow-4-diag"></span>
-        </a>
+        </a> -->
       </div>
     </div>
     <div class="mirador-widget ui-dialog-content ui-widget-content ui-dialog-normal"></div>
     <div id="editorDiv-{{editorId}}">
-      <textarea name="editor-{{editorId}}" id="editor-{{editorId}}"></textarea>
+      <textarea name="editor-{{editorId}}" id="editor-{{editorId}}">{{content}}</textarea>
+    </div>
+  </div>
+</template>
+
+<template name="newDocPanel">
+  <div class="desk-new-doc-panel">
+    <i class="fa fa-times js-close-panel"></i>
+    <div>
+      New document name: 
+      <br />
+      <input type="text" id="newDocName" />
+      <br />
+      <input type="button" id="saveAsDocument" value="Save" />
     </div>
   </div>
 </template>
