@@ -29,7 +29,6 @@ Template.savePanel.events
       )
 
 Template.newDocPanel.events
-
   "click .js-close-panel": ->
     $('.desk-new-doc-panel').removeClass('is-open')
 
