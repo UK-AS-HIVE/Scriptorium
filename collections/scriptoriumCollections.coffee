@@ -1,5 +1,6 @@
 @AvailableManifests = new Meteor.Collection('availablemanifests')
 @FileCabinet = new Meteor.Collection('filecabinet')
+@OpenDocs = new Meteor.Collection('opendocs')
 # class @folioItems extends Minimongoid
 # 	 @_collection: new Meteor.Collection('folioitems')
 @folioItems = new Meteor.Collection('folioitems')

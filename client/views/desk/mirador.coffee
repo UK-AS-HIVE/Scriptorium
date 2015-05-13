@@ -23,4 +23,4 @@ Template.mirador.rendered = ->
 
 Template.mirador.helpers
   getOpenEditors: ->
-    FileCabinet.find({'project': Session.get('current_project'), 'open': true})
+    OpenDocs.find({'user': Meteor.userId(), 'project': Session.get('current_project')})

@@ -5,7 +5,8 @@ Template.deskPanel.events
 
   "click .editorItem": ->
     console.log this
-    FileCabinet.update({'_id': this._id}, {$set: {'open': true}})
+    # FileCabinet.update({'_id': this._id}, {$set: {'open': true}})
+    Meteor.call("openDoc", Meteor.userId(), Session.get('current_project'), this._id)
 
 Template.deskPanel.helpers
   documents: ->
@@ -28,10 +29,6 @@ Template.savePanel.events
         Router.go "collaboration"
       )
 
-Template.newDocPanel.events
-  "click .js-close-panel": ->
-    $('.desk-new-doc-panel').removeClass('is-open')
-
 Template.editorPanel.rendered = ->
   console.log "rendered: " + this.data.eId
   myId = "#editorWindow-" + this.data.eId
@@ -42,6 +39,7 @@ Template.editorPanel.rendered = ->
 
 Template.editorPanel.helpers
   editorId: ->
+    console.log this
     return this.eId
   editorTitle: ->
     record = FileCabinet.findOne({'_id': this.eId})
@@ -53,13 +51,20 @@ Template.editorPanel.helpers
 Template.editorPanel.events
   "click .editor-close": ->
     console.log "close" + JSON.stringify(this)
-    FileCabinet.update({'_id': this.eId}, {$set: {'open': false}})
+    Meteor.call("closeDoc", Meteor.userId(), Session.get('current_project'), this.eId)
 
   "click .editor-save": ->
     console.log this
     FileCabinet.update({'_id': this.eId}, {$set: {'content': CKEDITOR.instances["editor-" + this.eId].getData()}})
 
 Template.newDocPanel.events
+
   "click #saveAsDocument": ->
     console.log "clicked save"
-    Meteor.call("getNewEditorId", Meteor.userId(), Session.get('current_project'), $("#newDocName").val())
+    Meteor.call("getNewEditorId", Meteor.userId(), Session.get('current_project'), $("#newDocName").val(), (err, res) -> 
+      Meteor.call("openDoc", Meteor.userId(), Session.get('current_project'), res)
+    )
+
+Template.newDocPanel.events
+  "click .js-close-panel": ->
+    $('.desk-new-doc-panel').removeClass('is-open')

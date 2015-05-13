@@ -17,6 +17,22 @@ Meteor.methods({
 			'title': title
 		});
 		return newEditorID;
+	},
+
+	openDoc: function(user, project, docId){
+		OpenDocs.insert({
+			'user': user,
+			'project': project,
+			'document': docId
+		});
+	},
+
+	closeDoc: function(user, project, docId){
+		OpenDocs.remove({
+			'user': user,
+			'project': project,
+			'document': docId
+		});
 	}
 
 })

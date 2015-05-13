@@ -3,7 +3,7 @@
 	<div id="viewer">
 
     {{#each getOpenEditors}}
-      {{> editorPanel eId=this._id}}
+      {{> editorPanel eId=this.document}}
     {{/each}}
 
 		{{> deskPanel}}
