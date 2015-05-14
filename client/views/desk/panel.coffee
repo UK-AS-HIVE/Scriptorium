@@ -12,6 +12,14 @@ Template.deskPanel.helpers
   documents: ->
     FileCabinet.find({'project': Session.get('current_project')})
 
+  isOpen: ->
+    console.log "isOpen " + this
+    docArray = OpenDocs.findOne({'user': Meteor.userId(), 'project': Session.get('current_project'), 'document': this['_id']})
+    if docArray.length != 0
+      true
+    else
+      false
+
 Template.savePanel.events
 
   "click .js-close-panel": ->
@@ -56,6 +64,10 @@ Template.editorPanel.events
   "click .editor-save": ->
     console.log this
     FileCabinet.update({'_id': this.eId}, {$set: {'content': CKEDITOR.instances["editor-" + this.eId].getData()}})
+    $('#docSavedModal').modal('show')
+
+  "click #docSavedOk": ->
+    console.log "saved"
 
 Template.newDocPanel.events
 

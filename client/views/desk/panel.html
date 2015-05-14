@@ -2,29 +2,25 @@
   <div class="desk-document-panel">
     <i class="fa fa-times js-close-panel"></i>
     <ul class="page-list file-cabinet">
-<!--       <li>
-        <i class="file-icon fa fa-file-o"></i>
-        <div class="meta">
-          <strong>Hi-Res Manuscript Image</strong>
-          <small>manuscript.jpg - 2MB</small>
-        </div>
-      </li>
-      <li>
-        <i class="file-icon fa fa-file-o"></i>
-        <div class="meta">
-          <strong>Hi-Res Manuscript Image</strong>
-          <small>manuscript.jpg - 2MB</small>
-        </div>
-      </li> -->
       {{#each documents}}
           <li>
-            <div class="editorItem">
-              <i class="file-icon fa fa-file-o"></i>
-              <div class="meta">
-                <strong>{{title}}</strong>
-                <small>Editor Document</small>
+            {{#if isOpen}}
+              <div class="openEditorItem">
+                <i class="file-icon fa fa-file-o"></i>
+                <div class="meta">
+                  <strong>{{title}}</strong>
+                  <small>Editor Document - Open</small>
+                </div>
               </div>
-            </div>
+            {{else}}
+              <div class="editorItem">
+                <i class="file-icon fa fa-file-o"></i>
+                <div class="meta">
+                  <strong>{{title}}</strong>
+                  <small>Editor Document</small>
+                </div>
+              </div>
+            {{/if}}            
           </li>
       {{/each}}
     </ul>
