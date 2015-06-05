@@ -34,6 +34,7 @@ Meteor.miradorFunctions =
 		# $(".mirador-status-bar").remove()
 		$("[class^='mirador']").remove()	
 		$("[class^='load-window']").off()	
+		
 
 		thisObject = {"id": "viewer", "data": []}
 		myMani = AvailableManifests.find({$or: [{"project": "Default"}, {"project": Session.get("current_project")}]}).fetch()
