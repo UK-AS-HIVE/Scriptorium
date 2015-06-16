@@ -13,73 +13,28 @@
     <!-- CONTENT CONTAINER -->
     <div class="page-content">
 
-      <!-- IF NO FILES -->
-      <!-- <div class="nofiles">
-        <p>You don't have any files yet.</p>
-        <a href="#" class="btn btn-lg btn-default"><i class="fa fa-cloud-upload"></i> Upload New File</a>
-      </div> -->
-
-      <!-- FILE LIST -->
-      <ul class="page-list file-cabinet">
-        <li>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search file cabinet..."/>
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-            </span>
-          </div>
-        </li>
-        <li>
-          <i class="file-icon fa fa-file-o"></i>
-          <div class="actions">
-            <a class="btn btn-default"><i class="fa fa-download"></i> Download</a>
-            <a class="btn btn-default"><i class="fa fa-folder-open-o"></i> Open in Desk</a>
-            <br/><a class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
-          </div>
-          <div class="meta">
-            <strong>Hi-Res Manuscript Image</strong>
-            <small>manuscript.jpg - 2MB</small>
-            <small>by Abigail Firey on 7/16/14</small>
-            <small>Etiam ultrices hendrerit lacinia. Phasellus malesuada nisi quam, non iaculis dolor consequat eget. Phasellus pulvinar iaculis magna, eu ultricies mauris tempor id.</small>
-          </div>
-        </li>
-        <li>
-          <i class="file-icon fa fa-file-o"></i>
-          <div class="actions">
-            <a class="btn btn-default"><i class="fa fa-download"></i> Download</a>
-            <a class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
-          </div>
-          <div class="meta">
-            <strong>Hi-Res Manuscript Image</strong>
-            <small>manuscript.jpg - 2MB</small>
-            <small>by Abigail Firey on 7/16/14</small>
-          </div>
-        </li>
-        <li>
-          <i class="file-icon fa fa-file-o"></i>
-          <div class="actions">
-            <a class="btn btn-default"><i class="fa fa-download"></i> Download</a>
-            <a class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
-          </div>
-          <div class="meta">
-            <strong>Hi-Res Manuscript Image</strong>
-            <small>manuscript.jpg - 2MB</small>
-            <small>by Abigail Firey on 7/16/14</small>
-          </div>
-        </li>
-        <li>
-          <i class="file-icon fa fa-file-o"></i>
-          <div class="actions">
-            <a class="btn btn-default"><i class="fa fa-download"></i> Download</a>
-            <a class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
-          </div>
-          <div class="meta">
-            <strong>Hi-Res Manuscript Image</strong>
-            <small>manuscript.jpg - 2MB</small>
-            <small>by Abigail Firey on 7/16/14</small>
-          </div>
-        </li>
-      </ul>
+      {{#if areFiles}}
+        <ul class="page-list file-cabinet">
+          {{#each files}}
+            <li>
+              <i class="file-icon fa fa-file-o"></i>
+              <div class="actions">
+                <a class="btn btn-danger delete"><i class="fa fa-trash-o"></i> Delete</a>
+              </div>
+              <div class="meta">
+                <strong>{{title}}</strong>
+                <small>{{fileType}}</small>
+                <small>by {{docAuthor}} on {{date}}</small>
+              </div>
+            </li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <div class="nofiles">
+          <p>You don't have any files yet.</p>
+          <a href="#" class="btn btn-lg btn-default"><i class="fa fa-cloud-upload"></i> Upload New File</a>
+        </div>
+      {{/if}}
     </div>
 
   </div>
@@ -103,4 +58,20 @@
     </div>
   </div>
 
+  <!-- confirm delete modal -->
+  <div class="modal fade" id="confirmDelete">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <div class="row">
+            Are you sure you want to delete this file?
+          </div>
+          <a href="#" class="btn btn-default" id="deleteCancel">Cancel</a>
+          <a href="#" class="btn btn-danger" id="deleteOk">OK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>
+
