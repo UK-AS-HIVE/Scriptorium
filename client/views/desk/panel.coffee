@@ -8,6 +8,10 @@ Template.deskPanel.events
     # FileCabinet.update({'_id': this._id}, {$set: {'open': true}})
     Meteor.call("openDoc", Meteor.userId(), Session.get('current_project'), this._id)
 
+  "click .doc-panel-delete": ->
+    Session.set "fc_file_to_del", this._id
+    $("#confirmDeletePanel").modal('show') 
+
 Template.deskPanel.helpers
   documents: ->
     FileCabinet.find({'project': Session.get('current_project')})

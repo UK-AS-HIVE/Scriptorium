@@ -22,11 +22,7 @@ Template.files.events
     $("#confirmDelete").modal('show')
 
   "click #deleteOk": ->
-    console.log Session.get "fc_file_to_del"
-    isOpen = OpenDocs.findOne({"document": Session.get "fc_file_to_del"})
-    if isOpen?
-      OpenDocs.remove({"_id": isOpen["_id"]})
-    FileCabinet.remove({"_id": Session.get "fc_file_to_del"})
+    Meteor.call("deleteEditorDoc", Session.get "fc_file_to_del")
     $("#confirmDelete").modal('hide')
 
   "click #deleteCancel": ->
