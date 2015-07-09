@@ -37,7 +37,11 @@ Meteor.miradorFunctions =
 		
 
 		thisObject = {"id": "viewer", "data": []}
-		myMani = AvailableManifests.find({$or: [{"project": "Default"}, {"project": Session.get("current_project")}]}).fetch()
+		currentProject = Session.get("current_project")
+		if currentProject == "Free Space"
+			myMani = AvailableManifests.find({$or: [{"project": "Default", "user": "Default"}, {"project": "Free Space", "user": Meteor.userId()}]}).fetch()
+		else
+			myMani = AvailableManifests.find({$or: [{"project": "Default", "user": "Default"}, {"project": currentProject}]}).fetch()
 		root = Meteor.absoluteUrl()
 
 		for item in myMani
