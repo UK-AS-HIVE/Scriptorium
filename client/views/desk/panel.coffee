@@ -40,10 +40,6 @@ Template.savePanel.events
       # got a new prohect ID
       Meteor.call("saveNewProject", name, Meteor.userId(), workspaces, (err, data) ->
 
-        console.log "----------------------"
-
-        console.log workspaces
-
         for space in workspaces
           if space.widgets.length > 0
             uri = space.manifestUri.split("/manifest/");
