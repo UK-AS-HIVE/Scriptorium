@@ -3,7 +3,6 @@ Meteor.methods({
         HTTP.get(URL, function(err, result){
             console.log("in the thing");
             if(result.statusCode == 200){
-                console.log("it works");
                 AvailableManifests.insert({
                     user: user,
                     project: project,
@@ -16,6 +15,30 @@ Meteor.methods({
         });
 
 	},
+
+    shareManifests: function(user, newProject, sharedManifest, widgets){
+
+        newManifest = AvailableManifests.insert({
+            user: user,
+            project: newProject,
+            manifestPayload: sharedManifest.payload,
+            manifestLocation: sharedManifest.location,
+            manifestTitle: sharedManifest.title
+        });
+        return {"id": newManifest, "widgets": widgets, "project": newProject}
+        
+    },
+
+    addDataToProject: function(project, manifestId, widgets){
+        manifestData = {
+            manifestId: manifestId,
+            widgets: widgets
+        }
+
+        Projects.update({"_id": project}, {$push: {"miradorData": manifestData}})
+
+
+    },
 
     saveWorkSpace: function(workspace, user, project){
         workspaceJSON = JSON.parse(workspace);
