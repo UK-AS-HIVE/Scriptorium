@@ -12,9 +12,16 @@
 
     <!-- CONTENT CONTAINER -->
     <div class="page-content">
-
       {{#if areFiles}}
         <ul class="page-list file-cabinet">
+          <li>
+            <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Search</button>
+              </span>
+            </div>
+          </li>
           {{#each files}}
             <li>
               <i class="file-icon fa fa-file-o"></i>
