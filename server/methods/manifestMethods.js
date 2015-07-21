@@ -25,7 +25,7 @@ Meteor.methods({
             manifestLocation: sharedManifest.location,
             manifestTitle: sharedManifest.title
         });
-        return {"id": newManifest, "widgets": widgets, "project": newProject}
+        return {"id": newManifest, "widgets": widgets, "project": newProject};
         
     },
 
@@ -33,14 +33,19 @@ Meteor.methods({
         manifestData = {
             manifestId: manifestId,
             widgets: widgets
-        }
+        };
 
-        Projects.update({"_id": project}, {$push: {"miradorData": manifestData}})
+        Projects.update({"_id": project}, {$push: {"miradorData": manifestData}});
 
 
     },
 
+    testingStuff: function(){
+        console.log("things");
+    },
+
     saveWorkSpace: function(workspace, user, project){
+        console.log("saving workspace");
         workspaceJSON = JSON.parse(workspace);
         for(i = 0; i < workspaceJSON.data.length; i++){
             Workspaces.upsert({"user": user, "project": project, "manifestUri": workspaceJSON.data[i].manifestUri}, {$set: {"widgets": workspaceJSON.data[i].widgets}})         

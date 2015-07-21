@@ -43,15 +43,14 @@ Template.savePanel.events
         for space in workspaces
           if space.widgets.length > 0
             uri = space.manifestUri.split("/manifest/");
-            mani = AvailableManifests.findOne({"_id": uri[1].split("/")[0]})
+            id = uri[1].split("/")
+            mani = AvailableManifests.findOne({"_id": id[0]})
             newMani = {}
             newMani.location = mani.manifestLocation
             newMani.payload = mani.manifestPayload
             newMani.title = mani.manifestTitle
 
             Meteor.call("shareManifests", Meteor.userId(), data, newMani, space.widgets, (err, data) ->
-              console.log "data: " + data.id
-              console.log "space: " + JSON.stringify(data.widgets)
               Meteor.call("addDataToProject", data.project, data.id, data.widgets)
             )
 
