@@ -45,7 +45,6 @@ Meteor.methods({
     },
 
     saveWorkSpace: function(workspace, user, project){
-        console.log("saving workspace");
         workspaceJSON = JSON.parse(workspace);
         for(i = 0; i < workspaceJSON.data.length; i++){
             Workspaces.upsert({"user": user, "project": project, "manifestUri": workspaceJSON.data[i].manifestUri}, {$set: {"widgets": workspaceJSON.data[i].widgets}})         
