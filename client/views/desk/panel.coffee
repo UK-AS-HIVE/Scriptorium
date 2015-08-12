@@ -17,7 +17,6 @@ Template.deskPanel.helpers
     FileCabinet.find({'project': Session.get('current_project')})
 
   isOpen: ->
-    console.log "isOpen " + this
     docArray = OpenDocs.findOne({'user': Meteor.userId(), 'project': Session.get('current_project'), 'document': this['_id']})
     if docArray.length != 0
       true
@@ -60,7 +59,6 @@ Template.savePanel.events
       )
 
 Template.editorPanel.rendered = ->
-  console.log "rendered: " + this.data.eId
   myId = "#editorWindow-" + this.data.eId
   $( -> 
     $(myId).draggable()
@@ -69,7 +67,6 @@ Template.editorPanel.rendered = ->
 
 Template.editorPanel.helpers
   editorId: ->
-    console.log this
     return this.eId
   editorTitle: ->
     record = FileCabinet.findOne({'_id': this.eId})
@@ -80,11 +77,9 @@ Template.editorPanel.helpers
 
 Template.editorPanel.events
   "click .editor-close": ->
-    console.log "close" + JSON.stringify(this)
     Meteor.call("closeDoc", Meteor.userId(), Session.get('current_project'), this.eId)
 
   "click .editor-save": ->
-    console.log this
     FileCabinet.update({'_id': this.eId}, {$set: {'content': CKEDITOR.instances["editor-" + this.eId].getData()}})
     $('#docSavedModal').modal('show')
 

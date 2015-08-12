@@ -1,2 +1,2 @@
-Template.editor.rendered = ->
-	CKEDITOR.replace('deskEditor')
+# Template.editor.rendered = ->
+# 	CKEDITOR.replace('deskEditor')
