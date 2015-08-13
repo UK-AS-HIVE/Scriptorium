@@ -4,8 +4,6 @@ Template.deskPanel.events
     $('.desk-document-panel').removeClass('is-open');
 
   "click .editorItem": ->
-    console.log this
-    # FileCabinet.update({'_id': this._id}, {$set: {'open': true}})
     Meteor.call("openDoc", Meteor.userId(), Session.get('current_project'), this._id)
 
   "click .doc-panel-delete": ->
