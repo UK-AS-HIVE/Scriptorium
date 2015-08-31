@@ -5,7 +5,7 @@ class @Manuscript extends Minimongoid
     "Amharic"
     "Armenian"
     "Coptic"
-    "Ge'ez"
+    "Gǝʿǝz" #changed from "Ge'ez" - changed in DB
     "Latin"
     "Syriac"
   ]
@@ -16,7 +16,7 @@ class @Manuscript extends Minimongoid
     "Armenian"
     "Church Slavonic"
     "Coptic"
-    "Ge'ez"
+    "Gǝʿǝz" #changed from "Ge'ez" - Changed in DB
     "Georgian"
     "Greek"
     "Hebrew"
@@ -28,7 +28,7 @@ class @Manuscript extends Minimongoid
     "Russian"
     "Syriac"
     "Turkish"
-    "Ukranian"
+    "Ukrainian" #changed from "Ukranian" - changed in db
   ]
 
   @alphabet: [
@@ -36,10 +36,10 @@ class @Manuscript extends Minimongoid
     "Armenian"
     "Coptic"
     "Cyrillic"
-    "Ge'ez"
+    "Gǝʿǝz" #changed from "Ge'ez" - changed in DB
     "Georgian"
     "Greek"
-    "Hebrew (or Armanic)"
+    "Hebrew or Armanic" #changed from "Hebrew (or Armanic)" - changed in db
     "Roman"
     "Syriac"
   ]
