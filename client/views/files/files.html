@@ -6,8 +6,7 @@
     <div class="sidebar">
       <h2><i class="fa fa-archive"></i> File Cabinet</h2>
       <p>File Cabinet is where you add and store files for reviewing and editing on your <a href="/desk">Desk</a>.</p>
-      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-image-o"></i> Upload New Image</a>
-      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-text-o"></i> Upload New Document</a>
+      <a href="#" class="btn btn-primary btn-block fileUpload"><i class="fa fa-file-text-o"></i> Upload New File</a>
     </div>
 
     <!-- CONTENT CONTAINER -->
@@ -39,7 +38,7 @@
       {{else}}
         <div class="nofiles">
           <p>You don't have any files yet.</p>
-          <a href="#" class="btn btn-lg btn-default"><i class="fa fa-cloud-upload"></i> Upload New File</a>
+          <a href="#" class="btn btn-lg btn-default fileUpload"><i class="fa fa-cloud-upload"></i> Upload New File</a>
         </div>
       {{/if}}
     </div>
@@ -58,7 +57,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Save File</button>
+          <button type="button" class="btn btn-primary" id="fileUpload"><i class="fa fa-save"></i> Save File</button>
         </div>
       </div>
     </div>

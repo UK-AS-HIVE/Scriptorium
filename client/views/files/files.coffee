@@ -28,3 +28,7 @@ Template.files.events
 
   "click #deleteCancel": ->
     $("#confirmDelete").modal('hide')
+
+  "click .fileUpload": ->
+    Media.pickLocalFile (fileId) ->
+      console.log "file: " + fileId
