@@ -13,6 +13,17 @@ Template.files.helpers
   files: ->
     FileCabinet.find({'project': Session.get('current_project')})
 
+  isEditorFile: ->
+    if this.fileType == "editor"
+      true
+    else
+      false
+
+  getFileName: ->
+    console.log this
+    file = FileRegistry.findOne("_id": this.content)
+    file.filenameOnDisk
+
 
 Template.files.events
 
@@ -31,4 +42,4 @@ Template.files.events
 
   "click .fileUpload": ->
     Media.pickLocalFile (fileId) ->
-      console.log "file: " + fileId
+      Meteor.call 'saveFileToProject', fileId, Meteor.userId(), Session.get('current_project')

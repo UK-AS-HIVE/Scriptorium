@@ -28,7 +28,13 @@
                 <a class="btn btn-danger delete"><i class="fa fa-trash-o"></i> Delete</a>
               </div>
               <div class="meta">
-                <strong>{{title}}</strong>
+                <strong>
+                  {{#if isEditorFile}}
+                    {{title}}
+                  {{else}}
+                    <a href="/file/{{getFileName}}" target="_new">{{title}}</a>
+                  {{/if}}
+                </strong>
                 <small>{{fileType}}</small>
                 <small>by {{docAuthor}} on {{date}}</small>
               </div>
@@ -45,7 +51,7 @@
   </div>
 
   <!-- Upload Modal -->
-  <div class="modal fade" id="filesUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--   <div class="modal fade" id="filesUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -62,7 +68,7 @@
       </div>
     </div>
   </div>
-
+ -->
   <!-- confirm delete modal -->
   <div class="modal fade" id="confirmDelete">
     <div class="modal-dialog modal-sm">

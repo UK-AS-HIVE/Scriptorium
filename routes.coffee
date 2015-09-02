@@ -174,6 +174,10 @@ Router.map ->
       this.response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
       this.response.end(JSON.stringify(annotationList))
 
+  @route 'serveFile',
+    path: '/file/:filename'
+    where: 'server'
+    action: FileRegistry.serveFile
 
   @route 'notFound',
     path: '*'
