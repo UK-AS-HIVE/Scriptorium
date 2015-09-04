@@ -39,7 +39,7 @@ class @Manuscript extends Minimongoid
     "Gǝʿǝz" #changed from "Ge'ez" - changed in DB
     "Georgian"
     "Greek"
-    "Hebrew or Armanic" #changed from "Hebrew (or Armanic)" - changed in db
+    "Hebrew or Aramaic" #changed from "Hebrew (or Armanic)" - changed in db
     "Roman"
     "Syriac"
   ]
