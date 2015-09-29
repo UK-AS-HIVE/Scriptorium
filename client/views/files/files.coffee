@@ -20,7 +20,6 @@ Template.files.helpers
       false
 
   getFileName: ->
-    console.log this
     file = FileRegistry.findOne("_id": this.content)
     file.filenameOnDisk
 
@@ -28,7 +27,6 @@ Template.files.helpers
 Template.files.events
 
   "click .delete": ->
-    console.log this
     Session.set "fc_file_to_del", this._id
     $("#confirmDelete").modal('show')
 

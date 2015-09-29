@@ -1,5 +1,7 @@
 Meteor.startup ->
 
+  #index file cabinet items for search
+
   #fix db changes for Folio Items
   folioItems.update({"metadata.scriptLanguage": "Ge'ez"}, {$set: {"metadata.scriptLanguage": "Gǝʿǝz"}}, {multi: true})
   folioItems.update({"metadata.scriptAlphabet": "Ge'ez"}, {$set: {"metadata.scriptAlphabet": "Gǝʿǝz"}}, {multi: true})
