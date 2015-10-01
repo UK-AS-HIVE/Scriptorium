@@ -7,6 +7,7 @@
 @Projects = new Meteor.Collection('projects')
 @Annotations = new Meteor.Collection('annotations')
 @Workspaces = new Meteor.Collection('workspaces')
+@Bookshelves = new Meteor.Collection('bookshelves')
 
 @ProjectPermissions = new Meteor.Collection('projectpermissions')
 
