@@ -30,98 +30,12 @@
             <a href="#" data-toggle="modal" data-target="#categoryModal"><i class="fa fa-pencil"></i></a>
           </div>
         </li>
-        {{#each items}}
-        <li draggable="true" style="border-left-color:{{../color}}">
-          <h3><a href="{{linkUrl}}" target="_blank"><i class="fa fa-globe"></i> {{linkName}}</a></h3>
-          <div class="actions">
-            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
-            <a href="#" class="red"><i class="fa fa-times"></i></a>
-          </div>
-        </li>
-        {{/each}}
-        {{/each}}
-
-        <!-- SHELF 2 -->
-<!--         <li class="shelf" style="background: #616D9F;">
-          Category 2
-          <div class="actions">
-            <a href="#" data-toggle="modal" data-target="#categoryModal"><i class="fa fa-pencil"></i></a>
-          </div>
-        </li>
-        <li draggable="true" style="border-left-color:#616D9F">
-          <h3><a href="#"><i class="fa fa-globe"></i> Cappelli abbreviations</a></h3>
-          <div class="actions">
-            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
-            <a href="#" class="red"><i class="fa fa-times"></i></a>
-          </div>
-        </li>
-        <li draggable="true" style="border-left-color:#616D9F">
-          <h3><a href="#"><i class="fa fa-globe"></i> Cassiodorus, Variae</a></h3>
-          <div class="actions">
-            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
-            <a href="#" class="red"><i class="fa fa-times"></i></a>
-          </div>
-        </li>
-        <li draggable="true" style="border-left-color:#616D9F">
-          <h3><a href="#"><i class="fa fa-globe"></i> Lewis & Short</a></h3>
-          <div class="actions">
-            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
-            <a href="#" class="red"><i class="fa fa-times"></i></a>
-          </div>
-        </li> -->
-
-        <!-- SHELF 3 -->
-<!--         <li class="shelf" style="background-color: #6A825E;">
-          Category 3
-          <div class="actions">
-            <a href="#" data-toggle="modal" data-target="#categoryModal"><i class="fa fa-pencil"></i></a>
-          </div>
-        </li>
-        <li draggable="true" style="border-left-color:#6A825E">
-          <h3><a href="#"><i class="fa fa-globe"></i> Cappelli abbreviations</a></h3>
-          <div class="actions">
-            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
-            <a href="#" class="red"><i class="fa fa-times"></i></a>
-          </div>
-        </li>
-        <li draggable="true" style="border-left-color:#6A825E">
-          <h3><a href="#"><i class="fa fa-globe"></i> Cassiodorus, Variae</a></h3>
-          <div class="actions">
-            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
-            <a href="#" class="red"><i class="fa fa-times"></i></a>
-          </div>
-        </li>
-        <li draggable="true" style="border-left-color:#6A825E">
-          <h3><a href="#"><i class="fa fa-globe"></i> Lewis & Short</a></h3>
-          <div class="actions">
-            <a href="#" class="black"><i class="fa fa-pencil"></i></a>
-            <a href="#" class="red"><i class="fa fa-times"></i></a>
-          </div>
-        </li> -->
+          {{>links id=../_id}}
+      {{/each}}
       </ul>
 
     </div>
   </div>
-
-  <!-- Upload Modal -->
-<!--   <div class="modal fade" id="filesUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title" id="myModalLabel">Upload New Document</h4>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Save File</button>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
   <!-- Link Modal -->
   <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -176,5 +90,16 @@
       </div>
     </div>
   </div>
+</template>
 
+<template name="links">
+  {{#each ../items}}
+    <li draggable="true" style="border-left-color:{{../color}}">
+      <h3><a href="{{linkUrl}}" target="_blank"><i class="fa fa-globe"></i> {{linkName}}</a></h3>
+      <div class="actions">
+        <a href="#" class="black"><i class="fa fa-pencil edit-link-btn"></i></a>
+        <a href="#" class="red delete-link-btn"><i class="fa fa-times"></i></a>
+      </div>
+    </li>
+  {{/each}}
 </template>
