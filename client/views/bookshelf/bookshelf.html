@@ -1,7 +1,5 @@
 <template name="bookshelf">
-
   <div class="bookshelf page-wrapper">
-
     <!-- SIDEBAR -->
     <div class="sidebar">
       <h2><i class="fa fa-book"></i> Bookshelf</h2>
@@ -23,17 +21,9 @@
 
       <ul class="books">
       {{#each bookshelf}}
-        <!-- SHELF 1 -->
-        <li class="shelf" style="background: {{color}};">
-          {{category}}
-          <div class="actions">
-            <a href="#" data-toggle="modal" data-target="#categoryModal"><i class="fa fa-pencil"></i></a>
-          </div>
-        </li>
-          {{>links id=../_id}}
+        {{>shelf}}
       {{/each}}
       </ul>
-
     </div>
   </div>
   <!-- Link Modal -->
@@ -90,16 +80,76 @@
       </div>
     </div>
   </div>
-</template>
 
-<template name="links">
-  {{#each ../items}}
-    <li draggable="true" style="border-left-color:{{../color}}">
-      <h3><a href="{{linkUrl}}" target="_blank"><i class="fa fa-globe"></i> {{linkName}}</a></h3>
-      <div class="actions">
-        <a href="#" class="black"><i class="fa fa-pencil edit-link-btn"></i></a>
-        <a href="#" class="red delete-link-btn"><i class="fa fa-times"></i></a>
+    <div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Category Name</label>
+            <input type="text" class="form-control edit-category-input" value = "{{currentCategoryName}}"/>
+          </div>
+          <div class="form-group">
+            <label>Category Color</label>
+            <div class="input-group color-picker">
+              <input type="text" class="form-control edit-category-color-input" value = "{{currentCategoryColor}}"/>
+              <span class="input-group-addon"><i></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary update-category-btn"><i class="fa fa-save"></i> Save Category</button>
+        </div>
       </div>
-    </li>
-  {{/each}}
+    </div>
+  </div>
+
+  <div class="modal fade" id="editLinkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Link Name</label>
+            <input type="text" class="form-control edit-link-name-input" value="{{linkNameValue}}"/>
+          </div>
+          <div class="form-group">
+            <label>Link URL</label>
+            <input type="text" class="form-control edit-link-url-input" value="{{linkUrlValue}}"/>
+          </div>
+          <!--           <div class="form-group">
+            <label>Category</label>
+            <select class="form-control category-select">
+              {{#each bookshelf}}
+                <option value="{{category}}">{{category}}</option>
+              {{/each}}
+            </select>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary save-edit-link-btn"><i class="fa fa-save"></i> Save Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<template name="shelf">
+        <!-- SHELF 1 -->
+        <li class="shelf" style="background: {{color}};">
+          {{category}}
+          <div class="actions">
+            <a href="#" data-toggle="modal"><i class="fa fa-pencil edit-category-btn"></i></a>
+          </div>
+        </li>
+          {{#each items}}
+            <li class="book" draggable="true" style="border-left-color:{{../color}}">
+              <h3><a href="{{linkUrl}}" target="_blank"><i class="fa fa-globe"></i> {{linkName}}</a></h3>
+              <div class="actions">
+                <a href="#" class="black"><i class="fa fa-pencil edit-link-btn" parentId ="{{../_id}}"></i></a>
+                <a href="#" class="red"><i class="fa fa-times delete-link-btn"  parentId ="{{../_id}}"></i></a>
+              </div>
+            </li>
+          {{/each}}
+
 </template>
