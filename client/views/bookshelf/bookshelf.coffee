@@ -18,14 +18,49 @@ Template.bookshelf.rendered = ->
   # SORTABLE
   @$(".books").sortable
     items: ":not(.shelf)"
+  
+  $('.books').sortable().bind 'sortupdate', (e, ui)->
+    el = ui.item.get(0)
+    elData = Blaze.getData(el)
+    before = ui.item.prev().get(0)
+    after = ui.item.next().get(0)
+    fromId = Blaze.getData(el).bookshelfId
+    toId = 0
+    if Blaze.getData(before).bookshelfId
+      toId = Blaze.getData(before).bookshelfId
+    else if Blaze.getData(before).category
+      toId = Blaze.getData(before)._id
+    console.log(fromId)
+    console.log(toId)
+    if (toId and fromId != toId)
+      Books.update(elData._id, {$set: {bookshelfId: toId}})
+    newRank = 0
+    console.log(Blaze.getData(before))
+    if (!before || Blaze.getData(before).category)
+        newRank = Blaze.getData(after).rank - 1
+    else  if (!after || Blaze.getData(after).category)
+        newRank = Blaze.getData(before).rank + 1
+    else
+      newRank = (Blaze.getData(before).rank + Blaze.getData(after).rank)/2
+    Books.update(elData._id, {$set: {rank: newRank}})
 
+    Meteor.setTimeout(->  
+      $(".books").sortable(
+        items: ":not(.shelf)"
+      )
+    ,1000)
+  @.autorun(->
+    books = Books.find({sort: {rank: 1}})
+    $(".books").sortable
+    items: ":not(.shelf)"
+  )
 
 Template.bookshelf.events
   'click .add-category-btn': (e, tmpl)->
     console.log("adding category")
     category = tmpl.find(".category-input").value
     categoryColor = tmpl.find(".category-color-input").value
-    id = 0
+    id = 1
     if (Bookshelves.findOne({category: category, project: Session.get("current_project")}))
       console.log("Category already exists")
       #error
@@ -51,31 +86,26 @@ Template.bookshelf.events
     linkName = tmpl.find(".link-name-input").value
     linkUrl = tmpl.find(".link-url-input").value
     category = tmpl.find(".category-select").value
-    id = Bookshelves.findOne({project: Session.get("current_project"), category: category})._id
-
-    Bookshelves.update(id, { $push: { items: {linkName: linkName, linkUrl: linkUrl}}})
-    if (id)
-      $('#linkModal').modal('hide')
+    bookshelfId = Bookshelves.findOne({project: Session.get("current_project"), category: category})._id
+    booksCount = Books.find({bookshelfId: bookshelfId}).count()
+    Books.insert({name: linkName, url: linkUrl, bookshelfId: bookshelfId, rank: booksCount + 1})
+    $('#linkModal').modal('hide')
 
   'click .delete-link-btn': (e,tmpl)->
-    parentId = e.target.getAttribute("parentId")
-    Bookshelves.update(parentId, {$pull: {items: @}})
+    Books.remove(@_id);
 
   'click .edit-link-btn': (e, tmpl) ->
-    parentId = e.target.getAttribute("parentId")
-    Session.set("linkNameValue", @linkName)
-    Session.set("linkUrlValue", @linkUrl)
-    Session.set("linkCategoryValue", Bookshelves.findOne(parentId).category)
-    Session.set("linkParentId", parentId)
+    Session.set("linkNameValue", @name)
+    Session.set("linkUrlValue", @url)
+    Session.set("linkCategoryValue", Bookshelves.findOne(@bookshelfId).category)
+    Session.set("editBookId", @_id)
     $('#editLinkModal').modal('show')
 
-  'click .save-edit-link-btn': (e, tmpl)->
-    parentId = Session.get("linkParentId")
+  'click .update-link-btn': (e, tmpl)->
     linkName = tmpl.find(".edit-link-name-input").value
     linkUrl = tmpl.find(".edit-link-url-input").value
-    item = {user: Meteor.userId(), linkName: Session.get("linkNameValue"), linkUrl: Session.get("linkUrlValue")}
-    Bookshelves.update(parentId, { $pop: { items: {linkName: linkName, linkUrl: linkUrl}}})
-    Bookshelves.update(parentId, { $push: { items: {linkName: linkName, linkUrl: linkUrl}}})
+    bookId = Session.get("editBookId")
+    Books.update(bookId, {$set: {name: linkName, url: linkUrl}})
     $('#editLinkModal').modal('hide')
 
 
@@ -83,6 +113,8 @@ Template.bookshelf.events
 Template.bookshelf.helpers
   bookshelf: ->
     return Bookshelves.find({project: Session.get("current_project")})
+  books: (bookshelfId)->
+    return Books.find({bookshelfId: bookshelfId}, {sort: {rank: 1}})
   linkNameValue: ->
     Session.get("linkNameValue")
   linkUrlValue: ->

@@ -21,7 +21,21 @@
 
       <ul class="books">
       {{#each bookshelf}}
-        {{>shelf}}
+        <li class="shelf" style="background: {{color}};">
+          {{category}}
+          <div class="actions">
+            <a href="#" data-toggle="modal"><i class="fa fa-pencil edit-category-btn"></i></a>
+          </div>
+        </li>
+          {{#each books _id}}
+            <li class="book" draggable="true" style="border-left-color:{{../color}}" parentId ="{{../_id}}">
+              <h3><a href="{{url}}" target="_blank"><i class="fa fa-globe"></i> {{name}}</a></h3>
+              <div class="actions">
+                <a href="#" class="black"><i class="fa fa-pencil edit-link-btn"></i></a>
+                <a href="#" class="red"><i class="fa fa-times delete-link-btn"></i></a>
+              </div>
+            </li>
+          {{/each}}
       {{/each}}
       </ul>
     </div>
@@ -128,28 +142,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary save-edit-link-btn"><i class="fa fa-save"></i> Save Link</button>
+          <button type="button" class="btn btn-primary update-link-btn"><i class="fa fa-save"></i> Save Link</button>
         </div>
       </div>
     </div>
   </div>
-</template>
-<template name="shelf">
-        <!-- SHELF 1 -->
-        <li class="shelf" style="background: {{color}};">
-          {{category}}
-          <div class="actions">
-            <a href="#" data-toggle="modal"><i class="fa fa-pencil edit-category-btn"></i></a>
-          </div>
-        </li>
-          {{#each items}}
-            <li class="book" draggable="true" style="border-left-color:{{../color}}">
-              <h3><a href="{{linkUrl}}" target="_blank"><i class="fa fa-globe"></i> {{linkName}}</a></h3>
-              <div class="actions">
-                <a href="#" class="black"><i class="fa fa-pencil edit-link-btn" parentId ="{{../_id}}"></i></a>
-                <a href="#" class="red"><i class="fa fa-times delete-link-btn"  parentId ="{{../_id}}"></i></a>
-              </div>
-            </li>
-          {{/each}}
-
 </template>
