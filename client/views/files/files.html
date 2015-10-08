@@ -21,9 +21,24 @@
               </span>
             </div>
           </li>
+          <li>
+            <div class="menu">
+              <label class="checkbox-inline">
+                <input type="checkbox" id="selectAll"> All
+              </label>
+              <span class="btn btn-success open-batch-btn">Open</span>
+              <span class="btn btn-primary move-batch-btn">Move</span>
+              <span class="btn btn-danger delete-batch-btn">Delete</span>
+            </div>
+          </li>
           {{#each files}}
             <li>
-              <i class="file-icon fa fa-file-o"></i>
+              <div class="checkbox-inline pull-left">
+              <label>
+                <input class="batch-checkbox" type="checkbox">
+                <i class="file-icon fa fa-file-o"></i>
+              </label>
+              </div>
               <div class="actions">
                 <a class="btn btn-danger delete"><i class="fa fa-trash-o"></i> Delete</a>
               </div>
@@ -80,6 +95,44 @@
           <a href="#" class="btn btn-default" id="deleteCancel">Cancel</a>
           <a href="#" class="btn btn-danger" id="deleteOk">OK</a>
         </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="modal fade" id="confirmBatchDelete">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <div class="row">
+            Are you sure you want to delete the selected files?
+          </div>
+          <a href="#" class="btn btn-default" id="deleteCancel" data-dismiss="modal">Cancel</a>
+          <a href="#" class="btn btn-danger" id="deleteBatchOk">OK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="modal fade" id="moveModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <div class="row">
+            Which project would you like to move these files to?
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select class="form-control new-project">
+              {{#each otherProject}}
+                <option value={{_id}}>{{projectName}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary submit-batch-move"><i class="fa fa-save"></i> Move Files</button>
+      </div>
       </div>
     </div>
   </div>
