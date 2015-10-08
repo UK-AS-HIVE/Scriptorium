@@ -26,8 +26,8 @@
               <label class="checkbox-inline">
                 <input type="checkbox" id="selectAll"> All
               </label>
-              <span class="btn btn-success open-batch-btn">Open</span>
-              <span class="btn btn-primary move-batch-btn">Move</span>
+<!--               <span class="btn btn-success open-batch-btn">Open</span>
+ -->              <span class="btn btn-primary move-batch-btn">Move</span>
               <span class="btn btn-danger delete-batch-btn">Delete</span>
             </div>
           </li>
@@ -40,6 +40,7 @@
               </label>
               </div>
               <div class="actions">
+                <a class="btn btn-primary move"><i class="fa fa-trash-o"></i> Move</a>
                 <a class="btn btn-danger delete"><i class="fa fa-trash-o"></i> Delete</a>
               </div>
               <div class="meta">
@@ -113,7 +114,32 @@
     </div>
   </div>
 
+
     <div class="modal fade" id="moveModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <div class="row">
+            Which project would you like to move this file to?
+          </div>
+          <div class="form-group">
+            <label>Project</label>
+            <select class="form-control new-project">
+              {{#each otherProject}}
+                <option value={{_id}}>{{projectName}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="moveOk"><i class="fa fa-save"></i> Move File</button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="modal fade" id="moveBatchModal">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body text-center">
@@ -121,8 +147,8 @@
             Which project would you like to move these files to?
           </div>
           <div class="form-group">
-            <label>Category</label>
-            <select class="form-control new-project">
+            <label>Project</label>
+            <select class="form-control new-project-batch">
               {{#each otherProject}}
                 <option value={{_id}}>{{projectName}}</option>
               {{/each}}

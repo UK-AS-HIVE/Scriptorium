@@ -43,6 +43,16 @@ Template.files.events
     Media.pickLocalFile (fileId) ->
       Meteor.call 'saveFileToProject', fileId, Meteor.userId(), Session.get('current_project')
 
+  "click .move": (e, tmpl)->
+    Session.set("fc_file_to_move", this._id)
+    $("#moveModal").modal('show')
+
+  "click #moveOk": (e, tmpl)->
+    id = Session.get("fc_file_to_move")
+    newProject = tmpl.find(".new-project").value
+    FileCabinet.update(id, {$set: {project: newProject}})
+    $("#moveModal").modal('hide')
+
   "click .delete-batch-btn": ->
     $("#confirmBatchDelete").modal('show')
 
@@ -52,23 +62,23 @@ Template.files.events
       Meteor.call("deleteEditorDoc", Blaze.getData(i)._id)
     $("#confirmBatchDelete").modal('hide')
 
-  "click .open-batch-btn": (e, tmpl)->
-    selected = tmpl.findAll(".batch-checkbox:checked")
-    console.log(selected)
-    for i in selected
-      path = "/file/"+ FileRegistry.findOne("_id": Blaze.getData(i).content).filenameOnDisk
-      window.open(path)
+  # "click .open-batch-btn": (e, tmpl)->
+  #   selected = tmpl.findAll(".batch-checkbox:checked")
+  #   console.log(selected)
+  #   for i in selected
+  #     path = "/file/"+ FileRegistry.findOne("_id": Blaze.getData(i).content).filenameOnDisk
+  #     window.open(path)
 
   "click .move-batch-btn": (e, tmpl)->
-    $("#moveModal").modal('show')
+    $("#moveBatchModal").modal('show')
 
   "click .submit-batch-move": (e, tmpl)->
     selected = tmpl.findAll(".batch-checkbox:checked")
-    newProject = tmpl.find(".new-project").value
+    newProject = tmpl.find(".new-project-batch").value
     for i in selected
       id = Blaze.getData(i)._id
       FileCabinet.update(id, {$set: {project: newProject}})
-    $("#moveModal").modal('hide')
+    $("#moveBatchModal").modal('hide')
 
   "click #selectAll": (e, tmpl)->
     all = tmpl.findAll(".batch-checkbox")
