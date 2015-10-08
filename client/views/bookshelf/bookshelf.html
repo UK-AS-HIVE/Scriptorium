@@ -13,12 +13,7 @@
     <!-- CONTENT CONTAINER -->
     <div class="page-content">
 
-      <!-- IF NO FILES -->
-      <!-- <div class="nofiles">
-        <p>You don't have any files yet.</p>
-        <a href="#" class="btn btn-lg btn-default"><i class="fa fa-cloud-upload"></i> Upload New File</a>
-      </div> -->
-
+      {{#if bookshelf.count}}
       <ul class="books">
       {{#each bookshelf}}
         <li class="shelf" style="background: {{color}};">
@@ -38,6 +33,13 @@
           {{/each}}
       {{/each}}
       </ul>
+      {{else}}
+      <!-- IF NO FILES -->
+      <div class="nofiles">
+        <p>You don't have any categories yet.</p>
+        <a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#categoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
+      </div>
+      {{/if}}
     </div>
   </div>
   <!-- Link Modal -->
