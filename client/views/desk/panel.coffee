@@ -58,10 +58,17 @@ Template.savePanel.events
 
 Template.editorPanel.rendered = ->
   myId = "#editorWindow-" + this.data.eId
+  eId = this.data.eId
   $( -> 
     $(myId).draggable()
+    $(myId).resizable({
+      resize: (event, ui) ->
+        CKEDITOR.instances['editor-' + eId].resize('100%', $(this).height() - 60)
+    })
   )
-  CKEDITOR.replace("editor-" + this.data.eId)
+  CKEDITOR.replace("editor-" + eId)
+  
+  
 
 Template.editorPanel.helpers
   editorId: ->
@@ -83,6 +90,10 @@ Template.editorPanel.events
 
   "click #docSavedOk": ->
     console.log "saved"
+
+  "click .cke_toolbox_collapser": (e, tmpl) ->
+    eId = tmpl.data.eId
+    CKEDITOR.instances['editor-' + eId].resize('100%', $(tmpl.firstNode).height() - 60)
 
 Template.newDocPanel.events
 
