@@ -58,16 +58,14 @@
     </div>
     <!-- <div class="mirador-widget ui-dialog-content ui-widget-content ui-dialog-normal"> -->
       <div id="editorDiv-{{editorId}}">
-        {{#if fileType "txt"}}
-        <textarea name="editor-{{editorId}}" id="editor-{{editorId}}">{{content}}</textarea>
-        {{else}} 
         {{#if fileType "pdf"}}
         <div name="viewer-{{editorId}}" id="viewer-{{editorId}}">
           <object data="/file/{{getFileName}}" type="application/pdf" width="100%" height="100%">
           <p> Cannot Load PDF</p>
           </object>
         </div>
-        {{/if}}
+        {{else}} 
+          <textarea name="editor-{{editorId}}" id="editor-{{editorId}}">{{content}}</textarea>
         {{/if}}
       </div>
     <!-- </div> -->
