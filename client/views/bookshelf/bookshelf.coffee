@@ -16,8 +16,9 @@ Template.bookshelf.rendered = ->
     return
 
   # SORTABLE
-  console.log("Initializing Sortable")
-  $(".books").sortable()
+  $(".books").sortable(
+    items: ":not(.shelf)"
+  )
   
   $('.books').sortable().bind 'sortupdate', (e, ui)->
     el = ui.item.get(0)
@@ -97,10 +98,11 @@ Template.bookshelf.events
     category = tmpl.find(".category-select").value
     bookshelfId = Bookshelves.findOne({project: Session.get("current_project"), category: category})._id
     booksCount = Books.find({bookshelfId: bookshelfId}).count()
-    Books.insert({name: linkName, url: linkUrl, bookshelfId: bookshelfId, rank: booksCount + 1}).
+    Books.insert({name: linkName, url: linkUrl, bookshelfId: bookshelfId, rank: booksCount + 1})
     $('#linkModal').modal('hide')
     Meteor.setTimeout(->
-      $(".books").sortable()
+      $(".books").sortable(
+        items: ":not(.shelf)")
     , 500)
 
   'click .delete-link-btn': (e,tmpl)->
