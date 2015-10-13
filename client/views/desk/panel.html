@@ -49,7 +49,8 @@
         <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close editor-close">
           <span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>
         </button>
-        {{#if fileType "txt"}}
+        {{#if fileType "pdf"}}
+        {{else}}
         <a href="#" class="ui-dialog-titlebar-collapse ui-corner-all ui-state-default">
           <span class="fa fa-floppy-o editor-save"></span>
         </a>
