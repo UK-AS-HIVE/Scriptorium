@@ -24,8 +24,9 @@ Template.files.helpers
     file.filenameOnDisk
 
   otherProject: ->
-    Projects.find({_id: {$ne: Session.get('current_project')}})
-
+    projects = Projects.find({_id: {$ne: Session.get('current_project')}}).fetch()
+    projects.push({projectName: "Free Space"})
+    return projects
 Template.files.events
   "click .delete": ->
     Session.set "fc_file_to_del", this._id
@@ -50,7 +51,9 @@ Template.files.events
   "click #moveOk": (e, tmpl)->
     id = Session.get("fc_file_to_move")
     newProject = tmpl.find(".new-project").value
-    FileCabinet.update(id, {$set: {project: newProject}})
+    copy = FileCabinet.findOne(id, {fields : {_id:0}})
+    copy.project = newProject
+    FileCabinet.insert(copy)
     $("#moveModal").modal('hide')
 
   "click .delete-batch-btn": ->
@@ -77,10 +80,12 @@ Template.files.events
     newProject = tmpl.find(".new-project-batch").value
     for i in selected
       id = Blaze.getData(i)._id
-      FileCabinet.update(id, {$set: {project: newProject}})
+      copy = FileCabinet.findOne(id, {fields : {_id:0}})
+      copy.project = newProject
+      FileCabinet.insert(copy)
     $("#moveBatchModal").modal('hide')
 
-  "click #selectAll": (e, tmpl)->
+  "click .selectAll": (e, tmpl)->
     all = tmpl.findAll(".batch-checkbox")
     for i in all
       i.checked = e.target.checked
