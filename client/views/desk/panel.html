@@ -49,14 +49,25 @@
         <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close editor-close">
           <span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>
         </button>
+        {{#if fileType "pdf"}}
+        {{else}}
         <a href="#" class="ui-dialog-titlebar-collapse ui-corner-all ui-state-default">
           <span class="fa fa-floppy-o editor-save"></span>
         </a>
+        {{/if}}
       </div>
     </div>
     <!-- <div class="mirador-widget ui-dialog-content ui-widget-content ui-dialog-normal"> -->
       <div id="editorDiv-{{editorId}}">
-        <textarea name="editor-{{editorId}}" id="editor-{{editorId}}">{{content}}</textarea>
+        {{#if fileType "pdf"}}
+        <div name="viewer-{{editorId}}" id="viewer-{{editorId}}">
+          <object data="/file/{{getFileName}}" type="application/pdf" width="100%" height="100%">
+          <p> Cannot Load PDF</p>
+          </object>
+        </div>
+        {{else}} 
+          <textarea name="editor-{{editorId}}" id="editor-{{editorId}}">{{content}}</textarea>
+        {{/if}}
       </div>
     <!-- </div> -->
   </div>
