@@ -1,13 +1,12 @@
 <template name="mirador">
+  	<div id="viewer">
 
-	<div id="viewer">
+      {{#each getOpenEditors}}
+        {{> editorPanel eId=this.document}}
+      {{/each}}
 
-    {{#each getOpenEditors}}
-      {{> editorPanel eId=this.document}}
-    {{/each}}
-
-		{{> deskPanel}}
-		{{> savePanel}}
-		{{> newDocPanel}}
-	</div>
+  		{{> deskPanel}}
+  		{{> savePanel}}
+  		{{> newDocPanel}}
+  	</div>
 </template>
