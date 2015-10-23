@@ -1,0 +1,31 @@
+1
+a.
+
+Gets the fname, lname, and average number credits for all students. Here, average number of credits refers to the average number of credits each student is taking. If a student is taking 3 classes @ 2,3,4 credits hours each, the average would be (2+3+4)/3 = 3 credit hours.
+
+select fname, lname, avg(credits) AS average_number_credits from people_fk, courses,takes, offered where people_fk.pid = takes.student and offered.oid = takes.class and offered.cid = courses.cid group by lname, fname;
+
+b.
+Gets the fname, lname, number of courses for instructors that teach more than 3 classes in the offered table. 
+
+select fname, lname, count(distinct courses.cid) AS coursesCount from people_fk, offered, courses where people_fk.pid = offered.teacher and courses.cid = offered.cid group by lname, fname having count(offered.cid) > 3;
+
+NOTE: This does not take into account that if a number of students is 0, the class is canceled. However, this would simply involve a subquery that returns all offered classes that have at least 1 student. The question does not specify we need to take this into account.
+
+
+2
+a.
+Gets the lname, fname of each student that is taking more credit hours than the average credit hours taken by all students.
+
+select lname, fname FROM people_fk, takes, offered, courses where people_fk.pid = takes.student and offered.oid = takes.class and offered.cid = courses.cid GROUP BY lname, fname HAVING (((Avg(credits))>(SELECT avg(credits) AS AverageOfAllCredits FROM takes, offered, courses where offered.oid = takes.class and offered.cid = courses.cid)));
+
+b.
+Gets the lname, fname, and the number of TOTAL courses taken by a student IF a student is enrolled in at least 1 ENGINEERING class. Here we create a subquery that returns a table with student pids that are enrolled in at least 1 engineering class. Then our main query includes that subquery and makes sure the student is in the subquery table "takingEngineering".
+
+select lname, fname, count(courses.cid) AS total_courses_number from people_fk, takes, offered, courses, department, (select distinct pid from people_fk, takes, offered, courses, department where people_fk.pid = takes.student and takes.class = offered.oid and offered.cid = courses.cid and courses.did = department.did and department.college like "Engineering" group by lname, fname) as isTakingEngineering where isTakingEngineering.pid = people_fk.pid and people_fk.pid = takes.student and takes.class = offered.oid and offered.cid = courses.cid and courses.did = department.did group by lname, fname;
+
+NOTE: In example dataset, all students are taking at least 1 engineering class.
+
+3
+a.
+

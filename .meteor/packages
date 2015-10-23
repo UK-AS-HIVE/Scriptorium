@@ -19,3 +19,5 @@ autopublish
 http
 
 hive:file-registry
+nilsdannemann:pdfmake
+jspdf:core

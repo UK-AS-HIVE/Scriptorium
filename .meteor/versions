@@ -40,6 +40,7 @@ joshowens:accounts-entry@0.9.0
 joshowens:simple-form@0.1.8
 jquery@1.11.3_2
 json@1.0.3
+jspdf:core@1.1.135
 kaptron:minimongoid@0.9.5
 launch-screen@1.0.2
 less@1.0.14
@@ -56,6 +57,7 @@ mongo-livedata@1.0.8
 mrt:accounts-t9n@0.0.13
 mrt:moment@1.7.0
 mrt:underscore-string-latest@2.3.3
+nilsdannemann:pdfmake@1.0.38
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3

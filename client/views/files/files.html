@@ -29,7 +29,7 @@
               </label>
             </span>
 <!--               <span class="btn btn-success open-batch-btn">Open</span>
- -->              <span class="btn btn-primary move-batch-btn">Copy</span>
+ -->          <span class="btn btn-primary move-batch-btn">Copy</span>
               <span class="btn btn-danger delete-batch-btn">Delete</span>
             </div>
           </li>
@@ -44,6 +44,14 @@
               <div class="actions">
                 <a class="btn btn-primary move"><i class="fa fa-files-o"></i>Copy</a>
                 <a class="btn btn-danger delete"><i class="fa fa-trash-o"></i> Delete</a>
+                {{#if isEditorFile}}
+                <br>
+                <a class="btn btn-default btn-success btn-sm pdf-download-btn" data-toggle="tooltip" data-placement="left" title="Download as PDF">
+                  <i class="fa fa-file-pdf-o fa-2x"></i>
+                </a>
+                <a class="btn btn-default btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Download as RTF"><i class="fa fa-file-word-o fa-2x"></i></a>
+                <a class="btn btn-default btn-success btn-sm" data-toggle="tooltip" data-placement="left" title="Download as Plain Text"><i class="fa fa-file-text fa-2x"></i></a>
+                {{/if}}
               </div>
               <div class="meta">
                 <strong>

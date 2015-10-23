@@ -89,3 +89,10 @@ Template.files.events
     all = tmpl.findAll(".batch-checkbox")
     for i in all
       i.checked = e.target.checked
+  "click .pdf-download-btn": ->
+    doc = new jsPDF()
+    doc.fromHTML(@content)
+    doc.output('save', @title + '.pdf')
+
+Template.files.rendered = ->
+  $('[data-toggle="tooltip"]').tooltip()
