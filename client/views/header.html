@@ -21,11 +21,12 @@
           <li><a href="#" class="scriptorium">Scriptorium</a></li>
         </ul>
       </div>
-      {{#if currentUser}}
       <ul class="nav navbar-nav navbar-right">
+        <li class="toggle-help-panel"><a href="#"><i class="fa fa-question-circle"></i> Help</a></li>
+      {{#if currentUser}}
         <li><a href="/sign-out"><i class="fa fa-lock"></i> Sign Out</a></li>
-      </ul>
       {{/if}}
+      </ul>
     </div>
     <div class="bottom">
       {{#if currentUser}}
@@ -55,4 +56,5 @@
       {{/if}}
     </div>
   </header>
+  {{>helpPanel}}
 </template>

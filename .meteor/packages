@@ -19,3 +19,5 @@ autopublish
 http
 
 hive:file-registry
+markdown
+themeteorchef:commonmark
