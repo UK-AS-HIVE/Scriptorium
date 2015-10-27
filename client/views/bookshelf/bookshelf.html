@@ -21,6 +21,8 @@
             <a href="#" data-toggle="modal"><i class="fa fa-pencil edit-category-btn"></i></a>
           </div>
         </li>
+        <li class="book" draggable="true" style="display:none">
+        </li>
           {{#each books _id}}
             <li class="book" draggable="true" style="border-left-color:{{../color}}" parentId ="{{../_id}}">
               <h3><a href="{{url}}" target="_blank"><i class="fa fa-globe"></i> {{name}}</a></h3>
