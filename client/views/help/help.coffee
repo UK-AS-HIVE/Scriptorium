@@ -26,10 +26,10 @@ Deps.autorun(->
     tempHelpContent = helpContent.split("\n")
     parsedHelpContent = []
     for i in tempHelpContent
-      if (i[0] == "#")
+      if (i[0] == "#" and i[1] != "#")
         parsedHelpContent.push({title: i.substr(1), content: []})
       else
-        parsedHelpContent[parsedHelpContent.length-1].content = parsedHelpContent[parsedHelpContent.length-1].content + i
+        parsedHelpContent[parsedHelpContent.length-1].content = parsedHelpContent[parsedHelpContent.length-1].content + "\n" + i
     Session.set("helpContent", parsedHelpContent)
 )
 
