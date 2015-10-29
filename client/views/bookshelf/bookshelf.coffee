@@ -14,13 +14,15 @@ Template.bookshelf.rendered = ->
   $ ->
     $(".color-picker").colorpicker()
     return
+  @autorun(->
+    if Bookshelves.find({project: Session.get("current_project")})
+      console.log("Enabling Sortable")
+      enableSortable()
+  )
 
-  # SORTABLE
-  enableSortable()
 
 Template.bookshelf.events
   'click .add-category-btn': (e, tmpl)->
-    console.log("adding category")
     category = tmpl.find(".category-input").value
     categoryColor = tmpl.find(".category-color-input").value
     id = 1
@@ -77,6 +79,7 @@ Template.bookshelf.events
 
 Template.bookshelf.helpers
   bookshelf: ->
+    enableSortable()
     return Bookshelves.find({project: Session.get("current_project")}, {sort: {rank: 1}})
   books: (bookshelfId)->
     enableSortable()
@@ -92,55 +95,57 @@ Template.bookshelf.helpers
   currentCategoryColor: ->
     Session.get("currentCategoryColor")
 
-enableSortable = ->
-  $('.books').sortable({
-    cancel: '.shelf'}).bind 'sortupdate', (e, ui)->
+@enableSortable = ->
+  $('.books').sortable
+    cancel: '.shelf',
+    stop: (e, ui)->
       el = ui.item.get(0)
       elData = Blaze.getData(el)
       before = ui.item.prev().get(0)
       after = ui.item.next().get(0)
-      fromId = Blaze.getData(el).bookshelfId
-      toId = 0
-      #if moving a whole category
-      if (elData.category)
-        if Blaze.getData(before).category
-          beforeId = Blaze.getData(before).category
-        else if Blaze.getData(before).bookshelfId
-          Blaze.getData(before).bookshelfId
-        else
-
-
-      #If there is a book before the entry
-      if Blaze.getData(before).bookshelfId
-        toId = Blaze.getData(before).bookshelfId
-      #if there is a category before the entry
-      else if Blaze.getData(before).category
-        toId = Blaze.getData(before)._id
-      #moving across categories
-      if (toId and fromId != toId)
-        Books.update(elData._id, {$set: {bookshelfId: toId}})
-      #calculate new rank based on before and after elements
-      console.log(toId)
-      console.log(fromId)
       console.log(before)
-      console.log(after)
-      newRank = 0
-      if (!before || Blaze.getData(before).category)
-        if Blaze.getData(after).rank
-          newRank = Blaze.getData(after).rank - 1 
+      if (!before)
+        $(this).sortable('cancel');
+        return
+      fromId = 0
+      if (elData)
+        fromId = elData.bookshelfId
+        toId = 0
+      # if (!before)
+      #   $(ui.sender).sortable('cancel')
+      #if moving a whole category
+        if (elData.category)
+          if Blaze.getData(before).category
+            beforeId = Blaze.getData(before).category
+          else if Blaze.getData(before).bookshelfId
+            Blaze.getData(before).bookshelfId
+          else
+        #If there is a book before the entry
+        if Blaze.getData(before).bookshelfId
+          toId = Blaze.getData(before).bookshelfId
+        #if there is a category before the entry
+        else if Blaze.getData(before).category
+          toId = Blaze.getData(before)._id
+        #moving across categories
+        if (toId and fromId != toId)
+          Books.update(elData._id, {$set: {bookshelfId: toId}})
+        #calculate new rank based on before and after elements
+        newRank = 0
+        if (!before || Blaze.getData(before).category)
+          if Blaze.getData(after).rank
+            newRank = Blaze.getData(after).rank - 1 
+          else
+            newRank = 0;
+        else  if (!after || Blaze.getData(after).category)
+          if Blaze.getData(before).rank
+            newRank = Blaze.getData(before).rank + 1
+          else
+            newRank = 0;
         else
-          newRank = 0;
-      else  if (!after || Blaze.getData(after).category)
-        if Blaze.getData(before).rank
-          newRank = Blaze.getData(before).rank + 1
-        else
-          newRank = 0;
-      else
-        newRank = (Blaze.getData(before).rank + Blaze.getData(after).rank)/2
-      #update with the new rank
-      console.log(newRank)
-      Books.update(elData._id, {$set: {rank: newRank}})
-      #need to reapply sortable to new elements 
-      enableSortable()
-    $('.shelf').disableSelection()
-
+          newRank = (Blaze.getData(before).rank + Blaze.getData(after).rank)/2
+        #update with the new rank
+        console.log(newRank)
+        Books.update(elData._id, {$set: {rank: newRank}})
+        #need to reapply sortable to new elements 
+        enableSortable()
+  $('.shelf').disableSelection()
