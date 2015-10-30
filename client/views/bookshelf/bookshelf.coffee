@@ -74,6 +74,17 @@ Template.bookshelf.events
     bookId = Session.get("editBookId")
     Books.update(bookId, {$set: {name: linkName, url: linkUrl}})
     $('#editLinkModal').modal('hide')
+  'click .fileUpload': ->
+    Media.pickLocalFile (fileId) ->
+      Session.set("uploadedFileId", fileId)
+  'click .save-file-btn': (e, tmpl)->
+    file = FileRegistry.findOne(Session.get("uploadedFileId"))
+    category = tmpl.find(".pdf-category-select").value
+    bookshelfId = Bookshelves.findOne({project: Session.get("current_project"), category: category})._id
+    booksCount = Books.find({bookshelfId: bookshelfId}).count()
+    Books.insert({name: file.filename, url: "/file/" + file.filenameOnDisk, bookshelfId: bookshelfId, rank: booksCount + 1})
+    $('#pdfModal').modal('hide')
+
 
 
 

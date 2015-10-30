@@ -6,7 +6,9 @@
       <p>Bookshelf allows you to drag and drop resources into categories for easy reference and organization.</p>
       <p>Bookshelf items will be opened in a new browser window, so that you may continue to work on Desk while consulting Books.</p>
 <!--       <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-text-o"></i> Upload New Document</a>
- -->      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#linkModal"><i class="fa fa-globe"></i> Add External Link</a>
+ -->      
+      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#linkModal"><i class="fa fa-globe"></i> Add External Link</a>
+      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#pdfModal"><i class="fa fa-cloud-upload"></i> Upload PDF</a>
       <a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#categoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
     </div>
     {{initSortable}}
@@ -146,6 +148,31 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary update-link-btn"><i class="fa fa-save"></i> Save Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Upload File</label>
+            <a href="#" class="btn btn-primary btn-block fileUpload"><i class="fa fa-file-text-o"></i> Choose File</a>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select class="form-control pdf-category-select">
+              {{#each bookshelf}}
+              <option>{{category}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary save-file-btn"><i class="fa fa-save"></i> Save Link</button>
         </div>
       </div>
     </div>
