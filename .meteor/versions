@@ -26,7 +26,7 @@ email@1.0.6
 fastclick@1.0.3
 geojson-utils@1.0.3
 handlebars@1.0.3
-hive:file-registry@0.9.6
+hive:file-registry@0.9.8
 html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
@@ -50,6 +50,8 @@ meteor@1.1.6
 meteor-platform@1.2.2
 minifiers@1.1.5
 minimongo@1.0.8
+mizzao:build-fetcher@0.2.0
+mizzao:jquery-ui@1.11.4
 mobile-status-bar@1.0.3
 mongo@1.1.0
 mongo-livedata@1.0.8

@@ -18,5 +18,5 @@ sergeyt:typeahead
 autopublish
 http
 
-hive:file-registry
 mizzao:jquery-ui
+hive:file-registry
