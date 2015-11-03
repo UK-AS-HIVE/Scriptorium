@@ -91,8 +91,23 @@ Template.files.events
       i.checked = e.target.checked
   "click .pdf-download-btn": ->
     doc = new jsPDF()
-    doc.fromHTML(@content)
+    doc.fromHTML(@content.replace("</p>", "</p><br>"))
     doc.output('save', @title + '.pdf')
+  "click .txt-download-btn": ->
+    tag = document.createElement("text-converted")
+    tag.innerHTML = @content.replace("</p>", "</p><br>")
+    text = tag.innerText
+    blob = new Blob( [ text ], { type: "text/plain;charset=UTF-8" } );
+    console.log(text)
+    if blob 
+        url = window.URL.createObjectURL( blob );
+        a = document.createElement( "a" );
+        document.body.appendChild( a );
+        a.style = "display: none";
+        a.href = url;
+        a.download = @title + ".txt";
+        a.click();
+        window.URL.revokeObjectURL( url );
 
 Template.files.rendered = ->
   $('[data-toggle="tooltip"]').tooltip()
