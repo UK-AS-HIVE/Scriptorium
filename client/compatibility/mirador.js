@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2015-10-29
+//! Built on 2015-11-02
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -11148,7 +11148,7 @@ jQuery.fn.scrollStop = function(callback) {
     this.currentImg = this.imagesList[this.currentImgIndex];
 
 
-    annotorious.plugin.Parse.prototype.addSrc(this.currentImg.canvasId);
+    //annotorious.plugin.Parse.prototype.addSrc(this.currentImg.canvasId);
 
     this.calculateDimensionsForOlBaseLayer();
   };
