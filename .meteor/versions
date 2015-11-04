@@ -26,7 +26,7 @@ email@1.0.6
 fastclick@1.0.3
 geojson-utils@1.0.3
 handlebars@1.0.3
-hive:file-registry@0.9.6
+hive:file-registry@0.9.8
 html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
