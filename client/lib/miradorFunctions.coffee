@@ -32,9 +32,7 @@ Meteor.miradorFunctions =
 		# $(".mirador-viewer").remove()
 		# $(".mirador-main-menu-bar").remove()
 		# $(".mirador-status-bar").remove()
-		$("[class^='mirador']").remove()	
-		$("[class^='load-window']").off()	
-		
+		$("[class^='mirador']").remove()
 
 		thisObject = {"id": "viewer", "data": []}
 		currentProject = Session.get("current_project")

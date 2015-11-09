@@ -18,5 +18,9 @@ sergeyt:typeahead
 autopublish
 http
 
+<<<<<<< HEAD
 mizzao:jquery-ui
 hive:file-registry
+=======
+hive:file-registry@0.9.8
+>>>>>>> master
