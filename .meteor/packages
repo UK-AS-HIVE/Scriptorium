@@ -17,5 +17,7 @@ bruce:messageboard
 sergeyt:typeahead
 autopublish
 http
+mizzao:jquery-ui
+hive:file-registry
 
-hive:file-registry@0.9.8
+

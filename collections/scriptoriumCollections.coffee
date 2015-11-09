@@ -8,6 +8,11 @@
 @Annotations = new Meteor.Collection('annotations')
 @Workspaces = new Meteor.Collection('workspaces')
 
+
+@Bookshelves = new Meteor.Collection('bookshelves')
+@Books = new Meteor.Collection('books')
+
+
 @ProjectPermissions = new Meteor.Collection('projectpermissions')
 
 if Meteor.isServer
