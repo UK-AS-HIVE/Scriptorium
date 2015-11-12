@@ -45,10 +45,10 @@ Collab = {
 
 Template.addUserToProject.rendered = () ->
   $('#userModal').on('shown.bs.modal', () ->
-    $('#userModal input').first().focus();
+    $('#userModal input').first().focus()
   )
 
-  Meteor.typeahead($('#userModal .typeahead'));
+  Meteor.typeahead($('#userModal .typeahead'))
 
 Template.addUserToProject.helpers({
   modalError: () ->

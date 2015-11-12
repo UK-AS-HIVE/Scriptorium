@@ -59,7 +59,7 @@ Template.bookshelf.events
 
 
   'click .delete-link-btn': (e,tmpl)->
-    Books.remove(@_id);
+    Books.remove(@_id)
 
   'click .edit-link-btn': (e, tmpl) ->
     Session.set("linkNameValue", @name)
@@ -116,7 +116,7 @@ Template.bookshelf.helpers
       after = ui.item.next().get(0)
       console.log(before)
       if (!before)
-        $(this).sortable('cancel');
+        $(this).sortable('cancel')
         return
       fromId = 0
       if (elData)
@@ -146,12 +146,12 @@ Template.bookshelf.helpers
           if Blaze.getData(after).rank
             newRank = Blaze.getData(after).rank - 1 
           else
-            newRank = 0;
+            newRank = 0
         else  if (!after || Blaze.getData(after).category)
           if Blaze.getData(before).rank
             newRank = Blaze.getData(before).rank + 1
           else
-            newRank = 0;
+            newRank = 0
         else
           newRank = (Blaze.getData(before).rank + Blaze.getData(after).rank)/2
         #update with the new rank
