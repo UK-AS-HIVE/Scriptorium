@@ -8,7 +8,7 @@ Template.deskPanel.events
 
   "click .doc-panel-delete": ->
     Session.set "fc_file_to_del", this._id
-    $("#confirmDeletePanel").modal('show') 
+    $("#confirmDeletePanel").modal('show')
 
 Template.deskPanel.helpers
   documents: ->
@@ -118,7 +118,7 @@ Template.newDocPanel.events
 
   "click #saveAsDocument": ->
     console.log "clicked save"
-    Meteor.call("getNewEditorId", Meteor.userId(), Session.get('current_project'), $("#newDocName").val(), (err, res) -> 
+    Meteor.call("getNewEditorId", Meteor.userId(), Session.get('current_project'), $("#newDocName").val(), (err, res) ->
       Meteor.call("openDoc", Meteor.userId(), Session.get('current_project'), res)
     )
 

@@ -140,7 +140,7 @@ Template.bookshelf.helpers
         #calculate new rank based on before and after elements
         if (!before || Blaze.getData(before).category)
           if Blaze.getData(after).rank
-            newRank = Blaze.getData(after).rank - 1 
+            newRank = Blaze.getData(after).rank - 1
           else
             newRank = 0
         else  if (!after || Blaze.getData(after).category)
@@ -152,6 +152,6 @@ Template.bookshelf.helpers
           newRank = (Blaze.getData(before).rank + Blaze.getData(after).rank)/2
         #update with the new rank
         Books.update(elData._id, {$set: {rank: newRank}})
-        #need to reapply sortable to new elements 
+        #need to reapply sortable to new elements
         enableSortable()
   $('.shelf').disableSelection()
