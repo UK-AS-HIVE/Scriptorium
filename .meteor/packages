@@ -17,7 +17,6 @@ bruce:messageboard
 sergeyt:typeahead
 autopublish
 http
-mizzao:jquery-ui
 hive:file-registry
-
+mrt:jquery-ui-sortable
 
