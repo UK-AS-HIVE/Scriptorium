@@ -23,4 +23,4 @@ Meteor.methods({
       'title': file.filename
     })
 
-});
+})
