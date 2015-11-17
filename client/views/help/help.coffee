@@ -13,7 +13,6 @@ Deps.autorun(->
     currentRoute = Router.current().route.name
   else
     return
-
   #request help file and parse it
   HTTP.get Meteor.absoluteUrl('/help/' + currentRoute + '.md'), (err, result) ->
     Session.set("helpContent", "")
