@@ -10,8 +10,7 @@ Meteor.methods({
                     manifestLocation: location,
                     manifestTitle: title
                 });
-            };
-            
+            }
         });
 
 	},
@@ -26,7 +25,6 @@ Meteor.methods({
             manifestTitle: sharedManifest.title
         });
         return {"id": newManifest, "widgets": widgets, "project": newProject};
-        
     },
 
     addDataToProject: function(project, manifestId, widgets){
@@ -47,11 +45,11 @@ Meteor.methods({
     saveWorkSpace: function(workspace, user, project){
         workspaceJSON = JSON.parse(workspace);
         for(i = 0; i < workspaceJSON.data.length; i++){
-            Workspaces.upsert({"user": user, "project": project, "manifestUri": workspaceJSON.data[i].manifestUri}, {$set: {"widgets": workspaceJSON.data[i].widgets}})         
-        } 
+            Workspaces.upsert({"user": user, "project": project, "manifestUri": workspaceJSON.data[i].manifestUri}, {$set: {"widgets": workspaceJSON.data[i].widgets}});
+        }
     },
 
     getRootUrl: function(){
         return process.env.ROOT_URL;
     }
-})
+});
