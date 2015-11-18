@@ -6,7 +6,7 @@
     <div class="sidebar">
       <h2><i class="fa fa-archive"></i> File Cabinet</h2>
       <p>File Cabinet is where you add and store files for reviewing and editing on your <a href="/desk">Desk</a>.</p>
-      <a href="#" class="btn btn-primary btn-block fileUpload"><i class="fa fa-file-text-o"></i> Upload New File</a>
+      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#fileUploadModal"><i class="fa fa-file-text-o"></i> Upload New File</a>
     </div>
 
     <!-- CONTENT CONTAINER -->
@@ -62,7 +62,7 @@
       {{else}}
         <div class="nofiles">
           <p>You don't have any files yet.</p>
-          <a href="#" class="btn btn-lg btn-default fileUpload"><i class="fa fa-cloud-upload"></i> Upload New File</a>
+          <a href="#" class="btn btn-lg btn-default" data-toggle="modal" data-target="#fileUploadModal"><i class="fa fa-cloud-upload"></i> Upload New File</a>
         </div>
       {{/if}}
     </div>
@@ -165,6 +165,28 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary submit-batch-move"><i class="fa fa-save"></i> Copy Files</button>
       </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="fileUploadModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <div class="form-group">
+            <label>Upload File</label>
+            <a href="#" class="btn btn-primary btn-block fileUpload"><i class="fa fa-file-text-o"></i> Choose File</a>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <br />
+            <textarea id="fileDesc" cols="30"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary save-file-btn"><i class="fa fa-save"></i> Save File</button>
+        </div>
       </div>
     </div>
   </div>
