@@ -107,24 +107,21 @@ Template.bookshelf.helpers
     Session.get("currentCategoryColor")
 
 @enableSortable = ->
-  $('.books').sortable
+  $('.books').sortable().sortable
     cancel: '.shelf',
     stop: (e, ui)->
       el = ui.item.get(0)
       elData = Blaze.getData(el)
       before = ui.item.prev().get(0)
       after = ui.item.next().get(0)
-      console.log(before)
       if (!before)
         $(this).sortable('cancel')
         return
       fromId = 0
+      newRank = 0
       if (elData)
         fromId = elData.bookshelfId
         toId = 0
-      # if (!before)
-      #   $(ui.sender).sortable('cancel')
-      #if moving a whole category
         if (elData.category)
           if Blaze.getData(before).category
             beforeId = Blaze.getData(before).category
@@ -141,10 +138,9 @@ Template.bookshelf.helpers
         if (toId and fromId != toId)
           Books.update(elData._id, {$set: {bookshelfId: toId}})
         #calculate new rank based on before and after elements
-        newRank = 0
         if (!before || Blaze.getData(before).category)
           if Blaze.getData(after).rank
-            newRank = Blaze.getData(after).rank - 1 
+            newRank = Blaze.getData(after).rank - 1
           else
             newRank = 0
         else  if (!after || Blaze.getData(after).category)
@@ -155,8 +151,7 @@ Template.bookshelf.helpers
         else
           newRank = (Blaze.getData(before).rank + Blaze.getData(after).rank)/2
         #update with the new rank
-        console.log(newRank)
         Books.update(elData._id, {$set: {rank: newRank}})
-        #need to reapply sortable to new elements 
+        #need to reapply sortable to new elements
         enableSortable()
   $('.shelf').disableSelection()
