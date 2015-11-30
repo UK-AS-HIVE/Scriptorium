@@ -1,3 +1,5 @@
+Meteor.subscribe('projects')
+
 Template.header.rendered = () ->
   Tracker.autorun(() ->
     projects = Projects.find({permissions: {$elemMatch: {user: Meteor.userId()}}}).fetch()
