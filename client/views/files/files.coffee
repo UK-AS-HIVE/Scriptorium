@@ -1,3 +1,8 @@
+Session.setDefault "searchVal", ""
+searchTracker = Tracker.autorun( ->
+  Meteor.subscribe "filecabinetsearch", Session.get "searchVal"
+)
+
 Template.files.helpers
   areFiles: ->
     projectFiles = FileCabinet.find({'project': Session.get('current_project')}).fetch()
@@ -28,6 +33,10 @@ Template.files.helpers
     projects.push({projectName: "Free Space"})
     return projects
 Template.files.events
+
+  "click .btn-filecab-search": (e, tmpl) ->
+    Session.set "searchVal", tmpl.find(".search-value").value
+
   "click .delete": ->
     Session.set "fc_file_to_del", this._id
     $("#confirmDelete").modal('show')
@@ -40,9 +49,19 @@ Template.files.events
   "click #deleteCancel": ->
     $("#confirmDelete").modal('hide')
 
-  "click .fileUpload": ->
+  "click .fileUpload": (e, tmpl) ->
     Media.pickLocalFile (fileId) ->
-      Meteor.call 'saveFileToProject', fileId, Meteor.userId(), Session.get('current_project')
+      fileButton = tmpl.find(".fileUpload")
+      saveButton = tmpl.find(".save-file-btn")
+      fileName = FileRegistry.findOne({"_id": fileId})
+      $(fileButton).text(fileName.filename)
+      Session.set "file_cab_upload_id", fileId
+      $(saveButton).removeClass("disabled")
+
+  "click .save-file-btn": (e, tmpl) ->
+    desc = tmpl.find('textarea#fileDesc')
+    console.log $(desc).val()
+    Meteor.call 'saveFileToProject', Session.get('file_cab_upload_id'), Meteor.userId(), Session.get('current_project'), $(desc).val()
 
   "click .move": (e, tmpl)->
     Session.set("fc_file_to_move", this._id)

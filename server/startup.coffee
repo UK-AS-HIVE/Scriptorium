@@ -1,6 +1,14 @@
 Meteor.startup ->
 
   #index file cabinet items for search
+  FileCabinet._ensureIndex({
+      "$**": "text"
+  }, {
+      "name": "File Cabinet Search"
+  }, {
+      "language": "none"
+  })
+
 
   #fix db changes for Folio Items
   folioItems.update({"metadata.scriptLanguage": "Ge'ez"}, {$set: {"metadata.scriptLanguage": "Gǝʿǝz"}}, {multi: true})

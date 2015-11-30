@@ -11,16 +11,18 @@
 
     <!-- CONTENT CONTAINER -->
     <div class="page-content">
-      {{#if areFiles}}
         <ul class="page-list file-cabinet">
           <li>
             <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
+            <input type="text" class="form-control search-value" placeholder="Search for...">
               <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Search</button>
+                <button class="btn btn-default btn-filecab-search" type="button">Search</button>
               </span>
             </div>
           </li>
+        </ul>
+      {{#if areFiles}}
+        <ul class="page-list file-cabinet">
           <li>
             <div class="menu">
             <span class="btn btn-default selectAll">
@@ -53,8 +55,8 @@
                     <a href="/file/{{getFileName}}" target="_new">{{title}}</a>
                   {{/if}}
                 </strong>
-                <small>{{fileType}}</small>
-                <small>by {{docAuthor}} on {{date}}</small>
+                <small>{{description}}</small>
+                <small>{{fileType}} by {{docAuthor}} on {{date}}</small>
               </div>
             </li>
           {{/each}}
@@ -185,7 +187,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary save-file-btn"><i class="fa fa-save"></i> Save File</button>
+          <button type="button" class="btn btn-primary save-file-btn disabled"><i class="fa fa-save"></i> Save File</button>
         </div>
       </div>
     </div>
