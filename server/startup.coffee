@@ -2,11 +2,11 @@ Meteor.startup ->
 
   #index file cabinet items for search
   FileCabinet._ensureIndex({
-      "$**": "text"
+    "$**": "text"
   }, {
-      "name": "File Cabinet Search"
+    "name": "File Cabinet Search"
   }, {
-      "language": "none"
+    "language": "none"
   })
 
 
