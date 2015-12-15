@@ -94,6 +94,13 @@ Router.map ->
 
   @route 'folio',
     path: '/folio'
+    waitOn: () ->
+      [
+        Meteor.subscribe('availablemanifests'),
+        Meteor.subscribe('workspaces'),
+        Meteor.subscribe('annotations'),
+        Meteor.subscribe('folioitems')
+      ]
     action: ->
       if !Meteor.userId()
         @redirect "home"
@@ -102,6 +109,13 @@ Router.map ->
 
   @route 'folioEdit',
     path: '/folio/edit'
+    waitOn: () ->
+      [
+        Meteor.subscribe('availablemanifests'),
+        Meteor.subscribe('workspaces'),
+        Meteor.subscribe('annotations'),
+        Meteor.subscribe('folioitems')
+      ]
     action: ->
       if !Meteor.userId()
         @redirect "home"
