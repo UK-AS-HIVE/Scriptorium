@@ -15,6 +15,10 @@
 
 if Meteor.isServer
 
+  Meteor.publish('fileregistry', () ->
+    FileRegistry.find({})
+  )
+
   Meteor.publish('availablemanifests', () ->
     AvailableManifests.find({})
   )

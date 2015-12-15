@@ -33,6 +33,8 @@ Template.files.helpers
     projects.push({projectName: "Free Space"})
     return projects
 Template.files.events
+  "input .search-value": _.debounce (e, tmpl) ->
+    Session.set "searchVal", tmpl.find(".search-value").value
 
   "click .btn-filecab-search": (e, tmpl) ->
     Session.set "searchVal", tmpl.find(".search-value").value

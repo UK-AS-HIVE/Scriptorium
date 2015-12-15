@@ -32,6 +32,7 @@ Router.map ->
         Meteor.subscribe('workspaces'),
         Meteor.subscribe('annotations'),
         Meteor.subscribe('filecabinet'),
+        Meteor.subscribe('fileregistry'),
         Meteor.subscribe('opendocs')
       ]
     action: ->
@@ -46,7 +47,8 @@ Router.map ->
     path: '/files'
     waitOn: () ->
       [
-        Meteor.subscribe('opendocs')
+        Meteor.subscribe('opendocs'),
+        Meteor.subscribe('fileregistry')
       ]
     action: ->
       if !Meteor.userId()
@@ -59,7 +61,8 @@ Router.map ->
     waitOn: () ->
       [
         Meteor.subscribe('bookshelves'),
-        Meteor.subscribe('books')
+        Meteor.subscribe('books'),
+        Meteor.subscribe('fileregistry')
       ]
     action: ->
       if !Meteor.userId()
