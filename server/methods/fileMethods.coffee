@@ -11,7 +11,7 @@ Meteor.methods({
       console.log fileToDelete
     FileCabinet.remove({"_id": fileToDelete})
 
-  saveFileToProject: (fileId, user, project) ->
+  saveFileToProject: (fileId, user, project, desc) ->
     file = FileRegistry.findOne({"_id": fileId})
     FileCabinet.insert({
       'project': project,
@@ -20,7 +20,8 @@ Meteor.methods({
       'date': new Date(),
       'content': fileId,
       'open': false,
-      'title': file.filename
+      'title': file.filename,
+      'description': desc
     })
 
 })

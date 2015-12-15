@@ -13,13 +13,13 @@ Meteor.methods({
 			lastUpdated: theDate,
 			published: false,
 			manifest: process.env.ROOT_URL + "folio/manifest.json"
-		}); 
+		});
 
-		return newFolioID
+		return newFolioID;
 	},
 
 	sendFolioPrep: function(imageID, height, width, title){
 		console.log(imageID + " " + height + " " + width + " " + title);
 	}
 
-})
+});

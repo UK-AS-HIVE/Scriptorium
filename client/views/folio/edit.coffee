@@ -194,10 +194,10 @@ Template.folioEdit.events
     if $("#city-field").val() == ''
       emptyFields.push("City")
 
-    if $("#repository-field").val() == '' 
+    if $("#repository-field").val() == ''
       emptyFields.push("Repository")
 
-    if $("#collectionNumber-field").val() == ''  
+    if $("#collectionNumber-field").val() == ''
       emptyFields.push("Collection Number")
 
     if $("#scriptName").select2('val') == ''
@@ -206,16 +206,16 @@ Template.folioEdit.events
     if $("#scriptSelect").select2('val') == ''
       emptyFields.push("Script Family")
 
-    if $("#languageSelect").select2('val') == ''  
+    if $("#languageSelect").select2('val') == ''
       emptyFields.push("Language")
 
-    if $("#alphabetSelect").select2('val') == ''  
+    if $("#alphabetSelect").select2('val') == ''
       emptyFields.push("Alphabet")
 
     if $("#traditionSelect").select2('val') == ''
       emptyFields.push("Script Tradition")
 
-    if $("#folioNumber-field").val() == ''  
+    if $("#folioNumber-field").val() == ''
       emptyFields.push("Folio Number")
     
     if CKEDITOR.instances.description.getData() == ''

@@ -15,9 +15,8 @@ cmather:handlebars-server
 kaptron:minimongoid
 bruce:messageboard
 sergeyt:typeahead
-autopublish
 http
-
 hive:file-registry
 markdown
 themeteorchef:commonmark
+mrt:jquery-ui-sortable

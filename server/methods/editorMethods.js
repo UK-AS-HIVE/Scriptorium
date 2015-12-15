@@ -5,7 +5,7 @@ Meteor.methods({
 
 	},
 
-	getNewEditorId: function(user, project, title){
+	getNewEditorId: function(user, project, title, desc){
 		console.log("new editor instance requested");
 		var newEditorID = FileCabinet.insert({
 			'project': project,
@@ -14,7 +14,9 @@ Meteor.methods({
 			'date': new Date(),
 			'content': "",
 			'open': true,
-			'title': title
+			'title': title,
+			'description': desc
+
 		});
 		return newEditorID;
 	},
@@ -35,4 +37,4 @@ Meteor.methods({
 		});
 	}
 
-})
+});

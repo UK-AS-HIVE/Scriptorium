@@ -1,3 +1,6 @@
+if Meteor.isClient
+  Router.onBeforeAction("loading")
+
 Router.map ->
   @route 'home',
     path: '/'
@@ -20,6 +23,18 @@ Router.map ->
 
   @route 'desk',
     path: '/desk'
+    onBeforeAction: () ->
+      if !this.ready()
+        this.render
+    waitOn: () ->
+      [
+        Meteor.subscribe('availablemanifests'),
+        Meteor.subscribe('workspaces'),
+        Meteor.subscribe('annotations'),
+        Meteor.subscribe('filecabinet'),
+        Meteor.subscribe('fileregistry'),
+        Meteor.subscribe('opendocs')
+      ]
     action: ->
       if !Meteor.userId()
         @redirect "home"
@@ -30,6 +45,11 @@ Router.map ->
 
   @route 'files',
     path: '/files'
+    waitOn: () ->
+      [
+        Meteor.subscribe('opendocs'),
+        Meteor.subscribe('fileregistry')
+      ]
     action: ->
       if !Meteor.userId()
         @redirect "home"
@@ -38,6 +58,12 @@ Router.map ->
 
   @route 'bookshelf',
     path: '/bookshelf'
+    waitOn: () ->
+      [
+        Meteor.subscribe('bookshelves'),
+        Meteor.subscribe('books'),
+        Meteor.subscribe('fileregistry')
+      ]
     action: ->
       if !Meteor.userId()
         @redirect "home"
@@ -48,7 +74,6 @@ Router.map ->
     path: '/collaboration',
     waitOn: () ->
       [
-        Meteor.subscribe('projects'),
         Meteor.subscribe('collaboration', Session.get('current_project'))
       ]
     action: ->
@@ -69,6 +94,13 @@ Router.map ->
 
   @route 'folio',
     path: '/folio'
+    waitOn: () ->
+      [
+        Meteor.subscribe('availablemanifests'),
+        Meteor.subscribe('workspaces'),
+        Meteor.subscribe('annotations'),
+        Meteor.subscribe('folioitems')
+      ]
     action: ->
       if !Meteor.userId()
         @redirect "home"
@@ -77,6 +109,13 @@ Router.map ->
 
   @route 'folioEdit',
     path: '/folio/edit'
+    waitOn: () ->
+      [
+        Meteor.subscribe('availablemanifests'),
+        Meteor.subscribe('workspaces'),
+        Meteor.subscribe('annotations'),
+        Meteor.subscribe('folioitems')
+      ]
     action: ->
       if !Meteor.userId()
         @redirect "home"
