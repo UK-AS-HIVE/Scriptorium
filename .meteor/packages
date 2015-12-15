@@ -18,4 +18,6 @@ sergeyt:typeahead
 http
 hive:file-registry
 mrt:jquery-ui-sortable
+markdown
+themeteorchef:commonmark
 

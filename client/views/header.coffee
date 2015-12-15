@@ -33,10 +33,12 @@ Template.header.events({
     if Router.current().route.name == "desk"
       Meteor.miradorFunctions.loadMirador()
 
-
   "click .js-toggle-desk-panel": ->
     $('.desk-document-panel').toggleClass('is-open')
 
   "click #saveAsProject": ->
     $('.desk-save-panel').toggleClass('is-open')
+
+	"click .toggle-help-panel": ->
+		$('.help-panel').toggleClass('is-open')
 })
