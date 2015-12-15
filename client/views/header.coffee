@@ -39,6 +39,6 @@ Template.header.events({
   "click #saveAsProject": ->
     $('.desk-save-panel').toggleClass('is-open')
 
-	"click .toggle-help-panel": ->
-		$('.help-panel').toggleClass('is-open')
+  "click .toggle-help-panel": ->
+    $('.help-panel').toggleClass('is-open')
 })
