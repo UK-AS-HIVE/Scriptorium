@@ -22,7 +22,7 @@ Template.header.helpers
     Session.get('current_project') == projectId
 
   hasCurrentProject: ->
-    if Session.get('current_project')
+    if Session.get('current_project') and Session.get('current_project') != "Free Space"
       return true
     else return false
 
