@@ -60,10 +60,15 @@ Template.files.events
       Session.set "file_cab_upload_id", fileId
       $(saveButton).removeClass("disabled")
 
+
   "click .save-file-btn": (e, tmpl) ->
     desc = tmpl.find('textarea#fileDesc')
+    fileButton = tmpl.find(".fileUpload")
     console.log $(desc).val()
     Meteor.call 'saveFileToProject', Session.get('file_cab_upload_id'), Meteor.userId(), Session.get('current_project'), $(desc).val()
+    $(desc).val("")
+    $(fileButton).text('Choose File')
+    $("#fileUploadModal").modal('hide')
 
   "click .move": (e, tmpl)->
     Session.set("fc_file_to_move", this._id)
