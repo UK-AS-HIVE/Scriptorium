@@ -26,6 +26,9 @@ Router.map ->
     onBeforeAction: () ->
       if !this.ready()
         this.render
+        this.next()
+      else
+        this.next()
     waitOn: () ->
       [
         Meteor.subscribe('availablemanifests'),

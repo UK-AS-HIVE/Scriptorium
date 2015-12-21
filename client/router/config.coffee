@@ -8,3 +8,4 @@ Router.configure
       to: 'footer'
   onBeforeAction: ->
     $('meta[name^="description"]').remove()
+    this.next()
