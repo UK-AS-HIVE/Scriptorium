@@ -9,7 +9,6 @@ iron:router
 coffeescript
 less
 accounts-ui
-joshowens:accounts-entry
 accounts-password
 cmather:handlebars-server
 kaptron:minimongoid
@@ -21,3 +20,5 @@ mrt:jquery-ui-sortable
 markdown
 themeteorchef:commonmark
 
+standard-minifiers
+selaias:accounts-entry
