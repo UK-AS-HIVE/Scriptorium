@@ -53,21 +53,21 @@ Template.files.events
 
   "click .fileUpload": (e, tmpl) ->
     Media.pickLocalFile (fileId) ->
-      fileButton = tmpl.find(".fileUpload")
+      # fileButton = tmpl.find(".fileUpload")
       saveButton = tmpl.find(".save-file-btn")
       fileName = FileRegistry.findOne({"_id": fileId})
-      $(fileButton).text(fileName.filename)
+      $(".fileUpload span").text(fileName.filename)
       Session.set "file_cab_upload_id", fileId
       $(saveButton).removeClass("disabled")
 
 
   "click .save-file-btn": (e, tmpl) ->
     desc = tmpl.find('textarea#fileDesc')
-    fileButton = tmpl.find(".fileUpload")
+    # fileButton = tmpl.find(".fileUpload")
     console.log $(desc).val()
     Meteor.call 'saveFileToProject', Session.get('file_cab_upload_id'), Meteor.userId(), Session.get('current_project'), $(desc).val()
     $(desc).val("")
-    $(fileButton).text('Choose File')
+    $(".fileUpload span").text('Choose File')
     $("#fileUploadModal").modal('hide')
 
   "click .move": (e, tmpl)->
