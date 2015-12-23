@@ -75,7 +75,7 @@ Template.bookshelf.events
     Books.update(bookId, {$set: {name: linkName, url: linkUrl}})
     $('#editLinkModal').modal('hide')
   'click .fileUpload': ->
-    Media.pickLocalFile (fileId) ->
+    Media.pickLocalFile {multiple: false, accept: '.pdf'}, (fileId) ->
       Session.set("uploadedFileId", fileId)
   'click .save-file-btn': (e, tmpl)->
     file = FileRegistry.findOne(Session.get("uploadedFileId"))
