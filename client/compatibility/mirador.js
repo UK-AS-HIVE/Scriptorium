@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2015-11-13
+//! Built on 2016-02-01
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -11158,7 +11158,7 @@ jQuery.fn.scrollStop = function(callback) {
           mapId: this.mapId
         }));
 
-      // annotorious.plugin.Parse.prototype.loadAnnotations();
+      annotorious.plugin.Parse.prototype.loadAnnotations();
 
       this.loadOpenLayers();
       this.addToolbarAnno();
@@ -11194,16 +11194,12 @@ jQuery.fn.scrollStop = function(callback) {
         console.log(annotation);
       });
 
-      anno.addHandler('onEditorShown', function(annotation){
-        console.log("POPUP");
-        console.log(annotation);
-      });
-
       anno.addHandler('onAnnotationCreated', function(annotation) {
         var annoObject = annotation;
+        console.log(annoObject);
         //we flip the y value because of differences in how annotorius and mirador conside the 0,0 point
-        //Meteor.call("saveAnnotoriusAnnos", annotation.src, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
-        console.log(annotation);
+        Meteor.call("saveAnnotoriusAnnos", annotation.src, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
+
       });
     },
 
@@ -11726,12 +11722,6 @@ jQuery.fn.scrollStop = function(callback) {
         if (widgetState.type === "scrollView") {
 
         }
-
-        if (widgetState.type === "openLayersAnnotoriusView") {
-          console.log(widgetState);
-          return;
-        }
-
 
         // osdRect: 34,
         // scrollTop: 384,
