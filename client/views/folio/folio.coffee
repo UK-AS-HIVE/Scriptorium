@@ -10,4 +10,4 @@ Template.folio.helpers
 Template.folio.events
   "click .folio-edit-btn": ->
     Session.set "editFolioItem", this["_id"]
-    Router.go "folioEdit"
+    Router.go 'folioEdit'
