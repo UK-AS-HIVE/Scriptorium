@@ -23,13 +23,13 @@ Router.map ->
 
   @route 'desk',
     path: '/desk'
-    onBeforeAction: () ->
-      if !this.ready()
-        this.render
-        this.next()
+    onBeforeAction: ->
+      if !@ready()
+        @render
+        @next()
       else
-        this.next()
-    waitOn: () ->
+        @next()
+    waitOn: ->
       [
         Meteor.subscribe('availablemanifests'),
         Meteor.subscribe('workspaces'),
@@ -48,7 +48,7 @@ Router.map ->
 
   @route 'files',
     path: '/files'
-    waitOn: () ->
+    waitOn: ->
       [
         Meteor.subscribe('opendocs'),
         Meteor.subscribe('fileregistry')
@@ -61,7 +61,7 @@ Router.map ->
 
   @route 'bookshelf',
     path: '/bookshelf'
-    waitOn: () ->
+    waitOn: ->
       [
         Meteor.subscribe('bookshelves'),
         Meteor.subscribe('books'),
@@ -75,7 +75,7 @@ Router.map ->
 
   @route 'collaboration',
     path: '/collaboration',
-    waitOn: () ->
+    waitOn: ->
       [
         Meteor.subscribe('collaboration', Session.get('current_project'))
       ]
@@ -92,12 +92,14 @@ Router.map ->
         @redirect "home"
       else
         @render()
-    data: () ->
+    waitOn: ->
+      Meteor.subscribe 'collaboration', Session.get('current_project')
+    data: ->
       Messages.findOne({_id: @params._id})
 
   @route 'folio',
     path: '/folio'
-    waitOn: () ->
+    waitOn: ->
       [
         Meteor.subscribe('availablemanifests'),
         Meteor.subscribe('workspaces'),
@@ -112,7 +114,7 @@ Router.map ->
 
   @route 'folioEdit',
     path: '/folio/edit'
-    waitOn: () ->
+    waitOn: ->
       [
         Meteor.subscribe('availablemanifests'),
         Meteor.subscribe('workspaces'),
@@ -151,14 +153,14 @@ Router.map ->
       manifest["sequences"] = seqArray
 
 
-      this.response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
-      this.response.end(JSON.stringify(manifest))
+      @response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
+      @response.end(JSON.stringify(manifest))
 
   @route 'iiifManifests',
     path: '/manifest/:manifestId/:project?',
     where: 'server',
     action: ->
-      manifest = AvailableManifests.findOne({"_id": @params.manifestId})
+      manifest = AvailableManifests.findOne(@params.manifestId)
 
       #loop through canvases in the payload
       for sequence in manifest.manifestPayload.sequences
@@ -174,12 +176,11 @@ Router.map ->
 
       if @params.project
         console.log @params.project
-      if @params.project
         manifest.manifestPayload.scriptorium = @params.manifestId + "|" + @params.project
       else
         manifest.manifestPayload.scriptorium = @params.manifestId
-      this.response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
-      this.response.end(JSON.stringify(manifest.manifestPayload))
+      @response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
+      @response.end(JSON.stringify(manifest.manifestPayload))
 
 
   @route 'iifAnnotations',
@@ -198,23 +199,22 @@ Router.map ->
 
       annos = Annotations.findOne({"_id": canvasId})
 
-
       for i in annos["annotations"]
         annotationList["resources"].push {
           "@type": "oa:Annotation",
-          "motivation": "sc:painting",
-          "on": annos.canvas + "#xywh=" + Math.floor(i.x) + "," + Math.floor(i.y) + "," + Math.floor(i.w) + "," + Math.floor(i.h),
-          "resource": {
+          motivation: "sc:painting",
+          on: annos.canvas + "#xywh=" + Math.floor(i.x) + "," + Math.floor(i.y) + "," + Math.floor(i.w) + "," + Math.floor(i.h),
+          resource: {
             "@type": "cnt:ContentAsText",
-            "chars": i.text,
-            "format": "text/plain",
-            "language": "eng"
+            chars: i.text,
+            format: "text/plain",
+            language: "eng"
           }
 
         }
 
-      this.response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
-      this.response.end(JSON.stringify(annotationList))
+      @response.writeHead(200, {'content-type': 'application/json', 'access-control-allow-origin': '*'})
+      @response.end(JSON.stringify(annotationList))
 
   @route 'serveFile',
     path: '/file/:filename'
