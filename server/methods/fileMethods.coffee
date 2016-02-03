@@ -1,4 +1,4 @@
-Meteor.methods({
+Meteor.methods
 
   deleteEditorDoc: (fileToDelete) ->
     file = FileCabinet.findOne({'_id': fileToDelete})
@@ -12,16 +12,13 @@ Meteor.methods({
     FileCabinet.remove({"_id": fileToDelete})
 
   saveFileToProject: (fileId, user, project, desc) ->
-    file = FileRegistry.findOne({"_id": fileId})
-    FileCabinet.insert({
-      'project': project,
-      'fileType': 'upload',
-      'user': user,
-      'date': new Date(),
-      'content': fileId,
-      'open': false,
-      'title': file.filename,
+    file = FileRegistry.findOne(fileId)
+    FileCabinet.insert
+      'project': project
+      'fileType': 'upload'
+      'user': user
+      'date': new Date()
+      'content': fileId
+      'open': false
+      'title': file.filename
       'description': desc
-    })
-
-})
