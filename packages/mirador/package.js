@@ -4,6 +4,9 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
+  api.use([
+    'templating'
+  ], 'client');
   api.addFiles([
     'lib/jquery-ui-no-slider.custom.js',
     // 'lib/jquery-ui.custom.min.js',
@@ -23,9 +26,11 @@ Package.onUse(function(api) {
 
   api.addFiles([
     'src/mirador.js',
+    'src/helpers.js',
     'src/manifestsLoader.js',
     'src/viewer.js',
-    'src/templates.js',
+    //'src/templates.js',
+    'src/templates.html',
     'src/mainMenuWindowOptions.js',
     'src/mainMenuLoadWindow.js',
     'src/mainMenu.js',
