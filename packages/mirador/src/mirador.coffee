@@ -19,8 +19,6 @@ Template.mirador.rendered = ->
   # # ), 1000
   # Mirador thisObject
 
-  Meteor.miradorFunctions.loadMirador()
+  #Meteor.miradorFunctions.loadMirador()
+  return
 
-Template.mirador.helpers
-  getOpenEditors: ->
-    OpenDocs.find({'user': Meteor.userId(), 'project': Session.get('current_project')})

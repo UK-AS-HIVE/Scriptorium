@@ -5,7 +5,8 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.use([
-    'templating'
+    'templating',
+    'coffeescript'
   ], 'client');
   api.addFiles([
     'lib/jquery-ui-no-slider.custom.js',
@@ -58,6 +59,11 @@ Package.onUse(function(api) {
     'src/annotationLayerRegionController.js',
     'src/annotationListing.js',
     'src/annotationSidePanel.js'
+  ], 'client');
+
+  api.addFiles([
+    'src/mirador.html',
+    'src/mirador.coffee'
   ], 'client');
 });
 

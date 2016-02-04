@@ -1,6 +1,12 @@
 <!-- Main menu -->
+<template name="mirador_mainMenu">
+  <div class="mirador-main-menu-bar" style="height: 25px; width: 100%;">
+    {{> mirador_mainMenu_menuItems}}
+  </div>
+</template>
+
 <template name="mirador_mainMenu_menuItems">
-  <ul class="{{mainMenuCls}}">
+  <ul class="mirador-main-menu">
     <li>
       <a href="javascript:;" class="bookmark-workspace" title="Bookmark Workspace">
         <span class="icon-bookmark-workspace"></span>Bookmark Workspace
@@ -39,30 +45,26 @@
 
 <!-- template for rendering load windos manuscripts' select box and images list -->
 <template name="mirador_mainMenu_loadWindowContent">
-  <fieldset class="{{cssCls}}">
+  <fieldset class="mirador-listing-collections">
     <legend>Available/Loaded manuscripts</legend>
     <select>
-      {{#collections}}
-        <optgroup label="{{location}}">
-          {{#list}}
-            <option data-manifest-id="{{manifestId}}">{{collectionTitle}}</option>
-          {{/list}}
+      {{#each collections}}
+        <optgroup label="{{manifestLocation}}">
+          <option data-manifest-id="{{_id}}">{{manifestPayload.label}}</option>
         </optgroup>
-      {{/collections}}
+      {{/each}}
     </select><br/>
     <a href="javascript:;" class="mirador-btn mirador-icon-thumbnails-view"></a>
     <a href="javascript:;" class="mirador-btn mirador-icon-scroll-view"></a>
     <a href="javascript:;" class="mirador-btn mirador-icon-metadata-view"></a>
     <a href="javascript:;" class="mirador-btn mirador-icon-add-mani"><i class="fa fa-plus" data-toggle="modal" data-target="#addManifestModal"></i></a>
-    {{#collections}}
-      {{#list}}
-        <ul class="ul-{{manifestId}}">
-          {{#imageData}}
-            <li class="load-window-li"><a href="javascript:;" data-image-id="{{id}}" data-manifest-id="{{../manifestId}}">{{trimTitlePrefix title}}</a></li>
-          {{/imageData}}
-        </ul>
-      {{/list}}
-    {{/collections}}
+    {{#each collections}}
+      <ul class="ul-{{_id}}">
+        {{#each imageData}}
+          <li class="load-window-li"><a href="javascript:;" data-image-id="{{id}}" data-manifest-id="{{../_id}}">{{trimTitlePrefix label}}</a></li>
+        {{/each}}
+      </ul>
+    {{/each}}
   </fieldset>
 </template>
 
@@ -78,6 +80,12 @@
 </template>
 
 <!-- Status bar -->
+<template name="mirador_statusBar">
+  <div class="mirador-status-bar" style="height: 25px; width: 100%;">
+    {{> mirador_statusBar_textFrames}}
+  </div>
+</template>
+
 <template name="mirador_statusBar_textFrames">
   <div class="mirador-status-bar-msg-left"></div>
   <div class="mirador-status-bar-msg-right"></div>
@@ -313,5 +321,9 @@
     <a href="javascript:;" class="mirador-btn mirador-icon-previous"></a>
     <a href="javascript:;" class="mirador-btn mirador-icon-next"></a>
   </div>
+</template>
+
+<!-- Viewer -->
+<template name="mirador_viewer">
 </template>
 
