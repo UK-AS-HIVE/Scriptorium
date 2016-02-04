@@ -22,3 +22,5 @@ Template.mirador.rendered = ->
   #Meteor.miradorFunctions.loadMirador()
   return
 
+@ActiveWidgets = new Mongo.Collection null
+

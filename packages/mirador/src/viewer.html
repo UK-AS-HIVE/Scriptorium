@@ -1,4 +1,9 @@
 <!-- Viewer -->
 <template name="mirador_viewer">
+  <div class="mirador-viewer">
+    {{#each widgets}}
+      {{> mirador_widget_initialLayout}}
+    {{/each}}
+  </div>
 </template>
 

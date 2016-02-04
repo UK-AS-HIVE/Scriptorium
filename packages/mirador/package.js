@@ -6,7 +6,8 @@ Package.describe({
 Package.onUse(function(api) {
   api.use([
     'templating',
-    'coffeescript'
+    'coffeescript',
+    'mongo'
   ], 'client');
   api.addFiles([
     'lib/jquery-ui-no-slider.custom.js',
