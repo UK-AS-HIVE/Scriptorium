@@ -63,7 +63,9 @@ Package.onUse(function(api) {
 
   api.addFiles([
     'src/mirador.html',
-    'src/mirador.coffee'
+    'src/mirador.coffee',
+    'src/mainMenu.html',
+    'src/mainMenu.coffee'
   ], 'client');
 });
 

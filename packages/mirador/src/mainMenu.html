@@ -1,0 +1,81 @@
+<!-- Main menu -->
+<template name="mirador_mainMenu">
+  <div class="mirador-main-menu-bar" style="height: 25px; width: 100%;">
+    {{> mirador_mainMenu_menuItems}}
+  </div>
+</template>
+
+<template name="mirador_mainMenu_menuItems">
+  <ul class="mirador-main-menu">
+    <li>
+      <a href="javascript:;" class="bookmark-workspace" title="Bookmark Workspace">
+        <span class="icon-bookmark-workspace"></span>Bookmark Workspace
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="load-window" title="Load Window">
+        <span class="icon-load-window"></span>Load Window
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="window-options" title="Window Options">
+        <span class="icon-window-options"></span>Window Options
+      </a>
+    </li>
+    <li>
+      <a href="javascript:;" class="clear-local-storage" title="Clear saved workspace and reload">
+        <span class="icon-clear-local-storage"></span>
+      </a>
+    </li>
+  </ul>
+</template>
+
+<!-- template for rendering window options menu -->
+<template name="mirador_mainMenu_windowOptionsMenu">
+  <ul class="{{windowOptionsMenuCls}}">
+    <li><a class="cascade-all" href="javascript:;">Cascade All</a></li>
+    <li><a class="tile-all-vertically" href="javascript:;">Tile All Vertically</a></li>
+    <li><a class="tile-all-horizontally" href="javascript:;">Tile All Horizontally</a></li>
+    <li><a class="stack-all-vertically-2-cols" href="javascript:;">Stack Vertically (2 columns)</a></li>
+    <li><a class="stack-all-vertically-3-cols" href="javascript:;">Stack Vertically (3 columns)</a></li>
+    <li class="ui-state-disabled"><a href="javascript:;">Open Recent</a></li>
+    <li><a class="close-all" href="javascript:;">Close All</a></li>
+  </ul>
+</template>
+
+<!-- template for rendering load windos manuscripts' select box and images list -->
+<template name="mirador_mainMenu_loadWindowContent">
+  <fieldset class="mirador-listing-collections">
+    <legend>Available/Loaded manuscripts</legend>
+    <select>
+      {{#each collections}}
+        <optgroup label="{{manifestLocation}}">
+          <option data-manifest-id="{{_id}}">{{manifestPayload.label}}</option>
+        </optgroup>
+      {{/each}}
+    </select><br/>
+    <a href="javascript:;" class="mirador-btn mirador-icon-thumbnails-view"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-scroll-view"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-metadata-view"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-add-mani"><i class="fa fa-plus" data-toggle="modal" data-target="#addManifestModal"></i></a>
+    {{#each collections}}
+      <ul class="ul-{{_id}}">
+        {{#each imageData}}
+          <li class="load-window-li"><a href="javascript:;" data-image-id="{{id}}" data-manifest-id="{{../_id}}">{{trimTitlePrefix label}}</a></li>
+        {{/each}}
+      </ul>
+    {{/each}}
+  </fieldset>
+</template>
+
+<!-- template for rendering clear local storage dialog -->
+<template name="mirador_mainMenu_clearLocalStorage">
+  <div class="{{cssCls}}">
+    <p>Do you want to delete your saved workspace, and reload the viewer?</p>
+    <p>
+      <a class="btn-cancel" href="javascript: jQuery(\'{{selectorClearLocalStorage}}\').tooltipster(\'hide\');">Cancel</a>
+      <a class="btn-clear" href="javascript: localStorage.clear(); location.reload();">Clear</a>
+    </p>
+  </div>
+</template>
+
