@@ -1,0 +1,31 @@
+<!-- Scroll view -->
+<!-- template for rendering frame for hosting images -->
+<template name="mirador_scrollView_imagesFrame">
+  <div class="{{frameCls}}"></div>
+</template>
+
+<!-- template for rendering images in scroll view -->
+<template name="mirador_scrollView_listImages">
+  {{#images}}
+    <div id="{{id}}" class="item">
+      <div class="header" style="height: {{../toolbarHeight}}px">
+        <div id="{{id}}-osd-toolbar" class="toolbar">
+          <a href="javascript:;" class="enable-zoom">Enable zoom</a>
+        </div>
+      </div>
+      <div id="{{id}}-osd" class="image-instance">
+        <img class="static-thumb">
+      </div>
+      <div class="title">{{title}}</div>
+    </div>
+  {{/images}}
+</template>
+
+<!-- template for rendering tool bar with nav links -->
+<template name="mirador_scrollView_navToolbar">
+  <div class="{{navToolbarCls}}">
+    <a href="javascript:;" class="mirador-btn mirador-icon-metadata-view"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-thumbnails-view"></a>
+  </div>
+</template>
+

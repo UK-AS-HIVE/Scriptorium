@@ -1,0 +1,38 @@
+<!-- Metadata view -->
+<!-- template for rendering basic metadata terms -->
+<template name="mirador_metadataView_listTerms">
+  <div class="sub-title">Details (Metadata about physical object/intellectual work):</div>
+  <dl class="{{metadataListingCls}}">
+    {{#each details}}
+      <dt>{{label}}:</dt><dd>{{value}}</dd>
+    {{/each}}
+  </dl>
+  <div class="sub-title">Rights Metadata:</div>
+  <dl class="{{metadataListingCls}}">
+    {{#each rights}}
+      <dt>{{label}}:</dt><dd>{{value}}</dd>
+    {{/each}}
+  </dl>
+  <div class="sub-title">Linking Metadata:</div>
+  <dl class="{{metadataListingCls}}">
+    {{#each links}}
+      <dt>{{label}}:</dt><dd>{{value}}</dd>
+    {{/each}}
+  </dl>
+  <div class="sub-title">About (Metadata about this manuscript\'s manifest file):</div>
+  <dl class="{{metadataListingCls}}">
+    {{#each about}}
+      <dt>{{label}}:</dt><dd>{{value}}</dd>
+    {{/each}}
+  </dl>
+</template>
+
+<!-- template for rendering tool bar with nav links -->
+<template name="mirador_metadataView_navToolbar">
+  <div class="{{navToolbarCls}}">
+    <a href="javascript:;" class="mirador-btn mirador-icon-scroll-view"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-thumbnails-view"></a>
+  </div>
+</template>
+
+

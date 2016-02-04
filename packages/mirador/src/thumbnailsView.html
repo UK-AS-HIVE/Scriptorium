@@ -1,0 +1,23 @@
+<!-- Thumbnails view -->
+<!-- template for rendering images in thumbnails view -->
+<template name="mirador_thumbnailsView_listImages">
+  <ul class="{{listingCssCls}} listing-thumbs">
+    {{#thumbs}}
+      <li>
+        <a href="javascript:;">
+          <img title="{{title}}" data-image-id="{{id}}" src="{{thumbUrl}}" height="{{../defaultHeight}}">
+          <div class="thumb-label">{{title}}</div>
+        </a>
+      </li>
+    {{/thumbs}}
+  </ul>
+</template>
+
+<!-- template for rendering tool bar with nav links -->
+<template name="mirador_thumbnailsView_navToolbar">
+  <div class="{{navToolbarCls}}">
+    <a href="javascript:;" class="mirador-btn mirador-icon-metadata-view"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-scroll-view"></a>
+  </div>
+</template>
+

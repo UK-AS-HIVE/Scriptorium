@@ -31,7 +31,7 @@ Package.onUse(function(api) {
     'src/manifestsLoader.js',
     'src/viewer.js',
     //'src/templates.js',
-    'src/templates.html',
+    //'src/templates.html',
     'src/mainMenuWindowOptions.js',
     'src/mainMenuLoadWindow.js',
     'src/mainMenu.js',
@@ -65,7 +65,16 @@ Package.onUse(function(api) {
     'src/mirador.html',
     'src/mirador.coffee',
     'src/mainMenu.html',
-    'src/mainMenu.coffee'
+    'src/mainMenu.coffee',
+    'src/editorView.html',
+    'src/imageView.html',
+    'src/metadataView.html',
+    'src/openLayersAnnotoriusView.html',
+    'src/scrollView.html',
+    'src/statusBar.html',
+    'src/thumbnailsView.html',
+    'src/viewer.html',
+    'src/widget.html'
   ], 'client');
 });
 
