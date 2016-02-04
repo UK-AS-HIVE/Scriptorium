@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2016-02-01
+//! Built on 2016-02-04
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -7665,7 +7665,6 @@ jQuery.fn.scrollStop = function(callback) {
 
     renderWidgetsForCollection: function(collection) {
       var _this = this;
-
       jQuery.each(collection.widgets, function(index, config) {
         if (!jQuery.isEmptyObject(config) && $.isValidView(config.type)) {
           config.manifestId = $.getManifestIdByUri(collection.manifestUri);
@@ -9024,7 +9023,6 @@ jQuery.fn.scrollStop = function(callback) {
         create: function() {
             var _this = this;
 
-
             // returns a promise object constructed using
             // jQuery.when.apply(this, [deferred array]);
             _this.getAnnotations().done( function() {
@@ -9071,6 +9069,7 @@ jQuery.fn.scrollStop = function(callback) {
             var _this = this,
             requests = [];
 
+
             _this.set('annotations', []);
 
             if (!_this.annotationUrls) {
@@ -9079,7 +9078,6 @@ jQuery.fn.scrollStop = function(callback) {
             }
 
             jQuery.each(_this.annotationUrls, function(index, url) {
-                console.log(url);
                 var request =  jQuery.ajax(
                     {
                     url: url,
@@ -9224,7 +9222,6 @@ jQuery.fn.scrollStop = function(callback) {
                     var idString = '#listing_' + id;
                     return jQuery(idString);
             });
-            console.log(_this);
 
             _this.parent.element.find('.annotation').fadeIn();
             _this.parent.element.find('.annotationListing').slideDown();
@@ -9468,7 +9465,12 @@ jQuery.fn.scrollStop = function(callback) {
 
       this.element.dialog({
         close: function(event, ui) {
-          _this.close();
+          // _this.close();
+          if(_this.type == "openLayersAnnotoriusView"){
+            Meteor.miradorFunctions.loadMirador();
+          }else{
+            _this.close();
+          }
         },
 
         drag: function(event, ui) {
@@ -10334,7 +10336,6 @@ jQuery.fn.scrollStop = function(callback) {
         // $.viewer.loadView("editorView", _this.manifestId);
         // Meteor.call("getNewEditorId", Meteor.user(), Session.get("current-project"), _this.openAt)
         Meteor.miradorFunctions.newDoc(_this.openAt);
-        console.log(_this);
       });
 
       navToolbar.on('click', selectorAddFolio, function() {
@@ -11196,7 +11197,6 @@ jQuery.fn.scrollStop = function(callback) {
 
       anno.addHandler('onAnnotationCreated', function(annotation) {
         var annoObject = annotation;
-        console.log(annoObject);
         //we flip the y value because of differences in how annotorius and mirador conside the 0,0 point
         Meteor.call("saveAnnotoriusAnnos", annotation.src, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
 
@@ -11698,6 +11698,7 @@ jQuery.fn.scrollStop = function(callback) {
         if (widgetState.type === 'imageView') {
           //widgetState.openAt = widget.openAt,
           widgetState.openAt = widget.viewObj.currentImg.title,
+          widgetState.imageId = widget.viewObj.currentImg.id,
 
           // widgetState.zoomState = (function(bounds) {
           //   return {
@@ -11721,6 +11722,10 @@ jQuery.fn.scrollStop = function(callback) {
 
         if (widgetState.type === "scrollView") {
 
+        }
+
+        if (widgetState.type === "openLayersAnnotoriusView") {
+          return;
         }
 
         // osdRect: 34,
@@ -11908,7 +11913,6 @@ jQuery.fn.scrollStop = function(callback) {
       // annotations, an undesired effect.
       annotationsBySize = this.parent.get('annotations').slice().sort(this.sortRegionsBySize);
 
-      console.log(annotationsBySize);
 
       if (_this.parent.get('visible')) {
 
@@ -11990,7 +11994,10 @@ jQuery.fn.scrollStop = function(callback) {
       if (!this.parent.annotationUrls) {
         return;
       }
-      this.parent.parent.osd.drawer.clearOverlays();
+      if (this.parent.parent.osd.drawer){
+        this.parent.parent.osd.drawer.clearOverlays();
+      }
+      
     }
 
   };
