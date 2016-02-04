@@ -1,54 +1,48 @@
-Template.mbBoard.rendered = () ->
-  $('#newTopicModal').on('shown.bs.modal', () ->
-    $('#newTopicModal input').first().focus();
-  )
-
-Template.mbBoard.helpers({
-  topics: () ->
+Template.mbBoard.helpers
+  topics: ->
     Messages.forRoom(Session.get("current_project"), Session.get('message_search')).fetch()
 
-  searchText: () ->
+  searchText: ->
     Session.get('message_search')
-})
 
-Template.mbBoard.events({
-    'click #newTopicModal .save': (e,t) ->
-      projectId = Session.get("current_project")
-      subject = t.$(".subject").val()
-      message = t.$(".message").val()
-      #save new message
-      Meteor.call('addThread', projectId, subject, message)
-      #route the user to it
-      $('#newTopicModal').modal('hide')
+Template.mbBoard.events
+  'shown.bs.modal #newTopicModal': (e, tpl) ->
+    $('#newTopicModal input').first().focus()
 
-    'submit #newTopicModal form': (e) ->
-      e.preventDefault()
-      console.log('submit')
+  'click #newTopicModal .save': (e, tpl) ->
+    projectId = Session.get("current_project")
+    subject = tpl.$('.subject').val()
+    message = tpl.$('.message').val()
+    # save new message
+    Meteor.call 'addThread', projectId, subject, message, (err, res) ->
+      unless err
+        tpl.$('.subject').val('')
+        tpl.$('.message').val('')
+    # route the user to it
+    $('#newTopicModal').modal('hide')
 
-    'click #newTopicModal .closeMe': (e, t) ->
-      t.$('input, textarea').val('')
+  'submit #newTopicModal form': (e) ->
+    e.preventDefault()
 
-    'click .newTopic': (e) ->
-      e.preventDefault()
+  'click #newTopicModal .closeMe': (e, tpl) ->
+    tpl.$('input, textarea').val('')
 
-    'keyup .search input': (e,t) ->
-      searchText = t.$('input').val()
-      Session.set('message_search', searchText)
-})
+  'click .newTopic': (e) ->
+    e.preventDefault()
 
+  'keyup .search input': (e, tpl) ->
+    searchText = tpl.$('input').val()
+    Session.set('message_search', searchText)
 
 Template.timeago.rendered = (a,b,c) ->
-  Tracker.autorun(() ->
+  @autorun ->
     messages = Messages.find().fetch()
-
     @$('.timeago').timeago('updateFromDOM')
     @$('.timeago').timeago()
-  )
 
-Template.timeago.helpers({
-  pretty: () ->
+Template.timeago.helpers
+  pretty: ->
     moment(@).format('MMMM D, YYYY')
 
-  timestamp: () ->
+  timestamp: ->
     moment(@).format()
-})

@@ -11,21 +11,20 @@
     ]
   Messages.find(selector, {sort: {"posts.timestamp": -1}})
 
-@Messages.helpers({
-  author: () ->
+@Messages.helpers
+  author: ->
     User.first({_id: @startedBy})
 
   postAuthor: (userId) ->
     user = User.first({_id: userId})
     if user then user.fullName() else ""
 
-  postCount: () ->
+  postCount: ->
     @posts.length
 
-  onlyOnePost: () ->
+  onlyOnePost: ->
     @posts.length == 1
 
-  lastPost: () ->
+  lastPost: ->
     if @posts
       _.sortBy(@posts, (p) -> p.timestamp)[0]
-})
