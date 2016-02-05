@@ -66,15 +66,19 @@ Package.onUse(function(api) {
     'src/mirador.coffee',
     'src/mainMenu.html',
     'src/mainMenu.coffee',
-    'src/editorView.html',
+    'src/viewer.html',
+    'src/viewer.coffee',
+    'src/widget.html',
+    'src/widget.coffee',
     'src/imageView.html',
+    'src/imageView.coffee',
+
+    'src/editorView.html',
     'src/metadataView.html',
     'src/openLayersAnnotoriusView.html',
     'src/scrollView.html',
     'src/statusBar.html',
-    'src/thumbnailsView.html',
-    'src/viewer.html',
-    'src/widget.html'
+    'src/thumbnailsView.html'
   ], 'client');
 });
 

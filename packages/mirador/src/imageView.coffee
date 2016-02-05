@@ -1,3 +1,6 @@
+Template.mirador_imageView_navToolbar.onCreated ->
+  console.log 'created imageView widget navToolbar!'
+
 Template.mirador_imageView_navToolbar.events
  'click .mirador-icon-previous': (e, tpl) ->
     _this.prev()
@@ -44,3 +47,8 @@ Template.mirador_imageView_statusbar.events
   'input .units': ->
     _this.unitChange()
 
+Template.mirador_imageView_statusbar.helpers
+  width: ->
+    '___'
+  height: ->
+    '___'
