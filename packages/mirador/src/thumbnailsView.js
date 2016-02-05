@@ -42,7 +42,7 @@
         defaultHeight:  this.thumbsDefaultHeight,
         listingCssCls:  this.thumbsListingCls
       };
-
+      /*
       tplData.thumbs = jQuery.map(this.imagesList, function(image, index) {
         return {
           thumbUrl: $.Iiif.getUriWithHeight(image.imageUrl, _this.thumbsMaxHeight),
@@ -50,6 +50,7 @@
           id:       image.id
         };
       });
+      */
 
       this.element.append($.Templates.thumbnailsView.listImages(tplData));
     },
@@ -122,7 +123,7 @@
           selectorScrollView    = '.mirador-icon-scroll-view',
           selectorMetadataView  = '.mirador-icon-metadata-view',
           _this = this;
-
+      /*
       jQuery(selectorSlider).on('slide', function(event, ui) {
         jQuery(selectorImagesListing).attr('height', ui.value);
       });
@@ -142,6 +143,7 @@
       navToolbar.on('click', selectorScrollView, function() {
         $.viewer.loadView("scrollView", _this.manifestId);
       });
+      */
 
     }
 
