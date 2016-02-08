@@ -115,7 +115,7 @@ Template.mirador_mainMenu_loadWindowContent.events
 
   # attach click event for metadata view icon
   'click .mirador-listing-collections a.mirador-icon-metadata-view': (e, tpl) ->
-    manifestId = tpl.$('.mirador-listing-collections-select').find('option:selected').data('manifest-id')
+    manifestId = tpl.$('.mirador-listing-collections select').find('option:selected').data('manifest-id')
 
     miradorFunctions.mirador_viewer_loadView "metadataView", manifestId
 
