@@ -6,10 +6,10 @@
 
 <!-- template for rendering images in scroll view -->
 <template name="mirador_scrollView_content">
-  <div class="scroll-view-frame">
+  <div class="scroll-view-frame" style="width: {{scrollWidth}}">
     {{#each images}}
       <div id="{{id}}" class="item">
-        <div class="header" style="height: {{../toolbarHeight}}px">
+        <div class="header" style="height: 25px">
           <div id="{{id}}-osd-toolbar" class="toolbar">
             <a href="javascript:;" class="enable-zoom">Enable zoom</a>
           </div>
