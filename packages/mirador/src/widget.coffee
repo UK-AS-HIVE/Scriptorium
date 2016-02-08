@@ -1,17 +1,7 @@
 # TODO: Purpose of these is just wrappers to display content - need to handle resizing on them and choosing what templates to render
 #
 
-# TODO: this is just for reference
-availableViews = {
-  'imageView': 'Image View'
-  'scrollView': 'Scroll View'
-  'thumbnailsView': 'Thumbnails View'
-  'metadataView': 'Metadata View'
-  'editorView': 'Editor'
-  'openLayersAnnotoriusView': 'Annotate View'
-}
-
-@miradorWidgetProperties = @miradorWidgetProperties || {}
+miradorWidgetProperties = @miradorWidgetProperties = @miradorWidgetProperties || {}
 
 Template.mirador_widget_initialLayout.helpers
   title: ->

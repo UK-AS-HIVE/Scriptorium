@@ -83,5 +83,15 @@ Package.onUse(function(api) {
     'src/iiif.coffee',
     'src/openSeadragon.coffee'
   ], 'client');
+
+  // TODO: this is just for testing
+  api.export('miradorWidgetProperties', {testOnly: true});
+});
+
+Package.onTest(function(api) {
+  api.use('tinytest');
+  api.use('coffeescript');
+  api.use('mirador');
+  api.addFiles('test/widgetProperties.coffee', 'client');
 });
 
