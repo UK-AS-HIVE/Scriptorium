@@ -1,3 +1,14 @@
+@miradorWidgetProperties = @miradorWidgetProperties || {}
+@miradorWidgetProperties.imageView =
+  title: ->
+    console.log @
+    titles = []
+    titles.push availableViews[@type] + " : " + AvailableManifests.findOne(@manifestId).manifestPayload.label
+    if @image.title
+      titles.push(@image.title)
+    titles.join(' / ')
+
+
 Template.mirador_imageView_content.onRendered ->
   infoJsonUrl = miradorFunctions.iiif_getUri("#{@data.image.imageUrl}/info.json")
   osdToolbarId = "mirador-osd-#{@data.image.id}-toolbar"

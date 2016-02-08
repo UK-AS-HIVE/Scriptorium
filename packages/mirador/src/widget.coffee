@@ -1,6 +1,7 @@
 # TODO: Purpose of these is just wrappers to display content - need to handle resizing on them and choosing what templates to render
 #
 
+# TODO: this is just for reference
 availableViews = {
   'imageView': 'Image View'
   'scrollView': 'Scroll View'
@@ -10,15 +11,11 @@ availableViews = {
   'openLayersAnnotoriusView': 'Annotate View'
 }
 
+@miradorWidgetProperties = @miradorWidgetProperties || {}
+
 Template.mirador_widget_initialLayout.helpers
   title: ->
-    console.log @
-    titles = []
-    titles.push availableViews[@type] + " : " + AvailableManifests.findOne(@manifestId).manifestPayload.label
-    if @image.title
-      titles.push(@image.title)
-    titles.join(' / ')
-
+    miradorWidgetProperties[@type]?.title()
 
 Template.mirador_widget_initialLayout.onRendered ->
   options =
