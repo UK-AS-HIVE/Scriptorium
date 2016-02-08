@@ -19,3 +19,9 @@ Template.mirador_scrollView_content.helpers
       title: c.label
       uriWithHeight: miradorFunctions.iiif_getUriWithHeight c.images[0].resource.service['@id'], 216 # TODO: should update based on resizing height
 
+Template.mirador_scrollView_navToolbar.events
+  'click .mirador-icon-metadata-view': ->
+    miradorFunctions.mirador_viewer_loadView 'metadataView', @manifestId
+  'click .mirador-icon-thumbnails-view': ->
+    miradorFunctions.mirador_viewer_loadView 'thumbnailsView', @manifestId
+
