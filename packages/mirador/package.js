@@ -7,7 +7,8 @@ Package.onUse(function(api) {
   api.use([
     'templating',
     'coffeescript',
-    'mongo'
+    'mongo',
+    'underscore'
   ], 'client');
   api.addFiles([
     'lib/jquery-ui-no-slider.custom.js',
@@ -78,7 +79,9 @@ Package.onUse(function(api) {
     'src/openLayersAnnotoriusView.html',
     'src/scrollView.html',
     'src/statusBar.html',
-    'src/thumbnailsView.html'
+    'src/thumbnailsView.html',
+    'src/iiif.coffee',
+    'src/openSeadragon.coffee'
   ], 'client');
 });
 

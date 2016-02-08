@@ -48,7 +48,36 @@ Template.mirador_mainMenu_loadWindowContent.helpers
   imageData: ->
     if @manifestPayload.sequences.length == 0
       return []
-    return @manifestPayload.sequences[0].canvases
+    imagesList = []
+    _.each @manifestPayload.sequences[0].canvases, (canvas) ->
+      images = []
+      if canvas['@type'] is 'sc:Canvas'
+        images = canvas.resources || canvas.images
+        _.each images, (image) ->
+          if image['@type'] is 'oa:Annotation'
+            imageObj =
+              height:       image.resource.height || 0,
+              width:        image.resource.width || 0,
+              id:           miradorFunctions.genUUID()
+              imageUrl:     image.resource.service['@id'].replace(/\/$/, ''),
+              choices:      [],
+              choiceLabel:  image.resource.label || 'Default'
+              title:        canvas.label || ''
+              canvasWidth:  canvas.width
+              canvasHeight: canvas.height
+              canvasId:     canvas['@id']
+            
+            imageObj.aspectRatio = imageObj.width / imageObj.height || 1
+            if canvas.otherContent
+              imageObj.annotations = _.map canvas.otherContent, (a) ->
+                if a['@id'].indexOf('.json') >= 0
+                  return a['@id']
+                return a['@id'] + '.json'
+
+            imagesList.push imageObj
+    return imagesList
+
+
 
 Template.mirador_mainMenu_loadWindowContent.events
   # attach onChange event handler for collections select list
@@ -59,14 +88,14 @@ Template.mirador_mainMenu_loadWindowContent.events
     tpl.$('.mirador-listing-collections ul.ul-'+manifestId).show()
 
   # attach click event handler for images in the list
-  'click .mirador-listing-collections ul': (e, tpl) ->
+  'click .mirador-listing-collections li': (e, tpl) ->
     elemTarget = tpl.$(e.target)
     manifestId = elemTarget.data('manifest-id')
     imageId = elemTarget.data('image-id')
     openAt = null
 
     # TODO: This should be configurable
-    Meteor.call 'mirador_viewer_loadView', "imageView", manifestId, imageId
+    Meteor.call 'mirador_viewer_loadView', "imageView", manifestId, @
 
   # attach click event for thumbnails view icon
   'click .mirador-listing-collections a.mirador-icon-thumbnails-view': (e, tpl) ->

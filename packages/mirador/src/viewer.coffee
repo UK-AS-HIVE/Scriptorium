@@ -85,13 +85,13 @@ Meteor.methods
       if (widget.type == "openLayersAnnotoriusView" )
         widget.close()
 
-  mirador_viewer_loadView: (type, manifestId, imageId, openAt) ->
+  mirador_viewer_loadView: (type, manifestId, image, openAt) ->
     console.log 'loadView', arguments
     Meteor.call 'mirador_viewer_addWidget',
       height:     400
       manifestId: manifestId
       openAt:     openAt
-      imageId:    imageId
+      image:      image
       type:       type
       width:      350
 

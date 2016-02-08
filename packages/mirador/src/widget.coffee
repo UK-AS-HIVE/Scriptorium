@@ -1,6 +1,25 @@
 # TODO: Purpose of these is just wrappers to display content - need to handle resizing on them and choosing what templates to render
 #
 
+availableViews = {
+  'imageView': 'Image View'
+  'scrollView': 'Scroll View'
+  'thumbnailsView': 'Thumbnails View'
+  'metadataView': 'Metadata View'
+  'editorView': 'Editor'
+  'openLayersAnnotoriusView': 'Annotate View'
+}
+
+Template.mirador_widget_initialLayout.helpers
+  title: ->
+    console.log @
+    titles = []
+    titles.push availableViews[@type] + " : " + AvailableManifests.findOne(@manifestId).manifestPayload.label
+    if @image.title
+      titles.push(@image.title)
+    titles.join(' / ')
+
+
 Template.mirador_widget_initialLayout.onRendered ->
   options =
     appendTo:             '.mirador-viewer'
@@ -69,25 +88,31 @@ Template.mirador_widget_initialLayout.onRendered ->
 
 Template.mirador_widget_toolbar.helpers
   hidden: ->
-    if !@showToolbar
+    if @hidden
       "display: none;"
+    else
+      "display: block;"
   template: ->
     console.log 'calculating template name for widget toolbar: ', @
     'mirador_' + @type + '_navToolbar'
-  height: -> @height
+  height: ->
+    # TODO: real calculations here
+    100
 
 Template.mirador_widget_statusbar.helpers
   hidden: ->
-    if !@showToolbar
+    if @hidden
       "display: none;"
+    else
+      "display: block;"
   template: ->
     'mirador_' + @type + '_statusbar'
-  height: -> @height
+  height: -> 100 #@height
 
 Template.mirador_widget_content.helpers
   height: ->
-    # TODO: Mirador pulls the height for this element from widget - statusbar - toolbar
-    @height
+    # TODO: real calculations here
+    100
   template: ->
     'mirador_' + @type + '_content'
 

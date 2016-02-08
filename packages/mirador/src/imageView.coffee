@@ -1,3 +1,28 @@
+Template.mirador_imageView_content.onRendered ->
+  infoJsonUrl = miradorFunctions.iiif_getUri("#{@data.image.imageUrl}/info.json")
+  osdToolbarId = "mirador-osd-#{@data.image.id}-toolbar"
+  infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
+  elemOsd = @$('.mirador-osd')
+  @osd = miradorFunctions.openSeadragon  {
+    id: elemOsd.attr('id')
+    toolbar: osdToolbarId
+    tileSources: miradorFunctions.iiif_prepJsonForOsd(infoJson)
+  }
+
+  @osd.addHandler 'open', ->
+    # TODO: Make these work
+    _this.addScale()
+    _this.attachOsdEvents()
+    _this.zoomLevel = _this.osd.viewport.getZoom()
+
+    if typeof osdBounds != 'undefined'
+      _this.osd.viewport.fitBounds(osdBounds, true)
+
+
+Template.mirador_imageView_navToolbar.helpers
+  osdToolbarId: ->
+    "mirador-osd-#{@image?.id}-toolbar"
+
 Template.mirador_imageView_navToolbar.onCreated ->
   console.log 'created imageView widget navToolbar!'
 
@@ -52,3 +77,7 @@ Template.mirador_imageView_statusbar.helpers
     '___'
   height: ->
     '___'
+
+Template.mirador_imageView_content.helpers
+  osdId: ->
+    "mirador-osd-#{@image?.id}"

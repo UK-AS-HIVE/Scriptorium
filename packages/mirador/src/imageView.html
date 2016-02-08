@@ -1,6 +1,8 @@
 <!-- Image view -->
 <!-- template for rendering tool bar with nav links -->
 <template name="mirador_imageView_navToolbar">
+  <div class="mirador-osd-toolbar" id="{{osdToolbarId}}">
+  </div>
   <div class="mirador-image-view-nav-toolbar">
     <a href="javascript:;" class="mirador-btn mirador-icon-annotations"><i class="fa fa-comments"></i></a>
     <a href="javascript:;" class="mirador-btn mirador-icon-choices"></a>
@@ -31,6 +33,11 @@
         </select>
       </span>
     </div>
+  </div>
+</template>
+
+<template name="mirador_imageView_content">
+  <div class="mirador-osd" id="{{osdId}}">
   </div>
 </template>
 
