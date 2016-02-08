@@ -20,7 +20,8 @@ Template.mirador_viewer.onRendered ->
   #this.addParsePluginForAnnotorius();
   return
 
-Meteor.methods
+@miradorFunctions = @miradorFunctions || {}
+@miradorFunctions = _.extend miradorFunctions,
   mirador_viewer_addParsePluginForAnnotorius: ->
     # TODO
     anno.addPlugin 'Parse',
@@ -87,7 +88,7 @@ Meteor.methods
 
   mirador_viewer_loadView: (type, manifestId, image, openAt) ->
     console.log 'loadView', arguments
-    Meteor.call 'mirador_viewer_addWidget',
+    miradorFunctions.mirador_viewer_addWidget
       height:     400
       manifestId: manifestId
       openAt:     openAt

@@ -95,7 +95,7 @@ Template.mirador_mainMenu_loadWindowContent.events
     openAt = null
 
     # TODO: This should be configurable
-    Meteor.call 'mirador_viewer_loadView', "imageView", manifestId, @
+    miradorFunctions.mirador_viewer_loadView "imageView", manifestId, @
 
   # attach click event for thumbnails view icon
   'click .mirador-listing-collections a.mirador-icon-thumbnails-view': (e, tpl) ->
