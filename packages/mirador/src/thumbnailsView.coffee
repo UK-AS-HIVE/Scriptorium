@@ -1,5 +1,5 @@
 @miradorWidgetProperties = @miradorWidgetProperties || {}
-miradorWidgetProperties.thumbnailsView =
+@miradorWidgetProperties.thumbnailsView =
   label: 'Thumbnails View'
   title: ->
     'Thumbnails View : ' + AvailableManifests.findOne(@manifestId).manifestPayload.label
@@ -9,7 +9,7 @@ miradorWidgetProperties.thumbnailsView =
   thumbsMinHeight: 50
   thumbsDefaultZoom: 0.5
 
-Template.mirador_thumbnailsView.helpers
+Template.mirador_thumbnailsView_listImages.helpers
   thumbs: ->
     _.map @imagesList, (image, index) ->
       {
@@ -18,7 +18,7 @@ Template.mirador_thumbnailsView.helpers
         id:       image.id
       }
 
-Template.mirador_thumbnailsView.events
+Template.mirador_thumbnailsView_listImages.events
   'click .listing-thumbs li a': (e, tpl) ->
     $.view.loadView _this.manifestId, $(e.target).data('image-id')
 
@@ -29,7 +29,8 @@ Template.mirador_thumbnailsView.events
 
 Template.mirador_thumbnailsView_navToolbar.events
   'click .mirador-icon-metadata-view': (e, tpl) ->
-    $.viewer.loadView 'metaDataView', _this.manifestId
+    miradorFunctions.mirador_viewer_loadView 'metaDataView', _this.manifestId
 
   'click .mirador-icon-scroll-view': (e, tpl) ->
-    $.viewer.loadView 'scrollView', _this.manifestId
+    miradorFunctions.mirador_viewer_loadView 'scrollView', _this.manifestId
+

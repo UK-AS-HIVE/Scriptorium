@@ -1,5 +1,5 @@
 @miradorFunctions = @miradorFunctions || {}
-@miradorFunctions = _.extend @miradorFunctions, {
+@miradorFunctions = _.extend @miradorFunctions,
   iiif_getUri: (uri) ->
     iiifUri = uri
     match = /http?:\/\/stacks.stanford.edu\/image\/(\w+\/\S+)/i.exec(uri)
@@ -50,4 +50,7 @@
 
     return newScaleFactors
 
-  }
+  iiif_getUriWithHeight: (uri, height) ->
+    uri = uri.replace /\/$/, ''
+    miradorFunctions.getUri(uri) + '/full/,' + height + '/0/native.jpg'
+

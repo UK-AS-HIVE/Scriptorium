@@ -2,14 +2,14 @@
 <!-- template for rendering images in thumbnails view -->
 <template name="mirador_thumbnailsView_listImages">
   <ul class="{{listingCssCls}} listing-thumbs">
-    {{#thumbs}}
+    {{#each thumbs}}
       <li>
         <a href="javascript:;">
           <img title="{{title}}" data-image-id="{{id}}" src="{{thumbUrl}}" height="{{../defaultHeight}}">
           <div class="thumb-label">{{title}}</div>
         </a>
       </li>
-    {{/thumbs}}
+    {{/each}}
   </ul>
 </template>
 

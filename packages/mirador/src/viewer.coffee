@@ -21,7 +21,7 @@ Template.mirador_viewer.onRendered ->
   return
 
 @miradorFunctions = @miradorFunctions || {}
-@miradorFunctions = _.extend miradorFunctions,
+@miradorFunctions = _.extend @miradorFunctions,
   mirador_viewer_addParsePluginForAnnotorius: ->
     # TODO
     anno.addPlugin 'Parse',
