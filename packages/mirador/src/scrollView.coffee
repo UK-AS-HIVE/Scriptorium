@@ -16,5 +16,6 @@ Template.mirador_scrollView_content.helpers
   images: ->
     console.log 'mirador_scrollView_listImages.images', @
     _.map AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases, (c) ->
+      title: c.label
       uriWithHeight: miradorFunctions.iiif_getUriWithHeight c.images[0].resource.service['@id'], 216 # TODO: should update based on resizing height
 
