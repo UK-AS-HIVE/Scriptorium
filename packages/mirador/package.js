@@ -76,6 +76,7 @@ Package.onUse(function(api) {
 
     'src/editorView.html',
     'src/metadataView.html',
+    'src/metadataView.coffee',
     'src/openLayersAnnotoriusView.html',
     'src/scrollView.html',
     'src/scrollView.coffee',

@@ -1,35 +1,38 @@
 <!-- Metadata view -->
+
+<template name="mirador_metadataView_content">
+  {{#with metadata}}
+    {{> mirador_metadataView_listTerms}}
+  {{/with}}
+</template>
+
 <!-- template for rendering basic metadata terms -->
 <template name="mirador_metadataView_listTerms">
   <div class="sub-title">Details (Metadata about physical object/intellectual work):</div>
-  <dl class="{{metadataListingCls}}">
-    {{#each details}}
-      <dt>{{label}}:</dt><dd>{{value}}</dd>
-    {{/each}}
+  <dl class="metadata-listing">
+    <dt>Label:</dt><dd>{{label}}</dd>
+    <dt>Description:</dt><dd>{{description}}</dd>
   </dl>
   <div class="sub-title">Rights Metadata:</div>
-  <dl class="{{metadataListingCls}}">
-    {{#each rights}}
-      <dt>{{label}}:</dt><dd>{{value}}</dd>
-    {{/each}}
+  <dl class="metadata-listing">
+    <dt>Attribution:</dt><dd>{{attribution}}</dd>
   </dl>
   <div class="sub-title">Linking Metadata:</div>
-  <dl class="{{metadataListingCls}}">
+  <dl class="metadata-listing">
     {{#each links}}
       <dt>{{label}}:</dt><dd>{{value}}</dd>
     {{/each}}
   </dl>
   <div class="sub-title">About (Metadata about this manuscript\'s manifest file):</div>
-  <dl class="{{metadataListingCls}}">
-    {{#each about}}
-      <dt>{{label}}:</dt><dd>{{value}}</dd>
-    {{/each}}
+  <dl class="metadata-listing">
+      <dt>Context:</dt><dd>{{@context}}</dd>
+      <dt>Id:</dt><dd>{{@id}}</dd>
   </dl>
 </template>
 
 <!-- template for rendering tool bar with nav links -->
 <template name="mirador_metadataView_navToolbar">
-  <div class="{{navToolbarCls}}">
+  <div class="mirador-metadata-view-nav-toolbar">
     <a href="javascript:;" class="mirador-btn mirador-icon-scroll-view"></a>
     <a href="javascript:;" class="mirador-btn mirador-icon-thumbnails-view"></a>
   </div>
