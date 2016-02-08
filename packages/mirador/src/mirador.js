@@ -96,14 +96,14 @@ window.Mirador = window.Mirador || function(config) {
     },
 
     // image view
-    'imageView': {
+    /*'imageView': {
       'height': 400,
       'width': 350,
       'annotationsList': {
         'display': true,
         'width': 200
       }
-    },
+    },*/
 
     // scroll view
     'scrollView': {

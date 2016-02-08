@@ -7,7 +7,11 @@
     if @image.title
       titles.push(@image.title)
     titles.join(' / ')
-
+  height: 400
+  width: 350
+  annotationsList:
+    display: true
+    width: 200
 
 Template.mirador_imageView_content.onRendered ->
   infoJsonUrl = miradorFunctions.iiif_getUri("#{@data.image.imageUrl}/info.json")

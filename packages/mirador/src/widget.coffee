@@ -26,7 +26,7 @@ Template.mirador_widget_initialLayout.onRendered ->
     content:              null
     draggable:            true
     element:              null
-    height:               400 #$.DEFAULT_SETTINGS.widget.height
+    height:               miradorWidgetProperties[@data.type].height
     id:                   null
     metadataDetails:      null
     openAt:               null
@@ -34,13 +34,13 @@ Template.mirador_widget_initialLayout.onRendered ->
     showToolbar:          true
     statusbar:            null
     toolbar:              null
-    type:                 'thumbnailsView'
+    type:                 @data.type #'thumbnailsView'
     viewObj:              null
     widgetCls:            'mirador-widget'
     widgetContentCls:     'mirador-widget-content'
     widgetStatusbarCls:   'mirador-widget-statusbar'
     widgetToolbarCls:     'mirador-widget-toolbar'
-    width:                350 #$.DEFAULT_SETTINGS.widget.width
+    width:                miradorWidgetProperties[@data.type].width #$.DEFAULT_SETTINGS.widget.width
     position:
       'my': 'left top'
       'at': 'left+50 top+50'
@@ -71,9 +71,9 @@ Template.mirador_widget_initialLayout.onRendered ->
     #.appendTo(options.appendTo)
     #.dialog(this)
     #.dialog(this.dialogOptions)
-    #.dialogExtend(this.dialogExtendOptions)
     #.dialog('option', 'id', this.id)
     .dialog(options)
+    .dialogExtend(options.dialogExtendOptions)
 
     # Settings that will execute when resized.
     .parent().resizable
