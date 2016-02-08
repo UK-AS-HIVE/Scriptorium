@@ -34,11 +34,12 @@ Template.mbBoard.events
     searchText = tpl.$('input').val()
     Session.set('message_search', searchText)
 
-Template.timeago.rendered = (a,b,c) ->
+Template.timeago.rendered = ->
+  tpl = @
   @autorun ->
     messages = Messages.find().fetch()
-    @$('.timeago').timeago('updateFromDOM')
-    @$('.timeago').timeago()
+    tpl.$('.timeago').timeago('updateFromDOM')
+    tpl.$('.timeago').timeago()
 
 Template.timeago.helpers
   pretty: ->
