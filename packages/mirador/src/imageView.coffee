@@ -3,7 +3,7 @@
   title: ->
     console.log @
     titles = []
-    titles.push availableViews[@type] + " : " + AvailableManifests.findOne(@manifestId).manifestPayload.label
+    titles.push "Image View : " + AvailableManifests.findOne(@manifestId).manifestPayload.label
     if @image.title
       titles.push(@image.title)
     titles.join(' / ')

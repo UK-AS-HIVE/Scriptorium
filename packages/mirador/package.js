@@ -80,6 +80,7 @@ Package.onUse(function(api) {
     'src/scrollView.html',
     'src/statusBar.html',
     'src/thumbnailsView.html',
+    'src/thumbnailsView.coffee',
     'src/iiif.coffee',
     'src/openSeadragon.coffee'
   ], 'client');

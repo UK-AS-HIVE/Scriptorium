@@ -1,3 +1,14 @@
+@miradorWidgetProperties = @miradorWidgetProperties || {}
+miradorWidgetProperties.thumbnailsView =
+  label: 'Thumbnails View'
+  title: ->
+    'Thumbnails View : ' + AvailableManifests.findOne(@manifestId).manifestPayload.label
+  height: 400
+  width: 600
+  thumbsMaxHeight: 150
+  thumbsMinHeight: 50
+  thumbsDefaultZoom: 0.5
+
 Template.mirador_thumbnailsView.helpers
   thumbs: ->
     _.map @imagesList, (image, index) ->

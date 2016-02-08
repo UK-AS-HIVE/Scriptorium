@@ -5,7 +5,7 @@ miradorWidgetProperties = @miradorWidgetProperties = @miradorWidgetProperties ||
 
 Template.mirador_widget_initialLayout.helpers
   title: ->
-    miradorWidgetProperties[@type]?.title()
+    miradorWidgetProperties[@type]?.title.apply @, {}
 
 Template.mirador_widget_initialLayout.onRendered ->
   options =

@@ -114,13 +114,13 @@ window.Mirador = window.Mirador || function(config) {
     },
 
     // thumbnails view
-    'thumbnailsView': {
+    /*'thumbnailsView': {
       'height': 400,
       'thumbsMaxHeight': 150,
       'thumbsMinHeight': 50,
       'thumbsDefaultZoom': 0.5,
       'width': 600
-    },
+    },*/
 
     // metadata view
     'metadataView': {
