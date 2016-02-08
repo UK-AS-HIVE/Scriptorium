@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2016-02-04
+//! Built on 2016-02-08
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -11123,6 +11123,8 @@ jQuery.fn.scrollStop = function(callback) {
       olMap:            null,
       bestFitSize:      {},
       dialogOffset:     {},
+      currentAnnos:     [],
+      currentManifest:  null,
       zoomLevelCutOff:  750
     }, options);
 
@@ -11138,8 +11140,9 @@ jQuery.fn.scrollStop = function(callback) {
 
     this.currentImg = this.imagesList[this.currentImgIndex];
 
-
-    annotorious.plugin.Parse.prototype.addSrc(this.currentImg.canvasId);
+    //annotorious.plugin.Parse.prototype.addSrc(this.currentImg.canvasId);]
+    this.currentManifest = this.metadata.about.scriptorium.split('|')[0];
+    this.currentAnnos = Annotations.find({"canvas": this.currentImg.canvasId, "project": Session.get('current_project'), "manifest": this.currentManifest}).fetch();
 
     this.calculateDimensionsForOlBaseLayer();
   };
@@ -11151,6 +11154,8 @@ jQuery.fn.scrollStop = function(callback) {
       this.calculateDialogOffsets();
       this.calculateBestFitSize();
 
+      console.log(this.currentAnnos);
+
       this.resize();
 
       this.element
@@ -11159,7 +11164,8 @@ jQuery.fn.scrollStop = function(callback) {
           mapId: this.mapId
         }));
 
-      annotorious.plugin.Parse.prototype.loadAnnotations();
+      //annotorious.plugin.Parse.prototype.loadAnnotations();
+      
 
       this.loadOpenLayers();
       this.addToolbarAnno();
@@ -11189,17 +11195,22 @@ jQuery.fn.scrollStop = function(callback) {
 
       anno.makeAnnotatable(this.olMap);
 
+      if(this.currentAnnos.length > 0){
+        this.loadAnnotations(this.currentAnnos[0].annotations);
+      }
+      
       var self = this;
 
       anno.addHandler('onAnnotationRemoved', function(annotation){
-        console.log(annotation);
+        Meteor.call("deleteAnnotoriusAnnos", self.currentImg.canvasId, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
       });
 
       anno.addHandler('onAnnotationCreated', function(annotation) {
         var annoObject = annotation;
         //we flip the y value because of differences in how annotorius and mirador conside the 0,0 point
-        Meteor.call("saveAnnotoriusAnnos", annotation.src, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
-
+        Meteor.call("saveAnnotoriusAnnos", self.currentImg.canvasId, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
+        console.log("created: ");
+        console.log(annotation);
       });
     },
 
@@ -11332,7 +11343,38 @@ jQuery.fn.scrollStop = function(callback) {
       });
 
       return imgIndex;
+    },
+
+    loadAnnotations: function(annos){
+
+      // var newAnno = {
+      //   'src': "map://openlayers/something",
+      //   'text': "Yay!",
+      //   'shapes': [{
+      //     'type': "rect",
+      //     'geometry': {'height': 678.75, 'width': 784, 'x': 796, 'y': 2316}
+      //   }]
+      // };
+
+      var _this = this;
+
+      jQuery.each(annos, function(index, value){
+        console.log(value);
+        var newAnno = {
+          'src': "map://openlayers/something",
+          'text': value.text,
+          'shapes': [{
+            'type': "rect",
+            'geometry': {'height': value.h, 'width': value.w, 'x': value.x, 'y': (_this.currentImg.height - value.y) - value.h}
+          }]
+        };
+
+        anno.addAnnotation(newAnno);
+
+      });
     }
+
+
 
 
   };
