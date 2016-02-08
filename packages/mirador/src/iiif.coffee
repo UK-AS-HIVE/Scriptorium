@@ -52,5 +52,5 @@
 
   iiif_getUriWithHeight: (uri, height) ->
     uri = uri.replace /\/$/, ''
-    miradorFunctions.getUri(uri) + '/full/,' + height + '/0/native.jpg'
+    miradorFunctions.iiif_getUri(uri) + '/full/,' + height + '/0/native.jpg'
 
