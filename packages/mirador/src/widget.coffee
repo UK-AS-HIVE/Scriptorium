@@ -6,8 +6,22 @@ miradorWidgetProperties = @miradorWidgetProperties = @miradorWidgetProperties ||
 Template.mirador_widget_initialLayout.helpers
   title: ->
     miradorWidgetProperties[@type]?.title.apply @, {}
+  extendedData: ->
+    _.extend @,
+      size: Template.instance().size
+
+Template.mirador_widget_initialLayout.onCreated ->
+  console.log 'mirador_widget_initialLayout.onCreated'
+  @size = new ReactiveVar
+    width: 1
+    height: 1
+  console.log @
 
 Template.mirador_widget_initialLayout.onRendered ->
+  console.log 'mirador_widget_initialLayout.onRendered'
+
+  widget = @
+
   options =
     appendTo:             '.mirador-viewer'
     autoOpen:             true
@@ -38,7 +52,8 @@ Template.mirador_widget_initialLayout.onRendered ->
       'collision' : 'fit'
       'within' : '.mirador-viewer'
     dialogOptions:
-      'resize': (event, ui) -> {}
+      'resize': (event, ui) ->
+        widget.size.set ui.size
       'resizeStop': (event, ui) -> {}
       'close': (event, ui) -> {}
     dialogExtendOptions:
@@ -51,8 +66,6 @@ Template.mirador_widget_initialLayout.onRendered ->
       #'mainMenuHeight': $.viewer.mainMenu.element.outerHeight(true) + 84, # the plus 84 accounts for the scriptorium header
       #'statusBarHeight': $.viewer.statusBar.element.outerHeight(true)
 
-  console.log 'Initializing jQuery-UI dialog, resizable, and draggable on widget', @
-
   @.$('.mirador-widget')
     #.addClass(this.widgetCls)
     #.attr('id', this.id)
@@ -63,6 +76,7 @@ Template.mirador_widget_initialLayout.onRendered ->
     #.dialog(this.dialogOptions)
     #.dialog('option', 'id', this.id)
     .dialog(options)
+    .dialog(options.dialogOptions)
     .dialogExtend(options.dialogExtendOptions)
 
     # Settings that will execute when resized.
@@ -98,8 +112,8 @@ Template.mirador_widget_statusbar.helpers
 
 Template.mirador_widget_content.helpers
   height: ->
-    # TODO: real calculations here
-    100
+    # TODO: figure out constant pixel offset
+    @size.get().height - 50
   template: ->
     'mirador_' + @type + '_content'
 

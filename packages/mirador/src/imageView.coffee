@@ -17,12 +17,16 @@ Template.mirador_imageView_content.onRendered ->
   infoJsonUrl = miradorFunctions.iiif_getUri("#{@data.image.imageUrl}/info.json")
   osdToolbarId = "mirador-osd-#{@data.image.id}-toolbar"
   infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
-  elemOsd = @$('.mirador-osd')
-  @osd = miradorFunctions.openSeadragon  {
+  elemOsd = @.$('.mirador-osd')
+  @osd = miradorFunctions.openSeadragon
     id: elemOsd.attr('id')
     toolbar: osdToolbarId
     tileSources: miradorFunctions.iiif_prepJsonForOsd(infoJson)
-  }
+    
+  @autorun ->
+    size = Template.currentData().size.get()
+    elemOsd.width(size.width-2).height(size.height-100) # TODO: figure out pixel offsets
+    Template.instance().osd.viewport?.ensureVisible()
 
   @osd.addHandler 'open', ->
     # TODO: Make these work
@@ -37,9 +41,6 @@ Template.mirador_imageView_content.onRendered ->
 Template.mirador_imageView_navToolbar.helpers
   osdToolbarId: ->
     "mirador-osd-#{@image?.id}-toolbar"
-
-Template.mirador_imageView_navToolbar.onCreated ->
-  console.log 'created imageView widget navToolbar!'
 
 Template.mirador_imageView_navToolbar.events
  'click .mirador-icon-previous': (e, tpl) ->

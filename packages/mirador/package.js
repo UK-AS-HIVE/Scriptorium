@@ -8,7 +8,8 @@ Package.onUse(function(api) {
     'templating',
     'coffeescript',
     'mongo',
-    'underscore'
+    'underscore',
+    'reactive-var'
   ], 'client');
   api.addFiles([
     'lib/jquery-ui-no-slider.custom.js',
