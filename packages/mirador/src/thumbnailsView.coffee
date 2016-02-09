@@ -16,19 +16,20 @@ Template.mirador_thumbnailsView_listImages.helpers
       imageUrl = c.images[0].resource.service['@id']
       thumbUrl: miradorFunctions.iiif_getUriWithHeight imageUrl, miradorWidgetProperties.thumbnailsView.thumbsMaxHeight
       title:    c.label
-      id:       "#{@manifestId}-#{index}" #image.id
+      id:       index
   thumbsDefaultHeight: ->
     p = miradorWidgetProperties.thumbnailsView
     p.thumbsMinHeight + (p.thumbsMaxHeight - p.thumbsMinHeight) * p.thumbsDefaultZoom
 
 Template.mirador_thumbnailsView_listImages.events
   'click .listing-thumbs li a': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView @manifestId, $(e.target).data('image-id')
+    miradorFunctions.mirador_viewer_loadView 'imageView', Template.currentData().manifestId, @id
 
+  # TODO: the slider seems to have been removed at some point.
+  # We can probably remove this.
   'slide': (e, ui, tpl) ->
     # Not sure how jquery UI handles these events - might have to put them in onRendered
     $(e.target).attr('height', ui.value)
-
 
 Template.mirador_thumbnailsView_navToolbar.events
   'click .mirador-icon-metadata-view': (e, tpl) ->
