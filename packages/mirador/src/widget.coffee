@@ -13,8 +13,8 @@ Template.mirador_widget_initialLayout.helpers
 Template.mirador_widget_initialLayout.onCreated ->
   console.log 'mirador_widget_initialLayout.onCreated'
   @size = new ReactiveVar
-    width: 1
-    height: 1
+    width: miradorWidgetProperties[@data.type].width
+    height: miradorWidgetProperties[@data.type].height
   console.log @
 
 Template.mirador_widget_initialLayout.onRendered ->
