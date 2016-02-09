@@ -50,7 +50,7 @@ Template.mirador_imageView_navToolbar.events
     _this.next()
 
   'click .mirador-icon-metadata-view': (e, tpl) ->
-    $.viewer.loadView("metadataView", _this.manifestId)
+    miradorFunctions.mirador_viewer_loadView('metadataView', @manifestId)
 
   'click .mirador-icon-load-editor': (e, tpl) ->
     # console.log("clicked editor button");
