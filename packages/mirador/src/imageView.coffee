@@ -1,11 +1,8 @@
 @miradorWidgetProperties = @miradorWidgetProperties || {}
 @miradorWidgetProperties.imageView =
   title: ->
-    titles = []
-    titles.push "Image View : " + AvailableManifests.findOne(@manifestId).manifestPayload.label
-    if @imageId
-      titles.push AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId].label
-    titles.join(' / ')
+    m = AvailableManifests.findOne(@manifestId).manifestPayload
+    "Image View : " + m.label + ' / ' + m.sequences[0].canvases[@imageId].label
   height: 400
   width: 350
   annotationsList:
