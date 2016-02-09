@@ -9,23 +9,31 @@
     display: true
     width: 200
 
-Template.mirador_imageView_content.onRendered ->
-  tpl = @
+Template.mirador_imageView_content_osd.onDestroyed ->
+  if @osd then @osd.destroy()
+
+Template.mirador_imageView_content_osd.onRendered ->
   elemOsd = @.$('.mirador-osd')
-  @autorun ->
-    tpl.data.image = AvailableManifests.findOne(tpl.data.manifestId).manifestPayload.sequences[0].canvases[tpl.data.imageId]
-    infoJsonUrl = miradorFunctions.iiif_getUri("#{tpl.data.image.images[0].resource.service['@id']}/info.json")
-    osdToolbarId = "mirador-osd-#{tpl.data.manifestId}-#{tpl.data.imageId}-toolbar"
-    infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
-    tpl.osd = miradorFunctions.openSeadragon
-      id: elemOsd.attr('id')
-      toolbar: osdToolbarId
-      tileSources: miradorFunctions.iiif_prepJsonForOsd(infoJson)
     
+  # Get information for OSD
+  @data.image = AvailableManifests.findOne(@data.manifestId).manifestPayload.sequences[0].canvases[@data.imageId]
+  infoJsonUrl = miradorFunctions.iiif_getUri("#{@data.image.images[0].resource.service['@id']}/info.json")
+  osdToolbarId = "mirador-osd-#{@data.manifestId}-#{@data.imageId}-toolbar"
+  infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
+  
+  # Create osd at element
+  console.log elemOsd.attr('id')
+  Template.instance().osd = miradorFunctions.openSeadragon
+    id: elemOsd.attr('id')
+    toolbar: osdToolbarId
+    tileSources: miradorFunctions.iiif_prepJsonForOsd(infoJson)
+
   @autorun ->
     size = Template.currentData().size.get()
     elemOsd.width(size.width-2).height(size.height-100) # TODO: figure out pixel offsets
-    Template.instance().osd.viewport?.ensureVisible()
+    if Template.instance().osd
+      console.log Template.instance().osd
+      Template.instance().osd.viewport?.ensureVisible()
 
   ###
   @osd.addHandler 'open', ->
@@ -38,17 +46,18 @@ Template.mirador_imageView_content.onRendered ->
       _this.osd.viewport.fitBounds(osdBounds, true)
   ###
 
-
 Template.mirador_imageView_navToolbar.helpers
   osdToolbarId: ->
     "mirador-osd-#{@manifestId}-#{@imageId}-toolbar"
 
 Template.mirador_imageView_navToolbar.events
  'click .mirador-icon-previous': (e, tpl) ->
-   ActiveWidgets.update @_id, { $inc: { imageId: -1 } }
+   if tpl.data.imageId > 0
+     ActiveWidgets.update @_id, { $inc: { imageId: -1 } }
 
   'click .mirador-icon-next': (e, tpl) ->
-   ActiveWidgets.update @_id, { $inc: { imageId: 1 } }
+    # TODO: Don't set imageId past the end of list
+    ActiveWidgets.update @_id, { $inc: { imageId: 1 } }
 
   'click .mirador-icon-metadata-view': (e, tpl) ->
     miradorFunctions.mirador_viewer_loadView 'metadataView', @manifestId
@@ -95,6 +104,12 @@ Template.mirador_imageView_statusbar.helpers
   height: ->
     '___'
 
+
 Template.mirador_imageView_content.helpers
+  isOdd: (number) ->
+    # Hack to make sure Blaze fully re-renders template on page change.
+    number % 2 != 0
+
+Template.mirador_imageView_content_osd.helpers
   osdId: ->
     "mirador-osd-#{@manifestId}-#{@imageId}"

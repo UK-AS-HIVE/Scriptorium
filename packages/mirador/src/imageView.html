@@ -37,6 +37,14 @@
 </template>
 
 <template name="mirador_imageView_content">
+  {{#if isOdd imageId}}
+    {{> mirador_imageView_content_osd}}
+    {{else}}
+    {{> mirador_imageView_content_osd}}
+  {{/if}}
+</template>
+
+<template name="mirador_imageView_content_osd">
   <div class="mirador-osd" id="{{osdId}}">
   </div>
 </template>
