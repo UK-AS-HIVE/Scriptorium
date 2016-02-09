@@ -1,11 +1,10 @@
 @miradorWidgetProperties = @miradorWidgetProperties || {}
 @miradorWidgetProperties.imageView =
   title: ->
-    console.log @
     titles = []
     titles.push "Image View : " + AvailableManifests.findOne(@manifestId).manifestPayload.label
-    if @image.title
-      titles.push(@image.title)
+    if @imageId
+      titles.push AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId].label
     titles.join(' / ')
   height: 400
   width: 350
@@ -14,20 +13,24 @@
     width: 200
 
 Template.mirador_imageView_content.onRendered ->
-  infoJsonUrl = miradorFunctions.iiif_getUri("#{@data.image.imageUrl}/info.json")
-  osdToolbarId = "mirador-osd-#{@data.image.id}-toolbar"
-  infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
+  tpl = @
   elemOsd = @.$('.mirador-osd')
-  @osd = miradorFunctions.openSeadragon
-    id: elemOsd.attr('id')
-    toolbar: osdToolbarId
-    tileSources: miradorFunctions.iiif_prepJsonForOsd(infoJson)
+  @autorun ->
+    tpl.data.image = AvailableManifests.findOne(tpl.data.manifestId).manifestPayload.sequences[0].canvases[tpl.data.imageId]
+    infoJsonUrl = miradorFunctions.iiif_getUri("#{tpl.data.image.images[0].resource.service['@id']}/info.json")
+    osdToolbarId = "mirador-osd-#{tpl.data.manifestId}-#{tpl.data.imageId}-toolbar"
+    infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
+    tpl.osd = miradorFunctions.openSeadragon
+      id: elemOsd.attr('id')
+      toolbar: osdToolbarId
+      tileSources: miradorFunctions.iiif_prepJsonForOsd(infoJson)
     
   @autorun ->
     size = Template.currentData().size.get()
     elemOsd.width(size.width-2).height(size.height-100) # TODO: figure out pixel offsets
     Template.instance().osd.viewport?.ensureVisible()
 
+  ###
   @osd.addHandler 'open', ->
     # TODO: Make these work
     _this.addScale()
@@ -36,21 +39,22 @@ Template.mirador_imageView_content.onRendered ->
 
     if typeof osdBounds != 'undefined'
       _this.osd.viewport.fitBounds(osdBounds, true)
+  ###
 
 
 Template.mirador_imageView_navToolbar.helpers
   osdToolbarId: ->
-    "mirador-osd-#{@image?.id}-toolbar"
+    "mirador-osd-#{@manifestId}-#{@imageId}-toolbar"
 
 Template.mirador_imageView_navToolbar.events
  'click .mirador-icon-previous': (e, tpl) ->
-    _this.prev()
+   ActiveWidgets.update @_id, { $inc: { imageId: -1 } }
 
   'click .mirador-icon-next': (e, tpl) ->
-    _this.next()
+   ActiveWidgets.update @_id, { $inc: { imageId: 1 } }
 
   'click .mirador-icon-metadata-view': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView('metadataView', @manifestId)
+    miradorFunctions.mirador_viewer_loadView 'metadataView', @manifestId
 
   'click .mirador-icon-load-editor': (e, tpl) ->
     # console.log("clicked editor button");
@@ -63,10 +67,10 @@ Template.mirador_imageView_navToolbar.events
     Meteor.miradorFunctions.createFolioEntry(_this.currentImg.imageUrl, _this.currentImg.height, _this.currentImg.width, _this.currentImg.title, Meteor.userId())
 
   'click .mirador-icon-scroll-view': (e, tpl) ->
-    $.viewer.loadView("scrollView", _this.manifestId)
+    miradorFunctions.mirador_viewer_loadView 'scrollView', @manifestId
 
   'click .mirador-icon-thumbnails-view': (e, tpl) ->
-    $.viewer.loadView("thumbnailsView", _this.manifestId)
+    miradorFunctions.mirador_viewer_loadView 'thumbnailsView', @manifestId
 
   'click .mirador-icon-annotations': (e, tpl) ->
     _this.annotationsLayer.setVisible()
@@ -96,4 +100,4 @@ Template.mirador_imageView_statusbar.helpers
 
 Template.mirador_imageView_content.helpers
   osdId: ->
-    "mirador-osd-#{@image?.id}"
+    "mirador-osd-#{@manifestId}-#{@imageId}"

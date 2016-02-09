@@ -86,13 +86,13 @@ Template.mirador_viewer.onRendered ->
       if (widget.type == "openLayersAnnotoriusView" )
         widget.close()
 
-  mirador_viewer_loadView: (type, manifestId, image, openAt) ->
+  mirador_viewer_loadView: (type, manifestId, imageIndex, openAt) ->
     console.log 'loadView', arguments
     miradorFunctions.mirador_viewer_addWidget
       height:     400
       manifestId: manifestId
       openAt:     openAt
-      image:      image
+      imageId:    imageIndex
       type:       type
       width:      350
 

@@ -61,7 +61,7 @@
     {{#each collections}}
       <ul class="ul-{{_id}}">
         {{#each imageData}}
-          <li class="load-window-li"><a href="javascript:;" data-image-id="{{id}}" data-manifest-id="{{../_id}}">{{trimTitlePrefix title}}</a></li>
+          <li class="load-window-li"><a href="javascript:;" data-image-id="{{imageIndex}}" data-manifest-id="{{../_id}}">{{trimTitlePrefix label}}</a></li>
         {{/each}}
       </ul>
     {{/each}}
