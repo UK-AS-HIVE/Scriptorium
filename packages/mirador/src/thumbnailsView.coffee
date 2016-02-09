@@ -11,16 +11,19 @@
 
 Template.mirador_thumbnailsView_listImages.helpers
   thumbs: ->
-    _.map @imagesList, (image, index) ->
-      {
-        thumbUrl: $.Iiif.getUriWithHeight(image.imageUrl, _this.thumbsMaxHeight),
-        title:    image.title,
-        id:       image.id
-      }
+    console.log 'getting thumbs list for ', @
+    _.map AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases, (c, index) ->
+      imageUrl = c.images[0].resource.service['@id']
+      thumbUrl: miradorFunctions.iiif_getUriWithHeight imageUrl, miradorWidgetProperties.thumbnailsView.thumbsMaxHeight
+      title:    c.label
+      id:       "#{@manifestId}-#{index}" #image.id
+  thumbsDefaultHeight: ->
+    p = miradorWidgetProperties.thumbnailsView
+    p.thumbsMinHeight + (p.thumbsMaxHeight - p.thumbsMinHeight) * p.thumbsDefaultZoom
 
 Template.mirador_thumbnailsView_listImages.events
   'click .listing-thumbs li a': (e, tpl) ->
-    $.view.loadView _this.manifestId, $(e.target).data('image-id')
+    miradorFunctions.mirador_viewer_loadView @manifestId, $(e.target).data('image-id')
 
   'slide': (e, ui, tpl) ->
     # Not sure how jquery UI handles these events - might have to put them in onRendered
@@ -29,8 +32,8 @@ Template.mirador_thumbnailsView_listImages.events
 
 Template.mirador_thumbnailsView_navToolbar.events
   'click .mirador-icon-metadata-view': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView 'metaDataView', _this.manifestId
+    miradorFunctions.mirador_viewer_loadView 'metaDataView', @manifestId
 
   'click .mirador-icon-scroll-view': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView 'scrollView', _this.manifestId
+    miradorFunctions.mirador_viewer_loadView 'scrollView', @manifestId
 
