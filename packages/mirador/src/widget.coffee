@@ -1,6 +1,10 @@
 # TODO: Purpose of these is just wrappers to display content - need to handle resizing on them and choosing what templates to render
 #
 
+# Disable conflicts with bootstrap, so that dialog close buttons appear correctly
+Meteor.startup ->
+  jQuery.fn.button.noConflict()
+
 miradorWidgetProperties = @miradorWidgetProperties = @miradorWidgetProperties || {}
 
 Template.mirador_widget_initialLayout.helpers
