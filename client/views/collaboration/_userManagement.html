@@ -1,6 +1,8 @@
 <template name="userAutocomplete">
-  <h4>{{name}}</h4>
-  <h5>{{email}}</h5>
+  <div>
+    <h4>{{name}}</h4>
+    <h5>{{email}}</h5>
+  </div>
 </template>
 
 <template name="_userManagement">
@@ -10,21 +12,21 @@
   <!-- TEAM MANAGEMENT -->
   <ul class="team">
     <h3>Manage Team</h3>
-  {{#each project.permissions}}
-    <li>
-      <b>{{user.fullName}}</b>
-      <small>{{level}}</small>
-      {{#if isAdmin}}
-      <span>
-        <a href="#" data-toggle="modal" data-target="#editUserModal" class="edit" title="Edit"><i class="fa fa-pencil"></i></a>
-        <a href="#" data-toggle="modal" data-target="#deleteUserModal" class="delete" title="Delete"><i class="fa fa-times"></i></a>
-      </span>
-      {{/if}}
-    </li>
-  {{/each}}
+    {{#each project.permissions}}
+      <li>
+        <b>{{user.fullName}}</b>
+        <small>{{level}}</small>
+        {{#if isAdmin}}
+          <span>
+            <a href="#" data-toggle="modal" data-target="#editUserModal" class="edit" title="Edit"><i class="fa fa-pencil"></i></a>
+            <a href="#" data-toggle="modal" data-target="#deleteUserModal" class="delete" title="Delete"><i class="fa fa-times"></i></a>
+          </span>
+        {{/if}}
+      </li>
+    {{/each}}
   </ul>
   {{#if isAdmin}}
-  <a href="#" data-toggle="modal" data-target="#userModal" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Team Member</a>
+    <a href="#" data-toggle="modal" data-target="#userModal" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Team Member</a>
   {{/if}}
 </template>
 
@@ -37,12 +39,12 @@
           <form>
             <div class="form-group">
               <label>Email Address</label>
-              <input type="email" class="form-control typeahead" autocomplete="off" spellcheck="off" placeholder="Name or Email Address"
-                      data-source="userSearch" data-template="userAutocomplete"/>
+              <input type="email" name="addUserEmail" class="form-control typeahead" autocomplete="off" spellcheck="off" placeholder="Name or Email Address"
+              data-source="userSearch" data-template="userAutocomplete"/>
             </div>
             <div class="form-group">
               <label>Role</label>
-              <select class="form-control">
+              <select class="form-control" name="role">
                 <option value="contributor">Contributor</option>
                 <option value="admin">Admin</option>
               </select>

@@ -1,21 +1,19 @@
-Template.mbThread.rendered = () ->
-  Tracker.autorun(() ->
+Template.mbThread.rendered = ->
+  @.autorun ->
     currentProject = Session.get('current_project')
     data = Router.current().data()
 
     if currentProject && data && data.roomId != currentProject
       Router.go('collaboration')
-  )
 
-Template.mbThread.helpers({
+Template.mbThread.helpers
   oldestFirst: () ->
     !Session.get('mbSortThreadAsc')
 
   newestFirst: () ->
     Session.get('mbSortThreadAsc')
-})
 
-Template.mbThread.events({
+Template.mbThread.events
   'click .reply button': (e, t) ->
     e.preventDefault()
     textarea = t.$('.reply textarea')
@@ -26,19 +24,17 @@ Template.mbThread.events({
   'change .sort-by select': (e, t) ->
     e.preventDefault()
     Session.set('mbSortThreadAsc', t.$('select').val() == "true")
-})
 
-Template.mbPosts.helpers({
+Template.mbPosts.helpers
   breaklines: (text) ->
     if text
       t = text.trim()
       '<p>'+t.replace(/[\r\n]+/g,'</p><p>')+'</p>'
 
-  posts: () ->
+  posts: ->
     posts = _.sortBy(@posts, (p) -> p.timestamp)
 
     if Session.get('mbSortThreadAsc')
       posts.reverse()
     else
       posts
-})
