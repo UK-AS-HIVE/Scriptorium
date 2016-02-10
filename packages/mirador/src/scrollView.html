@@ -6,7 +6,7 @@
 
 <!-- template for rendering images in scroll view -->
 <template name="mirador_scrollView_content">
-  <div class="scroll-view-frame" style="width: {{scrollWidth}}">
+  <div class="scroll-view-frame" style="width: {{scrollWidth}}; height: {{scrollHeight}}px">
     {{#each images}}
       <div id="{{id}}" class="item">
         <div class="header" style="height: 25px">
@@ -15,7 +15,7 @@
           </div>
         </div>
         <div id="{{id}}-osd" class="image-instance">
-          <img class="static-thumb" src={{uriWithHeight}}>
+          <img class="static-thumb" src={{uriWithHeight}} style="height: {{thumbHeight}}px;">
         </div>
         <div class="title">{{title}}</div>
       </div>

@@ -13,11 +13,16 @@ Template.mirador_scrollView_content.helpers
     # look at setFrameAndItemsDimensions for reference
     # implementation
     '10000px'
+  scrollHeight: ->
+    @size.get().height - 70
+  thumbHeight: ->
+    Template.parentData().size.get().height - 150
   images: ->
     console.log 'mirador_scrollView_listImages.images', @
+    height = @size.get().height - 150
     _.map AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases, (c) ->
       title: c.label
-      uriWithHeight: miradorFunctions.iiif_getUriWithHeight c.images[0].resource.service['@id'], 216 # TODO: should update based on resizing height
+      uriWithHeight: miradorFunctions.iiif_getUriWithHeight c.images[0].resource.service['@id'], height
 
 Template.mirador_scrollView_navToolbar.events
   'click .mirador-icon-metadata-view': ->
