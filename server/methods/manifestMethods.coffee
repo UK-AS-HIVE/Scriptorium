@@ -25,8 +25,8 @@ Meteor.methods
 
   addDataToProject: (projectId, manifestId, widgets) ->
     manifestData = {
-        manifestId: manifestId,
-        widgets: widgets
+      manifestId: manifestId,
+      widgets: widgets
     }
     Projects.update projectId, { $push: { "miradorData": manifestData } }
 
