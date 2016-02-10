@@ -1,5 +1,5 @@
 //! Mirador 0.9.0
-//! Built on 2016-02-01
+//! Built on 2016-02-08
 /*! jQuery UI - v1.10.3 - 2013-06-06
  * http://jqueryui.com
  * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.position.js, jquery.ui.draggable.js, jquery.ui.resizable.js, jquery.ui.button.js, jquery.ui.dialog.js, jquery.ui.menu.js, jquery.ui.slider.js
@@ -7665,7 +7665,6 @@ jQuery.fn.scrollStop = function(callback) {
 
     renderWidgetsForCollection: function(collection) {
       var _this = this;
-
       jQuery.each(collection.widgets, function(index, config) {
         if (!jQuery.isEmptyObject(config) && $.isValidView(config.type)) {
           config.manifestId = $.getManifestIdByUri(collection.manifestUri);
@@ -9024,7 +9023,6 @@ jQuery.fn.scrollStop = function(callback) {
         create: function() {
             var _this = this;
 
-
             // returns a promise object constructed using
             // jQuery.when.apply(this, [deferred array]);
             _this.getAnnotations().done( function() {
@@ -9071,6 +9069,7 @@ jQuery.fn.scrollStop = function(callback) {
             var _this = this,
             requests = [];
 
+
             _this.set('annotations', []);
 
             if (!_this.annotationUrls) {
@@ -9079,7 +9078,6 @@ jQuery.fn.scrollStop = function(callback) {
             }
 
             jQuery.each(_this.annotationUrls, function(index, url) {
-                console.log(url);
                 var request =  jQuery.ajax(
                     {
                     url: url,
@@ -9224,7 +9222,6 @@ jQuery.fn.scrollStop = function(callback) {
                     var idString = '#listing_' + id;
                     return jQuery(idString);
             });
-            console.log(_this);
 
             _this.parent.element.find('.annotation').fadeIn();
             _this.parent.element.find('.annotationListing').slideDown();
@@ -9468,7 +9465,12 @@ jQuery.fn.scrollStop = function(callback) {
 
       this.element.dialog({
         close: function(event, ui) {
-          _this.close();
+          // _this.close();
+          if(_this.type == "openLayersAnnotoriusView"){
+            Meteor.miradorFunctions.loadMirador();
+          }else{
+            _this.close();
+          }
         },
 
         drag: function(event, ui) {
@@ -10334,7 +10336,6 @@ jQuery.fn.scrollStop = function(callback) {
         // $.viewer.loadView("editorView", _this.manifestId);
         // Meteor.call("getNewEditorId", Meteor.user(), Session.get("current-project"), _this.openAt)
         Meteor.miradorFunctions.newDoc(_this.openAt);
-        console.log(_this);
       });
 
       navToolbar.on('click', selectorAddFolio, function() {
@@ -11122,6 +11123,8 @@ jQuery.fn.scrollStop = function(callback) {
       olMap:            null,
       bestFitSize:      {},
       dialogOffset:     {},
+      currentAnnos:     [],
+      currentManifest:  null,
       zoomLevelCutOff:  750
     }, options);
 
@@ -11137,8 +11140,9 @@ jQuery.fn.scrollStop = function(callback) {
 
     this.currentImg = this.imagesList[this.currentImgIndex];
 
-
-    annotorious.plugin.Parse.prototype.addSrc(this.currentImg.canvasId);
+    //annotorious.plugin.Parse.prototype.addSrc(this.currentImg.canvasId);]
+    this.currentManifest = this.metadata.about.scriptorium.split('|')[0];
+    this.currentAnnos = Annotations.find({"canvas": this.currentImg.canvasId, "project": Session.get('current_project'), "manifest": this.currentManifest}).fetch();
 
     this.calculateDimensionsForOlBaseLayer();
   };
@@ -11150,6 +11154,8 @@ jQuery.fn.scrollStop = function(callback) {
       this.calculateDialogOffsets();
       this.calculateBestFitSize();
 
+      console.log(this.currentAnnos);
+
       this.resize();
 
       this.element
@@ -11158,7 +11164,8 @@ jQuery.fn.scrollStop = function(callback) {
           mapId: this.mapId
         }));
 
-      annotorious.plugin.Parse.prototype.loadAnnotations();
+      //annotorious.plugin.Parse.prototype.loadAnnotations();
+      
 
       this.loadOpenLayers();
       this.addToolbarAnno();
@@ -11188,18 +11195,22 @@ jQuery.fn.scrollStop = function(callback) {
 
       anno.makeAnnotatable(this.olMap);
 
+      if(this.currentAnnos.length > 0){
+        this.loadAnnotations(this.currentAnnos[0].annotations);
+      }
+      
       var self = this;
 
       anno.addHandler('onAnnotationRemoved', function(annotation){
-        console.log(annotation);
+        Meteor.call("deleteAnnotoriusAnnos", self.currentImg.canvasId, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
       });
 
       anno.addHandler('onAnnotationCreated', function(annotation) {
         var annoObject = annotation;
-        console.log(annoObject);
         //we flip the y value because of differences in how annotorius and mirador conside the 0,0 point
-        Meteor.call("saveAnnotoriusAnnos", annotation.src, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
-
+        Meteor.call("saveAnnotoriusAnnos", self.currentImg.canvasId, annotation.shapes[0].geometry.x, (self.currentImg.height - annotation.shapes[0].geometry.y) - annotation.shapes[0].geometry.height, annotation.shapes[0].geometry.width, annotation.shapes[0].geometry.height, annotation.text, self.metadata.about.scriptorium);
+        console.log("created: ");
+        console.log(annotation);
       });
     },
 
@@ -11332,7 +11343,38 @@ jQuery.fn.scrollStop = function(callback) {
       });
 
       return imgIndex;
+    },
+
+    loadAnnotations: function(annos){
+
+      // var newAnno = {
+      //   'src': "map://openlayers/something",
+      //   'text': "Yay!",
+      //   'shapes': [{
+      //     'type': "rect",
+      //     'geometry': {'height': 678.75, 'width': 784, 'x': 796, 'y': 2316}
+      //   }]
+      // };
+
+      var _this = this;
+
+      jQuery.each(annos, function(index, value){
+        console.log(value);
+        var newAnno = {
+          'src': "map://openlayers/something",
+          'text': value.text,
+          'shapes': [{
+            'type': "rect",
+            'geometry': {'height': value.h, 'width': value.w, 'x': value.x, 'y': (_this.currentImg.height - value.y) - value.h}
+          }]
+        };
+
+        anno.addAnnotation(newAnno);
+
+      });
     }
+
+
 
 
   };
@@ -11698,6 +11740,7 @@ jQuery.fn.scrollStop = function(callback) {
         if (widgetState.type === 'imageView') {
           //widgetState.openAt = widget.openAt,
           widgetState.openAt = widget.viewObj.currentImg.title,
+          widgetState.imageId = widget.viewObj.currentImg.id,
 
           // widgetState.zoomState = (function(bounds) {
           //   return {
@@ -11721,6 +11764,10 @@ jQuery.fn.scrollStop = function(callback) {
 
         if (widgetState.type === "scrollView") {
 
+        }
+
+        if (widgetState.type === "openLayersAnnotoriusView") {
+          return;
         }
 
         // osdRect: 34,
@@ -11908,7 +11955,6 @@ jQuery.fn.scrollStop = function(callback) {
       // annotations, an undesired effect.
       annotationsBySize = this.parent.get('annotations').slice().sort(this.sortRegionsBySize);
 
-      console.log(annotationsBySize);
 
       if (_this.parent.get('visible')) {
 
@@ -11990,7 +12036,10 @@ jQuery.fn.scrollStop = function(callback) {
       if (!this.parent.annotationUrls) {
         return;
       }
-      this.parent.parent.osd.drawer.clearOverlays();
+      if (this.parent.parent.osd.drawer){
+        this.parent.parent.osd.drawer.clearOverlays();
+      }
+      
     }
 
   };

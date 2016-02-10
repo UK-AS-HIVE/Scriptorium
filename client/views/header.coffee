@@ -30,7 +30,7 @@ Template.header.events({
   "change #projectSelector": (e) ->
     projId = $(e.target).val()
     Session.set("current_project", projId)
-    if Router.current().route.name == "desk"
+    if Router.current().route.getName() == "desk"
       Meteor.miradorFunctions.loadMirador()
 
   "click .js-toggle-desk-panel": ->
