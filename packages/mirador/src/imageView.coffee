@@ -9,6 +9,7 @@
     display: true
     width: 200
 
+### Content - OSD ###
 Template.mirador_imageView_content_osd.onDestroyed ->
   if @osd then @osd.destroy()
 
@@ -22,7 +23,6 @@ Template.mirador_imageView_content_osd.onRendered ->
   infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
   
   # Create osd at element
-  console.log elemOsd.attr('id')
   Template.instance().osd = miradorFunctions.openSeadragon
     id: elemOsd.attr('id')
     toolbar: osdToolbarId
@@ -32,7 +32,6 @@ Template.mirador_imageView_content_osd.onRendered ->
     size = Template.currentData().size.get()
     elemOsd.width(size.width-2).height(size.height-100) # TODO: figure out pixel offsets
     if Template.instance().osd
-      console.log Template.instance().osd
       Template.instance().osd.viewport?.ensureVisible()
 
   ###
@@ -46,7 +45,60 @@ Template.mirador_imageView_content_osd.onRendered ->
       _this.osd.viewport.fitBounds(osdBounds, true)
   ###
 
+Template.mirador_imageView_content_osd.helpers
+  osdId: ->
+    "mirador-osd-#{@manifestId}-#{@imageId}"
+
+Template.mirador_imageView_imageChoices.helpers
+  choicesInfo: ->
+    canvas = AvailableManifests.findOne(@manifestId)?.manifestPayload.sequences[0].canvases[@imageId]
+    choiceList = []
+    _.each canvas.images, (image) ->
+      if image.resource.hasOwnProperty('@type') and image.resource['@type'] is 'oa:Choice'
+        console.log 'image has choices'
+        # tentatively not implementing this. can consider it later.
+      else
+        choiceList.push
+          id: @imageId
+          manifestId: @manifestId
+          imageUrl: image.resource.service['@id'].replace(/\/$/, '')
+          choices: []
+          label: image.resource.label || 'Default'
+
+    if @showNoImageChoiceOption
+      choiceList.push
+        imageUrl: null
+        choices: []
+        label: 'No Image'
+
+    return choiceList
+
+Template.mirador_imageView_imageChoices.events
+  'click .mirador-image-view-choice': (e, tpl) ->
+    if tpl.$(e.target).data('choice') is 'No Image'
+      #TODO: Make this work
+      console.log 'destroy osd'
+    else
+      ActiveWidgets.update tpl.data._id, { $set: { imageId: tpl.$(e.target).data('image-id') } }
+
+
+### Nav Toolbar ###
+
+Template.mirador_imageView_navToolbar.onRendered ->
+  imageChoices = $('<div/>')
+  Blaze.renderWithData Template.mirador_imageView_imageChoices, _.extend(ActiveWidgets.findOne(@data._id), { showNoImageChoiceOption: true }), imageChoices.get(0)
+  @.$('.mirador-icon-choices').tooltipster
+    arrow: true
+    content: imageChoices
+    contentCloning: false
+    interactive: true
+    position: 'bottom'
+    theme: '.tooltipster-mirador'
+
 Template.mirador_imageView_navToolbar.helpers
+  isOdd: (number) ->
+    # Hack to make sure Blaze destroys and re-renders osd toolbar on image change. 
+    number % 2 != 0
   osdToolbarId: ->
     "mirador-osd-#{@manifestId}-#{@imageId}-toolbar"
 
@@ -85,6 +137,8 @@ Template.mirador_imageView_navToolbar.events
     # _this.openAnnotoriusWindow();
     $.viewer.loadView('openLayersAnnotoriusView', _this.manifestId, _this.currentImg.id)
 
+
+### Status Bar ###
 Template.mirador_imageView_statusbar.events
   'click .mirador-icon-lock': (e, tpl) ->
     if (_this.locked)
@@ -104,12 +158,9 @@ Template.mirador_imageView_statusbar.helpers
   height: ->
     '___'
 
-
+### Content ###
 Template.mirador_imageView_content.helpers
   isOdd: (number) ->
     # Hack to make sure Blaze fully re-renders template on page change.
-    number % 2 != 0
+    _.isNull(number) or number % 2 != 0
 
-Template.mirador_imageView_content_osd.helpers
-  osdId: ->
-    "mirador-osd-#{@manifestId}-#{@imageId}"
