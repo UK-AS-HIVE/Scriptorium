@@ -118,8 +118,8 @@ Template.mirador_imageView_navToolbar.events
     # console.log("clicked editor button");
     # $.viewer.loadView("editorView", _this.manifestId);
     # Meteor.call("getNewEditorId", Meteor.user(), Session.get("current-project"), _this.openAt)
-    Meteor.miradorFunctions.newDoc(_this.openAt)
-    console.log(_this)
+    Meteor.miradorFunctions.newDoc @openAt
+    console.log @
 
   'click .mirador-icon-send-folio': (e, tpl) ->
     Meteor.miradorFunctions.createFolioEntry(_this.currentImg.imageUrl, _this.currentImg.height, _this.currentImg.width, _this.currentImg.title, Meteor.userId())
