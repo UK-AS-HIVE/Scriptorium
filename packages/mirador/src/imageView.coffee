@@ -27,6 +27,8 @@ Template.mirador_imageView_content_osd.onRendered ->
     id: elemOsd.attr('id')
     toolbar: osdToolbarId
     tileSources: miradorFunctions.iiif_prepJsonForOsd(infoJson)
+  
+  $("#mirador-osd-#{@data.manifestId}-#{@data.imageId}-toolbar button:last-child").hide()
 
   @autorun ->
     size = Template.currentData().size.get()
