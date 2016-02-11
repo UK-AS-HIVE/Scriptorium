@@ -41,5 +41,3 @@ Meteor.methods
       }, { $set: { widgets: workspaceJSON.data[i].widgets } }
       i++
 
-  getRootUrl: ->
-    process.env.ROOT_URL

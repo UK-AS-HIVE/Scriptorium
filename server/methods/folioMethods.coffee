@@ -11,7 +11,7 @@ Meteor.methods
       dateAdded: now
       lastUpdated: now
       published: false
-      manifest: process.env.ROOT_URL + "folio/manifest.json"
+      manifest: Meteor.absoluteUrl "folio/manifest.json"
 
     return newFolioID
 

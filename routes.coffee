@@ -138,10 +138,10 @@ Router.map ->
         canvArray[i] = canvases[i].canvas
         console.log(canvArray[i])
 
-      seqArray = [{"@id": process.env.ROOT_URL + "folio/sequence/normal.json", "@type": "sc:Sequence", "label": "Normal Order", "canvases": canvArray}]
+      seqArray = [{"@id": Meteor.absoluteUrl("folio/sequence/normal.json"), "@type": "sc:Sequence", "label": "Normal Order", "canvases": canvArray}]
 
       manifest = {}
-      manifest["@id"] = process.env.ROOT_URL + "folio/manifest"
+      manifest["@id"] = Meteor.absoluteUrl "folio/manifest"
       manifest["@context"] = "http://www.shared-canvas.org/ns/context.json"
       manifest["@type"] = "sc:Manifest"
       manifest["attribution"] = "HMML"
@@ -168,7 +168,7 @@ Router.map ->
           annoArr = []
           availAnnos = Annotations.find({"canvas": canvas["@id"], "manifest": @params.manifestId, "project": @params.project}).fetch()
           for anno in availAnnos
-            annoArr.push {"@id": process.env.ROOT_URL + "annotations/" + anno["_id"] + ".json", "@type": "sc:AnnotationList"}
+            annoArr.push {"@id": Meteor.absoluteUrl("annotations/#{anno._id}.json"), "@type": "sc:AnnotationList"}
 
           if annoArr.length > 0
             canvas.otherContent = annoArr
@@ -190,7 +190,7 @@ Router.map ->
 
       annotationList = {
         "@context": "http://www.shared-canvas.org/ns/context.json",
-        "@id": process.env.ROOT_URL + "annotations/" + @params.canvasId,
+        "@id": Meteor.absoluteUrl("annotations/" + @params.canvasId),
         "@type": "sc:AnnotationList",
         "resources": []
       }
