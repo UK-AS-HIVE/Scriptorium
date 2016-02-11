@@ -19,8 +19,30 @@ Template.mirador.rendered = ->
   # # ), 1000
   # Mirador thisObject
 
-  Meteor.miradorFunctions.loadMirador()
+  #Meteor.miradorFunctions.loadMirador()
+  return
 
-Template.mirador.helpers
-  getOpenEditors: ->
-    OpenDocs.find({'user': Meteor.userId(), 'project': Session.get('current_project')})
+@ActiveWidgets = new Mongo.Collection null
+@miradorFunctions = @miradorFunctions || {}
+@miradorFunctions = _.extend @miradorFunctions, {
+  getJsonFromUrl: (url, async) ->
+    json = null
+    jQuery.ajax
+      url: url
+      dataType: 'json'
+      async: async || false
+      success: (data) ->
+        json = data
+      error: (xhr, status, error) ->
+        console.error xhr, status, error
+
+    return json
+
+  genUUID: ->
+    idNum = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace /[xy]/g, (c) ->
+      r = Math.random() * 16|0
+      v = if c == 'x' then r else r & 0x3 | 0x8
+      return v.toString(16)
+
+    return "uuid-" + idNum
+}

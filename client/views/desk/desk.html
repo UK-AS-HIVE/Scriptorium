@@ -1,7 +1,19 @@
 <template name="desk">
 
   <!-- {{> editor}} -->
-	{{> mirador}}
+  <!-- {{> mirador}} -->
+  <div id="viewer">
+
+    {{#each getOpenEditors}}
+      {{> editorPanel eId=this.document}}
+    {{/each}}
+
+    {{> deskPanel}}
+    {{> savePanel}}
+    {{> newDocPanel}}
+
+    {{> mirador}}
+  </div>
 
 
   <div class="modal fade" id="addManifestModal">

@@ -1,0 +1,116 @@
+<!-- Image view -->
+<!-- template for rendering tool bar with nav links -->
+<template name="mirador_imageView_navToolbar">
+  {{#if isOdd imageId}}
+    <div class="mirador-osd-toolbar" id="{{osdToolbarId}}"></div>
+    {{else}}
+    <div class="mirador-osd-toolbar" id="{{osdToolbarId}}"></div>
+  {{/if}}
+  <div class="mirador-image-view-nav-toolbar">
+    <a href="javascript:;" class="mirador-btn mirador-icon-annotations"><i class="fa fa-comments"></i></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-choices"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-metadata-view"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-scroll-view"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-thumbnails-view"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-previous"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-next"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-annotorius"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-load-editor"></a>
+    <a href="javascript:;" class="mirador-btn mirador-icon-send-folio"><i class="fa fa-paper-plane"></i></a>
+  </div>
+</template>
+
+<template name="mirador_imageView_statusbar">
+  <div class="mirador-image-view-statusbar">
+    <a href="javascript:;" class="mirador-btn mirador-icon-lock"></a>
+    <div class="mirador-image-dimensions">
+    <span class="noDimensionsWarning">No Dimensions Given</span>
+      <textarea rows="1" class="mirador-image-view-physical-dimensions x">{{width}}</textarea>
+      <span>✕</span>
+      <textarea rows="1" class="mirador-image-view-physical-dimensions y">{{height}}</textarea>
+      <span class="units">m,
+        <select class="unit-selector">
+          <option value="mm">millimeters</option>
+          <option value="cm">centimeters</option>
+          <option value="m">meters</option>
+        </select>
+      </span>
+    </div>
+  </div>
+</template>
+
+<template name="mirador_imageView_content">
+  {{#if isOdd imageId}}
+    {{> mirador_imageView_content_osd}}
+    {{else}}
+    {{> mirador_imageView_content_osd}}
+  {{/if}}
+</template>
+
+<template name="mirador_imageView_content_osd">
+  <div class="mirador-osd" id="{{osdId}}">
+  </div>
+</template>
+
+<template name="mirador_imageView_annotationPanel">
+  <div class="annotationListPanel">
+  <div class="resizeGrip"></div>
+  {{> mirador_imageView_annotationStats}}
+    <ul class="annotationList">
+    {{#each annotations}}
+      {{> mirador_imageView_annotationListing}}
+    {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name="mirador_imageView_annotationStats">
+  <div class="annotationPanelHeader">
+    <h4>Annotation List (<span class="annotationsTotal">{{annotationCount}}</span>)</h4>
+    <div class="annoSearch">
+    <select id="annotationTypeSelector" name="annotationTypes">
+      <option value="">All (<span class="annotationCount">{{annotationCount}}</span>)</option>
+      <option value="commenting">Commentary (<span class="imageAnnotationCount">{{imageAnnotationCount}}</span>)</option>
+      <option value="painting">Transcription (<span class="textAnnotationCount">{{textAnnotationCount}}</span>)</option>
+    </select>
+    </div>
+  </div>
+</template>
+
+<template name="mirador_imageView_noAnnotationMessage">
+  <div class="annotationPanelHeader">
+    <h4>No Annotations Provided</h4>
+  </div>
+</template>
+
+<template name="mirador_imageView_annotationListing">
+  <li id="listing_{{id}}" class="annotationListing">
+    {{#if title}}
+    <h3>{{{title}}}</h3>
+    {{/if}}
+    <p>{{{content}}}</p>
+  </li>
+</template>
+
+<template name="mirador_imageView_annotationDetail">
+  <div class="annotationDetails">
+    <div class="annotationNumber">{{annotationNumber}}</div>
+    <a class="annotationDetailToggle mirador-icon-annotationDetail-toggle" title="Hide this detail panel."><i class="icon-eye-close"></i></a>
+    <p>{{{body}}}</p>
+  </div>
+</template>
+
+<template name="mirador_imageView_annotationDetailToggle">
+  <div class="displayBottomPanelButton">
+    <a class="annotationDetailToggle mirador-icon-annotationDetail-toggle" title="Display annotation details in bottom panel."><i class="icon-eye-open"></i></a>
+  </div>
+</template>
+
+<template name="mirador_imageView_imageChoices">
+  <ul class="mirador-image-view-choices">
+    {{#each choicesInfo}}
+      <li><a href="#" class="mirador-image-view-choice" data-choice="{{label}}" data-image-url="{{imageUrl}}" data-image-id="{{imageId}}">{{label}}</a></li>
+    {{/each}}
+  </ul>
+</template>
+
