@@ -22,9 +22,9 @@
     label: "Project Name"
     type: String
   personal:
-    # I don't know what this key is used for.
     label: "Personal ID"
     type: String
+    optional: true
   permissions:
     label: "Permissions"
     type: [ Object ]
@@ -124,6 +124,7 @@
     label: "Date Uploaded"
     type: new Date()
   description:
+    optional: true
     label: "Description"
     type: String
   fileType:
