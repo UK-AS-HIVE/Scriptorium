@@ -9,6 +9,7 @@
   manifestPayload:
     label: "Manifest Payload"
     type: Object
+    blackbox: true
   manifestLocation:
     label: "Manifest Location"
     type: String
