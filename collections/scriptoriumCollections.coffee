@@ -118,9 +118,12 @@
 
 @FileCabinet = new Meteor.Collection('filecabinet')
 @FileCabinet.attachSchema new SimpleSchema
+  # TODO: this stores either text from CKEditor, or a FileRegistry ID reference
+  # probably should split into separate fields
   content:
     label: "Content ID"
     type: String
+    optional: true
   date:
     label: "Date Uploaded"
     type: new Date()
