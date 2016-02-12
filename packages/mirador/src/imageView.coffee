@@ -1,5 +1,7 @@
 @miradorWidgetProperties = @miradorWidgetProperties || {}
 @miradorWidgetProperties.imageView =
+  extendedData: ->
+    annotationPanelOpen: false
   title: ->
     m = AvailableManifests.findOne(@manifestId).manifestPayload
     "Image View : " + m.label + ' / ' + m.sequences[0].canvases[@imageId].label
@@ -31,8 +33,7 @@ Template.mirador_imageView_content_osd.onRendered ->
   $("#mirador-osd-#{@data.manifestId}-#{@data.imageId}-toolbar button:last-child").hide()
 
   @autorun ->
-    size = Template.currentData().size.get()
-    elemOsd.width(size.width-2).height(size.height-100) # TODO: figure out pixel offsets
+    elemOsd.width(Template.currentData().width-2).height(Template.currentData().height-100) # TODO: figure out pixel offsets
     if Template.instance().osd
       Template.instance().osd.viewport?.ensureVisible()
 
@@ -133,7 +134,9 @@ Template.mirador_imageView_navToolbar.events
     miradorFunctions.mirador_viewer_loadView 'thumbnailsView', @manifestId
 
   'click .mirador-icon-annotations': (e, tpl) ->
-    _this.annotationsLayer.setVisible()
+    ActiveWidgets.update tpl.data._id,
+      $set:
+        annotationPanelOpen: !tpl.data.annotationPanelOpen
 
   'click .mirador-icon-annotorius': (e, tpl) ->
     # _this.openAnnotoriusWindow();

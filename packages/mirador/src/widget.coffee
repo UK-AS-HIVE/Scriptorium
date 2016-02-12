@@ -10,21 +10,12 @@ miradorWidgetProperties = @miradorWidgetProperties = @miradorWidgetProperties ||
 Template.mirador_widget_initialLayout.helpers
   title: ->
     miradorWidgetProperties[@type]?.title.apply @, {}
-  extendedData: ->
-    _.extend @,
-      size: Template.instance().size
-
-Template.mirador_widget_initialLayout.onCreated ->
-  console.log 'mirador_widget_initialLayout.onCreated'
-  @size = new ReactiveVar
-    width: miradorWidgetProperties[@data.type].width
-    height: miradorWidgetProperties[@data.type].height
-  console.log @
 
 Template.mirador_widget_initialLayout.onRendered ->
   console.log 'mirador_widget_initialLayout.onRendered'
 
   widget = @
+  widgetId = @data._id
 
   options =
     appendTo:             '.mirador-viewer'
@@ -57,7 +48,10 @@ Template.mirador_widget_initialLayout.onRendered ->
       'within' : '.mirador-viewer'
     dialogOptions:
       'resize': (event, ui) ->
-        widget.size.set ui.size
+        ActiveWidgets.update widgetId,
+          $set:
+            width: ui.size.width
+            height: ui.size.height
       'resizeStop': (event, ui) -> {}
       'close': (event, ui) -> {}
     dialogExtendOptions:
@@ -117,7 +111,7 @@ Template.mirador_widget_statusbar.helpers
 Template.mirador_widget_content.helpers
   height: ->
     # TODO: figure out constant pixel offset
-    @size.get().height - 50
+    @height - 500
   template: ->
     'mirador_' + @type + '_content'
 

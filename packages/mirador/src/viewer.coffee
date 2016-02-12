@@ -88,13 +88,19 @@ Template.mirador_viewer.onRendered ->
 
   mirador_viewer_loadView: (type, manifestId, imageIndex, openAt) ->
     console.log 'loadView', arguments
-    miradorFunctions.mirador_viewer_addWidget
-      height:     400
+    widgetProps =
       manifestId: manifestId
       openAt:     openAt
       imageId:    imageIndex
       type:       type
-      width:      350
+      width:      miradorWidgetProperties[type].width
+      height:     miradorWidgetProperties[type].height
+
+    if miradorWidgetProperties[@type]?.extendedData?
+      extended = _.extend extended,
+        miradorWidgetProperties[@type].extendedData()
+
+    miradorFunctions.mirador_viewer_addWidget widgetProps
 
   mirador_viewer_getWidgetPosition: ->
     offsetIncrement = 25
