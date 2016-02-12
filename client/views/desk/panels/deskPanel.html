@@ -1,0 +1,30 @@
+<template name="deskPanel">
+  <div class="desk-document-panel">
+    <i class="fa fa-times js-close-panel"></i>
+    <ul class="page-list file-cabinet">
+      {{#each documents}}
+          <li>
+            {{#if isOpen}}
+              <div class="openEditorItem">
+                <i class="file-icon fa fa-file-o"></i>
+                <div class="meta">
+                  <strong>{{title}}</strong>
+                  <small>Editor Document - Open</small>
+                </div>
+              </div>
+            {{else}}
+              <div class="editorItem">
+                <i class="file-icon fa fa-file-o"></i>
+                <div class="meta">
+                  <strong>{{title}}</strong>
+                  <small>Editor Document</small>
+                </div>
+              </div>
+            {{/if}}
+            <div class="doc-panel-delete"><small><i class="fa fa-times"></i> delete</small></div>          
+          </li>
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
