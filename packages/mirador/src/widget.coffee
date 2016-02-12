@@ -111,7 +111,7 @@ Template.mirador_widget_statusbar.helpers
 Template.mirador_widget_content.helpers
   height: ->
     # TODO: figure out constant pixel offset
-    @height - 500
+    @height - 50
   template: ->
     'mirador_' + @type + '_content'
 
