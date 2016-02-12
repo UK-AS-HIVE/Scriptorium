@@ -52,51 +52,7 @@ Template.mirador_imageView_content_osd.helpers
   osdId: ->
     "mirador-osd-#{@manifestId}-#{@imageId}"
 
-Template.mirador_imageView_imageChoices.helpers
-  choicesInfo: ->
-    canvas = AvailableManifests.findOne(@manifestId)?.manifestPayload.sequences[0].canvases[@imageId]
-    choiceList = []
-    _.each canvas.images, (image) ->
-      if image.resource.hasOwnProperty('@type') and image.resource['@type'] is 'oa:Choice'
-        console.log 'image has choices'
-        # tentatively not implementing this. can consider it later.
-      else
-        choiceList.push
-          id: @imageId
-          manifestId: @manifestId
-          imageUrl: image.resource.service['@id'].replace(/\/$/, '')
-          choices: []
-          label: image.resource.label || 'Default'
-
-    if @showNoImageChoiceOption
-      choiceList.push
-        imageUrl: null
-        choices: []
-        label: 'No Image'
-
-    return choiceList
-
-Template.mirador_imageView_imageChoices.events
-  'click .mirador-image-view-choice': (e, tpl) ->
-    if tpl.$(e.target).data('choice') is 'No Image'
-      #TODO: Make this work
-      console.log 'destroy osd'
-    else
-      ActiveWidgets.update tpl.data._id, { $set: { imageId: tpl.$(e.target).data('image-id') } }
-
-
 ### Nav Toolbar ###
-
-Template.mirador_imageView_navToolbar.onRendered ->
-  imageChoices = $('<div/>')
-  Blaze.renderWithData Template.mirador_imageView_imageChoices, _.extend(ActiveWidgets.findOne(@data._id), { showNoImageChoiceOption: true }), imageChoices.get(0)
-  @.$('.mirador-icon-choices').tooltipster
-    arrow: true
-    content: imageChoices
-    contentCloning: false
-    interactive: true
-    position: 'bottom'
-    theme: '.tooltipster-mirador'
 
 Template.mirador_imageView_navToolbar.helpers
   isOdd: (number) ->
@@ -140,7 +96,7 @@ Template.mirador_imageView_navToolbar.events
 
   'click .mirador-icon-annotorius': (e, tpl) ->
     # _this.openAnnotoriusWindow();
-    $.viewer.loadView('openLayersAnnotoriusView', _this.manifestId, _this.currentImg.id)
+    miradorFunctions.mirador_viewer_loadView 'openLayersAnnotoriusView', @manifestId, @imageId
 
 
 ### Status Bar ###

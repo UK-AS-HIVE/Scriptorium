@@ -8,7 +8,6 @@
   {{/if}}
   <div class="mirador-image-view-nav-toolbar">
     <a href="javascript:;" class="mirador-btn mirador-icon-annotations"><i class="fa fa-comments"></i></a>
-    <a href="javascript:;" class="mirador-btn mirador-icon-choices"></a>
     <a href="javascript:;" class="mirador-btn mirador-icon-metadata-view"></a>
     <a href="javascript:;" class="mirador-btn mirador-icon-scroll-view"></a>
     <a href="javascript:;" class="mirador-btn mirador-icon-thumbnails-view"></a>
@@ -108,12 +107,3 @@
     <a class="annotationDetailToggle mirador-icon-annotationDetail-toggle" title="Display annotation details in bottom panel."><i class="icon-eye-open"></i></a>
   </div>
 </template>
-
-<template name="mirador_imageView_imageChoices">
-  <ul class="mirador-image-view-choices">
-    {{#each choicesInfo}}
-      <li><a href="#" class="mirador-image-view-choice" data-choice="{{label}}" data-image-url="{{imageUrl}}" data-image-id="{{imageId}}">{{label}}</a></li>
-    {{/each}}
-  </ul>
-</template>
-

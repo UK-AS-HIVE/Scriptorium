@@ -33,7 +33,7 @@ Template.mirador_thumbnailsView_listImages.events
 
 Template.mirador_thumbnailsView_navToolbar.events
   'click .mirador-icon-metadata-view': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView 'metaDataView', @manifestId
+    miradorFunctions.mirador_viewer_loadView 'metadataView', @manifestId
 
   'click .mirador-icon-scroll-view': (e, tpl) ->
     miradorFunctions.mirador_viewer_loadView 'scrollView', @manifestId
