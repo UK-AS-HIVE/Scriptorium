@@ -89,8 +89,7 @@ Package.onUse(function(api) {
     'src/thumbnailsView.html',
     'src/thumbnailsView.coffee',
     'src/iiif.coffee',
-    'src/openSeadragon.coffee',
-    'src/openLayersAnnotoriusView.coffee'
+    'src/openSeadragon.coffee'
   ], 'client');
 
   // TODO: this is just for testing
