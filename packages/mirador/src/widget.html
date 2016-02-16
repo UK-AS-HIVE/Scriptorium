@@ -1,7 +1,7 @@
 <!-- Widget -->
 <!-- template for rendering widget with placeholders for toolbar and status bar -->
 <template name="mirador_widget_initialLayout">
-  <div class="mirador-widget" title="{{title}}">
+  <div class="mirador-widget" id="{{widgetId}}">
     {{> mirador_widget_toolbar}}
     {{> mirador_widget_statusbar}}
     {{> mirador_widget_content}}

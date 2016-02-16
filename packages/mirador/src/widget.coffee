@@ -8,12 +8,12 @@ Meteor.startup ->
 miradorWidgetProperties = @miradorWidgetProperties = @miradorWidgetProperties || {}
 
 Template.mirador_widget_initialLayout.helpers
+  widgetId: -> @_id
   title: ->
     miradorWidgetProperties[@type]?.title.apply @, {}
 
 Template.mirador_widget_initialLayout.onRendered ->
   console.log 'mirador_widget_initialLayout.onRendered'
-
   widget = @
   widgetId = @data._id
 
@@ -85,6 +85,9 @@ Template.mirador_widget_initialLayout.onRendered ->
     .draggable
       containment: '.mirador-viewer' # The element the dialog is constrained to.
 
+  @autorun ->
+    $("##{widgetId}").dialog 'option', 'title', miradorWidgetProperties[Template.currentData().type]?.title.call(Template.currentData())
+
 Template.mirador_widget_toolbar.helpers
   hidden: ->
     if @hidden
@@ -111,7 +114,7 @@ Template.mirador_widget_statusbar.helpers
 Template.mirador_widget_content.helpers
   height: ->
     # TODO: figure out constant pixel offset
-    @height - 50
+    @height - 100
   template: ->
     'mirador_' + @type + '_content'
 
