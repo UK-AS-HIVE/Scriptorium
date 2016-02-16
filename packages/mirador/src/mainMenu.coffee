@@ -59,7 +59,7 @@ Template.mirador_mainMenu_loadWindowContent.events
     tpl.$('.mirador-listing-collections ul.ul-'+manifestId).show()
 
   # attach click event handler for images in the list
-  'click .mirador-listing-collections li': (e, tpl) ->
+  'click .mirador-listing-collections li a': (e, tpl) ->
     elemTarget = tpl.$(e.target)
     manifestId = elemTarget.data('manifest-id')
     imageId = elemTarget.data('image-id')
