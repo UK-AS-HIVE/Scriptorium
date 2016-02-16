@@ -16,7 +16,11 @@ Package.onUse(function(api) {
     // 'lib/jquery-ui.custom.min.js',
     //'lib/jquery-ui.min.js',
     'lib/jquery-ui.touch-punch.min.js',
-    'lib/jquery-ui.dialogextend.min.js',
+    //'lib/jquery-ui.dialogextend.min.js',
+    'lib/jquery-ui.dialogextend.coffee',
+    'lib/jquery-ui.dialogextend.collapse.coffee',
+    'lib/jquery-ui.dialogextend.minimize.coffee',
+    'lib/jquery-ui.dialogextend.maximize.coffee',
     'lib/jquery.scrollTo.min.js',
     'lib/handlebars.js',
     'lib/openseadragon.min.js',
@@ -85,7 +89,8 @@ Package.onUse(function(api) {
     'src/thumbnailsView.html',
     'src/thumbnailsView.coffee',
     'src/iiif.coffee',
-    'src/openSeadragon.coffee'
+    'src/openSeadragon.coffee',
+    'src/openLayersAnnotoriusView.coffee'
   ], 'client');
 
   // TODO: this is just for testing
