@@ -30,7 +30,13 @@ $.extend true,$.ui.dialogExtend.prototype,
         "resizable" : false
         "height" : newHeight
         "maxHeight" : newHeight
-        "position" : [pos.left - $(document).scrollLeft(),pos.top - $(document).scrollTop()]
+        "position" : {
+          "my": "left top"
+          "at": "left+#{pos.left} top+#{pos.top-30}" # -30 accounts for mainmenu height
+          "of": ".mirador-viewer"
+          "collision": "fit"
+          "within": ".mirador-viewer"
+        }
       )
       .on('dialogclose',@_collapse_restore)
       # hide content
@@ -42,15 +48,16 @@ $.extend true,$.ui.dialogExtend.prototype,
         .find(".ui-dialog-titlebar").css("white-space", "nowrap").end()
       .find(".ui-dialog-content")
       # mark new state
-      @_setState "collapsed"
-      # modify dialog buttons according to new state
-      @_toggleButtons()
-      # trigger custom event
-      @_trigger "collapse"
+    @_setState "collapsed"
+    # modify dialog buttons according to new state
+    @_toggleButtons()
+    # trigger custom event
+    @_trigger "collapse"
 
   _restore_collapsed:()->
     original = @_loadSnapshot()
     # restore dialog
+    pos = $(@element[0]).dialog("widget").position()
     $(@element[0])
       # show content
       # show button-pane
@@ -65,6 +72,13 @@ $.extend true,$.ui.dialogExtend.prototype,
         "resizable" : original.config.resizable
         "height" : original.size.height
         "maxHeight" : original.size.maxHeight
+        "position" : {
+          "my": "left top"
+          "at": "left+#{pos.left} top+#{pos.top-30}" # -30 accounts for mainmenu height
+          "of": ".mirador-viewer"
+          "collision": "fit"
+          "within": ".mirador-viewer"
+        }
       )
       .off('dialogclose',@_collapse_restore)
 
