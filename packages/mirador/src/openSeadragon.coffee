@@ -6,6 +6,7 @@
         preserveViewport: true,
         visibilityRatio:  1,
         minZoomLevel:     0,
+        showFullPageControl: false,
         defaultZoomLevel: 0,
         prefixUrl:        'images/openseadragon/',
         navImages: {
@@ -48,3 +49,43 @@
         }
       }, options)
 }
+
+OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
+  viewer = @
+  transform = new ReactiveVar()
+
+  resize = ->
+    p =  viewer.viewport.pixelFromPoint new OpenSeadragon.Point(0,0), true
+    zoom = viewer.viewport.getZoom true
+    scale = viewer.viewport._containerInnerSize.x * zoom
+    transform.set "translate(#{p.x},#{p.y}) scale(#{scale})"
+
+  data = _.extend data,
+    transform: transform
+  svg = Blaze.renderWithData(Template.osd_blaze_overlay, data, @canvas)
+
+  @addHandler 'open', (e) ->
+    resize()
+
+  @addHandler 'animation', (e) ->
+    resize()
+
+Template.osd_blaze_overlay.helpers
+  transform: ->
+    @transform.get()
+  annotations: ->
+    # TODO: get actual annotations
+    [{
+      x: 0.25
+      y: 0.25
+      w: 0.1
+      h: 0.1
+    },
+    {
+      x: 0.75
+      y: 0.75
+      w: 0.1
+      h: 0.1
+    }]
+
+

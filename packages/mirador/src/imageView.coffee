@@ -23,14 +23,28 @@ Template.mirador_imageView_content_osd.onRendered ->
   infoJsonUrl = miradorFunctions.iiif_getUri("#{@data.image.images[0].resource.service['@id']}/info.json")
   osdToolbarId = "mirador-osd-#{@data.manifestId}-#{@data.imageId}-toolbar"
   infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
+
+  imgRes = @data.image.images[0].resource
+  tileSources = [{
+    "@context": "http://library.stanford.edu/iiif/image-api/1.1/context.json"
+    "@id": imgRes.service['@id'] #"http://loris.as.uky.edu/loris/folio%2FB024086201_MS423_0001r.jpg"
+    height: parseInt imgRes.height #3880
+    width: parseInt imgRes.width #2720
+    profile: ["http://library.stanford.edu/iiif/image-api/compliance.html#level2"]
+    protocol: "http://iiif.io/api/image/1.1"
+    #tiles: [{
+    #  scaleFactors: [1, 2, 4, 8, 16, 32]
+    #  width: 1024
+    #}]
+  }]
   
   # Create osd at element
-  Template.instance().osd = miradorFunctions.openSeadragon
+  @osd = miradorFunctions.openSeadragon
     id: elemOsd.attr('id')
     toolbar: osdToolbarId
-    tileSources: miradorFunctions.iiif_prepJsonForOsd(infoJson)
-  
-  $("#mirador-osd-#{@data.manifestId}-#{@data.imageId}-toolbar button:last-child").hide()
+    tileSources: tileSources
+
+  @osd.addBlazeOverlay Template.osd_blaze_overlay, @data
 
   @autorun ->
     elemOsd.width(Template.currentData().width-2).height(Template.currentData().height-100) # TODO: figure out pixel offsets

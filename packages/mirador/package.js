@@ -23,7 +23,7 @@ Package.onUse(function(api) {
     'lib/jquery-ui.dialogextend.maximize.coffee',
     'lib/jquery.scrollTo.min.js',
     'lib/handlebars.js',
-    'lib/openseadragon.min.js',
+    'lib/openseadragon.js',
     'lib/jquery.tooltipster.min.js',
     'lib/d3.v3.min.js',
     'lib/uri.min.js',
