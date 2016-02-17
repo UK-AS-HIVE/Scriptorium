@@ -51,6 +51,7 @@ $.extend true,$.ui.dialogExtend.prototype,
             my: "left top"
             at: "left top"
             of: '.mirador-viewer'
+            within: '.mirador-viewer'
       )
     # mark new state
     @_setState "maximized"
@@ -79,12 +80,15 @@ $.extend true,$.ui.dialogExtend.prototype,
           my: "left top"
           at: "left+"+original.position.left+" top+"+original.position.top
           of: window
+          collision: "fit"
+          within: ".mirador-viewer"
       )
       # restore draggable-handle (for <titlebar=none> only)
     if $(@element[0]).dialog("option","draggable")
       $(@element[0])
       .dialog("widget")
         .draggable("option", "handle", if $(@element[0]).dialog("widget").find(".ui-dialog-draggable-handle").length then $(@element[0]).dialog("widget").find(".ui-dialog-draggable-handle") else".ui-dialog-titlebar")
+        .draggable("option", "containment", ".mirador-viewer")
         .find(".ui-dialog-draggable-handle")
         .css("cursor", "move")
 
