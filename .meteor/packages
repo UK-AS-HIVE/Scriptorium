@@ -17,8 +17,6 @@ sergeyt:typeahead
 http
 hive:file-registry
 mrt:jquery-ui-sortable
-markdown
-themeteorchef:commonmark
 
 standard-minifiers
 selaias:accounts-entry
@@ -30,3 +28,4 @@ reactive-var
 
 mirador
 
+markdown

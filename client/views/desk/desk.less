@@ -4,7 +4,7 @@
   background: #333 url(images/debut_dark.png) left top repeat;
   width: 100vw;
   height: calc(~"100% - 84px");
-  position: fixed;
+  position: absolute;
   overflow: hidden;
 }
 
@@ -64,16 +64,16 @@ div[id^='editorWindow-'] {
   padding: 10px 5px;
   width: 150px;
 }
-
 .help-panel {
   position: absolute;
+  height: calc(~"100% - 84px");
   right: -300px;
   width: 300px;
-  height: 100%;
   z-index: 99999;
   background: #fff;
   padding: 8px;
   .transition(all 0.2s ease);
+  overflow: scroll;
 }
 .help-panel.is-open {
   .translateX(-300px);
@@ -83,7 +83,6 @@ div[id^='editorWindow-'] {
   font-size: 22px;
   cursor: pointer;
 }
-
 // Desk document panel
 .desk-document-panel {
   position: absolute;

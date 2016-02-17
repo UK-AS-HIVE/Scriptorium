@@ -2,24 +2,7 @@
   <div class="help-panel">
     <i class="fa fa-times js-close-panel"></i>
     <div>
-      <h4>Help</h4>
-      <button type="button" class="btn btn-link" data-action="showContent" data-feature="desk">Desk</button>
-    </div>
-  </div>
-</template>
-
-<template name="helpModal">
-  <div class="modal fade modal" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg help-modal-dialog">
-      <div class="modal-content help-modal-content">
-        <div class="modal-body help-modal-body">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          {{> Template.dynamic template=template}}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Got it</button>
-        </div>
-      </div>
+      {{> Template.dynamic template=template}}
     </div>
   </div>
 </template>

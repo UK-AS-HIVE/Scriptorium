@@ -97,7 +97,6 @@ standard-app-packages@1.0.6
 standard-minifiers@1.0.2
 templating@1.1.5
 templating-tools@1.0.0
-themeteorchef:commonmark@1.1.0
 tracker@1.0.9
 ui@1.0.8
 underscore@1.0.4
