@@ -58,7 +58,7 @@ $.extend true,$.ui.dialogExtend.prototype,
     # modify dialog buttons according to new state
     @_toggleButtons()
     # trigger custom event
-    @_trigger "maximize"
+    @_trigger "maximize", null, { size: { height: newHeight, width: newWidth } }
   _restore_maximized:()->
     original = @_loadSnapshot()
     # restore dialog
@@ -91,6 +91,8 @@ $.extend true,$.ui.dialogExtend.prototype,
         .draggable("option", "containment", ".mirador-viewer")
         .find(".ui-dialog-draggable-handle")
         .css("cursor", "move")
+    # trigger custom event
+    @_trigger "maximizeRestore", null, { size: { height: original.size.height, width: original.size.width } }
 
   _initStyles_maximize:()->
     if not $(".dialog-extend-maximize-css").length

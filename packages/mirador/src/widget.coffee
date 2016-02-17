@@ -9,8 +9,6 @@ miradorWidgetProperties = @miradorWidgetProperties = @miradorWidgetProperties ||
 
 Template.mirador_widget_initialLayout.helpers
   widgetId: -> @_id
-  title: ->
-    miradorWidgetProperties[@type]?.title.apply @, {}
 
 Template.mirador_widget_initialLayout.onRendered ->
   console.log 'mirador_widget_initialLayout.onRendered'
@@ -33,13 +31,13 @@ Template.mirador_widget_initialLayout.onRendered ->
     showToolbar:          true
     statusbar:            null
     toolbar:              null
-    type:                 @data.type #'thumbnailsView'
+    type:                 @data.type
     viewObj:              null
     widgetCls:            'mirador-widget'
     widgetContentCls:     'mirador-widget-content'
     widgetStatusbarCls:   'mirador-widget-statusbar'
     widgetToolbarCls:     'mirador-widget-toolbar'
-    width:                miradorWidgetProperties[@data.type].width #$.DEFAULT_SETTINGS.widget.width
+    width:                miradorWidgetProperties[@data.type].width
     position:
       'my': 'left top'
       'at': 'left+50 top+50'
@@ -56,6 +54,17 @@ Template.mirador_widget_initialLayout.onRendered ->
       'close': (event, ui) -> {}
     dialogExtendOptions:
       'maximizable': true
+      'maximize': (e, ui) ->
+        ActiveWidgets.update widgetId,
+          $set:
+            width: ui.size.width
+            height: ui.size.height
+      'maximizeRestore': (e, ui) ->
+        ActiveWidgets.update widgetId,
+          $set:
+            width: ui.size.width
+            height: ui.size.height
+
       'collapsable': true
       'icons':
         'maximize': 'ui-icon-arrow-4-diag'
