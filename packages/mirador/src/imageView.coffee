@@ -139,10 +139,16 @@ Template.mirador_imageView_content.helpers
     # Hack to make sure Blaze fully re-renders template on page change.
     _.isNull(number) or number % 2 != 0
 
+Template.mirador_imageView_annotationPanel.helpers
+  annotations: ->
+    annos = Annotations.findOne
+      manifest: @manifestId
+      canvas: AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]['@id']
+    annos?.annotations
+
 
 Template.mirador_imageView_annotationStats.helpers
   annotationCount: ->
-    console.log 'annotationCount', @, AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]['@id']
     annos = Annotations.findOne
       manifest: @manifestId
       canvas: AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]['@id']
