@@ -1,7 +1,5 @@
-Meteor.subscribe('projects')
-
 Template.header.rendered = () ->
-  Tracker.autorun(() ->
+  Tracker.autorun ->
     projects = Projects.find({permissions: {$elemMatch: {user: Meteor.userId()}}}).fetch()
 
     #If there is no current_project selected grab the first one
@@ -11,7 +9,6 @@ Template.header.rendered = () ->
     #if there are absolutely no projects default to "Free Space"
     else if !Session.get('current_project') && projects && projects.length <= 0
       Session.set('current_project', 'Free Space')
-  )
 
 Template.header.helpers
   availableProjects: ->
@@ -26,7 +23,7 @@ Template.header.helpers
       return true
     else return false
 
-Template.header.events({
+Template.header.events
   "change #projectSelector": (e) ->
     projId = $(e.target).val()
     Session.set("current_project", projId)
@@ -41,4 +38,3 @@ Template.header.events({
 
   "click .toggle-help-panel": ->
     $('.help-panel').toggleClass('is-open')
-})
