@@ -10,6 +10,21 @@ miradorWidgetProperties = @miradorWidgetProperties = @miradorWidgetProperties ||
 Template.mirador_widget_initialLayout.helpers
   widgetId: -> @_id
 
+lastWidgetOffset = 0
+
+getWidgetPosition = (widgetData) ->
+  if widgetData.x?
+    return "left+#{widgetData.x} top+#{widgetData.y}"
+  else
+    ActiveWidgets.update widgetData._id,
+      $set:
+        x: lastWidgetOffset
+        y: lastWidgetOffset
+    wp = "left+#{lastWidgetOffset} top+#{lastWidgetOffset}"
+    lastWidgetOffset = lastWidgetOffset + 25
+    return wp
+
+
 Template.mirador_widget_initialLayout.onRendered ->
   console.log 'mirador_widget_initialLayout.onRendered'
   widget = @
@@ -23,7 +38,7 @@ Template.mirador_widget_initialLayout.onRendered ->
     content:              null
     draggable:            true
     element:              null
-    height:               miradorWidgetProperties[@data.type].height
+    height:               @data.height
     id:                   null
     metadataDetails:      null
     openAt:               null
@@ -37,10 +52,10 @@ Template.mirador_widget_initialLayout.onRendered ->
     widgetContentCls:     'mirador-widget-content'
     widgetStatusbarCls:   'mirador-widget-statusbar'
     widgetToolbarCls:     'mirador-widget-toolbar'
-    width:                miradorWidgetProperties[@data.type].width
+    width:                @data.width
     position:
       'my': 'left top'
-      'at': 'left+50 top+50'
+      'at': getWidgetPosition @data
       'of': '.mirador-viewer'
       'collision' : 'fit'
       'within' : '.mirador-viewer'
@@ -93,6 +108,12 @@ Template.mirador_widget_initialLayout.onRendered ->
     # Settings that execute when the dialog is dragged. If parent isn't used the text content will have dragging enabled.
     .draggable
       containment: '.mirador-viewer' # The element the dialog is constrained to.
+      stop: (event, ui) ->
+        ActiveWidgets.update widgetId,
+          $set:
+            x: ui.position.left
+            y: ui.position.top
+
 
   @autorun ->
     $("##{widgetId}").dialog 'option', 'title', miradorWidgetProperties[Template.currentData().type]?.title.call(Template.currentData())
