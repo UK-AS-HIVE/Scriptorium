@@ -1,164 +1,86 @@
+hexToRgb = (hex) ->
+  shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace shorthandRegex, (m, r, g, b) ->
+     r + r + g + g + b + b
+
+  result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  return [
+      parseInt(result[1], 16)
+      parseInt(result[2], 16)
+      parseInt(result[3], 16)
+  ]
+
 Template.bookshelf.rendered = ->
-  # CONTRAST SHELF COLOR
-  isDark = (color) ->
-    match = /rgb\((\d+).*?(\d+).*?(\d+)\)/.exec(color)
-    parseFloat(match[1]) + parseFloat(match[2]) + parseFloat(match[3]) < 3 * 256 / 2 # r+g+b should be less than half of max (3 * 256)
-
-
-  $(".shelf").each ->
-    $(this).find('a').css "color", (if isDark($(this).css("background-color")) then "#fff" else "#000")
-    $(this).css "color", (if isDark($(this).css("background-color")) then "white" else "black")
-    return
-
-  # SETUP COLOR PICKER
-  $ ->
-    $(".color-picker").colorpicker()
-    return
-  @autorun(->
+  @autorun =>
     if Bookshelves.find({project: Session.get("current_project")})
-      console.log("Enabling Sortable")
-      enableSortable()
-  )
-
+      enableSortable.call @
 
 Template.bookshelf.events
-  'click .add-category-btn': (e, tmpl)->
-    category = tmpl.find(".category-input").value
-    categoryColor = tmpl.find(".category-color-input").value
-    id = 1
-    categoryCount = Bookshelves.find({project: Session.get("current_project")}).count()
-    if (Bookshelves.findOne({category: category, project: Session.get("current_project")}))
-      console.log("Category already exists")
-      #error
-    else
-      id = Bookshelves.insert({category: category, project: Session.get("current_project"), color: categoryColor, rank: categoryCount + 1})
-      $('#categoryModal').modal('hide')
-
-  'click .edit-category-btn': (e, tmpl) ->
-    Session.set("currentCategoryId", @_id)
-    Session.set("currentCategoryName", @category)
-    Session.set("currentCategoryColor", @color)
-    $('#editCategoryModal').modal('show')
-
-  'click .update-category-btn': (e, tmpl) ->
-    id = Session.get("currentCategoryId")
-    newName = tmpl.find(".edit-category-input").value
-    newColor = tmpl.find(".edit-category-color-input").value
-    Bookshelves.update(id, {$set: {category: newName, color: newColor}})
-    $('#editCategoryModal').modal('hide')
-
-  'click .save-link-btn': (e, tmpl)->
-    linkName = tmpl.find(".link-name-input").value
-    linkUrl = tmpl.find(".link-url-input").value
-    category = tmpl.find(".category-select").value
-    bookshelfId = Bookshelves.findOne({project: Session.get("current_project"), category: category})._id
-    booksCount = Books.find({bookshelfId: bookshelfId}).count()
-    Books.insert({name: linkName, url: linkUrl, bookshelfId: bookshelfId, rank: booksCount + 1})
-    $('#linkModal').modal('hide')
-    enableSortable()
-
-
-  'click .delete-link-btn': (e,tmpl)->
-    Books.remove(@_id)
-
-  'click .edit-link-btn': (e, tmpl) ->
-    Session.set("linkNameValue", @name)
-    Session.set("linkUrlValue", @url)
-    Session.set("linkCategoryValue", Bookshelves.findOne(@bookshelfId).category)
-    Session.set("editBookId", @_id)
-    $('#editLinkModal').modal('show')
-
-  'click .update-link-btn': (e, tmpl)->
-    linkName = tmpl.find(".edit-link-name-input").value
-    linkUrl = tmpl.find(".edit-link-url-input").value
-    bookId = Session.get("editBookId")
-    Books.update(bookId, {$set: {name: linkName, url: linkUrl}})
-    $('#editLinkModal').modal('hide')
-
-  'click .fileUpload': (e, tmpl) ->
-    Media.pickLocalFile {multiple: false, accept: '.pdf'}, (fileId) ->
-      saveButton = tmpl.find(".save-file-btn")
-      fileName = FileRegistry.findOne({"_id": fileId})
-      $(".fileUpload span").text(fileName.filename)
-      Session.set("uploadedFileId", fileId)
-      $(saveButton).removeClass("disabled")
-
-  'click .save-file-btn': (e, tmpl)->
-    file = FileRegistry.findOne(Session.get("uploadedFileId"))
-    category = tmpl.find(".pdf-category-select").value
-    bookshelfId = Bookshelves.findOne({project: Session.get("current_project"), category: category})._id
-    booksCount = Books.find({bookshelfId: bookshelfId}).count()
-    Books.insert({name: file.filename, url: "/file/" + file.filenameOnDisk, bookshelfId: bookshelfId, rank: booksCount + 1})
-    $(".fileUpload span").text('Choose File')
-    $('#pdfModal').modal('hide')
-
-
-
+  'click [data-toggle=modal]': (e, tpl) ->
+    modal = tpl.$(e.currentTarget).data('modal')
+    Blaze.renderWithData Template[modal], @, $('body').get(0)
+    $("##{modal}").modal('show')
 
 Template.bookshelf.helpers
+  foregroundColor: ->
+    rgb = hexToRgb @color
+    if parseFloat(rgb[0]) + parseFloat(rgb[1]) + parseFloat(rgb[2]) < 3 * 256 / 2 # r+g+b should be less than half of max (3 * 256)
+      "#fff"
+    else
+      "#000"
+     
   bookshelf: ->
     enableSortable()
-    return Bookshelves.find({project: Session.get("current_project")}, {sort: {rank: 1}})
-  books: (bookshelfId)->
+    return Bookshelves.find { project: Session.get("current_project") }, { sort: { rank: 1 } }
+  books: (bookshelfId) ->
     enableSortable()
-    return Books.find({bookshelfId: bookshelfId}, {sort: {rank: 1}})
-  linkNameValue: ->
-    Session.get("linkNameValue")
-  linkUrlValue: ->
-    Session.get("linkUrlValue")
-  linkCategoryValue: ->
-    Session.get("linkCategoryValue")
-  currentCategoryName: ->
-    Session.get("currentCategoryName")
-  currentCategoryColor: ->
-    Session.get("currentCategoryColor")
+    return Books.find { bookshelfId: bookshelfId }, { sort: { rank: 1 } }
 
-@enableSortable = ->
-  $('.books').sortable().sortable
+enableSortable = ->
+  tpl = @
+  tpl.$('.books').sortable().sortable
     cancel: '.shelf',
     stop: (e, ui)->
       el = ui.item.get(0)
       elData = Blaze.getData(el)
+
       before = ui.item.prev().get(0)
-      after = ui.item.next().get(0)
       if (!before)
-        $(this).sortable('cancel')
+        tpl.$(this).sortable('cancel')
         return
-      fromId = 0
+
+      beforeData = Blaze.getData(before)
+      after = ui.item.next().get(0)
+      afterData = Blaze.getData(after)
+
       newRank = 0
       if (elData)
         fromId = elData.bookshelfId
         toId = 0
-        if (elData.category)
-          if Blaze.getData(before).category
-            beforeId = Blaze.getData(before).category
-          else if Blaze.getData(before).bookshelfId
-            Blaze.getData(before).bookshelfId
-          else
-        #If there is a book before the entry
-        if Blaze.getData(before).bookshelfId
-          toId = Blaze.getData(before).bookshelfId
-        #if there is a category before the entry
-        else if Blaze.getData(before).category
-          toId = Blaze.getData(before)._id
-        #moving across categories
+
+        # If there is a book before the entry
+        if beforeData.bookshelfId
+          toId = beforeData.bookshelfId
+
+        # if there is a category before the entry
+        else if beforeData.category
+          toId = beforeData._id
+        
+        # Update category if moved
         if (toId and fromId != toId)
-          Books.update(elData._id, {$set: {bookshelfId: toId}})
+          Books.update elData._id, { $set: { bookshelfId: toId } }
+
         #calculate new rank based on before and after elements
-        if (!before || Blaze.getData(before).category)
-          if Blaze.getData(after).rank
-            newRank = Blaze.getData(after).rank - 1
-          else
-            newRank = 0
-        else  if (!after || Blaze.getData(after).category)
-          if Blaze.getData(before).rank
-            newRank = Blaze.getData(before).rank + 1
-          else
-            newRank = 0
+        if (!before || beforeData.category)
+          if afterData.rank then newRank = afterData.rank - 1
+
+        else if (!after || afterData.category)
+          if beforeData.rank then newRank = beforeData.rank + 1
+
         else
-          newRank = (Blaze.getData(before).rank + Blaze.getData(after).rank)/2
-        #update with the new rank
-        Books.update(elData._id, {$set: {rank: newRank}})
-        #need to reapply sortable to new elements
-        enableSortable()
-  $('.shelf').disableSelection()
+          newRank = (beforeData.rank + afterData.rank)/2
+
+        # Update new rank
+        Books.update elData._id, { $set: { rank: newRank } }
+
+  tpl.$('.shelf').disableSelection()

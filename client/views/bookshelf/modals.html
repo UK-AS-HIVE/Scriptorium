@@ -1,0 +1,166 @@
+<!-- Link Modal -->
+<template name="addLinkModal">
+  <div class="modal fade" id="addLinkModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Link Name</label>
+            <input type="text" class="form-control" name="linkName">
+          </div>
+          <div class="form-group">
+            <label>Link URL</label>
+            <input type="text" class="form-control" name="linkUrl">
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select class="form-control" name="category">
+              {{#each bookshelf}}
+                <option>{{category}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-action="saveLink"><i class="fa fa-save"></i> Save Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="editLinkModal">
+  <div class="modal fade" id="editLinkModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Link Name</label>
+            <input type="text" class="form-control" name="linkName" value="{{name}}">
+          </div>
+          <div class="form-group">
+            <label>Link URL</label>
+            <input type="text" class="form-control" name="linkUrl" value="{{url}}">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-action="saveLink"><i class="fa fa-save"></i> Save Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="deleteLinkModal">
+  <div class="modal fade" id="deleteLinkModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Link Name</label>
+            <input type="text" class="form-control" name="linkName" value="{{name}}" disabled>
+          </div>
+          <div class="form-group">
+            <label>Link URL</label>
+            <input type="text" class="form-control" name="linkUrl" value="{{url}}" disabled>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-action="deleteLink"><i class="fa fa-times"></i> Delete Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="newCategoryModal">
+  <!-- Category Modal -->
+  <div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <span class="error">{{error}}</span>
+          <div class="form-group">
+            <label>Category Name</label>
+            <input type="text" class="form-control" name="categoryName">
+          </div>
+          <div class="form-group">
+            <label>Category Color</label>
+            <div class="input-group color-picker">
+              <input type="text" class="form-control" name="categoryColor">
+              <span class="input-group-addon"><i></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-action="addCategory"><i class="fa fa-save"></i> Save Category</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="editCategoryModal">
+  <div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <span class="error">{{error}}</span>
+          <div class="form-group">
+            <label>Category Name</label>
+            <input type="text" class="form-control"  name="categoryName" value="{{category}}">
+          </div>
+          <div class="form-group">
+            <label>Category Color</label>
+            <div class="input-group color-picker">
+              <input type="text" class="form-control" name="categoryColor" value="{{color}}">
+              <span class="input-group-addon"><i></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-action="updateCategory"><i class="fa fa-save"></i> Save Category</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="uploadPdfModal">
+  <div class="modal fade" id="uploadPdfModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Upload File</label>
+            <button class="btn btn-primary btn-block" data-action="uploadFile">
+              <i class="fa fa-file-text-o"></i> <span>
+                {{#if filename}}
+                  {{filename}}
+                  {{else}}
+                  Choose File
+                {{/if}}
+              </span></button>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select class="form-control" name="category">
+              {{#each bookshelf}}
+                <option>{{category}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary disabled" data-action="saveFile"><i class="fa fa-save"></i> Save Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
