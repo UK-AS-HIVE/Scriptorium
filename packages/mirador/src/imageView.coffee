@@ -2,6 +2,12 @@
 @miradorWidgetProperties.imageView =
   extendedData: ->
     annotationPanelOpen: false
+    newAnnotation:
+      isActive: false
+      x1: 0
+      y1: 0
+      x2: 0
+      y2: 0
   title: ->
     m = AvailableManifests.findOne(@manifestId).manifestPayload
     "Image View : " + m.label + ' / ' + m.sequences[0].canvases[@imageId].label
@@ -45,6 +51,13 @@ Template.mirador_imageView_content_osd.onRendered ->
     tileSources: tileSources
 
   @osd.addBlazeOverlay Template.osd_blaze_overlay, @data
+
+  osd = @osd
+
+  # When adding an annotation, disable the mouse from dragging the OSD canvas
+  @autorun ->
+    #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
+    osd.panHorizontal = osd.panVertical = !Template.currentData().newAnnotation.isActive
 
   @autorun ->
     elemOsd.width(Template.currentData().width-2).height(Template.currentData().height-100) # TODO: figure out pixel offsets

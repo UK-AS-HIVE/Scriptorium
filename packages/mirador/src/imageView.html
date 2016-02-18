@@ -120,6 +120,13 @@
         {{/each}}
       </g>
     {{/if}}
+    {{#if newAnnotation}}
+      <g transform={{transform}}>
+        {{#with newAnnotation}}
+          <rect x={{x}} y={{y}} width={{w}} height={{h}} stroke-width="0.002" stroke="#00ff00" fill="none"></rect>
+        {{/with}}
+      </g>
+    {{/if}}
   </svg>
 </template>
 
