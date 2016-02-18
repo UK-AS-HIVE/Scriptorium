@@ -54,6 +54,8 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
   viewer = @
   transform = new ReactiveVar()
 
+  imageWidth = AvailableManifests.findOne(data.manifestId).manifestPayload.sequences[0].canvases[data.imageId].images[0].resource.width
+
   resize = ->
     p =  viewer.viewport.pixelFromPoint new OpenSeadragon.Point(0,0), true
     zoom = viewer.viewport.getZoom true
@@ -73,19 +75,18 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
 Template.osd_blaze_overlay.helpers
   transform: ->
     @transform.get()
+  annotationPanelOpen: ->
+    ActiveWidgets.findOne(@_id)?.annotationPanelOpen
   annotations: ->
-    # TODO: get actual annotations
-    [{
-      x: 0.25
-      y: 0.25
-      w: 0.1
-      h: 0.1
-    },
-    {
-      x: 0.75
-      y: 0.75
-      w: 0.1
-      h: 0.1
-    }]
-
+    canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
+    imageWidth = parseInt(canvas.images[0].resource.width)
+    _.map Annotations.findOne({
+      manifest: @manifestId
+      canvas: canvas['@id']
+    }).annotations, (a) ->
+      x: a.x / imageWidth
+      y: a.y / imageWidth
+      w: a.w / imageWidth
+      h: a.h / imageWidth
+      text: a.text
 

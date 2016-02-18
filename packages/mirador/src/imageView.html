@@ -88,9 +88,9 @@
 <template name="mirador_imageView_annotationListing">
   <li id="listing_{{id}}" class="annotationListing">
     {{#if title}}
-    <h3>{{{title}}}</h3>
+    <h3>{{title}}</h3>
     {{/if}}
-    <p>{{{content}}}</p>
+    <p>{{text}}</p>
   </li>
 </template>
 
@@ -112,11 +112,14 @@
 <!-- Blaze overlay for annotations on OpenSeadragon -->
 <template name="osd_blaze_overlay">
   <svg style="position: absolute; left: 0; top: 0; width: 100%; height: 100%">
-    <g transform={{transform}}>
-      {{#each annotations}}
-        <rect x={{x}} y={{y}} width={{w}} height={{h}} stroke-width="0.002" stroke="red" fill="none"></rect>
-      {{/each}}
-    </g>
+    {{#if annotationPanelOpen}}
+      <text x="50%" y="50" text-anchor="middle">Annotations</text>
+      <g transform={{transform}}>
+        {{#each annotations}}
+          <rect x={{x}} y={{y}} width={{w}} height={{h}} stroke-width="0.002" stroke="red" fill="none"></rect>
+        {{/each}}
+      </g>
+    {{/if}}
   </svg>
 </template>
 
