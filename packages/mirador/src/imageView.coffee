@@ -122,9 +122,61 @@ Template.mirador_imageView_statusbar.events
       _this.lock()
 
   'keypress .mirador-image-view-physical-dimensions, paste .mirador-image-view-physical-dimensions, keyup .mirador-image-view-physical-dimensions': (e, tpl) ->
-    _this.dimensionChange(e)
+    #_this.dimensionChange(e)
+    console.log tpl
+    valid = (/[0-9]|\./.test(String.fromCharCode(e.keyCode)) && !e.shiftKey)
+    textAreaClass = e.currentTarget.className
+    dimension = textAreaClass.charAt(textAreaClass.length-1)
+    currentImg = AvailableManifests.findOne(tpl.data.manifestId).manifestPayload.sequences[0].canvases[tpl.data.imageId].images[0]
+    res = currentImg.resource
+    aspectRatio = parseInt(res.width)/parseInt(res.height)
+
+    # check if the value of the number is an integer 0-9
+    # if not, declare invalid
+    if !valid
+      e.preventDefault()
+
+    # console.log(e.type+ " : " + e.key);
+
+    # check if keystroke is "enter"
+    # if so, exit or deselect the box
+    if (e.keyCode || e.which) == 13
+      e.target.blur()
+
+    if dimension == 'x'
+      width = tpl.$('.x').val()
+      height = Math.floor(aspectRatio * width)
+      if !width
+        # console.log('empty');
+        tpl.$('.y').val('')
+      else
+        tpl.$('.y').val(height)
+    else
+      height = tpl.$('.y').val()
+      width = Math.floor(height/aspectRatio)
+      if !height
+        # console.log('empty');
+        tpl.$('.x').val('')
+      else
+        tpl.$('.x').val(width)
+
+    ActiveWidgets.update tpl.data._id,
+      $set:
+        scaleWidth: width
+        scaleHeight: height
+        scaleUnits: tpl.$('.units').val() || 'mm'
+
+    ###
+    TODO: when units have been specified, add scale overlay
+    if (width)
+      this.scale.dimensionsProvided = true
+    else
+      this.scale.dimensionsProvided = false
+    this.scale.render()
+    ###
 
   'input .units': ->
+    #TODO
     _this.unitChange()
 
 Template.mirador_imageView_statusbar.helpers
