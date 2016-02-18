@@ -178,6 +178,7 @@
   rank:
     label: "Rank"
     type: Number
+    decimal: true
 @Books = new Meteor.Collection('books')
 @Books.attachSchema new SimpleSchema
   name:
@@ -192,3 +193,4 @@
   rank:
     label: "Book Rank"
     type: Number
+    decimal: true

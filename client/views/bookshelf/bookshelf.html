@@ -5,176 +5,46 @@
       <h2><i class="fa fa-book"></i> Bookshelf</h2>
       <p>Bookshelf allows you to drag and drop resources into categories for easy reference and organization.</p>
       <p>Bookshelf items will be opened in a new browser window, so that you may continue to work on Desk while consulting Books.</p>
-<!--       <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-text-o"></i> Upload New Document</a>
- -->      
-      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#linkModal"><i class="fa fa-globe"></i> Add External Link</a>
-      <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#pdfModal"><i class="fa fa-cloud-upload"></i> Upload PDF</a>
-      <a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#categoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
+      <!--       <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-text-o"></i> Upload New Document</a>
+      -->      
+      {{#if bookshelf.count}}
+        <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-modal="addLinkModal"><i class="fa fa-globe"></i> Add External Link</a>
+        <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-modal="uploadPdfModal"><i class="fa fa-cloud-upload"></i> Upload PDF</a>
+      {{/if}}
+      <a href="#" class="btn btn-default btn-block" data-toggle="modal" data-modal="newCategoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
     </div>
     {{initSortable}}
     <!-- CONTENT CONTAINER -->
     <div class="page-content">
       {{#if bookshelf.count}}
-      <ul class="books">
-      {{#each bookshelf}}
-        <li class="shelf" style="background: {{color}};">
-          {{category}}
-          <div class="actions">
-            <a href="#" data-toggle="modal"><i class="fa fa-pencil edit-category-btn"></i></a>
-          </div>
-        </li>
-        <li class="book" draggable="true" style="display:none">
-        </li>
-          {{#each books _id}}
-            <li class="book" draggable="true" style="border-left-color:{{../color}}" parentId ="{{../_id}}">
-              <h3><a href="{{url}}" target="_blank"><i class="fa fa-globe"></i> {{name}}</a></h3>
+        <ul class="books">
+          {{#each bookshelf}}
+            <li class="shelf" style="background: {{color}}; color: {{foregroundColor}}">
+              {{category}}
               <div class="actions">
-                <a href="#" class="black"><i class="fa fa-pencil edit-link-btn"></i></a>
-                <a href="#" class="red"><i class="fa fa-times delete-link-btn"></i></a>
+                <a href="#" data-toggle="modal" data-modal="editCategoryModal" style="color: {{foregroundColor}}"><i class="fa fa-pencil edit-category-btn"></i></a>
               </div>
             </li>
+            <li class="book" draggable="true" style="display:none">
+            </li>
+            {{#each books _id}}
+              <li class="book" draggable="true" style="border-left-color:{{../color}}" parentId ="{{../_id}}">
+                <h3><a href="{{url}}" target="_blank"><i class="fa fa-globe"></i> {{name}}</a></h3>
+                <div class="actions">
+                  <a href="#" class="black"><i class="fa fa-pencil edit-link-btn" data-toggle="modal" data-modal="editLinkModal"></i></a>
+                  <a href="#" class="red"><i class="fa fa-times delete-link-btn" data-toggle="modal" data-modal="deleteLinkModal"></i></a>
+                </div>
+              </li>
+            {{/each}}
           {{/each}}
-      {{/each}}
-      </ul>
-      {{else}}
-      <!-- IF NO FILES -->
-      <div class="nofiles">
-        <p>You don't have any categories yet.</p>
-        <a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#categoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
-      </div>
+        </ul>
+        {{else}}
+        <!-- IF NO FILES -->
+        <div class="nofiles">
+          <p>You don't have any categories yet.</p>
+          <a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#categoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
+        </div>
       {{/if}}
-    </div>
-  </div>
-  <!-- Link Modal -->
-  <div class="modal fade" id="linkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Link Name</label>
-            <input type="text" class="form-control link-name-input"/>
-          </div>
-          <div class="form-group">
-            <label>Link URL</label>
-            <input type="text" class="form-control link-url-input"/>
-          </div>
-          <div class="form-group">
-            <label>Category</label>
-            <select class="form-control category-select">
-              {{#each bookshelf}}
-              <option>{{category}}</option>
-              {{/each}}
-            </select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary save-link-btn"><i class="fa fa-save"></i> Save Link</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Category Modal -->
-  <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Category Name</label>
-            <input type="text" class="form-control category-input"/>
-          </div>
-          <div class="form-group">
-            <label>Category Color</label>
-            <div class="input-group color-picker">
-              <input type="text" class="form-control category-color-input"/>
-              <span class="input-group-addon"><i></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary add-category-btn"><i class="fa fa-save"></i> Save Category</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Category Name</label>
-            <input type="text" class="form-control edit-category-input" value = "{{currentCategoryName}}"/>
-          </div>
-          <div class="form-group">
-            <label>Category Color</label>
-            <div class="input-group color-picker">
-              <input type="text" class="form-control edit-category-color-input" value = "{{currentCategoryColor}}"/>
-              <span class="input-group-addon"><i></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary update-category-btn"><i class="fa fa-save"></i> Save Category</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="editLinkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Link Name</label>
-            <input type="text" class="form-control edit-link-name-input" value="{{linkNameValue}}"/>
-          </div>
-          <div class="form-group">
-            <label>Link URL</label>
-            <input type="text" class="form-control edit-link-url-input" value="{{linkUrlValue}}"/>
-          </div>
-          <!--           <div class="form-group">
-            <label>Category</label>
-            <select class="form-control category-select">
-              {{#each bookshelf}}
-                <option value="{{category}}">{{category}}</option>
-              {{/each}}
-            </select>
-          </div> -->
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary update-link-btn"><i class="fa fa-save"></i> Save Link</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Upload File</label>
-            <a href="#" class="btn btn-primary btn-block fileUpload"><i class="fa fa-file-text-o"></i> <span>Choose File</span></a>
-          </div>
-          <div class="form-group">
-            <label>Category</label>
-            <select class="form-control pdf-category-select">
-              {{#each bookshelf}}
-              <option>{{category}}</option>
-              {{/each}}
-            </select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary save-file-btn disabled"><i class="fa fa-save"></i> Save Link</button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
