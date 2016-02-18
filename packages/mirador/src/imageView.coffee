@@ -64,7 +64,7 @@ Template.mirador_imageView_content_osd.onRendered ->
 
 Template.mirador_imageView_content_osd.helpers
   osdId: ->
-    "mirador-osd-#{@manifestId}-#{@imageId}"
+    "mirador-osd-#{@_id}"
 
 ### Nav Toolbar ###
 
