@@ -93,13 +93,12 @@ Template.editCategoryModal.events
 
 ### UPLOAD PDF MODAL ###
 Template.uploadPdfModal.onCreated ->
-  @uploadedFileId = new ReactiveVar ""
+  @uploadedFileId = new ReactiveVar
 Template.uploadPdfModal.events
   'click button[data-action=uploadFile]': (e, tpl) ->
     Media.pickLocalFile {multiple: false, accept: '.pdf'}, (fileId) ->
       fileName = FileRegistry.findOne({"_id": fileId})
       tpl.uploadedFileId.set fileId
-      tpl.$('button[data-action=saveFile]').removeClass("disabled")
 
   'click button[data-action=saveFile]': (e, tpl)->
     file = FileRegistry.findOne tpl.uploadedFileId.get()
@@ -117,4 +116,6 @@ Template.uploadPdfModal.helpers
     Bookshelves.find { project: Session.get("current_project") }, { sort: { rank: 1 } }
   filename: ->
     FileRegistry.findOne({ _id: Template.instance().uploadedFileId.get() })?.filename
+  disabled: ->
+    unless Template.instance().uploadedFileId.get() then "disabled"
 
