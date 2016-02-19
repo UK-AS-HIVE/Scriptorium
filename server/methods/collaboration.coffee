@@ -4,7 +4,14 @@ Meteor.methods
       _id: projectId,
       permissions: { $elemMatch: { user: @userId, level: 'admin' } }
     }
-    if project or (userId is @userId)
+    admins = _.countBy project.permissions, (i) ->
+      i.level is 'admin'
+    if (userId is @userId) and (admins.true is 1) and !admins.false
+      # TODO: Can we delete projects? Is there any reason to keep around projects with no users?
+      throw new Meteor.Error("Removing yourself would leave no users in the project - please delete the project if you wish to remove youself.")
+    if (userId is @userId) and (admins.true is 1)
+      throw new Meteor.Error("There are no other administrators in the project; please designate another administrator before removing yourself.")
+    else if project or (userId is @userId)
       Projects.update projectId, { $pull: { permissions: { user: userId } } }
     else
       throw new Meteor.Error("User lacks permission to remove user from project")
@@ -39,6 +46,11 @@ Meteor.methods
       _id: projectId,
       permissions: {$elemMatch: {user: @userId, level: 'admin'}}
     }
+
+    admins = _.countBy project.permissions, (i) ->
+      i.level is 'admin'
+    if (userId is @userId) and (admins.true is 1)
+      throw new Meteor.Error("There are no other administrators in the project; please designate another administrator before removing yourself.")
 
     if !project
       throw new Meteor.Error("Access Denied")

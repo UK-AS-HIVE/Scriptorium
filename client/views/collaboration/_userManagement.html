@@ -33,7 +33,7 @@
 <template name="addUserModal">
   <!-- ADD TEAM MEMBER MODAL -->
   <div class="modal fade" id="addUserModal">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-body">
           <form>
@@ -50,7 +50,7 @@
               </select>
             </div>
           </form>
-          <span class="error">{{modalError}}</span>
+          <p class="error text-center">{{error}}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -64,7 +64,7 @@
 <template name="editUserModal">
   <!-- EDIT TEAM MEMBER MODAL -->
   <div class="modal fade" id="editUserModal">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-body">
           <form>
@@ -74,12 +74,13 @@
             </div>
             <div class="form-group">
               <label>Role</label>
-              <select class="form-control role">
+              <select class="form-control" name="role">
                 <option value="contributor" selected="{{isRole 'contributor'}}">Contributor</option>
                 <option value="admin" selected="{{isRole 'admin'}}">Admin</option>
               </select>
             </div>
           </form>
+          <p class="error text-center">{{error}}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -93,10 +94,11 @@
 <template name="removeUserModal">
   <!-- REMOVE TEAM MEMBER MODAL -->
   <div class="modal fade" id="removeUserModal">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-body">
           <p class="text-center">Are you sure you want to remove <b>{{editingUser.fullName}}</b> from the project?</p>
+          <p class="error text-center">{{error}}</p>
           <div class="row">
             <div class="col-xs-12">
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>

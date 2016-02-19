@@ -29,7 +29,7 @@ Template.addUserModal.onCreated ->
   @error = new ReactiveVar
 
 Template.addUserModal.helpers
-  modalError: ->
+  error: ->
     Template.instance().error.get()
 
   userSearch: ->
@@ -67,7 +67,11 @@ Template.addUserModal.events
 
   'hidden.bs.modal': (e, tpl) -> Blaze.remove tpl.view
 
+Template.editUserModal.onCreated ->
+  @error = new ReactiveVar
 Template.editUserModal.helpers
+  error: ->
+    Template.instance().error.get()
   editingUser: ->
     User.first @user
 
@@ -76,19 +80,29 @@ Template.editUserModal.helpers
 
 Template.editUserModal.events
   'click button[data-action=save]': (e, tpl) ->
-    role = tpl.$('select.role').val()
-    Meteor.call 'editUserInProject', Session.get('current_project'), @user, role
-    tpl.$('#editUserModal').modal('hide')
+    role = tpl.$('select[name=role]').val()
+    Meteor.call 'editUserInProject', Session.get('current_project'), @user, role, (err, res) ->
+      if err
+        tpl.error.set err.error
+      else
+        tpl.$('#editUserModal').modal('hide')
 
   'hidden.bs.modal': (e, tpl) -> Blaze.remove tpl.view
 
+Template.removeUserModal.onCreated ->
+  @error = new ReactiveVar
 Template.removeUserModal.helpers
+  error: ->
+    Template.instance().error.get()
   editingUser: ->
     User.first @user
 
 Template.removeUserModal.events
   'click button[data-action=remove]': (e, tpl) ->
-    Meteor.call 'removeUserFromProject', Session.get('current_project'), @user
-    tpl.$('#removeUserModal').modal('hide')
+    Meteor.call 'removeUserFromProject', Session.get('current_project'), @user, (err, res) ->
+      if err
+        tpl.error.set err.error
+      else
+        tpl.$('#removeUserModal').modal('hide')
 
   'hidden.bs.modal': (e, tpl) -> Blaze.remove tpl.view
