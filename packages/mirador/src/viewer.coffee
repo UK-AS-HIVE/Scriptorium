@@ -96,9 +96,9 @@ Template.mirador_viewer.onRendered ->
       width:      miradorWidgetProperties[type].width
       height:     miradorWidgetProperties[type].height
 
-    if miradorWidgetProperties[@type]?.extendedData?
-      extended = _.extend extended,
-        miradorWidgetProperties[@type].extendedData()
+    if miradorWidgetProperties[type]?.extendedData?
+      widgetProps = _.extend widgetProps,
+        miradorWidgetProperties[type].extendedData()
 
     miradorFunctions.mirador_viewer_addWidget widgetProps
 

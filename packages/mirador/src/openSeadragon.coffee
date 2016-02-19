@@ -72,6 +72,34 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
   @addHandler 'animation', (e) ->
     resize()
 
+  @addHandler 'canvas-drag', (e) ->
+    {x, y} = viewer.viewport.pointFromPixel e.position
+    x = x*imageWidth
+    y = y*imageWidth
+    #console.log 'canvas-drag', x, y
+
+    aw = ActiveWidgets.findOne data._id
+    if not aw.newAnnotation.isActive
+      console.log 'new canvas drag!'
+      ActiveWidgets.update data._id,
+        $set:
+          'newAnnotation.isActive': true
+          'newAnnotation.x1': x
+          'newAnnotation.y1': y
+          'newAnnotation.x2': x
+          'newAnnotation.y2': y
+    else
+      ActiveWidgets.update data._id,
+        $set:
+          'newAnnotation.x2': x
+          'newAnnotation.y2': y
+    
+   @addHandler 'canvas-drag-end', (e) ->
+     #TODO: prompt for annotation text, and add as annotation
+     ActiveWidgets.update data._id,
+       $set:
+         'newAnnotation.isActive': false
+
 Template.osd_blaze_overlay.helpers
   transform: ->
     @transform.get()
@@ -89,4 +117,13 @@ Template.osd_blaze_overlay.helpers
       w: a.w / imageWidth
       h: a.h / imageWidth
       text: a.text
+  newAnnotation: ->
+    aw = ActiveWidgets.findOne(@_id)
+    canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
+    imageWidth = parseInt(canvas.images[0].resource.width)
+    if aw.newAnnotation.isActive
+      x: aw.newAnnotation.x1 / imageWidth
+      y: aw.newAnnotation.y1 / imageWidth
+      w: (aw.newAnnotation.x2 - aw.newAnnotation.x1) / imageWidth
+      h: (aw.newAnnotation.y2 - aw.newAnnotation.y1) / imageWidth
 
