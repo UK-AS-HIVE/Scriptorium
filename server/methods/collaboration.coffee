@@ -19,7 +19,7 @@ Meteor.methods
     }
 
     if !person
-      throw new Meteor.Error("User to be added to project not found")
+      throw new Meteor.Error("User not found")
 
     if !project
       throw new Meteor.Error("User lacks permission to add user to project")
@@ -44,7 +44,7 @@ Meteor.methods
       throw new Meteor.Error("Access Denied")
 
     if !_.any(project.permissions, (p) -> p.user == userId)
-      throw new Meteor.Error("User In Not In Project")
+      throw new Meteor.Error("User not in project")
 
     Meteor.call 'removeUserFromProject', projectId, userId
     Projects.update projectId,

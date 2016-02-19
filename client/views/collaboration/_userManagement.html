@@ -18,21 +18,21 @@
         <small>{{level}}</small>
         {{#if isAdmin}}
           <span>
-            <a href="#" data-toggle="modal" data-target="#editUserModal" class="edit" title="Edit"><i class="fa fa-pencil"></i></a>
-            <a href="#" data-toggle="modal" data-target="#deleteUserModal" class="delete" title="Delete"><i class="fa fa-times"></i></a>
+            <button class="btn btn-link edit" data-toggle="modal" data-modal="editUserModal" title="Edit"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-link delete" data-toggle="modal" data-modal="removeUserModal" title="Delete"><i class="fa fa-times"></i></button>
           </span>
         {{/if}}
       </li>
     {{/each}}
   </ul>
   {{#if isAdmin}}
-    <a href="#" data-toggle="modal" data-target="#userModal" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Team Member</a>
+    <button href="#" data-toggle="modal" data-modal="addUserModal" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add New Team Member</button>
   {{/if}}
 </template>
 
-<template name="addUserToProject">
+<template name="addUserModal">
   <!-- ADD TEAM MEMBER MODAL -->
-  <div class="modal fade" id="userModal">
+  <div class="modal fade" id="addUserModal">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
@@ -53,15 +53,15 @@
           <span class="error">{{modalError}}</span>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default closeMe" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary addUser"><i class="fa fa-plus"></i> Add User</button>
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-action="addUser"><i class="fa fa-plus"></i> Add User</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<template name="editUserInProject">
+<template name="editUserModal">
   <!-- EDIT TEAM MEMBER MODAL -->
   <div class="modal fade" id="editUserModal">
     <div class="modal-dialog modal-sm">
@@ -82,27 +82,25 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary save">Save User</button>
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-action="save"><i class="fa fa-floppy-o"></i> Save User</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<template name="removeUserFromProject">
+<template name="removeUserModal">
   <!-- REMOVE TEAM MEMBER MODAL -->
-  <div class="modal fade" id="deleteUserModal">
+  <div class="modal fade" id="removeUserModal">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
-          <p class="text-center">Are you sure you want to delete <b>{{editingUser.fullName}}</b> from the project?</p>
+          <p class="text-center">Are you sure you want to remove <b>{{editingUser.fullName}}</b> from the project?</p>
           <div class="row">
-            <div class="col-xs-6">
-              <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancel</button>
-            </div>
-            <div class="col-xs-6">
-              <button type="button" class="btn btn-block btn-danger"><i class="fa fa-times"></i> Delete</button>
+            <div class="col-xs-12">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger pull-right" data-action="remove"><i class="fa fa-times"></i> Remove</button>
             </div>
           </div>
         </div>

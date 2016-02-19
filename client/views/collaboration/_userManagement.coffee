@@ -1,51 +1,36 @@
 Template._userManagement.helpers
   project: ->
-    projectId = Session.get("current_project")
-    Projects.findOne(projectId)
+    Projects.findOne Session.get("current_project")
 
   user: ->
-    User.first({_id: @user})
+    User.first @user
 
   isAdmin: ->
     projectId = Session.get("current_project")
     Projects.findOne({
       _id: projectId,
-      permissions: {$elemMatch: {user: Meteor.userId(), level: 'admin'}}
+      permissions: { $elemMatch: { user: Meteor.userId(), level: 'admin' } }
     })
 
 Template._userManagement.events
-  'click .team .edit': (e) ->
-    e.preventDefault()
-    Session.set("editing_user", @user)
-    Session.set("editing_user_role", @level)
+  'click [data-toggle=modal]': (e, tpl) ->
+    modal = tpl.$(e.currentTarget).data('modal')
+    Blaze.renderWithData Template[modal], @, $('body').get(0)
+    $("##{modal}").modal('show')
 
-  'click .team .delete': (e) ->
-    e.preventDefault()
-    Session.set("editing_user", @user)
-
-Collab = {
-  addUser: (e, tpl) ->
-    e.preventDefault()
-    email = tpl.$('input[name=addUserEmail]').val()
-    role = tpl.$('select[name=role]').val()
-    Meteor.call 'addUserToProject', Session.get('current_project'), email, role, (err, res) ->
-      if err
-        Session.set("modal_error", err.error)
-      else
-        Session.set("modal_error", null)
-        $('#userModal').modal('hide')
-}
-
-Template.addUserToProject.rendered = ->
+Template.addUserModal.rendered = ->
   $('#userModal').on('shown.bs.modal', () ->
     $('#userModal input').first().focus()
   )
 
-  Meteor.typeahead($('#userModal .typeahead'))
+  Meteor.typeahead @.$('#addUserModal .typeahead')
 
-Template.addUserToProject.helpers
+Template.addUserModal.onCreated ->
+  @error = new ReactiveVar
+
+Template.addUserModal.helpers
   modalError: ->
-    Session.get('modal_error')
+    Template.instance().error.get()
 
   userSearch: ->
     users = User.find({}).fetch()
@@ -70,40 +55,40 @@ Template.addUserToProject.helpers
 
     names
 
-Template.addUserToProject.events
-  'click #userModal .closeMe': (e, tpl) ->
-    Session.set('modal_error', null)
-    $('#userModal input').val('')
+Template.addUserModal.events
+  'click button[data-action=addUser]': (e, tpl) ->
+    email = tpl.$('input[name=addUserEmail]').val()
+    role = tpl.$('select[name=role]').val()
+    Meteor.call 'addUserToProject', Session.get('current_project'), email, role, (err, res) ->
+      if err
+        tpl.error.set err.error
+      else
+        tpl.$('#addUserModal').modal('hide')
 
-  'submit #userModal form': (e, tpl) ->
-    Collab.addUser e, tpl
+  'hidden.bs.modal': (e, tpl) -> Blaze.remove tpl.view
 
-  'click #userModal .addUser': (e, tpl) ->
-    Collab.addUser e, tpl
-
-  'hidden.bs.modal': (e, tpl) ->
-    tpl.$('input[name=addUserEmail]').val('')
-
-Template.editUserInProject.helpers
-  editingUser: () ->
-    User.first({_id: Session.get('editing_user')})
+Template.editUserModal.helpers
+  editingUser: ->
+    User.first @user
 
   isRole: (role) ->
-    role == Session.get('editing_user_role')
+    role is @level
 
-Template.editUserInProject.events
-  'click #editUserModal .save': (e,t) ->
-    e.preventDefault()
-    userId = Session.get('editing_user')
-    role = $(t.find('select.role')).val()
-    Meteor.call('editUserInProject', Session.get('current_project'), userId, role)
-    $('#editUserModal').modal('hide')
+Template.editUserModal.events
+  'click button[data-action=save]': (e, tpl) ->
+    role = tpl.$('select.role').val()
+    Meteor.call 'editUserInProject', Session.get('current_project'), @user, role
+    tpl.$('#editUserModal').modal('hide')
 
-Template.removeUserFromProject.helpers
-  editingUser: () ->
-    User.first({_id: Session.get('editing_user')})
+  'hidden.bs.modal': (e, tpl) -> Blaze.remove tpl.view
 
-Template.removeUserFromProject.events
-  'click #deleteUserModal .btn-danger': (e) ->
-    Meteor.call('removeUserFromProject', Session.get('current_project'), Session.get('editing_user'))
-    $('#deleteUserModal').modal('hide')
+Template.removeUserModal.helpers
+  editingUser: ->
+    User.first @user
+
+Template.removeUserModal.events
+  'click button[data-action=remove]': (e, tpl) ->
+    Meteor.call 'removeUserFromProject', Session.get('current_project'), @user
+    tpl.$('#removeUserModal').modal('hide')
+
+  'hidden.bs.modal': (e, tpl) -> Blaze.remove tpl.view
