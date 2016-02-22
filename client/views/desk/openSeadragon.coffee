@@ -80,10 +80,13 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
 
     aw = ActiveWidgets.findOne data._id
     if not aw.newAnnotation.isActive
+      return
+
+    if not aw.newAnnotation.isDragging
       console.log 'new canvas drag!'
       ActiveWidgets.update data._id,
         $set:
-          'newAnnotation.isActive': true
+          'newAnnotation.isDragging': true
           'newAnnotation.x1': x
           'newAnnotation.y1': y
           'newAnnotation.x2': x
@@ -96,9 +99,18 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
     
    @addHandler 'canvas-drag-end', (e) ->
      #TODO: prompt for annotation text, and add as annotation
+     newAnno = ActiveWidgets.findOne(data._id).newAnnotation
+     console.log 'Create new annotation', newAnno
+
      ActiveWidgets.update data._id,
        $set:
-         'newAnnotation.isActive': false
+         newAnnotation:
+           isActive: false
+           isDragging: false
+           x1: 0
+           y1: 0
+           x2: 0
+           y2: 0
 
 Template.osd_blaze_overlay.helpers
   transform: ->

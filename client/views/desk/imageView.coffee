@@ -4,6 +4,7 @@
     annotationPanelOpen: false
     newAnnotation:
       isActive: false
+      isDragging: false
       x1: 0
       y1: 0
       x2: 0
@@ -123,7 +124,10 @@ Template.mirador_imageView_navToolbar.events
 
   'click .mirador-icon-annotorius': (e, tpl) ->
     # _this.openAnnotoriusWindow();
-    miradorFunctions.mirador_viewer_loadView 'openLayersAnnotoriusView', @manifestId, @imageId
+    #miradorFunctions.mirador_viewer_loadView 'openLayersAnnotoriusView', @manifestId, @imageId
+    ActiveWidgets.update tpl.data._id,
+      $set:
+        'newAnnotation.isActive': true
 
 
 ### Status Bar ###
