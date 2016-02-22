@@ -67,7 +67,7 @@ Package.onUse(function(api) {
     'src/annotationSidePanel.js'
   ], 'client');
 
-  api.addFiles([
+  /*api.addFiles([
     'src/mirador.html',
     'src/mirador.coffee',
     'src/mainMenu.html',
@@ -90,16 +90,18 @@ Package.onUse(function(api) {
     'src/thumbnailsView.coffee',
     'src/iiif.coffee',
     'src/openSeadragon.coffee'
-  ], 'client');
+  ], 'client');*/
 
   // TODO: this is just for testing
-  api.export('miradorWidgetProperties', {testOnly: true});
+  //api.export('miradorWidgetProperties', {testOnly: true});
 });
 
+/*
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('coffeescript');
   api.use('mirador');
   api.addFiles('test/widgetProperties.coffee', 'client');
 });
+*/
 
