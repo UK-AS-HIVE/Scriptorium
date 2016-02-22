@@ -122,8 +122,8 @@ Template.osd_blaze_overlay.helpers
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
     imageWidth = parseInt(canvas.images[0].resource.width)
     if aw.newAnnotation.isActive
-      x: aw.newAnnotation.x1 / imageWidth
-      y: aw.newAnnotation.y1 / imageWidth
-      w: (aw.newAnnotation.x2 - aw.newAnnotation.x1) / imageWidth
-      h: (aw.newAnnotation.y2 - aw.newAnnotation.y1) / imageWidth
+      x: Math.min(aw.newAnnotation.x1, aw.newAnnotation.x2) / imageWidth
+      y: Math.min(aw.newAnnotation.y1, aw.newAnnotation.y2) / imageWidth
+      w: Math.abs(aw.newAnnotation.x2 - aw.newAnnotation.x1) / imageWidth
+      h: Math.abs(aw.newAnnotation.y2 - aw.newAnnotation.y1) / imageWidth
 
