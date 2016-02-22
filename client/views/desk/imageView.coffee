@@ -84,15 +84,15 @@ Template.mirador_imageView_content_osd.helpers
 
 Template.mirador_imageView_navToolbar.helpers
   isOdd: (number) ->
-    # Hack to make sure Blaze destroys and re-renders osd toolbar on image change. 
+    # Hack to make sure Blaze destroys and re-renders osd toolbar on image change.
     number % 2 != 0
   osdToolbarId: ->
     "mirador-osd-#{@manifestId}-#{@imageId}-toolbar"
 
 Template.mirador_imageView_navToolbar.events
- 'click .mirador-icon-previous': (e, tpl) ->
-   if tpl.data.imageId > 0
-     ActiveWidgets.update @_id, { $inc: { imageId: -1 } }
+  'click .mirador-icon-previous': (e, tpl) ->
+    if tpl.data.imageId > 0
+      ActiveWidgets.update @_id, { $inc: { imageId: -1 } }
 
   'click .mirador-icon-next': (e, tpl) ->
     # TODO: Don't set imageId past the end of list

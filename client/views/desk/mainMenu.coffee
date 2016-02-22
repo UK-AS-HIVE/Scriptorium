@@ -44,7 +44,7 @@ Template.mirador_mainMenu.events
 
 Template.mirador_mainMenu_loadWindowContent.helpers
   imageIndex: ->
-   Template.parentData(1).manifestPayload.sequences[0].canvases.indexOf(this)
+    Template.parentData(1).manifestPayload.sequences[0].canvases.indexOf(this)
   collections: ->
     return AvailableManifests.find()
   imageData: ->

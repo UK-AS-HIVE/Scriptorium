@@ -1,7 +1,7 @@
 hexToRgb = (hex) ->
-  shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
   hex = hex.replace shorthandRegex, (m, r, g, b) ->
-     r + r + g + g + b + b
+    r + r + g + g + b + b
 
   result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   return [
