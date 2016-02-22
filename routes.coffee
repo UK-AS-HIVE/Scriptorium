@@ -1,5 +1,13 @@
-if Meteor.isClient
-  Router.onBeforeAction("loading")
+Router.configure
+  layoutTemplate: 'layout'
+  loadingTemplate: 'loading'
+  yieldTemplates:
+    header:
+      to: 'header'
+    footer:
+      to: 'footer'
+
+Router.onBeforeAction("loading")
 
 Router.map ->
   @route 'home',
