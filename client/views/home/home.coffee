@@ -1,6 +1,16 @@
-Template.home.rendered = ->
+Template.home.onCreated ->
+  @error = new ReactiveVar
 
-  #SEO Page Title & Description
-  document.title = "My New Meteor App"
-  $("<meta>", { name: "description", content: "Page description for My New Meteor App" }).appendTo "head"
-	
+Template.home.helpers
+  error: -> Template.instance().error.get()
+
+Template.home.events
+  'submit form': (e, tpl) ->
+    e.preventDefault()
+    email = tpl.$('input[name=email]').val()
+    pass = tpl.$('input[name=password]').val()
+    Meteor.loginWithPassword email, pass, (err, res) ->
+      if err
+        tpl.error.set err.reason
+      else
+        tpl.error.set null
