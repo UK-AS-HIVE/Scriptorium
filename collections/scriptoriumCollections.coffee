@@ -45,7 +45,7 @@
   'miradorData.$.location':
     label: "Manifest Location"
     type: String
-  'miradorData.$.title"':
+  'miradorData.$.title':
     label: "Manifest Title"
     type: String
   'miradorData.$.widgets':

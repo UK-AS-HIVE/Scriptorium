@@ -2,22 +2,15 @@ Template.signUp.helpers
   error: -> Template.instance().error.get()
 
 Template.signUp.events
-  "submit #signup-form": (e, tpl) ->
-    fName = $("#signup-firstName").val()
-    lName = $("#signup-lastName").val()
-    email = $("#signup-email").val()
-    pass = $("#signup-password").val()
-    inst = $("#signup-instAffiliation").val()
-    desc = $("#researchDesc").val()
-
+  "submit form": (e, tpl) ->
     Accounts.createUser
-      email: email
-      password: pass
+      email: tpl.$('input[name=email]').val()
+      password: tpl.$('input[name=password]').val()
       profile:
-        firstName: fName
-        lastName: lName
-        institution: inst
-        research: desc
+        firstName: tpl.$('input[name=firstName]').val()
+        lastName: tpl.$('input[name=lastName]').val()
+        institution: tpl.$('input[name=instAffiliation]').val()
+        research: tpl.$('textarea[name=description]').val()
     , (err) ->
 
       if err
