@@ -4,6 +4,7 @@
     'Scroll View : ' + AvailableManifests.findOne(@manifestId).manifestPayload.label
   height: 400
   width: 600
+  contentClass: "mirador-widget-content-scroll-view"
   imageLabelHeight: 25
   toolbarHeight: 25
 

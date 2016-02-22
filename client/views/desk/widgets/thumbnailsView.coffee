@@ -5,6 +5,7 @@
     'Thumbnails View : ' + AvailableManifests.findOne(@manifestId).manifestPayload.label
   height: 400
   width: 600
+  contentClass: "mirador-widget-content-thumbnail-view"
   thumbsMaxHeight: 150
   thumbsMinHeight: 50
   thumbsDefaultZoom: 0.5

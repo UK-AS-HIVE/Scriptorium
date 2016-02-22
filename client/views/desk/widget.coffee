@@ -147,4 +147,6 @@ Template.mirador_widget_content.helpers
     @height - 100
   template: ->
     'mirador_' + @type + '_content'
+  contentClass: ->
+    miradorWidgetProperties[@type]?.contentClass
 

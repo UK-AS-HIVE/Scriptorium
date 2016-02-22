@@ -14,6 +14,7 @@
     "Image View : " + m.label + ' / ' + m.sequences[0].canvases[@imageId].label
   height: 400
   width: 350
+  contentClass: "mirador-widget-content-image-view"
   annotationsList:
     display: true
     width: 200
