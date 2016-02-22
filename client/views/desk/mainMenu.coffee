@@ -50,6 +50,10 @@ Template.mirador_mainMenu_loadWindowContent.helpers
   imageData: ->
     @manifestPayload.sequences[0].canvases
 
+Template.mirador_mainMenu_menuItems.events
+  "click .js-toggle-desk-panel": ->
+    $('.desk-document-panel').toggleClass('is-open')
+
 Template.mirador_mainMenu_loadWindowContent.events
   # attach onChange event handler for collections select list
   'change .mirador-listing-collections select': (e, tpl) ->
