@@ -24,11 +24,8 @@ Template.header.helpers
     else return false
 
 Template.header.events
-  "change #projectSelector": (e) ->
-    projId = $(e.target).val()
-    Session.set("current_project", projId)
-    if Router.current().route.getName() == "desk"
-      Meteor.miradorFunctions.loadMirador()
+  "change #projectSelector": (e, tpl) ->
+    Session.set "current_project", tpl.$(e.target).val()
 
   "click #saveAsProject": ->
     $('.desk-save-panel').toggleClass('is-open')
