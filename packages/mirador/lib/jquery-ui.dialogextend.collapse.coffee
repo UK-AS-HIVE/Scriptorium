@@ -32,7 +32,7 @@ $.extend true,$.ui.dialogExtend.prototype,
         "maxHeight" : newHeight
         "position" : {
           "my": "left top"
-          "at": "left+#{pos.left} top+#{pos.top-30}" # -30 accounts for mainmenu height
+          "at": "left+#{pos.left} top+#{pos.top}"
           "of": ".mirador-viewer"
           "collision": "fit"
           "within": ".mirador-viewer"
@@ -74,7 +74,7 @@ $.extend true,$.ui.dialogExtend.prototype,
         "maxHeight" : original.size.maxHeight
         "position" : {
           "my": "left top"
-          "at": "left+#{pos.left} top+#{pos.top-30}" # -30 accounts for mainmenu height
+          "at": "left+#{pos.left} top+#{pos.top}"
           "of": ".mirador-viewer"
           "collision": "fit"
           "within": ".mirador-viewer"
