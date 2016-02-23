@@ -113,7 +113,10 @@
 <template name="osd_blaze_overlay">
   <svg style="position: absolute; left: 0; top: 0; width: 100%; height: 100%">
     {{#if annotationPanelOpen}}
-      <text x="50%" y="50" text-anchor="middle">Annotations</text>
+      {{#if newAnnotation}}
+      {{else}}
+        <text x="50%" y="50" text-anchor="middle">Annotations</text>
+      {{/if}}
       <g transform={{transform}}>
         {{#each annotations}}
           <rect x={{x}} y={{y}} width={{w}} height={{h}} stroke-width="0.002" stroke="red" fill="none"></rect>
@@ -121,6 +124,7 @@
       </g>
     {{/if}}
     {{#if newAnnotation}}
+      <text x="50%" y="50" text-anchor="middle">Click and Drag to Add Annotation</text>
       <g transform={{transform}}>
         {{#with newAnnotation}}
           <rect x={{x}} y={{y}} width={{w}} height={{h}} stroke-width="0.002" stroke="#00ff00" fill="none"></rect>
