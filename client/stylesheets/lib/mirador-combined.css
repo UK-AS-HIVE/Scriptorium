@@ -3421,7 +3421,16 @@ text {
   margin-right: 5px;
 }
 
+/* editor view
+---------------------------------------------------------------------------- */
 
+.mirador-widget-content-editor-view { 
+  height: 100%;
+}
+
+.mirador-editor-content {
+  height: 100%;
+}
 /* initial loader
 ---------------------------------------------------------------------------- */
 .mirador-loading {

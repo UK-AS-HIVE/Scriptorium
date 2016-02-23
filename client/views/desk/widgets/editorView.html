@@ -1,15 +1,20 @@
-<!-- Editor view -->
-<!-- template for rendering basic metadata terms -->
-<template name="mirador_editorView_showTextArea">
-  <div class="sub-title"><textarea id="{{editorID}}">wheeee</textarea></div>
-</template>
-
-<!-- template for rendering tool bar with nav links -->
-<template name="mirador_editorView_navToolbar">
-  <div class="{{navToolbarCls}}">
-    <a href="javascript:;" class="mirador-btn mirador-icon-scroll-view"></a>
-    <a href="javascript:;" class="mirador-btn mirador-icon-thumbnails-view"></a>
-    <a href="javascript:;" class="mirador-btn mirador-icon-load-editor"></a>
+<template name="mirador_editorView_content">
+  <div id="editorDiv-{{editorId}}" class="mirador-editor-content">
+    {{#if fileIsType "pdf"}}
+      <embed class="attachment-pdf" src="/file/{{getFileName}}" type="application/pdf">
+      {{else}} 
+      <textarea name="editor-{{editorId}}" id="editor-{{editorId}}">{{content}}</textarea>
+    {{/if}}
   </div>
 </template>
 
+<template name="mirador_editorView_statusbar">
+  <div class="editor-view-statusbar col-xs-12" style="display: inline-block;">
+    <button href="#" class="btn btn-link" data-action="save">
+      <span class="fa fa-floppy-o editor-save"></span>
+    </button>
+    {{#if saved}}
+      <span class="saved-file pull-right">File saved.</span>
+    {{/if}}
+  </div>
+</template>

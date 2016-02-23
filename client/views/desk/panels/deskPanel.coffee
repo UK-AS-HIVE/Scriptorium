@@ -4,7 +4,8 @@ Template.deskPanel.events
     $('.desk-document-panel').removeClass('is-open')
 
   "click .editorItem": ->
-    Meteor.call("openDoc", Meteor.userId(), Session.get('current_project'), this._id)
+    miradorFunctions.mirador_viewer_loadView "editorView", @_id
+    Meteor.call "openDoc", Meteor.userId(), Session.get('current_project'), @_id
 
   "click .doc-panel-delete": ->
     Session.set "fc_file_to_del", this._id
@@ -12,13 +13,10 @@ Template.deskPanel.events
 
 Template.deskPanel.helpers
   documents: ->
-    FileCabinet.find({'project': Session.get('current_project')})
+    FileCabinet.find { project: Session.get('current_project') }
 
   isOpen: ->
-    docArray = OpenDocs.findOne({'user': Meteor.userId(), 'project': Session.get('current_project'), 'document': this['_id']})
-    if docArray.length != 0
-      true
-    else
-      false
+    false
+    #OpenDocs.findOne({ user: Meteor.userId(), project: Session.get('current_project'), document: @_id })?
 
 
