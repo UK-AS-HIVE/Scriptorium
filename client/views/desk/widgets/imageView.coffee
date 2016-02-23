@@ -29,7 +29,7 @@ Template.mirador_imageView_content_osd.onRendered ->
   # Get information for OSD
   @data.image = AvailableManifests.findOne(@data.manifestId).manifestPayload.sequences[0].canvases[@data.imageId]
   infoJsonUrl = miradorFunctions.iiif_getUri("#{@data.image.images[0].resource.service['@id']}/info.json")
-  osdToolbarId = "mirador-osd-#{@data.manifestId}-#{@data.imageId}-toolbar"
+  osdToolbarId = "mirador-osd-#{@data._id}-toolbar"
   infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
 
   imgRes = @data.image.images[0].resource
@@ -88,7 +88,7 @@ Template.mirador_imageView_navToolbar.helpers
     # Hack to make sure Blaze destroys and re-renders osd toolbar on image change.
     number % 2 != 0
   osdToolbarId: ->
-    "mirador-osd-#{@manifestId}-#{@imageId}-toolbar"
+    "mirador-osd-#{@_id}-toolbar"
 
 Template.mirador_imageView_navToolbar.events
   'click .mirador-icon-previous': (e, tpl) ->
