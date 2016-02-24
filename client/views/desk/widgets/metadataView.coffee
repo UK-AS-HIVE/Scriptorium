@@ -13,7 +13,9 @@ Template.mirador_metadataView_content.helpers
 
 Template.mirador_metadataView_navToolbar.events
   'click .mirador-icon-scroll-view': ->
-    miradorFunctions.mirador_viewer_loadView 'scrollView', @manifestId
+    miradorFunctions.mirador_viewer_loadView 'scrollView',
+      manifestId: @manifestId
   'click .mirador-icon-thumbnails-view': ->
-    miradorFunctions.mirador_viewer_loadView 'thumbnailsView', @manifestId
+    miradorFunctions.mirador_viewer_loadView 'thumbnailsView',
+      manifestId: @manifestId
 

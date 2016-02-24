@@ -4,7 +4,8 @@ Template.deskPanel.events
     $('.desk-document-panel').removeClass('is-open')
 
   "click .editorItem": ->
-    miradorFunctions.mirador_viewer_loadView "editorView", @_id
+    miradorFunctions.mirador_viewer_loadView "editorView",
+      manuscriptId: @_id
     Meteor.call "openDoc", Meteor.userId(), Session.get('current_project'), @_id
 
   "click .doc-panel-delete": ->

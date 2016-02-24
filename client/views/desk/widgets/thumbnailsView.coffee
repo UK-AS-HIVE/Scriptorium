@@ -24,7 +24,9 @@ Template.mirador_thumbnailsView_listImages.helpers
 
 Template.mirador_thumbnailsView_listImages.events
   'click .listing-thumbs li a': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView 'imageView', Template.currentData().manifestId, @id
+    miradorFunctions.mirador_viewer_loadView 'imageView',
+      manifestId: Template.currentData().manifestId
+      imageId: @id
 
   # TODO: the slider seems to have been removed at some point.
   # We can probably remove this.
@@ -34,8 +36,10 @@ Template.mirador_thumbnailsView_listImages.events
 
 Template.mirador_thumbnailsView_navToolbar.events
   'click .mirador-icon-metadata-view': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView 'metadataView', @manifestId
+    miradorFunctions.mirador_viewer_loadView 'metadataView',
+      manifestId: @manifestId
 
   'click .mirador-icon-scroll-view': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView 'scrollView', @manifestId
+    miradorFunctions.mirador_viewer_loadView 'scrollView',
+      manifestId: @manifestId
 

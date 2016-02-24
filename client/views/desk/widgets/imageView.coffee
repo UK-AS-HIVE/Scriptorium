@@ -100,7 +100,8 @@ Template.mirador_imageView_navToolbar.events
     ActiveWidgets.update @_id, { $inc: { imageId: 1 } }
 
   'click .mirador-icon-metadata-view': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView 'metadataView', @manifestId
+    miradorFunctions.mirador_viewer_loadView 'metadataView',
+      manifestId: @manifestId
 
   'click .mirador-icon-load-editor': (e, tpl) ->
     # console.log("clicked editor button");
@@ -113,10 +114,12 @@ Template.mirador_imageView_navToolbar.events
     Meteor.miradorFunctions.createFolioEntry(_this.currentImg.imageUrl, _this.currentImg.height, _this.currentImg.width, _this.currentImg.title, Meteor.userId())
 
   'click .mirador-icon-scroll-view': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView 'scrollView', @manifestId
+    miradorFunctions.mirador_viewer_loadView 'scrollView',
+      manifestId: @manifestId
 
   'click .mirador-icon-thumbnails-view': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView 'thumbnailsView', @manifestId
+    miradorFunctions.mirador_viewer_loadView 'thumbnailsView',
+      manifestId: @manifestId
 
   'click .mirador-icon-annotations': (e, tpl) ->
     ActiveWidgets.update tpl.data._id,
