@@ -66,7 +66,9 @@ Template.mirador_widget_initialLayout.onRendered ->
             width: ui.size.width
             height: ui.size.height
       'resizeStop': (event, ui) -> {}
-      'close': (event, ui) -> {}
+      'close': (event, ui) ->
+        $(this).dialog('destroy').remove()
+        ActiveWidgets.remove widgetId
     dialogExtendOptions:
       'maximizable': true
       'maximize': (e, ui) ->
