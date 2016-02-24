@@ -99,7 +99,11 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
     
   @addHandler 'canvas-drag-end', (e) ->
     #TODO: prompt for annotation text, and add as annotation
-    newAnno = ActiveWidgets.findOne(data._id).newAnnotation
+    aw = ActiveWidgets.findOne data._id
+    if not aw.newAnnotation.isActive
+      return
+
+    newAnno = aw.newAnnotation
     console.log 'Create new annotation', newAnno
 
     ActiveWidgets.update data._id,
@@ -111,6 +115,20 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
           y1: 0
           x2: 0
           y2: 0
+
+    fileCabinetId = FileCabinet.insert
+      title: "Annotation on #{data.manifestId} image #{data.imageId}.dumb"
+      description: "Annotation on #{data.manifestId} image #{data.imageId}"
+      fileType: "annotation"
+      content: ''
+      open: true
+      date: new Date()
+      project: Session.get('current_project')
+      user: Meteor.userId()
+
+    miradorFunctions.mirador_viewer_loadView 'editorView',
+      manifestId: data.manifestId
+      fileCabinetId: fileCabinetId
 
 Template.osd_blaze_overlay.helpers
   transform: ->
