@@ -1,4 +1,4 @@
-Template.deskPanel.events
+Template.documentPanel.events
 
   "click .js-close-panel": ->
     $('.desk-document-panel').removeClass('is-open')
@@ -11,7 +11,7 @@ Template.deskPanel.events
     Session.set "fc_file_to_del", this._id
     $("#confirmDeletePanel").modal('show')
 
-Template.deskPanel.helpers
+Template.documentPanel.helpers
   documents: ->
     FileCabinet.find { project: Session.get('current_project') }
 
