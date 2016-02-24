@@ -1,10 +1,7 @@
-# TODO: All the references to @documentId in this file are temporary and wrong.
-# They will be fixed in an update to accomodate an additional property in ActiveWidget data.
-
 @miradorWidgetProperties = @miradorWidgetProperties || {}
 @miradorWidgetProperties.editorView =
   title: ->
-    'Editor View: ' + FileCabinet.findOne(@documentId).title
+    'Editor View: ' + FileCabinet.findOne(@fileCabinetId).title
   height: 400
   width: 600
   contentClass: "mirador-widget-content-editor-view"
@@ -25,7 +22,7 @@ Template.mirador_editorView_statusbar.onRendered ->
 
 Template.mirador_editorView_statusbar.events
   'click button[data-action=save]': (e, tpl) ->
-    FileCabinet.update @documentId, { $set: { content: CKEDITOR.instances["editor-" + @documentId].getData() } }
+    FileCabinet.update @fileCabinetId, { $set: { content: CKEDITOR.instances["editor-" + @fileCabinetId].getData() } }
     tpl.saved.set true
 
 Template.mirador_editorView_statusbar.helpers
@@ -33,7 +30,7 @@ Template.mirador_editorView_statusbar.helpers
 
 ### EDITOR VIEW CONTENT ###
 Template.mirador_editorView_content.onRendered ->
-  @editor = CKEDITOR.replace("editor-" + @data.documentId)
+  @editor = CKEDITOR.replace("editor-" + @data.fileCabinetId)
   # HACK: calling editor.resize after instantiation throws an error.
   # This ensures we wait 200ms before the first call...
   ready = new ReactiveVar(false)
@@ -47,19 +44,19 @@ Template.mirador_editorView_content.onRendered ->
 Template.mirador_editorView_content.onDestroyed ->
   # TODO: onDestroyed doesn't get called :(
   console.log 'ondestroyed'
-  Meteor.call "closeDoc", Meteor.userId(), Session.get('current_project'), @data.documentId
+  Meteor.call "closeDoc", Meteor.userId(), Session.get('current_project'), @data.fileCabinetId
   @editor?.destroy()
 
 Template.mirador_editorView_content.helpers
   editorId: ->
-    @documentId
+    @fileCabinetId
   content: ->
-    FileCabinet.findOne(@documentId)?.content
+    FileCabinet.findOne(@fileCabinetId)?.content
   fileIsType: (type) ->
-    fileName = FileCabinet.findOne(@documentId)?.title
+    fileName = FileCabinet.findOne(@fileCabinetId)?.title
     ext = fileName.substr(fileName.lastIndexOf('.') + 1)
     return ext is type
   getFileName: ->
-    content = FileCabinet.findOne({'_id': @documentId}).content
+    content = FileCabinet.findOne({'_id': @fileCabinetId}).content
     return FileRegistry.findOne("_id": content)?.filenameOnDisk
 
