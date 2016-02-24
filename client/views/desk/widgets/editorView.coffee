@@ -41,12 +41,6 @@ Template.mirador_editorView_content.onRendered ->
     if ready.get()
       @editor.resize Template.currentData().width-2, Template.currentData().height-75
 
-Template.mirador_editorView_content.onDestroyed ->
-  # TODO: onDestroyed doesn't get called :(
-  console.log 'ondestroyed'
-  Meteor.call "closeDoc", Meteor.userId(), Session.get('current_project'), @data.fileCabinetId
-  @editor?.destroy()
-
 Template.mirador_editorView_content.helpers
   editorId: ->
     @fileCabinetId
