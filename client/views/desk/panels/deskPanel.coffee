@@ -5,7 +5,7 @@ Template.deskPanel.events
 
   "click .editorItem": ->
     miradorFunctions.mirador_viewer_loadView "editorView",
-      manuscriptId: @_id
+      documentId: @_id
 
   "click .doc-panel-delete": ->
     Session.set "fc_file_to_del", this._id
