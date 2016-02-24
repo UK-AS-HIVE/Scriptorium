@@ -22,12 +22,9 @@ Template.mirador_viewer.onRendered ->
 
 @miradorFunctions = @miradorFunctions || {}
 @miradorFunctions = _.extend @miradorFunctions,
-  mirador_viewer_loadView: (type, manifestId, imageIndex, openAt) ->
+  mirador_viewer_loadView: (type, properties) ->
     console.log 'loadView', arguments
     widgetProps =
-      manifestId: manifestId
-      openAt:     openAt
-      imageId:    imageIndex
       type:       type
       width:      miradorWidgetProperties[type].width
       height:     miradorWidgetProperties[type].height
@@ -35,6 +32,8 @@ Template.mirador_viewer.onRendered ->
     if miradorWidgetProperties[type]?.extendedData?
       widgetProps = _.extend widgetProps,
         miradorWidgetProperties[type].extendedData()
+
+    widgetProps = _.extend widgetProps, properties
 
     ActiveWidgets.insert widgetProps
 

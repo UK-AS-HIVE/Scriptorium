@@ -70,13 +70,16 @@ Template.mirador_mainMenu_loadWindowContent.events
     openAt = null
 
     # TODO: This should be configurable
-    miradorFunctions.mirador_viewer_loadView "imageView", manifestId, tpl.$(e.target).data('image-id')
+    miradorFunctions.mirador_viewer_loadView "imageView",
+      manifestId: manifestId
+      imageId: tpl.$(e.target).data('image-id')
 
   # attach click event for thumbnails view icon
   'click .mirador-listing-collections a.mirador-icon-thumbnails-view': (e, tpl) ->
     manifestId = tpl.$('.mirador-listing-collections select').find('option:selected').data('manifest-id')
 
-    miradorFunctions.mirador_viewer_loadView "thumbnailsView", manifestId
+    miradorFunctions.mirador_viewer_loadView "thumbnailsView",
+      manifestId: manifestId
 
   'click .mirador-listing-collections a.mirador-add-mani': (e, tpl) ->
     # Meteor.miradorFunctions.addMani();
@@ -86,13 +89,15 @@ Template.mirador_mainMenu_loadWindowContent.events
   'click .mirador-listing-collections a.mirador-icon-scroll-view': (e, tpl) ->
     manifestId = tpl.$('.mirador-listing-collections select').find('option:selected').data('manifest-id')
 
-    miradorFunctions.mirador_viewer_loadView "scrollView", manifestId
+    miradorFunctions.mirador_viewer_loadView "scrollView",
+      manifestId: manifestId
 
   # attach click event for metadata view icon
   'click .mirador-listing-collections a.mirador-icon-metadata-view': (e, tpl) ->
     manifestId = tpl.$('.mirador-listing-collections select').find('option:selected').data('manifest-id')
 
-    miradorFunctions.mirador_viewer_loadView "metadataView", manifestId
+    miradorFunctions.mirador_viewer_loadView "metadataView",
+      manifestId: manifestId
 
 Template.mirador_mainMenu_windowOptionsMenu.events
   'click .window-options-menu .cascade-all': ->

@@ -28,11 +28,15 @@ Template.mirador_scrollView_content.helpers
 
 Template.mirador_scrollView_navToolbar.events
   'click .mirador-icon-metadata-view': ->
-    miradorFunctions.mirador_viewer_loadView 'metadataView', @manifestId
+    miradorFunctions.mirador_viewer_loadView 'metadataView',
+      manifestId: @manifestId
   'click .mirador-icon-thumbnails-view': ->
-    miradorFunctions.mirador_viewer_loadView 'thumbnailsView', @manifestId
+    miradorFunctions.mirador_viewer_loadView 'thumbnailsView',
+      manifestId: @manifestId
 
 Template.mirador_scrollView_content.events
   'click .image-instance a': (e, tpl) ->
-    miradorFunctions.mirador_viewer_loadView 'imageView', tpl.data.manifestId, @index
+    miradorFunctions.mirador_viewer_loadView 'imageView',
+      manifestId: tpl.data.manifestId
+      imageId: @index
 
