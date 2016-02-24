@@ -2,10 +2,6 @@ Meteor.methods
 
   deleteEditorDoc: (fileToDelete) ->
     file = FileCabinet.findOne({'_id': fileToDelete})
-    if file.fileType == 'editor'
-      isOpen = OpenDocs.findOne({"document": fileToDelete})
-      if isOpen?
-        OpenDocs.remove({"_id": isOpen["_id"]})
     if file.fileType == 'upload'
       #kill the file in the file system maybe?
       console.log fileToDelete

@@ -15,15 +15,3 @@ Meteor.methods
       description: desc
 
     return newEditorID
-
-  openDoc: (user, project, docId) ->
-    OpenDocs.insert
-      user: user
-      project: project
-      document: docId
-
-  closeDoc: (user, project, docId) ->
-    OpenDocs.remove
-      user: user
-      project: project
-      document: docId

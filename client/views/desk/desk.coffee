@@ -20,8 +20,3 @@ Template.desk.events
 
   "click #deleteCancel": ->
     $("#confirmDeletePanel").modal('hide')
-
-Template.desk.helpers
-  getOpenEditors: ->
-    OpenDocs.find({'user': Meteor.userId(), 'project': Session.get('current_project')})
-

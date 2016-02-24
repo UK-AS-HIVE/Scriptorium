@@ -32,9 +32,12 @@ Template.bookshelf.helpers
   bookshelf: ->
     enableSortable()
     return Bookshelves.find { project: Session.get("current_project") }, { sort: { rank: 1 } }
-  books: (bookshelfId) ->
+  books:  ->
     enableSortable()
-    return Books.find { bookshelfId: bookshelfId }, { sort: { rank: 1 } }
+    return Books.find { bookshelfId: @_id }, { sort: { rank: 1 } }
+  fileUrl: ->
+    @url or "file/" + FileRegistry.findOne(@fileRegistryId).filenameOnDisk
+ 
 
 enableSortable = ->
   tpl = @

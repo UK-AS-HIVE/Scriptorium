@@ -23,9 +23,6 @@ Meteor.publish 'filecabinetsearch', (searchVal) ->
   else
     FileCabinet.find { $text: { $search: searchVal } }
 
-Meteor.publish 'opendocs', ->
-  OpenDocs.find()
-
 Meteor.publish 'folioitems', ->
   folioItems.find()
 

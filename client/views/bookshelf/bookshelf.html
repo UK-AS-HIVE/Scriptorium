@@ -27,9 +27,9 @@
             </li>
             <li class="book" draggable="true" style="display:none">
             </li>
-            {{#each books _id}}
+            {{#each books}}
               <li class="book" draggable="true" style="border-left-color:{{../color}}" parentId ="{{../_id}}">
-                <h3><a href="{{url}}" target="_blank"><i class="fa fa-globe"></i> {{name}}</a></h3>
+                <h3><a href="{{fileUrl}}" target="_blank"><i class="fa fa-globe"></i> {{name}}</a></h3>
                 <div class="actions">
                   <a href="#" class="black"><i class="fa fa-pencil edit-link-btn" data-toggle="modal" data-modal="editLinkModal"></i></a>
                   <a href="#" class="red"><i class="fa fa-times delete-link-btn" data-toggle="modal" data-modal="deleteLinkModal"></i></a>

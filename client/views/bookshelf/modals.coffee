@@ -105,7 +105,7 @@ Template.uploadPdfModal.events
     category = tpl.$('select[name=category]').val()
     bookshelfId = Bookshelves.findOne({project: Session.get("current_project"), category: category})._id
     booksCount = Books.find({bookshelfId: bookshelfId}).count()
-    Books.insert({name: file.filename, url: "/file/" + file.filenameOnDisk, bookshelfId: bookshelfId, rank: booksCount + 1})
+    Books.insert({name: file.filename, fileRegistryId: file._id, bookshelfId: bookshelfId, rank: booksCount + 1})
     tpl.$('#uploadPdfModal').modal('hide')
 
   'hidden.bs.modal': (e, tpl) ->

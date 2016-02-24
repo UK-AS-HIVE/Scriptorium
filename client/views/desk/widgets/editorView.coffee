@@ -46,6 +46,7 @@ Template.mirador_editorView_content.onRendered ->
 
 Template.mirador_editorView_content.onDestroyed ->
   # TODO: onDestroyed doesn't get called :(
+  console.log 'ondestroyed'
   Meteor.call "closeDoc", Meteor.userId(), Session.get('current_project'), @data.manifestId
   @editor?.destroy()
 

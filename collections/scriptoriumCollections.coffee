@@ -121,7 +121,11 @@
   # TODO: this stores either text from CKEditor, or a FileRegistry ID reference
   # probably should split into separate fields
   content:
-    label: "Content ID"
+    label: "Content"
+    type: String
+    optional: true
+  fileRegistryId:
+    label: "File Registry ID"
     type: String
     optional: true
   date:
@@ -134,7 +138,7 @@
   fileType:
     label: "File Type"
     type: String
-    allowedValues: [ "upload", "editor" ]
+    allowedValues: [ "upload", "editor", "annotation" ]
   open:
     label: "File Open?"
     type: Boolean
@@ -147,19 +151,6 @@
   user:
     label: "User ID"
     type: String
-
-@OpenDocs = new Meteor.Collection('opendocs')
-@OpenDocs.attachSchema new SimpleSchema
-  document:
-    label: "Document ID"
-    type: String
-  project:
-    label: "Project ID"
-    type: String
-  user:
-    label: "User ID"
-    type: String
-
 
 # class @folioItems extends Minimongoid
 # 	 @_collection: new Meteor.Collection('folioitems')
@@ -187,6 +178,7 @@
   url:
     label: "Book URL"
     type: String
+    optional: true
   bookshelfId:
     label: "Bookshelf ID"
     type: String
@@ -194,3 +186,7 @@
     label: "Book Rank"
     type: Number
     decimal: true
+  fileRegistryId:
+    label: "File Registry ID"
+    type: String
+    optional: true
