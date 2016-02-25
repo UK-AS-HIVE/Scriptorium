@@ -110,6 +110,8 @@ Template.mirador_widget_initialLayout.onRendered ->
     # Settings that execute when the dialog is dragged. If parent isn't used the text content will have dragging enabled.
     .draggable
       containment: '.mirador-viewer' # The element the dialog is constrained to.
+      drag: (event, ui) -> {}
+      start: (event, ui) -> {}
       stop: (event, ui) ->
         ActiveWidgets.update widgetId,
           $set:
