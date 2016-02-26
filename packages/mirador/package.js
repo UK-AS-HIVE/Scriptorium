@@ -27,9 +27,9 @@ Package.onUse(function(api) {
     'lib/jquery.tooltipster.min.js',
     'lib/d3.v3.min.js',
     'lib/uri.min.js',
-    'lib/OpenLayers.js',
-    'lib/annotorious.min.js',
-    'lib/anno-parse-plugin.js',
+    //'lib/OpenLayers.js',
+    //'lib/annotorious.min.js',
+    //'lib/anno-parse-plugin.js',
   ], 'client');
 
   api.addFiles([
