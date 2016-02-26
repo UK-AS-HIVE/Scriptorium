@@ -116,8 +116,20 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
           x2: 0
           y2: 0
 
+    annotationId = Annotations.insert
+      projectId: Session.get('current_project')
+      manifestId: data.manifestId
+      canvasIndex: data.imageId
+      text: 'Annotation'
+      x: Math.min(aw.newAnnotation.x1, aw.newAnnotation.x2)
+      y: Math.min(aw.newAnnotation.y1, aw.newAnnotation.y2)
+      w: Math.abs(aw.newAnnotation.x2 - aw.newAnnotation.x1)
+      h: Math.abs(aw.newAnnotation.y2 - aw.newAnnotation.y1)
+
+    # TODO: do we want annotation text to live in file cabinet?
+    ###
     fileCabinetId = FileCabinet.insert
-      title: "Annotation on #{data.manifestId} image #{data.imageId}.dumb"
+      title: "Annotation on #{data.manifestId} image #{data.imageId}.anno"
       description: "Annotation on #{data.manifestId} image #{data.imageId}"
       fileType: "annotation"
       content: ''
@@ -129,6 +141,7 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
     miradorFunctions.mirador_viewer_loadView 'editorView',
       manifestId: data.manifestId
       fileCabinetId: fileCabinetId
+    ###
 
 Template.osd_blaze_overlay.helpers
   transform: ->
@@ -138,15 +151,16 @@ Template.osd_blaze_overlay.helpers
   annotations: ->
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
     imageWidth = parseInt(canvas.images[0].resource.width)
-    _.map Annotations.findOne({
-      manifest: @manifestId
-      canvas: canvas['@id']
-    }).annotations, (a) ->
-      x: a.x / imageWidth
-      y: a.y / imageWidth
-      w: a.w / imageWidth
-      h: a.h / imageWidth
-      text: a.text
+    return Annotations.find({
+      projectId: Session.get('current_project')
+      manifestId: @manifestId
+      canvasIndex: @imageId
+    }).map (a) ->
+      _.extend a,
+        x: a.x / imageWidth
+        y: a.y / imageWidth
+        w: a.w / imageWidth
+        h: a.h / imageWidth
   newAnnotation: ->
     aw = ActiveWidgets.findOne(@_id)
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
@@ -156,4 +170,19 @@ Template.osd_blaze_overlay.helpers
       y: Math.min(aw.newAnnotation.y1, aw.newAnnotation.y2) / imageWidth
       w: Math.abs(aw.newAnnotation.x2 - aw.newAnnotation.x1) / imageWidth
       h: Math.abs(aw.newAnnotation.y2 - aw.newAnnotation.y1) / imageWidth
+
+Template.osd_blaze_overlay_annotation.onRendered ->
+  div = $('<div/>')
+  Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, @data, div.get(0)
+  @.$('rect').tooltipster
+    arrow: true
+    content: div
+    contentCloning: false
+    interactive: true
+    position: 'bottom'
+    theme: '.tooltipster-mirador'
+
+Template.osd_blaze_overlay_annotation_tooltip.events
+  'click a.delete-annotation': (e, tpl) ->
+    Annotations.remove @_id
 

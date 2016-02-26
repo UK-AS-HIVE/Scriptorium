@@ -1,0 +1,37 @@
+<!-- Blaze overlay for annotations on OpenSeadragon -->
+<template name="osd_blaze_overlay">
+  <svg style="position: absolute; left: 0; top: 0; width: 100%; height: 100%">
+    {{#if annotationPanelOpen}}
+      {{#if newAnnotation}}
+      {{else}}
+        <text x="50%" y="50" text-anchor="middle">Annotations</text>
+      {{/if}}
+      <g transform={{transform}}>
+        {{#each annotations}}
+          {{> osd_blaze_overlay_annotation}}
+        {{/each}}
+      </g>
+    {{/if}}
+    {{#if newAnnotation}}
+      <text x="50%" y="50" text-anchor="middle">Click and Drag to Add Annotation</text>
+      <g transform={{transform}}>
+        {{#with newAnnotation}}
+          <rect x={{x}} y={{y}} width={{w}} height={{h}} stroke-width="0.002" stroke="#00ff00" fill="black" fill-opacity="0.25"></rect>
+        {{/with}}
+      </g>
+    {{/if}}
+  </svg>
+</template>
+
+<template name="osd_blaze_overlay_annotation">
+  <rect x={{x}} y={{y}} width={{w}} height={{h}} stroke-width="0.002" stroke="red" fill="black" fill-opacity="0.25"></rect>
+</template>
+
+<template name="osd_blaze_overlay_annotation_tooltip">
+  {{text}}
+  <ul>
+    <li><a href="#" class="edit-annotation">Edit</a></li>
+    <li><a href="#" class="delete-annotation">Delete</a></li>
+  </ul>
+</template>
+

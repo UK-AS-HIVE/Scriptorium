@@ -54,32 +54,29 @@
 
 @Annotations = new Meteor.Collection('annotations')
 @Annotations.attachSchema new SimpleSchema
-  canvas:
+  canvasIndex:
     label: "Annotation Canvas"
-    type: String
-  manifest:
+    type: Number
+  manifestId:
     label: "Project Manifest"
     type: String
-  project:
+  projectId:
     label: "Project"
     type: String
-  annotations:
-    label: "Annotations"
-    type: [ Object ]
-  'annotations.$.x':
-    type: Number
-    decimal: true
-  'annotations.$.y':
-    type: Number
-    decimal: true
-  'annotations.$.w':
-    type: Number
-    decimal: true
-  'annotations.$.h':
-    type: Number
-    decimal: true
-  'annotations.$.text':
+  text:
     type: String
+  x:
+    type: Number
+    decimal: true
+  y:
+    type: Number
+    decimal: true
+  w:
+    type: Number
+    decimal: true
+  h:
+    type: Number
+    decimal: true
 
 @Workspaces = new Meteor.Collection('workspaces')
 @Workspaces.attachSchema new SimpleSchema
