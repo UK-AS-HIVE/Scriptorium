@@ -3,26 +3,23 @@
     <i class="fa fa-times js-close-panel"></i>
     <ul class="page-list file-cabinet">
       {{#each documents}}
-          <li>
-            {{#if isOpen}}
-              <div class="openEditorItem">
-                <i class="file-icon fa fa-file-o"></i>
-                <div class="meta">
-                  <strong>{{title}}</strong>
-                  <small>Editor Document - Open</small>
-                </div>
-              </div>
-            {{else}}
-              <div class="editorItem">
-                <i class="file-icon fa fa-file-o"></i>
-                <div class="meta">
-                  <strong>{{title}}</strong>
-                  <small>Editor Document</small>
-                </div>
-              </div>
-            {{/if}}
-            <div class="doc-panel-delete"><small><i class="fa fa-times"></i> delete</small></div>          
-          </li>
+        <li>
+          <div class="editorItem">
+            <i class="file-icon fa fa-file-o"></i>
+            <div class="meta">
+              <strong>{{title}}</strong>
+              <small>{{description}}</small>
+              {{#if isEditor}}
+                <small>Editor Document{{#if isOpen}} - Open{{/if}}</small>
+                {{else}}
+                <small>Uploaded File</small>
+              {{/if}}
+            </div>
+          </div>
+          <div class="document-panel-actions">
+            <span name="delete"><small><i class="fa fa-times"></i> delete</small></span>
+          </div>
+        </li>
       {{/each}}
     </ul>
   </div>

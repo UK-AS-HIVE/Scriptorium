@@ -12,11 +12,3 @@ Template.desk.events
   "click #docSavedOk": ->
     console.log "saved"
     $("#docSavedModal").modal('hide')
-
-  "click #deleteOk": ->
-    Meteor.call("deleteEditorDoc", Session.get "fc_file_to_del")
-    Session.set "fc_file_to_del", ""
-    $("#confirmDeletePanel").modal('hide')
-
-  "click #deleteCancel": ->
-    $("#confirmDeletePanel").modal('hide')
