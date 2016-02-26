@@ -16,10 +16,10 @@ class @User extends Minimongoid
       ]
     })
 
-  primaryEmail: () ->
+  primaryEmail:  ->
     if @emails && @emails[0]
       #if user has multiple, which is primary?
       @emails[0].address
 
-  fullName: () ->
-    "#{@profile.firstName} #{@profile.lastName}"
+  fullName: ->
+    "#{@profile?.firstName} #{@profile?.lastName}"
