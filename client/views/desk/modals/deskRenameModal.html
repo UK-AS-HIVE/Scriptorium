@@ -1,15 +1,15 @@
-<template name="newDocModal">
-  <div class="modal fade" id="newDocModal" role="dialog">
+<template name="deskRenameModal">
+  <div class="modal fade" id="deskRenameModal">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
           <div class="form-group">
-            <label for="name" class="control-label">New document name:</label>
-            <input class="form-control" type="text" name="title" value="{{name}}">
+            <label for="name" class="control-label">Name:</label>
+            <input class="form-control" type="text" name="title" value="{{title}}">
           </div>
           <div class="form-group">
             <label for="desc" class="control-label">Description:</label>
-            <textarea class="form-control" name="desc" rows="4"></textarea>
+            <textarea class="form-control" name="desc" rows="4" value="{{description}}"></textarea>
           </div>
         </div>
         <div class="modal-footer">

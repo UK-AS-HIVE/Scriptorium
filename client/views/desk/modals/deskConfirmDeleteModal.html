@@ -1,0 +1,27 @@
+<template name="deskConfirmDeleteModal">
+  <div class="modal fade" id="confirmDeleteModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              Are you sure you want to delete this file?
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Title:</label>
+            <div class="well well-sm form-control">{{title}}</div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Description:</label>
+            <textarea class="form-control" rows="4" disabled>{{description}}</textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-danger pull-right" data-action="delete"><i class="fa fa-trash-o"></i> Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

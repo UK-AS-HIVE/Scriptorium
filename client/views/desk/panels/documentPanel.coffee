@@ -11,6 +11,10 @@ Template.documentPanel.events
     Blaze.renderWithData Template.deskConfirmDeleteModal, @, $('body').get(0)
     $("#confirmDeleteModal").modal('show')
 
+  'click span[name=rename]': ->
+    Blaze.renderWithData Template.deskRenameModal, @, $('body').get(0)
+    $("#deskRenameModal").modal('show')
+
 Template.documentPanel.helpers
   documents: ->
     # TODO: If Annotations are going to be their own collection, the fileType selector here is irrelevant.
