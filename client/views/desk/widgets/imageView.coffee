@@ -213,28 +213,30 @@ Template.mirador_imageView_content.helpers
 
 Template.mirador_imageView_annotationPanel.helpers
   annotations: ->
-    annos = Annotations.findOne
-      manifest: @manifestId
-      canvas: AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]['@id']
-    annos?.annotations
-
+    Annotations.find
+      projectId: Session.get('current_project')
+      manifestId: @manifestId
+      canvasIndex: @imageId
 
 Template.mirador_imageView_annotationStats.helpers
   annotationCount: ->
-    annos = Annotations.findOne
-      manifest: @manifestId
-      canvas: AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]['@id']
-    annos?.annotations?.length || 0
+    Annotations.find(
+      projectId: Session.get('current_project')
+      manifestId: @manifestId
+      canvasIndex: @imageId
+    ).count()
   imageAnnotationCount: ->
-    annos = Annotations.findOne
-      manifest: @manifestId
-      canvas: AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]['@id']
-    _.size _.filter annos?.annotations, (a) ->
-      a.type == 'commenting'
+    Annotations.find(
+      projectId: Session.get('current_project')
+      manifestId: @manifestId
+      canvasIndex: @imageId
+      type: 'commenting'
+    ).count()
   textAnnotationCount: ->
-    annos = Annotations.findOne
-      manifest: @manifestId
-      canvas: AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]['@id']
-    _.size _.filter annos?.annotations, (a) ->
-      a.type != 'commenting'
+    Annotations.find(
+      manifestId: @manifestId
+      canvasIndex: @imageId
+      type:
+        $not: 'commenting'
+    ).count()
 
