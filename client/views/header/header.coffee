@@ -1,15 +1,3 @@
-Template.header.rendered = () ->
-  Tracker.autorun ->
-    projects = Projects.find({permissions: {$elemMatch: {user: Meteor.userId()}}}).fetch()
-
-    #If there is no current_project selected grab the first one
-    # and make it that one
-    if !Session.get('current_project') && projects && projects.length > 0
-      Session.set('current_project', projects[0]._id)
-    #if there are absolutely no projects default to "Free Space"
-    else if !Session.get('current_project') && projects && projects.length <= 0
-      Session.set('current_project', 'Free Space')
-
 Template.header.helpers
   availableProjects: ->
     projects = Projects.find({permissions: {$elemMatch: {user: Meteor.userId()}}})

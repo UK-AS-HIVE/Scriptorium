@@ -1,3 +1,9 @@
+Meteor.publish 'userData', ->
+  Meteor.users.find { _id: @userId }
+
+Meteor.publish 'allUserData', ->
+  Meteor.users.find {}, { fields: { _id: 1, emails: 1, profile: 1 } }
+
 Meteor.publish "getFolioRecords", ->
   folioItems.find { published: true }, { fields: { canvas: 0 } }
 
