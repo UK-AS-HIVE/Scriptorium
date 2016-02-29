@@ -23,39 +23,37 @@ Template.addUserModal.rendered = ->
     $('#userModal input').first().focus()
   )
 
-  Meteor.typeahead @.$('#addUserModal .typeahead')
-
 Template.addUserModal.onCreated ->
   @error = new ReactiveVar
 
 Template.addUserModal.helpers
   error: ->
     Template.instance().error.get()
-
-  userSearch: ->
-    users = User.find({}).fetch()
-    names = []
-
-    if users
-      name = (u) -> "#{u.profile?.firstName} #{u.profile?.lastName}"
-      email = (u) -> u.emails[0].address
-
-      names = _.map(users, (u) ->
+  searchSettings: ->
+    {
+      position: 'bottom'
+      limit: 5
+      rules: [
         {
-          name: name(u),
-          value: email(u),
-          email: email(u),
-          tokens: [
-            email(u),
-            u.profile.firstName,
-            u.profile.lastName
-          ]
+          collection: Meteor.users
+          field: 'emails.address'
+          template: Template.userAutocomplete
+          selector: (match) ->
+            r = new RegExp match, 'i'
+            return { $or: [ { username: r }, { 'profile.firstName': r }, { 'profile.lastName': r }, { 'emails.address': r } ] }
         }
-      )
+      ]
+    }
 
-    names
+Template.userAutocomplete.helpers
+  name: -> User.first(@_id).fullName()
+  email: -> @emails[0].address
 
 Template.addUserModal.events
+  'autocompleteselect': (e, tpl, doc) ->
+    # Have to set the autocomplete manually since our field is an array.
+    tpl.$('input[name=addUserEmail]').val(doc?.emails[0]?.address)
+
   'click button[data-action=addUser]': (e, tpl) ->
     email = tpl.$('input[name=addUserEmail]').val()
     role = tpl.$('select[name=role]').val()

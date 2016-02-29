@@ -8,12 +8,10 @@ insecure
 iron:router
 coffeescript
 less
-accounts-ui
 accounts-password
 cmather:handlebars-server
 kaptron:minimongoid
 bruce:messageboard
-sergeyt:typeahead
 http
 hive:file-registry
 mrt:jquery-ui-sortable
@@ -29,3 +27,4 @@ reactive-var
 mirador
 
 markdown
+mizzao:autocomplete
