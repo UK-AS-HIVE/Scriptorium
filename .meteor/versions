@@ -18,6 +18,7 @@ callback-hook@1.0.4
 check@1.1.0
 cmather:handlebars-server@2.0.0
 coffeescript@1.0.11
+copleykj:jquery-autosize@1.17.8
 dandv:caret-position@2.1.1
 dburles:collection-helpers@1.0.4
 ddp@1.2.2

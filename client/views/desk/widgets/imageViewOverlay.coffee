@@ -182,7 +182,14 @@ Template.osd_blaze_overlay_annotation.onRendered ->
     position: 'bottom'
     theme: '.tooltipster-mirador'
 
+Template.osd_blaze_overlay_annotation_tooltip.onRendered ->
+  @.$('textarea').autosize()
+
 Template.osd_blaze_overlay_annotation_tooltip.events
+  'change textarea': (e, tpl) ->
+    Annotations.update @_id,
+      $set:
+        text: tpl.$('.annotation-text').val()
   'click a.delete-annotation': (e, tpl) ->
     Annotations.remove @_id
 
