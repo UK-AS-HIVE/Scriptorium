@@ -27,4 +27,4 @@
 
   lastPost: ->
     if @posts
-      _.sortBy(@posts, (p) -> p.timestamp)[0]
+      _.sortBy(@posts, (p) -> -p.timestamp)[0]
