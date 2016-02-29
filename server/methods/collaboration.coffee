@@ -63,10 +63,10 @@ Meteor.methods
       { $addToSet: { permissions: { user: userId, level: role } } }
 
 
-  saveNewProject: (name, uid, workspaces) ->
+  saveNewProject: (name, workspaces) ->
     newProject = {
       projectName: name
-      permissions: [ { level: "admin", user: uid } ]
+      permissions: [ { level: "admin", user: @userId } ]
       miradorData: []
     }
     Projects.insert newProject

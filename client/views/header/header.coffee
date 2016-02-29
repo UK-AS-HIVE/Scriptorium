@@ -15,8 +15,9 @@ Template.header.events
   "change #projectSelector": (e, tpl) ->
     Session.set "current_project", tpl.$(e.target).val()
 
-  "click #saveAsProject": ->
-    $('.desk-save-panel').toggleClass('is-open')
+  "click a[data-action=createNewProject]": ->
+    Blaze.render Template.createProjectModal, $('body').get(0)
+    $('#createProjectModal').modal('show')
 
-  "click .toggle-help-panel": ->
+  "click a[data-action=toggleHelp]": ->
     $('.help-panel').toggleClass('is-open')

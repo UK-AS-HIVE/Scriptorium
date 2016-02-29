@@ -22,7 +22,7 @@
         </ul>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li class="toggle-help-panel"><a href="#"><i class="fa fa-question-circle"></i> Help</a></li>
+        <li><a href="#" data-action="toggleHelp"><i class="fa fa-question-circle"></i> Help</a></li>
       {{#if currentUser}}
         <li><a href="/sign-out"><i class="fa fa-lock"></i> Sign Out</a></li>
       {{/if}}
@@ -41,7 +41,7 @@
         <li><a href="/folio">Folio Manager</a></li>
       </ul>
       <ul class="pull-right">
-        <li><a href="#" id="saveAsProject"><i class="fa fa-save"></i> Save as New Project</a></li>
+        <li><a href="#" data-action="createNewProject"><i class="fa fa-save"></i> Create New Project</a></li>
         <li><span>Current Project:</span></li>
         <li class="select">
           <select id="projectSelector" class="form-control">
