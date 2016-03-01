@@ -52,7 +52,11 @@
 
 OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
   viewer = @
-  transform = new ReactiveVar()
+  transform = new ReactiveVar
+    translate:
+      x: 0
+      y: 0
+    scale: 1
 
   imageWidth = AvailableManifests.findOne(data.manifestId).manifestPayload.sequences[0].canvases[data.imageId].images[0].resource.width
 
@@ -60,7 +64,9 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
     p =  viewer.viewport.pixelFromPoint new OpenSeadragon.Point(0,0), true
     zoom = viewer.viewport.getZoom true
     scale = viewer.viewport._containerInnerSize.x * zoom
-    transform.set "translate(#{p.x},#{p.y}) scale(#{scale})"
+    transform.set
+      translate: p
+      scale: scale
 
   data = _.extend data,
     transform: transform
@@ -151,12 +157,14 @@ Template.osd_blaze_overlay.helpers
   annotations: ->
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
     imageWidth = parseInt(canvas.images[0].resource.width)
+    transform = @transform.get()
     return Annotations.find({
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
     }).map (a) ->
       _.extend a,
+        transform: transform
         x: a.x / imageWidth
         y: a.y / imageWidth
         w: a.w / imageWidth
@@ -165,7 +173,10 @@ Template.osd_blaze_overlay.helpers
     aw = ActiveWidgets.findOne(@_id)
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
     imageWidth = parseInt(canvas.images[0].resource.width)
+    transform = @transform.get()
     if aw.newAnnotation.isActive
+      transform: transform
+      isDragging: aw.newAnnotation.isDragging
       x: Math.min(aw.newAnnotation.x1, aw.newAnnotation.x2) / imageWidth
       y: Math.min(aw.newAnnotation.y1, aw.newAnnotation.y2) / imageWidth
       w: Math.abs(aw.newAnnotation.x2 - aw.newAnnotation.x1) / imageWidth
@@ -174,13 +185,28 @@ Template.osd_blaze_overlay.helpers
 Template.osd_blaze_overlay_annotation.onRendered ->
   div = $('<div/>')
   Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, @data, div.get(0)
-  @.$('rect').tooltipster
+  #@.$('rect').tooltipster
+  @.$('.annotation-box').tooltipster
     arrow: true
     content: div
     contentCloning: false
     interactive: true
-    position: 'bottom'
+    position: 'right'
     theme: '.tooltipster-mirador'
+
+Template.osd_blaze_overlay_new_annotation.helpers
+  x: -> (@x * @transform.scale) + @transform.translate.x
+  y: -> (@y * @transform.scale) + @transform.translate.y
+  w: -> @w * @transform.scale
+  h: -> @h * @transform.scale
+  borderSize: -> 0.002 * @transform.scale
+
+Template.osd_blaze_overlay_annotation.helpers
+  x: -> (@x * @transform.scale) + @transform.translate.x
+  y: -> (@y * @transform.scale) + @transform.translate.y
+  w: -> @w * @transform.scale
+  h: -> @h * @transform.scale
+  borderSize: -> 0.002 * @transform.scale
 
 Template.osd_blaze_overlay_annotation_tooltip.onRendered ->
   @.$('textarea').autosize()

@@ -1,30 +1,34 @@
 <!-- Blaze overlay for annotations on OpenSeadragon -->
 <template name="osd_blaze_overlay">
-  <svg style="position: absolute; left: 0; top: 0; width: 100%; height: 100%">
+  <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;">
     {{#if annotationPanelOpen}}
       {{#if newAnnotation}}
       {{else}}
-        <text x="50%" y="50" text-anchor="middle">Annotations</text>
+        <div style="color: white; text-align: center;">Annotations</div>
       {{/if}}
-      <g transform={{transform}}>
-        {{#each annotations}}
-          {{> osd_blaze_overlay_annotation}}
-        {{/each}}
-      </g>
+      {{#each annotations}}
+        {{> osd_blaze_overlay_annotation}}
+      {{/each}}
     {{/if}}
     {{#if newAnnotation}}
-      <text x="50%" y="50" text-anchor="middle">Click and Drag to Add Annotation</text>
-      <g transform={{transform}}>
+      <div style="color: white; text-align: center;">Click and Drag to Add Annotation</div>
+      {{#if newAnnotation.isDragging}}
         {{#with newAnnotation}}
-          <rect x={{x}} y={{y}} width={{w}} height={{h}} stroke-width="0.002" stroke="#00ff00" fill="black" fill-opacity="0.25"></rect>
+          {{> osd_blaze_overlay_new_annotation}}
         {{/with}}
-      </g>
+      {{/if}}
     {{/if}}
-  </svg>
+  </div>
+</template>
+
+<template name="osd_blaze_overlay_new_annotation">
+  <div class="annotation-box" style="position: absolute; left: {{x}}px; top: {{y}}px; width: {{w}}px; height: {{h}}px; border: {{borderSize}}px solid #00ff00; background-color: rgba(0,0,0,0.25)">
+  </div>
 </template>
 
 <template name="osd_blaze_overlay_annotation">
-  <rect x={{x}} y={{y}} width={{w}} height={{h}} stroke-width="0.002" stroke="red" fill="black" fill-opacity="0.25"></rect>
+  <div class="annotation-box" style="position: absolute; left: {{x}}px; top: {{y}}px; width: {{w}}px; height: {{h}}px; border: {{borderSize}}px solid red; background-color: rgba(0,0,0,0.25)">
+  </div>
 </template>
 
 <template name="osd_blaze_overlay_annotation_tooltip">
