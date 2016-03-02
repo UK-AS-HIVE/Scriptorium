@@ -30,7 +30,9 @@ Template.mirador_editorView_statusbar.helpers
 
 ### EDITOR VIEW CONTENT ###
 Template.mirador_editorView_content.onRendered ->
-  @editor = CKEDITOR.replace("editor-" + @data.fileCabinetId)
+  @editor = CKEDITOR.replace "editor-" + @data.fileCabinetId, {
+    customConfig: '/plugins/ckeditor/custom.js'
+  }
   # HACK: calling editor.resize after instantiation throws an error.
   # This ensures we wait 200ms before the first call...
   ready = new ReactiveVar(false)
