@@ -110,7 +110,48 @@ Template.mirador_imageView_navToolbar.events
     $('#newDocModal').modal('show')
 
   'click .mirador-icon-send-folio': (e, tpl) ->
-    Meteor.miradorFunctions.createFolioEntry(_this.currentImg.imageUrl, _this.currentImg.height, _this.currentImg.width, _this.currentImg.title, Meteor.userId())
+    canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
+    imageId = canvas.images[0].resource.service['@id']
+
+    now = new Date()
+
+    newFolioId = folioItems.insert
+      addedBy: Meteor.userId()
+      lastUpdatedBy: Meteor.userId()
+      imageURL: imageId
+      metadata: {}
+      dateAdded: now
+      lastUpdated: now
+      published: false
+      manifest: Meteor.absoluteUrl "folio/manifest.json"
+      canvas: null
+
+    folioItems.update newFolioId,
+      $set:
+        canvas:
+          "@id": Meteor.absoluteUrl "folio/canvas/#{newFolioId}"
+          "@type": "sc:Canvas"
+          label: canvas.label
+          height: canvas.height || canvas.heigt
+          width: canvas.width
+          images: [
+            "@id": Meteor.absoluteUrl "folio/image/#{newFolioId}"
+            "@type": "oa:Annotation"
+            motivation: "sc:painting"
+            on: Meteor.absoluteUrl "folio/canvas/#{newFolioId}"
+            resource:
+              "@id": "#{imageId}/full/full/0/native.jpg"
+              "@type": "dctypes:Image"
+              format: "image/jpeg"
+              height: canvas.images[0].resource.height
+              width: canvas.images[0].resource.width
+              service:
+                "@id": imageId
+                profile: "http://library.stanford.edu/iiif/image-api/1.1/conformance.html#level1"
+          ]
+
+    Session.set "editFolioItem", newFolioId
+    Router.go('folioEdit')
 
   'click .mirador-icon-scroll-view': (e, tpl) ->
     miradorFunctions.mirador_viewer_loadView 'scrollView',
