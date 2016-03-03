@@ -1,0 +1,35 @@
+<template name="addManifestModal">
+  <div class="modal fade" id="addManifestModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <div class="row">
+            <div class="form-group col-xs-12">
+              <label>Manifest URL<span>*</span></label>
+              <input type="text" class="form-control" id="newManifestURL">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-xs-12">
+              <label>Location<span>*</span></label>
+              <input type="text" class="form-control" id="newManifestLocation">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-xs-12">
+              <label>Title<span>*</span></label>
+              <input type="text" class="form-control" id="newManifestTitle">
+            </div>
+          </div>
+          {{#if error}}
+            <span class="error">Error Retrieving Manifest: {{error}}</span>
+          {{/if}}
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" data-action="addManifest">Add To Project</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

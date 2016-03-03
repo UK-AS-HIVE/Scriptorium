@@ -1,13 +1,16 @@
 Meteor.methods
-  getManifest: (URL, location, title, user, project) ->
-    HTTP.get URL, (err, result) ->
-      if result.statusCode is 200
+  getManifest: (url, location, title, project) ->
+    try
+      res = HTTP.get url
+      if res.statusCode is 200
         AvailableManifests.insert
-          user: user
+          user: @userId
           project: project
-          manifestPayload: JSON.parse(result.content)
+          manifestPayload: JSON.parse(res.content)
           manifestLocation: location
           manifestTitle: title
+    catch e
+      throw new Meteor.Error(e.message)
 
   shareManifests: (user, newProject, sharedManifest, widgets) ->
     newManifest = AvailableManifests.insert

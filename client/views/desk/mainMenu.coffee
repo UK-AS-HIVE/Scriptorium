@@ -73,6 +73,9 @@ Template.mirador_mainMenu_loadWindowContent.events
     miradorFunctions.mirador_viewer_loadView "imageView",
       manifestId: manifestId
       imageId: tpl.$(e.target).data('image-id')
+  'click .mirador-listing-collections a.mirador-icon-add-mani': (e, tpl) ->
+    Blaze.render Template.addManifestModal, $('body').get(0)
+    $('#addManifestModal').modal('show')
 
   # attach click event for thumbnails view icon
   'click .mirador-listing-collections a.mirador-icon-thumbnails-view': (e, tpl) ->
