@@ -27,6 +27,10 @@ Template.mirador_editorView_statusbar.events
 
 Template.mirador_editorView_statusbar.helpers
   saved: -> Template.instance().saved.get()
+  fileIsType: (type) ->
+    fileName = FileCabinet.findOne(@fileCabinetId)?.title
+    ext = fileName.substr(fileName.lastIndexOf('.') + 1)
+    return ext is type
 
 ### EDITOR VIEW CONTENT ###
 Template.mirador_editorView_content.onRendered ->
