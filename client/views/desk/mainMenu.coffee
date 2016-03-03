@@ -81,10 +81,6 @@ Template.mirador_mainMenu_loadWindowContent.events
     miradorFunctions.mirador_viewer_loadView "thumbnailsView",
       manifestId: manifestId
 
-  'click .mirador-listing-collections a.mirador-add-mani': (e, tpl) ->
-    # Meteor.miradorFunctions.addMani();
-    console.log("load manifest")
-
   # attach click event for scroll view icon
   'click .mirador-listing-collections a.mirador-icon-scroll-view': (e, tpl) ->
     manifestId = tpl.$('.mirador-listing-collections select').find('option:selected').data('manifest-id')
