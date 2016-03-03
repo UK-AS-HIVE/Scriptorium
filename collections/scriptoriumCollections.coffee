@@ -152,6 +152,90 @@
 # class @folioItems extends Minimongoid
 # 	 @_collection: new Meteor.Collection('folioitems')
 @folioItems = new Meteor.Collection('folioitems')
+@folioItems.attachSchema new SimpleSchema
+  addedBy: # user id
+    type: String
+  lastUpdatedBy: # user id
+    type: String
+  canvas:
+    type: Object
+    label: "IIIF fragment"
+    optional: true
+    blackbox: true
+  imageURL:
+    type: String
+  metadata:
+    type: Object
+    optional: true
+  'metadata.city':
+    type: String
+  'metadata.repository':
+    type: String
+  'metadata.collectionNumber':
+    type: String
+  'metadata.dateRange':
+    type: [Number]
+  'metadata.scriptName':
+    type: String
+  'metadata.scriptFamily':
+    type: String
+  'metadata.scriptLanguage':
+    type: String
+  'metadata.scriptAlphabet':
+    type: String
+  'metadata.scriptTradition':
+    type: String
+  'metadata.specificText':
+    type: String
+  'metadata.folioNumber':
+    type: String
+  'metadata.description':
+    type: String
+  'metadata.features':
+    type: String
+  'metadata.transcription':
+    type: String
+  'metadata.collection':
+    type: String
+    optional: true
+  'metadata.commonName':
+    type: String
+    optional: true
+  'metadata.origin':
+    type: String
+    optional: true
+  'metadata.provenance':
+    type: String
+    optional: true
+  'metadata.dateExpression':
+    type: String
+    optional: true
+  'metadata.author':
+    type: String
+    optional: true
+  'metadata.title':
+    type: String
+    optional: true
+  'metadata.contributors':
+    type: String
+    optional: true
+  'metadata.manuscriptLink':
+    type: String
+    optional: true
+  'metadata.info':
+    type: String
+    optional: true
+  dateAdded:
+    type: new Date()
+    defaultValue: -> new Date()
+  lastUpdated:
+    type: new Date()
+  published:
+    type: Boolean
+  manifest:
+    type: String
+    label: "Absolute URL to manifest json"
+
 @Bookshelves = new Meteor.Collection('bookshelves')
 @Bookshelves.attachSchema new SimpleSchema
   category:

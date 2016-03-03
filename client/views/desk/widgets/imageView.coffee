@@ -119,7 +119,6 @@ Template.mirador_imageView_navToolbar.events
       addedBy: Meteor.userId()
       lastUpdatedBy: Meteor.userId()
       imageURL: imageId
-      metadata: {}
       dateAdded: now
       lastUpdated: now
       published: false

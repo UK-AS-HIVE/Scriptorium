@@ -1,12 +1,10 @@
-Meteor.subscribe('stuff')
-
-Template.folioEdit.rendered = ->
+Template.folioEdit.onRendered ->
 
   #get database record for this item to populate special fields
   item = folioItems.findOne({_id: Session.get("editFolioItem")}, {fields: {'metadata' : 1}})
 
 
-  if item.metadata.dateRange
+  if item.metadata?.dateRange
     dateLow = item.metadata.dateRange[0]
     dateHigh = item.metadata.dateRange[1]
   else
@@ -59,38 +57,38 @@ Template.folioEdit.rendered = ->
   CKEDITOR.replace('transcription')
 
   #set ckeditor fields
-  CKEDITOR.instances['description'].setData(item.metadata.description)
-  CKEDITOR.instances['features'].setData(item.metadata.features)
-  CKEDITOR.instances['info'].setData(item.metadata.info)
-  CKEDITOR.instances['transcription'].setData(item.metadata.transcription)
+  CKEDITOR.instances['description'].setData(item.metadata?.description)
+  CKEDITOR.instances['features'].setData(item.metadata?.features)
+  CKEDITOR.instances['info'].setData(item.metadata?.info)
+  CKEDITOR.instances['transcription'].setData(item.metadata?.transcription)
 
   #SELECT FIELDS
   $("#scriptName").select2 tags: []
-  $("#scriptName").select2("val", item.metadata.scriptName)
+  $("#scriptName").select2("val", item.metadata?.scriptName)
 
   $("#scriptSelect").select2 {
     placeholder: "Select a Script Family"
     allowClear: true
   }
-  $("#scriptSelect").select2("val", item.metadata.scriptFamily)
+  $("#scriptSelect").select2("val", item.metadata?.scriptFamily)
 
   $("#languageSelect").select2 {
     placeholder: "Select a Language"
     allowClear: true
   }
-  $("#languageSelect").select2("val", item.metadata.scriptLanguage)
+  $("#languageSelect").select2("val", item.metadata?.scriptLanguage)
 
   $("#alphabetSelect").select2 {
     placeholder: "Select an Alphabet"
     allowClear: true
   }
-  $("#alphabetSelect").select2("val", item.metadata.scriptAlphabet)
+  $("#alphabetSelect").select2("val", item.metadata?.scriptAlphabet)
 
   $("#traditionSelect").select2 {
     placeholder: "Select an Tradition"
     allowClear: true
   }
-  $("#traditionSelect").select2("val", item.metadata.scriptTradition)
+  $("#traditionSelect").select2("val", item.metadata?.scriptTradition)
 
   # FIX SIDEBAR ON SCROLL
   $('.sidebar-affix').affix
@@ -127,31 +125,18 @@ Template.folioEdit.events
     #required fields
 
     folioItem.city = $("#city-field").val()
-
     folioItem.repository = $("#repository-field").val()
-
     folioItem.collectionNumber = $("#collectionNumber-field").val()
-
     folioItem.dateRange = $("#dateSlider").slider('getValue')
-
     folioItem.scriptName = $("#scriptName").select2('val')
-
     folioItem.scriptFamily = $("#scriptSelect").select2('val')
-
     folioItem.scriptLanguage = $("#languageSelect").select2('val')
-
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
-
     folioItem.scriptTradition = $("#traditionSelect").select2('val')
-
     folioItem.specificText = $("#folioText-field").val()
-
     folioItem.folioNumber = $("#folioNumber-field").val()
-
     folioItem.description = CKEDITOR.instances.description.getData()
-
     folioItem.features = CKEDITOR.instances.features.getData()
-
     folioItem.transcription = CKEDITOR.instances.transcription.getData()
 
     # Non required fields
@@ -171,8 +156,6 @@ Template.folioEdit.events
 
     $("#folioSaveConfirm").modal('show')
     folioItems.update({_id: Session.get("editFolioItem")}, {$set: {metadata: folioItem, lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
-
-
 
   "click #folioSaveOkBtn": ->
     $("#folioSaveConfirm").modal('hide')
@@ -232,33 +215,19 @@ Template.folioEdit.events
     folioItem = {}
 
     #required fields
-
     folioItem.city = $("#city-field").val()
-
     folioItem.repository = $("#repository-field").val()
-
     folioItem.collectionNumber = $("#collectionNumber-field").val()
-
     folioItem.dateRange = $("#dateSlider").slider('getValue')
-
     folioItem.scriptName = $("#scriptName").select2('val')
-
     folioItem.scriptFamily = $("#scriptSelect").select2('val')
-
     folioItem.scriptLanguage = $("#languageSelect").select2('val')
-
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
-
     folioItem.scriptTradition = $("#traditionSelect").select2('val')
-
     folioItem.specificText = $("#folioText-field").val()
-
     folioItem.folioNumber = $("#folioNumber-field").val()
-
     folioItem.description = CKEDITOR.instances.description.getData()
-
     folioItem.features = CKEDITOR.instances.features.getData()
-
     folioItem.transcription = CKEDITOR.instances.transcription.getData()
 
     # Non required fields
@@ -287,8 +256,6 @@ Template.folioEdit.events
         $("#folioPublishConfirm").modal("show")
       else
         $("#folioInvalidField").modal("show")
-
-
 
   "click #deleteFolioRecord": ->
     console.log "delete"
