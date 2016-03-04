@@ -71,6 +71,14 @@ Template.mirador_imageView_content_osd.onRendered ->
     if Template.instance().osd
       Template.instance().osd.viewport?.ensureVisible()
 
+  @osd.addHandler 'open', =>
+    if @data.zoomLevel
+      @osd.viewport.zoomTo @data.zoomLevel, @data.zoomRefPoint
+
+  @osd.addHandler 'zoom', _.debounce (e) =>
+    ActiveWidgets.update @data._id, { $set: { zoomLevel: e.zoom, zoomRefPoint: e.refPoint } }
+  , 100
+
   ###
   @osd.addHandler 'open', ->
     # TODO: Make these work
