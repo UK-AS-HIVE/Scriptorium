@@ -62,7 +62,12 @@ Template.mirador_imageView_content_osd.onRendered ->
     osd.panHorizontal = osd.panVertical = !Template.currentData().newAnnotation.isActive
 
   @autorun ->
-    elemOsd.width(Template.currentData().width-2).height(Template.currentData().height-100) # TODO: figure out pixel offsets
+    # TODO: make sure pixel offsets are accurate
+    if Template.currentData().annotationPanelOpen
+      elemOsd.width(Template.currentData().width - 200)
+    else
+      elemOsd.width(Template.currentData().width-2)
+    elemOsd.height(Template.currentData().height-100)
     if Template.instance().osd
       Template.instance().osd.viewport?.ensureVisible()
 
