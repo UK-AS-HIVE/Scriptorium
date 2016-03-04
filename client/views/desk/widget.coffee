@@ -129,7 +129,6 @@ Template.mirador_widget_toolbar.helpers
     else
       "display: block;"
   template: ->
-    console.log 'calculating template name for widget toolbar: ', @
     'mirador_' + @type + '_navToolbar'
   height: ->
     # TODO: real calculations here

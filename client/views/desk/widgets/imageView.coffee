@@ -55,7 +55,7 @@ Template.mirador_imageView_content_osd.onRendered ->
   @osd.addBlazeOverlay Template.osd_blaze_overlay, @data
 
   osd = @osd
-
+  window.osd = @osd
   # When adding an annotation, disable the mouse from dragging the OSD canvas
   @autorun ->
     #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
@@ -72,11 +72,17 @@ Template.mirador_imageView_content_osd.onRendered ->
       Template.instance().osd.viewport?.ensureVisible()
 
   @osd.addHandler 'open', =>
-    if @data.zoomLevel
-      @osd.viewport.zoomTo @data.zoomLevel, @data.zoomRefPoint
+    if @data.zoom
+      @osd.viewport.zoomTo @data.zoom
+    if @data.center
+      @osd.viewport.panTo @data.center
 
   @osd.addHandler 'zoom', _.debounce (e) =>
-    ActiveWidgets.update @data._id, { $set: { zoomLevel: e.zoom, zoomRefPoint: e.refPoint } }
+    ActiveWidgets.update @data._id, { $set: { zoom: e.zoom } }
+  , 100
+
+  @osd.addHandler 'pan', _.debounce (e) =>
+    ActiveWidgets.update @data._id, { $set: { center: e.center } }
   , 100
 
   ###
