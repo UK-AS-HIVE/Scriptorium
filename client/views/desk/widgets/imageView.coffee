@@ -77,9 +77,8 @@ Template.mirador_imageView_content_osd.onRendered ->
     if @data.center
       @osd.viewport.panTo @data.center, true
 
-  @osd.addHandler 'animation', _.debounce (e) =>
+  @osd.addHandler 'animation-finish', (e) =>
     ActiveWidgets.update @data._id, { $set: { zoom: @osd.viewport.getZoom(), center: @osd.viewport.getCenter() } }
-  , 100
 
 
   ###
