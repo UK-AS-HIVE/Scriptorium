@@ -120,7 +120,17 @@ Template.mirador_widget_initialLayout.onRendered ->
 
 
   @autorun ->
-    $("##{widgetId}").dialog 'option', 'title', miradorWidgetProperties[Template.currentData().type]?.title.call(Template.currentData())
+    w = $("##{widgetId}")
+    d = Template.currentData()
+    w.dialog 'option', 'title', miradorWidgetProperties[d.type]?.title.call(d)
+    w.dialog 'option', 'position',
+      'my': 'left top'
+      'at': "left+#{d.x} top+#{d.y}"
+      'of': '.mirador-viewer'
+      'collision': 'fit'
+      'within': '.mirador-viewer'
+    w.dialog 'option', 'width', d.width
+    w.dialog 'option', 'height', d.height
 
 Template.mirador_widget_toolbar.helpers
   hidden: ->

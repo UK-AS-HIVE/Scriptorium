@@ -100,20 +100,67 @@ Template.mirador_mainMenu_loadWindowContent.events
 
 Template.mirador_mainMenu_windowOptionsMenu.events
   'click .window-options-menu .cascade-all': ->
-    $.viewer.layout.applyLayout('cascade')
+    widgets = ActiveWidgets.find()
+    widgetCount = widgets.count()
+    _.each widgets.fetch(), (aw, i) ->
+      ActiveWidgets.update aw._id,
+        $set:
+          x: 5 + 25*i
+          y: 5 + 25*i
 
   'click .window-options-menu .tile-all-vertically': ->
-    $.viewer.layout.applyLayout('tileAllVertically')
+    deskHeight = $('.mirador-viewer').height() - 45
+    deskWidth = $('.mirador-viewer').width() - 5
+    widgets = ActiveWidgets.find()
+    widgetCount = widgets.count()
+    _.each widgets.fetch(), (aw, i) ->
+      ActiveWidgets.update aw._id,
+        $set:
+          x: 5
+          y: 5+i*(deskHeight/widgetCount)
+          width: deskWidth - 10
+          height: deskHeight/widgetCount - 5
 
   'click .window-options-menu .tile-all-horizontally': ->
-    $.viewer.layout.applyLayout('tileAllHorizontally')
+    deskHeight = $('.mirador-viewer').height() - 45
+    deskWidth = $('.mirador-viewer').width() - 5
+    widgets = ActiveWidgets.find()
+    widgetCount = widgets.count()
+    _.each widgets.fetch(), (aw, i) ->
+      ActiveWidgets.update aw._id,
+        $set:
+          x: 5+i*(deskWidth/widgetCount)
+          y: 5
+          width: deskWidth/widgetCount - 5
+          height: deskHeight - 10
 
   'click .window-options-menu .stack-all-vertically-2-cols': ->
-    $.viewer.layout.applyLayout('stackAll2Columns')
+    deskHeight = $('.mirador-viewer').height() - 45
+    deskWidth = $('.mirador-viewer').width() - 5
+    widgets = ActiveWidgets.find()
+    widgetCount = widgets.count()
+    _.each widgets.fetch(), (aw, i) ->
+      ActiveWidgets.update aw._id,
+        $set:
+          x: 5+(i%2)*(deskWidth/2)
+          y: 5+Math.floor(i/2)*(deskHeight/Math.ceil(widgetCount/2))
+          width: deskWidth/2 - 5
+          height: deskHeight/Math.ceil(widgetCount/2) - 5
 
   'click .window-options-menu .stack-all-vertically-3-cols': ->
-    $.viewer.layout.applyLayout('stackAll3Columns')
+    deskHeight = $('.mirador-viewer').height() - 45
+    deskWidth = $('.mirador-viewer').width() - 5
+    widgets = ActiveWidgets.find()
+    widgetCount = widgets.count()
+    _.each widgets.fetch(), (aw, i) ->
+      ActiveWidgets.update aw._id,
+        $set:
+          x: 5+(i%3)*(deskWidth/3)
+          y: 5+Math.floor(i/3)*(deskHeight/Math.ceil(widgetCount/3))
+          width: deskWidth/3 - 5
+          height: deskHeight/Math.ceil(widgetCount/3) - 5
 
   'click .window-options-menu .close-all': ->
-    $.viewer.layout.closeAll()
+    ActiveWidgets.find().forEach (aw) ->
+      ActiveWidgets.remove aw._id
 
