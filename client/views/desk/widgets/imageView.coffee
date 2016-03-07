@@ -289,6 +289,7 @@ Template.mirador_imageView_annotationStats.helpers
     ).count()
   textAnnotationCount: ->
     Annotations.find(
+      projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
       type:
