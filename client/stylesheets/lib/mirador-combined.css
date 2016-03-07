@@ -3473,6 +3473,15 @@ a.mirador-icon-annotations [class^="icon-"] {
   background-position: 0px -20px;
 }
 
+a.mirador-icon-add-mani {
+  background-image: url('/images/mirador-add-mani.png');
+  box-sizing: border-box;
+}
+
+a.mirador-icon-add-mani:hover {
+  background-position: 0px -20px;
+}
+
 .mirador-viewer a.mirador-icon-send-folio {
   background-image: url('/images/mirador-folio.png');
   box-sizing: border-box;
