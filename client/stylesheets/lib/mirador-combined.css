@@ -3550,8 +3550,8 @@ a.mirador-icon-annotationDetail-toggle.hidden {
 .mirador-icon-annotorius { background-position: -360px -40px; }
 .mirador-icon-annotorius:hover { background-position: -360px -60px; }
 
-.mirador-icon-load-editor { background-position: -80px -80px; }
-.mirador-icon-load-editor:hover { opacity: .5; }
+.mirador-icon-load-editor { background-image: url('/images/mirador-editor.png'); }
+.mirador-icon-load-editor:hover { background-position: 0px -20px; }
 
 /* jquery-ui css overrides
 ---------------------------------------------------------------------------- */
