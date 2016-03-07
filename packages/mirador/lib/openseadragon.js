@@ -13137,7 +13137,7 @@ $.Button = function( options ) {
         this.imgGroup.style.top =
         this.imgHover.style.top =
         this.imgDown.style.top  =
-            "0px";
+            "5px";
 
         this.imgGroup.style.left =
         this.imgHover.style.left =
