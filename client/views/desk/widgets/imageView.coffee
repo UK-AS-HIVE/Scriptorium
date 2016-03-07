@@ -73,9 +73,9 @@ Template.mirador_imageView_content_osd.onRendered ->
 
   @osd.addHandler 'open', =>
     if @data.zoom
-      @osd.viewport.zoomTo @data.zoom
+      @osd.viewport.zoomTo @data.zoom, null, true
     if @data.center
-      @osd.viewport.panTo @data.center
+      @osd.viewport.panTo @data.center, true
 
   @osd.addHandler 'zoom', _.debounce (e) =>
     ActiveWidgets.update @data._id, { $set: { zoom: e.zoom } }
