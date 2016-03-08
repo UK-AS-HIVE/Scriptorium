@@ -39,10 +39,8 @@ Router.map ->
         @next()
     waitOn: ->
       [
-        Meteor.subscribe('availablemanifests'),
-        Meteor.subscribe('workspaces'),
-        Meteor.subscribe('annotations'),
-        Meteor.subscribe('filecabinet'),
+        Meteor.subscribe 'projects'
+        Meteor.subscribe 'project', Session.get('current_project')
         Meteor.subscribe('fileregistry'),
       ]
     action: ->
@@ -57,6 +55,8 @@ Router.map ->
     path: '/files'
     waitOn: ->
       [
+        Meteor.subscribe 'projects'
+        Meteor.subscribe 'project', Session.get('current_project')
         Meteor.subscribe('fileregistry')
       ]
     action: ->
@@ -69,8 +69,8 @@ Router.map ->
     path: '/bookshelf'
     waitOn: ->
       [
-        Meteor.subscribe('bookshelves'),
-        Meteor.subscribe('books'),
+        Meteor.subscribe 'projects'
+        Meteor.subscribe 'project', Session.get('current_project')
         Meteor.subscribe('fileregistry')
       ]
     action: ->
@@ -83,7 +83,8 @@ Router.map ->
     path: '/collaboration',
     waitOn: ->
       [
-        Meteor.subscribe('collaboration', Session.get('current_project'))
+        Meteor.subscribe 'projects'
+        Meteor.subscribe 'project', Session.get('current_project')
       ]
     action: ->
       if !Meteor.userId()
@@ -99,7 +100,10 @@ Router.map ->
       else
         @render()
     waitOn: ->
-      Meteor.subscribe 'collaboration', Session.get('current_project')
+      [
+        Meteor.subscribe 'projects'
+        Meteor.subscribe 'project', Session.get('current_project')
+      ]
     data: ->
       Messages.findOne({_id: @params._id})
 
@@ -107,6 +111,8 @@ Router.map ->
     path: '/folio'
     waitOn: ->
       [
+        Meteor.subscribe 'projects'
+        Meteor.subscribe 'project', Session.get('current_project')
         Meteor.subscribe('availablemanifests'),
         Meteor.subscribe('workspaces'),
         Meteor.subscribe('annotations'),
@@ -122,6 +128,8 @@ Router.map ->
     path: '/folio/edit'
     waitOn: ->
       [
+        Meteor.subscribe 'projects'
+        Meteor.subscribe 'project', Session.get('current_project')
         Meteor.subscribe('availablemanifests'),
         Meteor.subscribe('workspaces'),
         Meteor.subscribe('annotations'),

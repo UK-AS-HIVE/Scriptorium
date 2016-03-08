@@ -1,3 +1,40 @@
+Meteor.publishComposite 'project', (projectId) ->
+  if Projects.findOne({_id: projectId, $or: [ { personal: @userId }, { 'permissions.user': @userId } ] })?
+    {
+    find: ->
+      Projects.find { _id: projectId }
+    children: [
+      { find: -> Annotations.find { projectId: projectId } }
+      { find: -> FileCabinet.find { project: projectId } }
+      {
+        find: -> AvailableManifests.find { project: projectId }
+        children: [
+          {
+            find: (manifest) -> ImageMetadata.find { manifestId: manifest._id }
+          }
+        ]
+      }
+      { find: -> Messages.find { roomId: projectId } }
+      {
+        find: -> Bookshelves.find { project: projectId }
+        children: [
+          {
+            find: (bookshelf) -> Books.find { bookshelfId: bookshelf._id }
+          }
+        ]
+      }
+    ]
+    }
+
+
+Meteor.publish 'projects', ->
+  if @userId
+    Projects.find { $or: [
+        { personal: @userId }
+        { "permissions.user": @userId }
+    ] }
+
+
 Meteor.publish 'userData', ->
   Meteor.users.find { _id: @userId }
 
@@ -9,7 +46,6 @@ Meteor.publish "getFolioRecords", ->
 
 Meteor.publish 'fileregistry', ->
   FileRegistry.find()
-
 Meteor.publish 'availablemanifests', ->
   [AvailableManifests.find(), ImageMetadata.find()]
 
@@ -38,12 +74,6 @@ Meteor.publish 'bookshelves', ->
 Meteor.publish 'books', ->
   Books.find()
 
-Meteor.publish 'projects', ->
-  if @userId
-    Projects.find { $or: [
-        { personal: @userId }
-        { "permissions.user": @userId }
-    ] }
 
 Meteor.publish 'collaboration', (projectId) ->
   project = Projects.findOne(projectId)
