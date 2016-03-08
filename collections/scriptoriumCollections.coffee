@@ -17,6 +17,19 @@
     label: "Manifest Title"
     type: String
 
+@ImageMetadata = new Meteor.Collection('iiifImageMetadata')
+@ImageMetadata.attachSchema new SimpleSchema
+  manifestId:
+    type: String
+  retrievalUrl:
+    type: String
+    regEx: SimpleSchema.RegEx.Url
+  retrievalTimestamp:
+    type: new Date()
+  payload:
+    type: Object
+    blackbox: true
+
 @Projects = new Meteor.Collection('projects')
 @Projects.attachSchema new SimpleSchema
   projectName:

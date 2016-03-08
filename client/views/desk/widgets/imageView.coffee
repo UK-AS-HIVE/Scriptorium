@@ -32,20 +32,10 @@ Template.mirador_imageView_content_osd.onRendered ->
   osdToolbarId = "mirador-osd-#{@data._id}-toolbar"
   infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
 
+
   imgRes = @data.image.images[0].resource
-  tileSources = [{
-    "@context": "http://library.stanford.edu/iiif/image-api/1.1/context.json"
-    "@id": imgRes.service['@id'] #"http://loris.as.uky.edu/loris/folio%2FB024086201_MS423_0001r.jpg"
-    height: parseInt imgRes.height #3880
-    width: parseInt imgRes.width #2720
-    profile: ["http://library.stanford.edu/iiif/image-api/compliance.html#level2"]
-    protocol: "http://iiif.io/api/image/1.1"
-    #tiles: [{
-    #  scaleFactors: [1, 2, 4, 8, 16, 32]
-    #  width: 1024
-    #}]
-  }]
-  
+  tileSources = ImageMetadata.findOne({retrievalUrl: imgRes.service['@id']+'/info.json'}).payload
+
   # Create osd at element
   @osd = miradorFunctions.openSeadragon
     id: elemOsd.attr('id')

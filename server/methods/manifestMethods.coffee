@@ -3,7 +3,7 @@ Meteor.methods
     try
       res = HTTP.get url
       if res.statusCode is 200
-        AvailableManifests.insert
+        Meteor.call 'retrieveImageInfo', AvailableManifests.insert
           user: @userId
           project: project
           manifestPayload: JSON.parse(res.content)
@@ -11,6 +11,22 @@ Meteor.methods
           manifestTitle: title
     catch e
       throw new Meteor.Error(e.message)
+
+  retrieveImageInfo: (manifestId) ->
+    manifest = AvailableManifests.findOne manifestId
+    console.log "Retrieving image metadata for manifest #{manifest.manifestTitle}"
+    _.each manifest.manifestPayload.sequences[0].canvases, (c) ->
+      try
+        url = c.images[0].resource.service['@id'] + '/info.json'
+        console.log "Caching #{url}"
+        res = HTTP.get url
+        if res.statusCode is 200
+          ImageMetadata.upsert {manifestId: manifestId, retrievalUrl: url},
+            $set:
+              retrievalTimestamp: new Date()
+              payload: JSON.parse(res.content)
+      catch e
+        throw new Meteor.Error e.message
 
   shareManifests: (user, newProject, sharedManifest, widgets) ->
     newManifest = AvailableManifests.insert
