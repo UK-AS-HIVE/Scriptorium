@@ -34,7 +34,7 @@ Template.mirador_mainMenu.onRendered ->
   @.$('.clear-local-storage').tooltipster
     arrow: true
     content: clearLocalStorage
-    contentCloning: true
+    contentCloning: false
     interactive: true
     theme: '.tooltipster-mirador'
 
@@ -73,6 +73,7 @@ Template.mirador_mainMenu_loadWindowContent.events
     miradorFunctions.mirador_viewer_loadView "imageView",
       manifestId: manifestId
       imageId: tpl.$(e.target).data('image-id')
+
   'click .mirador-listing-collections a.mirador-icon-add-mani': (e, tpl) ->
     Blaze.render Template.addManifestModal, $('body').get(0)
     $('#addManifestModal').modal('show')
@@ -164,3 +165,11 @@ Template.mirador_mainMenu_windowOptionsMenu.events
     ActiveWidgets.find().forEach (aw) ->
       ActiveWidgets.remove aw._id
 
+Template.mirador_mainMenu_clearLocalStorage.events
+  'click button[data-action=cancel]': ->
+    $('.clear-local-storage').tooltipster('hide')
+
+  'click button[data-action=clear]': (e, tpl) ->
+    ActiveWidgets.find().forEach (aw) ->
+      ActiveWidgets.remove aw._id
+    $('.clear-local-storage').tooltipster('hide')

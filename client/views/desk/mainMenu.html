@@ -68,11 +68,11 @@
 
 <!-- template for rendering clear local storage dialog -->
 <template name="mirador_mainMenu_clearLocalStorage">
-  <div class="{{cssCls}}">
+  <div>
     <p>Do you want to delete your saved workspace, and reload the viewer?</p>
     <p>
-      <a class="btn-cancel" href="javascript: jQuery(\'{{selectorClearLocalStorage}}\').tooltipster(\'hide\');">Cancel</a>
-      <a class="btn-clear" href="javascript: localStorage.clear(); location.reload();">Clear</a>
+      <button class="btn btn-default" data-action="cancel">Cancel</button>
+      <button class="btn btn-danger" data-action="clear">Clear</button>
     </p>
   </div>
 </template>
