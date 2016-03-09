@@ -1,35 +1,120 @@
 <template name="help_desk">
-{{#markdown}}
-#Using Desk
+  <h1>Using Desk</h1>
+  <p>
+    Desk is where you do your work.  It has an image viewer for displaying manuscript images, and a document editor for creating transcriptions, notes, or whatever document you want to associate with the manuscript images you have opened in the viewer.
+  </p>
 
-Desk is where you do your work.  It has an image viewer for displaying manuscript images, and a document editor for creating transcriptions, notes, or whatever document you want to associate with the manuscript images you have opened in the viewer.
+  <div class="panel panel-default">
+    {{#helpPanelHeading id="help-desk-load-window"}}
+      Loading a Manuscript
+    {{/helpPanelHeading}}
+    {{#helpPanelBody id="help-desk-load-window"}}
 
-# Image Viewer, Functions, and Icons
+      To open a manuscript in the viewer, go to “Load Window” on the right side of the black navigation bar.  You will find a drop-down menu listing the available manuscripts.  [Note: Please contact us if there is a manuscript you want in the viewer, and we shall see whether it is possible to obtain and display it for you.]  Click on the shelfmark of the manuscript you want to view.  A viewer window will open on your desk, with the image of the manuscript in it.  It may take a few seconds to load the image.
+    {{/helpPanelBody}}
+  </div>
 
-To open a manuscript in the viewer, go to “Load Window” on the right side of the black navigation bar.  You will find a drop-down menu listing the available manuscripts.  [Note: Please contact us if there is a manuscript you want in the viewer, and we shall see whether it is possible to obtain and display it for you.]  Click on the shelfmark of the manuscript you want to view.  A viewer window will open on your desk, with the image of the manuscript in it.  It may take a few seconds to load the image.
+  <div class="panel panel-default">
+    {{#helpPanelHeading id="help-desk-image-interaction"}}
+      Interacting With Images
+    {{/helpPanelHeading}}
+    {{#helpPanelBody id="help-desk-image-interaction"}}
+      <p>You can resize the viewer window by dragging its edges.  You can move the viewer window around on your desk by dragging it with a click on the top, grey border.  You can open multiple windows and drag them around to put them in whatever configuration suits your purpose.</p>
 
-You can resize the viewer window by dragging its edges.  You can move the viewer window around on your desk by dragging it with a click on the top, grey border.  You can open multiple windows and drag them around to put them in whatever configuration suits your purpose.
+      <p>In the top border of the viewer window are icons for viewer actions.</p>
 
-In the top border of the viewer window are icons for viewer actions.
+      <p>On the left are <img src="/help/icons/zoom_in.png"> zoom to enlarge image, <img src="/help/icons/zoom_out.png"> zoom to reduce image, <img src="/images/openseadragon/fit-hover.png"> to return to the initial view of the image.  You can also zoom in and out, and pan the image, by mouse movements over the image itself.</p>
 
-On the left are ![zoom in](/help/icons/zoom_in.png) zoom to enlarge image, ![zoom out](/help/icons/zoom_out.png) zoom to reduce image, and ![reset](/images/openseadragon/fit-hover.png) to return to the initial view of the image.  You can also zoom in and out, and pan the image, by mouse movements over the image itself.
+      <p>On the right, the icons are:</p>
+      <div class="panel-group" id="help-desk-icons-accordtion" role="tablist">
+        <div class="panel panel-default">
+          {{#helpPanelHeading id="help-desk-annotations"}}
+            <img src="/help/icons/comments.png"> Annotation Panel
+          {{/helpPanelHeading}}
+          {{#helpPanelBody id="help-desk-annotations"}}
+            Clicking this icon will open a side panel, displaying any annotations you or your collaborators have drawn on the image (see below for the icon [icon for Create Annotations] to create annotations on the image).  Clicking the icon again returns the image to the view without visible annotations.
+          {{/helpPanelBody}}
+        </div>
 
-On the right, the icons are:
+        <div class="panel panel-default">
+          {{#helpPanelHeading id="help-desk-metadata"}}
+            <img src="/help/icons/information.png"> Metadata View
+          {{/helpPanelHeading}}
+          {{#helpPanelBody id="help-desk-metadata"}}
+            Clicking this icon displays information about the manuscript image you are viewing, such as a short notice of the content, the holding repository, permissions, and technical information about the IIIF manifest for image delivery. 
+          {{/helpPanelBody}}
+        </div>
 
-![comments](/help/icons/comments.png): Clicking this icon will open a side panel, displaying any annotations you or your collaborators have drawn on the image (see below for the icon [icon for Create Annotations] to create annotations on the image).  Clicking the icon again returns the image to the view without visible annotations.
+        <div class="panel panel-default">
+          {{#helpPanelHeading id="help-desk-scroll"}}
+            <img src="/help/icons/scroll_view.png"> Scroll View
+          {{/helpPanelHeading}}
+          {{#helpPanelBody id="help-desk-scroll"}}
+            Clicking this icon will load a panel with thumbnail images of all the pages in the manuscript you are viewing.  It may take a few seconds to load, and you should click it only once. This “scroll view” panel allows you to browse all the pages in your manuscript.  [NOTE: IT MAY TAKE A FEW MINUTES TO LOAD THE THUMBNAIL IMAGES].  Once the thumbnail images are visible, you can select one to open it in an image view.
+          {{/helpPanelBody}}
+        </div>
 
-![information](/help/icons/information.png): Clicking this icon displays information about the manuscript image you are viewing, such as a short notice of the content, the holding repository, permissions, and technical information about the IIIF manifest for image delivery. 
+        <div class="panel panel-default">
+          {{#helpPanelHeading id="help-desk-thumbnail"}}
+            <img src="/help/icons/thumbnails_view.png"> Thumbnail View
+          {{/helpPanelHeading}}
+          {{#helpPanelBody id="help-desk-thumbnail"}}
+            Clicking on this icon opens a new panel of thumbnail images of the pages of the manuscript you are viewing.  Clicking on one of those thumbnails opens the image of that page in a new viewer window on your desk.  You cannot zoom in the thumbnails, but there is an icon in the top right of the “Thumbnails View” panel for the “Scroll View”, which displays the thumbnail images with the words “Enable Zoom” for each one (see the description above of the functions and limits of the “Scroll View” panel).
+          {{/helpPanelBody}}
+        </div>
 
-![Scroll View](/help/icons/scroll_view.png): Clicking this icon will load a panel with thumbnail images of all the pages in the manuscript you are viewing.  It may take a few seconds to load, and you should click it only once. This “scroll view” panel allows you to browse all the pages in your manuscript.  [NOTE: IT MAY TAKE A FEW MINUTES TO LOAD THE THUMBNAIL IMAGES].  Once the thumbnail images are visible, you can select one to open it in an image view.
+        <div class="panel panel-default">
+          {{#helpPanelHeading id="help-desk-paging"}}
+            <img src="/help/icons/left_arrow.png"> <img src="/help/icons/right_arrow.png"> Previous / Next Page
+          {{/helpPanelHeading}}
+          {{#helpPanelBody id="help-desk-paging"}}
+            Clicking on these icons places the previous or subsequent page of the manuscript you are viewing in the viewer frame you have open.  You can page through your manuscript easily this way.
+          {{/helpPanelBody}}
+        </div>
 
-![Thumbnails View](/help/icons/thumbnails_view.png): Clicking on this icon opens a new panel of thumbnail images of the pages of the manuscript you are viewing.  Clicking on one of those thumbnails opens the image of that page in a new viewer window on your desk.  You cannot zoom in the thumbnails, but there is an icon in the top right of the “Thumbnails View” panel for the “Scroll View”, which displays the thumbnail images with the words “Enable Zoom” for each one (see the description above of the functions and limits of the “Scroll View” panel).
+        <div class="panel panel-default">
+          {{#helpPanelHeading id="help-desk-editor-icon"}}
+            <img src="/help/icons/document_editor.png"> Document Editor
+          {{/helpPanelHeading}}
+          {{#helpPanelBody id="help-desk-editor-icon"}}
+            Clicking this icon will prompt you to name a new free-form document, to be opened in a new widget window. In the document editor, you can create rich text documents, much as you would with a text editor such as Word. These documents may be named for a manuscript, but will have no inherent connection to a specific manuscript or page.
+          {{/helpPanelBody}}
+        </div>
 
-![Left Arrow](/help/icons/left_arrow.png)![Right Arrow](/help/icons/right_arrow.png): Clicking on these icons places the previous or subsequent page of the manuscript you are viewing in the viewer frame you have open.  You can page through your manuscript easily this way.
+        <div class="panel panel-default">
+          {{#helpPanelHeading id="help-desk-folio"}}
+            <img src="/help/icons/folio_manager.png"> Send to Folio
+          {{/helpPanelHeading}}
+          {{#helpPanelBody id="help-desk-folio"}}
+          {{/helpPanelBody}}
+        </div>
+      </div>
+    {{/helpPanelBody}}
+  </div>
 
-![icon for add annotation](/help/icons/add_annotation.png):  Clicking on this icon places the image in a special frame that supports annotating the image by “drawing” boxes around particular features of the manuscript page and labelling them with comments.  Those annotations are then revealed when you or a collaborator clicks on the “Show Annotations” icon [icon for Show Annotations] described above.  To annotate the image, click on the “Add Annotation” button in the top right of the special frame.  A prompt to “Click and Drag” will appear; when you position the cursor at a corner of your intended annotation box and click, you will be able to extend and close the sides of your intended box by dragging your mouse.  When you release the mouse, your box framing the desired feature will be complete.  A dark dialogue box appears, in which you enter the label or comment you wish to have displayed as the annotation to the boxed feature.  When you have finished entering the label or comment, click the orange “Save” button in the dark dialogue box.  Now, when you mouse over the boxed feature on the image, your label or comment appears in association with the box; it becomes invisible when you move your mouse off the boxed area.  You may enter any number of annotations.  To exit the special annotation frame and return to normal views of your Desk, click the “X” in the top right corner of the special frame.
+  <div class="panel panel-default">
+    {{#helpPanelHeading id="help-desk-open-documents"}}
+      Opening Documents
+    {{/helpPanelHeading}}
+    {{#helpPanelBody id="help-desk-open-documents"}}
+      Click the "Open Documents" link to open a list of documents available for viewing and editing. From this list, you can select a document, rename it, or delete it.
+    {{/helpPanelBody}}
+  </div>
+</template>
 
-![icon for document editor](/help/icons/document_editor.png):
-
-![icon for Folio Manager](/help/icons/folio_manager.png):
-{{/markdown}}
+<template name="helpPanelHeading">
+  <div class="panel-heading" role="tab" aria-controls="#{{id}}">
+    <h4 class="panel-title">
+      <a role="button" data-toggle="collapse" data-parent="#help-desk-icons-accordion" href="#{{id}}">
+        {{> UI.contentBlock}}
+      </a>
+    </h4>
+  </div>
+</template>
+<template name="helpPanelBody">
+  <div id="{{id}}" class="panel-collapse collapse" role="tabpanel">
+    <div class="panel-body">
+      {{> UI.contentBlock}}
+    </div>
+  </div>
 </template>
