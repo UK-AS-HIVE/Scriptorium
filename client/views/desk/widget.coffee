@@ -63,6 +63,8 @@ Template.mirador_widget_initialLayout.onRendered ->
       'resize': (event, ui) ->
         ActiveWidgets.update widgetId,
           $set:
+            x: ui.position.left
+            y: ui.position.top
             width: ui.size.width
             height: ui.size.height
       'resizeStop': (event, ui) -> {}
