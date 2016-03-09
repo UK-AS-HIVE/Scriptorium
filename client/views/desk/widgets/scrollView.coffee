@@ -20,11 +20,13 @@ Template.mirador_scrollView_content.helpers
     Template.parentData().height - 150
   images: ->
     console.log 'mirador_scrollView_listImages.images', @
+    manifest = AvailableManifests.findOne(@manifestId).manifestPayload
     height = @height - 150
-    _.map AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases, (c, idx) ->
+    _.map manifest.sequences[0].canvases, (c, idx) ->
+      imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}).payload
       index: idx
       title: c.label
-      uriWithHeight: miradorFunctions.iiif_getUriWithHeight c.images[0].resource.service['@id'], height
+      uriWithHeight: miradorFunctions.iiif_getUriWithHeight imageInfo, height
 
 Template.mirador_scrollView_navToolbar.events
   'click .mirador-icon-metadata-view': ->

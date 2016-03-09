@@ -50,7 +50,11 @@
 
     return newScaleFactors
 
-  iiif_getUriWithHeight: (uri, height) ->
-    uri = uri.replace /\/$/, ''
-    miradorFunctions.iiif_getUri(uri) + '/full/,' + height + '/0/native.jpg'
+  iiif_getUriWithHeight: (imageInfo, height) ->
+    check imageInfo, Object
+    check imageInfo['@context'], String
+    check height, Number
+
+    quality = if /2/.test(imageInfo['@context']) then 'default' else 'native'
+    imageInfo['@id'] + "/full/,#{height}/0/#{quality}.jpg"
 

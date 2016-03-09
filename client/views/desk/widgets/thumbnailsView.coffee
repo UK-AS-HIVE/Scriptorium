@@ -13,9 +13,10 @@
 Template.mirador_thumbnailsView_listImages.helpers
   thumbs: ->
     console.log 'getting thumbs list for ', @
-    _.map AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases, (c, index) ->
-      imageUrl = c.images[0].resource.service['@id']
-      thumbUrl: miradorFunctions.iiif_getUriWithHeight imageUrl, miradorWidgetProperties.thumbnailsView.thumbsMaxHeight
+    manifest = AvailableManifests.findOne(@manifestId).manifestPayload
+    _.map manifest.sequences[0].canvases, (c, index) ->
+      imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}).payload
+      thumbUrl: miradorFunctions.iiif_getUriWithHeight imageInfo, 150
       title:    c.label
       id:       index
   thumbsDefaultHeight: ->
