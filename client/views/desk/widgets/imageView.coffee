@@ -28,10 +28,7 @@ Template.mirador_imageView_content_osd.onRendered ->
     
   # Get information for OSD
   @data.image = AvailableManifests.findOne(@data.manifestId).manifestPayload.sequences[0].canvases[@data.imageId]
-  infoJsonUrl = miradorFunctions.iiif_getUri("#{@data.image.images[0].resource.service['@id']}/info.json")
   osdToolbarId = "mirador-osd-#{@data._id}-toolbar"
-  infoJson = miradorFunctions.getJsonFromUrl infoJsonUrl, false
-
 
   imgRes = @data.image.images[0].resource
   tileSources = ImageMetadata.findOne({retrievalUrl: imgRes.service['@id']+'/info.json'}).payload
