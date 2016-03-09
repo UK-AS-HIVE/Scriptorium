@@ -24,6 +24,7 @@ Template.mirador_imageView_content_osd.onDestroyed ->
   if @osd then @osd.destroy()
 
 Template.mirador_imageView_content_osd.onRendered ->
+  widgetId = @data._id
   elemOsd = @.$('.mirador-osd')
     
   # Get information for OSD
@@ -45,6 +46,7 @@ Template.mirador_imageView_content_osd.onRendered ->
 
   # When adding an annotation, disable the mouse from dragging the OSD canvas
   @autorun ->
+
     #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
     osd.panHorizontal = osd.panVertical = !Template.currentData().newAnnotation.isActive
 
@@ -59,10 +61,7 @@ Template.mirador_imageView_content_osd.onRendered ->
       Template.instance().osd.viewport?.ensureVisible()
 
   @autorun =>
-    if Template.currentData().zoomLocked and @osd.isMouseNavEnabled()
-      @osd.setMouseNavEnabled(false)
-    else unless Template.currentData().zoomLocked
-      @osd.setMouseNavEnabled(true)
+    @osd.setMouseNavEnabled !ActiveWidgets.findOne(@data._id, { fields: { 'zoomLocked': 1 } }).zoomLocked
 
 
   @osd.addHandler 'open', =>
