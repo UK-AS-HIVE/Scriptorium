@@ -24,7 +24,6 @@ Template.mirador_imageView_content_osd.onDestroyed ->
   if @osd then @osd.destroy()
 
 Template.mirador_imageView_content_osd.onRendered ->
-  widgetId = @data._id
   elemOsd = @.$('.mirador-osd')
     
   # Get information for OSD
@@ -46,7 +45,6 @@ Template.mirador_imageView_content_osd.onRendered ->
 
   # When adding an annotation, disable the mouse from dragging the OSD canvas
   @autorun ->
-
     #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
     osd.panHorizontal = osd.panVertical = !Template.currentData().newAnnotation.isActive
 
