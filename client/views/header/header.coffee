@@ -24,7 +24,7 @@ Template.header.events
 
 Template.header.onRendered ->
   @autorun ->
-   if Session.get('current_project')
+    if Session.get('current_project')
       Meteor.users.update Meteor.userId(), { $set: { lastProjectId: Session.get('current_project') } }
     else
       Session.set 'current_project', Meteor.user()?.lastProjectId || Projects.findOne()?._id || "Free Space"
