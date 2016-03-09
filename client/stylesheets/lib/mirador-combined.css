@@ -3541,6 +3541,9 @@ a.mirador-icon-annotationDetail-toggle.hidden {
 .mirador-icon-lock { background-position: -181px -41px; }
 .mirador-icon-lock:hover { background-position: -181px -61px; }
 
+.mirador-icon-locked { background-position: -161px -41px; }
+.mirador-icon-locked:hover { background-position: -161px -61px; }
+
 .mirador-icon-scroll-view { background-position: -281px -40px; }
 .mirador-icon-scroll-view:hover { background-position: -281px -60px; }
 
