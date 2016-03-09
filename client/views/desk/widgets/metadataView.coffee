@@ -7,6 +7,14 @@
   width: 600
 
 Template.mirador_metadataView_content.helpers
+  localized: (v) ->
+    if v?['@value']?
+      v['@value']
+    else if Array.isArray v
+      v = _.find v, (v) -> v['@language'] == 'en'
+      v?['@value']
+    else
+      v
   metadata: ->
     # TODO: addLinksToUris
     AvailableManifests.findOne(@manifestId).manifestPayload
