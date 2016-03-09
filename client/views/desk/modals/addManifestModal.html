@@ -26,8 +26,12 @@
           {{/if}}
         </div>
         <div class="modal-footer">
-          <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-          <button class="btn btn-primary" data-action="addManifest">Add To Project</button>
+          <button class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          {{#if loading}}
+            <button class="btn btn-primary">{{> loader class="sm"}}</button>
+            {{else}}
+            <button class="btn btn-primary" data-action="addManifest">Add To Project</button>
+          {{/if}}
         </div>
       </div>
     </div>
