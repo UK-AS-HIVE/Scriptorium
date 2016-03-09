@@ -1,6 +1,5 @@
 Template.welcome.helpers
-
-  hasCurrentProject: ->
-    if Session.get('current_project')
-      return true
-    else return false
+  isntPersonalProject: ->
+    Projects.findOne(Session.get('current_project')).personal isnt Meteor.userId()
+  fullName: ->
+    "#{Meteor.user().profile.lastName}, #{Meteor.user().profile.firstName}"

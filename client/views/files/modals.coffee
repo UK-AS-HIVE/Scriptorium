@@ -22,9 +22,7 @@ Template.fileUploadModal.events
 ### Copy File Modal ###
 Template.copyModal.helpers
   otherProject: ->
-    projects = Projects.find({_id: {$ne: Session.get('current_project')}}).fetch()
-    projects.push({projectName: "Free Space"})
-    return projects
+    Projects.find { _id: { $ne: Session.get('current_project') } }
 
 Template.copyModal.events
   'click button[data-action=copy]': (e, tpl) ->
@@ -39,9 +37,7 @@ Template.copyModal.events
 ### Batch Copy File Modal ###
 Template.copyBatchModal.helpers
   otherProject: ->
-    projects = Projects.find({_id: {$ne: Session.get('current_project')}}).fetch()
-    projects.push({projectName: "Free Space"})
-    return projects
+    Projects.find { _id: { $ne: Session.get('current_project') } }
 
 Template.copyBatchModal.events
   "click button[data-action=copy]": (e, tpl) ->

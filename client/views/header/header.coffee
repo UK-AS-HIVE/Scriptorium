@@ -1,15 +1,12 @@
 Template.header.helpers
   availableProjects: ->
-    projects = Projects.find({permissions: {$elemMatch: {user: Meteor.userId()}}})
-    return projects
+    Projects.find()
 
   isCurrentProject: (projectId) ->
-    Session.get('current_project') == projectId
+    Session.get('current_project') is projectId
 
-  hasCurrentProject: ->
-    if Session.get('current_project') and Session.get('current_project') != "Free Space"
-      return true
-    else return false
+  isntPersonalProject: ->
+    Projects.findOne(Session.get("current_project")).personal isnt Meteor.userId()
 
 Template.header.events
   "change #projectSelector": (e, tpl) ->
@@ -27,7 +24,7 @@ Template.header.onRendered ->
     if Session.get('current_project')
       Meteor.users.update Meteor.userId(), { $set: { lastProjectId: Session.get('current_project') } }
     else
-      Session.set 'current_project', Meteor.user()?.lastProjectId || Projects.findOne()?._id || "Free Space"
+      Session.set 'current_project', Meteor.user()?.lastProjectId || Projects.findOne()?._id
 
 
 

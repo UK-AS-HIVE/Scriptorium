@@ -35,7 +35,7 @@
         <li><a href="/desk">Desk</a></li>
         <li><a href="/files">File Cabinet</a></li>
         <li><a href="/bookshelf">Bookshelf</a></li>
-        {{#if hasCurrentProject}}
+        {{#if isntPersonalProject}}
           <li><a href="/collaboration">Collaboration</a></li>
         {{/if}}
         <li><a href="/folio">Folio Manager</a></li>
@@ -45,7 +45,6 @@
         <li><span>Current Project:</span></li>
         <li class="select">
           <select id="projectSelector" class="form-control">
-              <option>Free Space</option>
             {{#each availableProjects}}
               <option value="{{_id}}" selected="{{isCurrentProject _id}}">{{this.projectName}}</option>
             {{/each}}

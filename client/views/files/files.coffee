@@ -19,9 +19,7 @@ Template.files.helpers
     FileRegistry.findOne(@content)?.filenameOnDisk
 
   otherProject: ->
-    projects = Projects.find({_id: {$ne: Session.get('current_project')}}).fetch()
-    projects.push({projectName: "Free Space"})
-    return projects
+    Projects.find { _id: { $ne: Session.get('current_project') } }
 
 Template.files.events
   'click [data-toggle=batchModal]': (e, tpl) ->
