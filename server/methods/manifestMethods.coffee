@@ -19,12 +19,12 @@ Meteor.methods
       try
         url = c.images[0].resource.service['@id'] + '/info.json'
         console.log "Caching #{url}"
-        res = HTTP.get url
-        if res.statusCode is 200
-          ImageMetadata.upsert {manifestId: manifestId, retrievalUrl: url},
-            $set:
-              retrievalTimestamp: new Date()
-              payload: JSON.parse(res.content)
+        HTTP.get url, (err, res) ->
+          if res.statusCode is 200
+            ImageMetadata.upsert {manifestId: manifestId, retrievalUrl: url},
+              $set:
+                retrievalTimestamp: new Date()
+                payload: JSON.parse(res.content)
       catch e
         throw new Meteor.Error e.message
 
