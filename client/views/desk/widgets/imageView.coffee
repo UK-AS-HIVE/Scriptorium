@@ -42,7 +42,7 @@ Template.mirador_imageView_content_osd.onRendered ->
   @osd.addBlazeOverlay Template.osd_blaze_overlay, @data
 
   osd = @osd
-  window.osd = @osd
+
   # When adding an annotation, disable the mouse from dragging the OSD canvas
   @autorun ->
     #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
@@ -57,6 +57,13 @@ Template.mirador_imageView_content_osd.onRendered ->
     elemOsd.height(Template.currentData().height-100)
     if Template.instance().osd
       Template.instance().osd.viewport?.ensureVisible()
+
+  @autorun =>
+    if Template.currentData().zoomLocked and @osd.isMouseNavEnabled()
+      @osd.setMouseNavEnabled(false)
+    else unless Template.currentData().zoomLocked
+      @osd.setMouseNavEnabled(true)
+
 
   @osd.addHandler 'open', =>
     if @data.zoom
@@ -177,11 +184,8 @@ Template.mirador_imageView_navToolbar.events
 
 ### Status Bar ###
 Template.mirador_imageView_statusbar.events
-  'click .mirador-icon-lock': (e, tpl) ->
-    if (_this.locked)
-      _this.unlock()
-    else
-      _this.lock()
+  'click a[data-action=toggleLock]': (e, tpl) ->
+    ActiveWidgets.update @_id, { $set: { zoomLocked: !tpl.data.zoomLocked } }
 
   'keypress .mirador-image-view-physical-dimensions, paste .mirador-image-view-physical-dimensions, keyup .mirador-image-view-physical-dimensions': (e, tpl) ->
     #_this.dimensionChange(e)

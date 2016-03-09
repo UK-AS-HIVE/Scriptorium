@@ -21,20 +21,7 @@
 
 <template name="mirador_imageView_statusbar">
   <div class="mirador-image-view-statusbar">
-    <a href="javascript:;" class="mirador-btn mirador-icon-lock"></a>
-    <div class="mirador-image-dimensions">
-    <span class="noDimensionsWarning">No Dimensions Given</span>
-      <textarea rows="1" class="mirador-image-view-physical-dimensions x">{{width}}</textarea>
-      <span>✕</span>
-      <textarea rows="1" class="mirador-image-view-physical-dimensions y">{{height}}</textarea>
-      <span class="units">m,
-        <select class="unit-selector">
-          <option value="mm">millimeters</option>
-          <option value="cm">centimeters</option>
-          <option value="m">meters</option>
-        </select>
-      </span>
-    </div>
+    <a class="mirador-btn {{#if zoomLocked}}mirador-icon-locked{{else}}mirador-icon-lock{{/if}}" data-action="toggleLock"></a>
   </div>
 </template>
 
