@@ -264,6 +264,7 @@
     label: "Rank"
     type: Number
     decimal: true
+
 @Books = new Meteor.Collection('books')
 @Books.attachSchema new SimpleSchema
   name:
@@ -283,4 +284,31 @@
   fileRegistryId:
     label: "File Registry ID"
     type: String
+    optional: true
+
+@EventStream = new Meteor.Collection 'eventStream'
+@EventStream.attachSchema new SimpleSchema
+  projectId:
+    label: "Project Id"
+    type: String
+  userId:
+    label: "User ID"
+    type: String
+  timestamp:
+    label: "Timestamp"
+    type: new Date()
+  type:
+    # TODO: Figure out what these are actually going to be
+    # Potential information to want to store: chat messages, document creation, save revision, user added to project, manifest added?
+    allowedValues: [ 'chat', 'document', 'save' ]
+    type: String
+    label: "Event Type"
+  message:
+    type: String
+    label: "Message"
+    optional: true
+  otherId:
+    # FileCabinet ID, Bookshelf ID, Manifest ID, etc.
+    type: String
+    label: "Other ID"
     optional: true

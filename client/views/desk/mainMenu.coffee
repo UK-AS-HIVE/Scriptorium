@@ -51,7 +51,10 @@ Template.mirador_mainMenu_loadWindowContent.helpers
     @manifestPayload.sequences[0].canvases
 
 Template.mirador_mainMenu_menuItems.events
-  "click .js-toggle-desk-panel": ->
+  'click a[data-action=toggle-chat-panel]': ->
+    $('.desk-chat-panel').toggleClass('is-open')
+
+  'click a[data-action=toggle-desk-panel]': ->
     $('.desk-document-panel').toggleClass('is-open')
 
 Template.mirador_mainMenu_loadWindowContent.events

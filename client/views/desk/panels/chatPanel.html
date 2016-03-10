@@ -1,0 +1,22 @@
+<template name="chatPanel">
+  <div class="desk-panel desk-chat-panel">
+    <a class="js-close-panel" data-action="close"><i class="fa fa-times"></i></a>
+    <ul class="page-list">
+      <div class="input-group">
+        <input type="text" class="form-control" name="chat">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" data-action="send">Send</button>
+        </span>
+      </div>
+      {{#each events}}
+        <li>
+          <div class="changelog-item">
+            <small>{{fullName}}:</small>
+            {{message}}
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
