@@ -37,4 +37,6 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Collapseable toolbar
 	config.toolbarCanCollapse = true;
+
+  config.baseFloatZIndex = 10000000;
 };

@@ -186,6 +186,7 @@ Template.osd_blaze_overlay_annotation.onRendered ->
   div = $('<div/>')
   Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, @data, div.get(0)
   #@.$('rect').tooltipster
+  editorRendered = false
   @.$('.annotation-box').tooltipster
     arrow: true
     content: div
@@ -193,6 +194,17 @@ Template.osd_blaze_overlay_annotation.onRendered ->
     interactive: true
     position: 'right'
     theme: '.tooltipster-mirador'
+
+    functionReady: (origin, tooltip) =>
+      unless editorRendered
+        editorRendered = true
+        CKEDITOR.replace "editor-#{this.data._id}",
+          customConfig: '/plugins/ckeditor/custom.js'
+
+    functionAfter: (origin) =>
+      if editorRendered
+        editorRendered = false
+        CKEDITOR.instances["editor-#{this.data._id}"].destroy()
 
 Template.osd_blaze_overlay_new_annotation.helpers
   x: -> (@x * @transform.scale) + @transform.translate.x
@@ -208,14 +220,11 @@ Template.osd_blaze_overlay_annotation.helpers
   h: -> @h * @transform.scale
   borderSize: -> 0.002 * @transform.scale
 
-Template.osd_blaze_overlay_annotation_tooltip.onRendered ->
-  @.$('textarea').autosize()
-
 Template.osd_blaze_overlay_annotation_tooltip.events
-  'change textarea': (e, tpl) ->
+  'click a.save-annotation': (e, tpl) ->
     Annotations.update @_id,
       $set:
-        text: tpl.$('.annotation-text').val()
+        text: CKEDITOR.instances["editor-#{this._id}"].getData()
   'click a.delete-annotation': (e, tpl) ->
     Annotations.remove @_id
 
