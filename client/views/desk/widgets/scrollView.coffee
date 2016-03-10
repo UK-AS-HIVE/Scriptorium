@@ -9,24 +9,20 @@
   toolbarHeight: 25
 
 Template.mirador_scrollView_content.helpers
-  scrollWidth: ->
-    # TODO: should update based on contents and widget height
-    # look at setFrameAndItemsDimensions for reference
-    # implementation
-    '10000px'
-  scrollHeight: ->
-    @height - 70
-  thumbHeight: ->
-    Template.parentData().height - 150
   images: ->
-    console.log 'mirador_scrollView_listImages.images', @
     manifest = AvailableManifests.findOne(@manifestId).manifestPayload
-    height = @height - 150
+    thumbHeight = @height - 150
     _.map manifest.sequences[0].canvases, (c, idx) ->
       imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}).payload
       index: idx
       title: c.label
-      uriWithHeight: miradorFunctions.iiif_getUriWithHeight imageInfo, height
+      uriWithHeight: miradorFunctions.iiif_getUriWithHeight imageInfo, thumbHeight
+      height: thumbHeight
+      width: Math.round(c.width * thumbHeight / c.height)
+  scrollWidth: ->
+    return _.reduce @, ((memo,img) -> memo+img.width + 10), 0
+  scrollHeight: ->
+    @height - 70
 
 Template.mirador_scrollView_navToolbar.events
   'click .mirador-icon-metadata-view': ->

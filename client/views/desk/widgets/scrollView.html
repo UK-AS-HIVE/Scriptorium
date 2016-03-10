@@ -6,18 +6,20 @@
 
 <!-- template for rendering images in scroll view -->
 <template name="mirador_scrollView_content">
-  <div class="scroll-view-frame" style="width: {{scrollWidth}}; height: {{scrollHeight}}px">
-    {{#each images}}
-      <div id="mirador-scroll-item-{{../manifestId}}-{{index}}" class="item">
-        <div class="image-instance">
-          <a href="#" data-image-id="{{index}}">
-            <img class="static-thumb" src={{uriWithHeight}} style="height: {{thumbHeight}}px;">
-          </a>
+  {{#with images}}
+    <div class="scroll-view-frame" style="width: {{scrollWidth}}px; height: {{scrollHeight}}px">
+      {{#each this}}
+        <div id="mirador-scroll-item-{{../manifestId}}-{{index}}" class="item">
+          <div class="image-instance">
+            <a href="#" data-image-id="{{index}}">
+              <img class="static-thumb" src={{uriWithHeight}} style="height: {{height}}px; width: {{width}}px;">
+            </a>
+          </div>
+          <div class="title">{{title}}</div>
         </div>
-        <div class="title">{{title}}</div>
-      </div>
-    {{/each}}
-  </div>
+      {{/each}}
+    </div>
+  {{/with}}
 </template>
 
 <!-- template for rendering tool bar with nav links -->
