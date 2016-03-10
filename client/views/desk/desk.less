@@ -149,3 +149,64 @@ div[id^='editorWindow-'] {
   padding-right: 6px;
 }
 
+.desk-chat-panel {
+  overflow: hidden;
+}
+.desk-chat-panel .chat-container {
+  height: calc(~'100% - 30px');
+  border-top: 1px solid #E6E6E6;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.desk-chat-panel .chat-container .chat-area {
+  padding-left: 0px;
+  flex-direction: column-reverse;
+  display: flex;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  li {
+    flex: 1;
+    list-style: none;
+    border-bottom: 1px solid #E6E6E6;
+    margin: 5px;
+
+    .meta {
+      display: block;
+      overflow: hidden;
+      margin-right: 200px;
+
+      a {
+        color: #333;
+      }
+    }
+
+    small {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    i.file-icon {
+      float: left;
+      font-size: 40px;
+      width: 50px;
+    }
+
+    img {
+      float: left;
+      width: 50px;
+      margin-right: 15px;
+    }
+
+    .actions {
+      float: right;
+      text-align: right;
+      position: relative;
+      .btn {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
