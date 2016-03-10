@@ -84,13 +84,13 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
     y = y*imageWidth
     #console.log 'canvas-drag', x, y
 
-    aw = ActiveWidgets.findOne data._id
+    aw = DeskWidgets.findOne data._id
     if not aw.newAnnotation.isActive
       return
 
     if not aw.newAnnotation.isDragging
       console.log 'new canvas drag!'
-      ActiveWidgets.update data._id,
+      DeskWidgets.update data._id,
         $set:
           'newAnnotation.isDragging': true
           'newAnnotation.x1': x
@@ -98,21 +98,21 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
           'newAnnotation.x2': x
           'newAnnotation.y2': y
     else
-      ActiveWidgets.update data._id,
+      DeskWidgets.update data._id,
         $set:
           'newAnnotation.x2': x
           'newAnnotation.y2': y
     
   @addHandler 'canvas-drag-end', (e) ->
     #TODO: prompt for annotation text, and add as annotation
-    aw = ActiveWidgets.findOne data._id
+    aw = DeskWidgets.findOne data._id
     if not aw.newAnnotation.isActive
       return
 
     newAnno = aw.newAnnotation
     console.log 'Create new annotation', newAnno
 
-    ActiveWidgets.update data._id,
+    DeskWidgets.update data._id,
       $set:
         newAnnotation:
           isActive: false
@@ -153,7 +153,7 @@ Template.osd_blaze_overlay.helpers
   transform: ->
     @transform.get()
   annotationPanelOpen: ->
-    ActiveWidgets.findOne(@_id)?.annotationPanelOpen
+    DeskWidgets.findOne(@_id)?.annotationPanelOpen
   annotations: ->
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
     imageWidth = parseInt(canvas.images[0].resource.width)
@@ -170,7 +170,7 @@ Template.osd_blaze_overlay.helpers
         w: a.w / imageWidth
         h: a.h / imageWidth
   newAnnotation: ->
-    aw = ActiveWidgets.findOne(@_id)
+    aw = DeskWidgets.findOne(@_id)
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
     imageWidth = parseInt(canvas.images[0].resource.width)
     transform = @transform.get()

@@ -3,7 +3,7 @@ Template.documentPanel.events
     $('.desk-document-panel').removeClass('is-open')
 
   "click .editorItem": ->
-    unless ActiveWidgets.findOne({fileCabinetId: @_id})?
+    unless DeskWidgets.findOne({fileCabinetId: @_id})?
       miradorFunctions.mirador_viewer_loadView "editorView",
         fileCabinetId: @_id
 
@@ -21,7 +21,7 @@ Template.documentPanel.helpers
     FileCabinet.find { project: Session.get('current_project') , fileType: { $in: [ 'editor', 'upload' ] } }
 
   isOpen: ->
-    ActiveWidgets.findOne({fileCabinetId: @_id})?
+    DeskWidgets.findOne({fileCabinetId: @_id})?
 
   isEditor: ->
     @fileType is 'editor'

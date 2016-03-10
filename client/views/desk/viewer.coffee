@@ -1,6 +1,6 @@
 Template.mirador_viewer.helpers
   widgets: ->
-    ActiveWidgets.find()
+    DeskWidgets.find()
 
 Template.mirador_viewer.onRendered ->
   $(window).on 'resizestart', (event) ->
@@ -25,6 +25,7 @@ Template.mirador_viewer.onRendered ->
   mirador_viewer_loadView: (type, properties) ->
     console.log 'loadView', arguments
     widgetProps =
+      projectId:  Session.get('current_project')
       type:       type
       width:      miradorWidgetProperties[type].width
       height:     miradorWidgetProperties[type].height
@@ -35,5 +36,5 @@ Template.mirador_viewer.onRendered ->
 
     widgetProps = _.extend widgetProps, properties
 
-    ActiveWidgets.insert widgetProps
+    DeskWidgets.insert widgetProps
 

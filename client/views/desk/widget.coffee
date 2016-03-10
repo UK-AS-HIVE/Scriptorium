@@ -16,7 +16,7 @@ getWidgetPosition = (widgetData) ->
   if widgetData.x?
     return "left+#{widgetData.x} top+#{widgetData.y}"
   else
-    ActiveWidgets.update widgetData._id,
+    DeskWidgets.update widgetData._id,
       $set:
         x: lastWidgetOffset
         y: lastWidgetOffset
@@ -61,7 +61,7 @@ Template.mirador_widget_initialLayout.onRendered ->
       'within' : '.mirador-viewer'
     dialogOptions:
       'resize': (event, ui) ->
-        ActiveWidgets.update widgetId,
+        DeskWidgets.update widgetId,
           $set:
             x: ui.position.left
             y: ui.position.top
@@ -70,16 +70,16 @@ Template.mirador_widget_initialLayout.onRendered ->
       'resizeStop': (event, ui) -> {}
       'close': (event, ui) ->
         $(this).dialog('destroy').remove()
-        ActiveWidgets.remove widgetId
+        DeskWidgets.remove widgetId
     dialogExtendOptions:
       'maximizable': true
       'maximize': (e, ui) ->
-        ActiveWidgets.update widgetId,
+        DeskWidgets.update widgetId,
           $set:
             width: ui.size.width
             height: ui.size.height
       'maximizeRestore': (e, ui) ->
-        ActiveWidgets.update widgetId,
+        DeskWidgets.update widgetId,
           $set:
             width: ui.size.width
             height: ui.size.height
@@ -115,7 +115,7 @@ Template.mirador_widget_initialLayout.onRendered ->
       drag: (event, ui) -> {}
       start: (event, ui) -> {}
       stop: (event, ui) ->
-        ActiveWidgets.update widgetId,
+        DeskWidgets.update widgetId,
           $set:
             x: ui.position.left
             y: ui.position.top

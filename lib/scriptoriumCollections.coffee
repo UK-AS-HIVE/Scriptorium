@@ -30,6 +30,8 @@
     type: Object
     blackbox: true
 
+@DeskWidgets = new Mongo.Collection 'deskWidgets'
+
 @Projects = new Meteor.Collection('projects')
 @Projects.attachSchema new SimpleSchema
   projectName:

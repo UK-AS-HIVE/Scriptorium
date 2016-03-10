@@ -104,10 +104,10 @@ Template.mirador_mainMenu_loadWindowContent.events
 
 Template.mirador_mainMenu_windowOptionsMenu.events
   'click .window-options-menu .cascade-all': ->
-    widgets = ActiveWidgets.find()
+    widgets = DeskWidgets.find()
     widgetCount = widgets.count()
     _.each widgets.fetch(), (aw, i) ->
-      ActiveWidgets.update aw._id,
+      DeskWidgets.update aw._id,
         $set:
           x: 5 + 25*i
           y: 5 + 25*i
@@ -115,10 +115,10 @@ Template.mirador_mainMenu_windowOptionsMenu.events
   'click .window-options-menu .tile-all-vertically': ->
     deskHeight = $('.mirador-viewer').height() - 45
     deskWidth = $('.mirador-viewer').width() - 5
-    widgets = ActiveWidgets.find()
+    widgets = DeskWidgets.find()
     widgetCount = widgets.count()
     _.each widgets.fetch(), (aw, i) ->
-      ActiveWidgets.update aw._id,
+      DeskWidgets.update aw._id,
         $set:
           x: 5
           y: 5+i*(deskHeight/widgetCount)
@@ -128,10 +128,10 @@ Template.mirador_mainMenu_windowOptionsMenu.events
   'click .window-options-menu .tile-all-horizontally': ->
     deskHeight = $('.mirador-viewer').height() - 45
     deskWidth = $('.mirador-viewer').width() - 5
-    widgets = ActiveWidgets.find()
+    widgets = DeskWidgets.find()
     widgetCount = widgets.count()
     _.each widgets.fetch(), (aw, i) ->
-      ActiveWidgets.update aw._id,
+      DeskWidgets.update aw._id,
         $set:
           x: 5+i*(deskWidth/widgetCount)
           y: 5
@@ -141,10 +141,10 @@ Template.mirador_mainMenu_windowOptionsMenu.events
   'click .window-options-menu .stack-all-vertically-2-cols': ->
     deskHeight = $('.mirador-viewer').height() - 45
     deskWidth = $('.mirador-viewer').width() - 5
-    widgets = ActiveWidgets.find()
+    widgets = DeskWidgets.find()
     widgetCount = widgets.count()
     _.each widgets.fetch(), (aw, i) ->
-      ActiveWidgets.update aw._id,
+      DeskWidgets.update aw._id,
         $set:
           x: 5+(i%2)*(deskWidth/2)
           y: 5+Math.floor(i/2)*(deskHeight/Math.ceil(widgetCount/2))
@@ -154,10 +154,10 @@ Template.mirador_mainMenu_windowOptionsMenu.events
   'click .window-options-menu .stack-all-vertically-3-cols': ->
     deskHeight = $('.mirador-viewer').height() - 45
     deskWidth = $('.mirador-viewer').width() - 5
-    widgets = ActiveWidgets.find()
+    widgets = DeskWidgets.find()
     widgetCount = widgets.count()
     _.each widgets.fetch(), (aw, i) ->
-      ActiveWidgets.update aw._id,
+      DeskWidgets.update aw._id,
         $set:
           x: 5+(i%3)*(deskWidth/3)
           y: 5+Math.floor(i/3)*(deskHeight/Math.ceil(widgetCount/3))
@@ -165,14 +165,14 @@ Template.mirador_mainMenu_windowOptionsMenu.events
           height: deskHeight/Math.ceil(widgetCount/3) - 5
 
   'click .window-options-menu .close-all': ->
-    ActiveWidgets.find().forEach (aw) ->
-      ActiveWidgets.remove aw._id
+    DeskWidgets.find().forEach (aw) ->
+      DeskWidgets.remove aw._id
 
 Template.mirador_mainMenu_clearLocalStorage.events
   'click button[data-action=cancel]': ->
     $('.clear-local-storage').tooltipster('hide')
 
   'click button[data-action=clear]': (e, tpl) ->
-    ActiveWidgets.find().forEach (aw) ->
-      ActiveWidgets.remove aw._id
+    DeskWidgets.find().forEach (aw) ->
+      DeskWidgets.remove aw._id
     $('.clear-local-storage').tooltipster('hide')

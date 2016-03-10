@@ -59,7 +59,7 @@ Template.mirador_imageView_content_osd.onRendered ->
       Template.instance().osd.viewport?.ensureVisible()
 
   @autorun =>
-    @osd.setMouseNavEnabled !ActiveWidgets.findOne(@data._id, { fields: { 'zoomLocked': 1 } }).zoomLocked
+    @osd.setMouseNavEnabled !DeskWidgets.findOne(@data._id, { fields: { 'zoomLocked': 1 } }).zoomLocked
 
 
   @osd.addHandler 'open', =>
@@ -69,7 +69,7 @@ Template.mirador_imageView_content_osd.onRendered ->
       @osd.viewport.panTo @data.center, true
 
   @osd.addHandler 'animation-finish', (e) =>
-    ActiveWidgets.update @data._id, { $set: { zoom: @osd.viewport.getZoom(), center: @osd.viewport.getCenter() } }
+    DeskWidgets.update @data._id, { $set: { zoom: @osd.viewport.getZoom(), center: @osd.viewport.getCenter() } }
 
 
   ###
@@ -99,11 +99,11 @@ Template.mirador_imageView_navToolbar.helpers
 Template.mirador_imageView_navToolbar.events
   'click .mirador-icon-previous': (e, tpl) ->
     if tpl.data.imageId > 0
-      ActiveWidgets.update @_id, { $inc: { imageId: -1 } }
+      DeskWidgets.update @_id, { $inc: { imageId: -1 } }
 
   'click .mirador-icon-next': (e, tpl) ->
     # TODO: Don't set imageId past the end of list
-    ActiveWidgets.update @_id, { $inc: { imageId: 1 } }
+    DeskWidgets.update @_id, { $inc: { imageId: 1 } }
 
   'click .mirador-icon-metadata-view': (e, tpl) ->
     miradorFunctions.mirador_viewer_loadView 'metadataView',
@@ -167,14 +167,14 @@ Template.mirador_imageView_navToolbar.events
       manifestId: @manifestId
 
   'click .mirador-icon-annotations': (e, tpl) ->
-    ActiveWidgets.update tpl.data._id,
+    DeskWidgets.update tpl.data._id,
       $set:
         annotationPanelOpen: !tpl.data.annotationPanelOpen
 
   'click .mirador-icon-annotorius': (e, tpl) ->
     # _this.openAnnotoriusWindow();
     #miradorFunctions.mirador_viewer_loadView 'openLayersAnnotoriusView', @manifestId, @imageId
-    ActiveWidgets.update tpl.data._id,
+    DeskWidgets.update tpl.data._id,
       $set:
         'newAnnotation.isActive': true
 
@@ -182,7 +182,7 @@ Template.mirador_imageView_navToolbar.events
 ### Status Bar ###
 Template.mirador_imageView_statusbar.events
   'click a[data-action=toggleLock]': (e, tpl) ->
-    ActiveWidgets.update @_id, { $set: { zoomLocked: !tpl.data.zoomLocked } }
+    DeskWidgets.update @_id, { $set: { zoomLocked: !tpl.data.zoomLocked } }
 
   'keypress .mirador-image-view-physical-dimensions, paste .mirador-image-view-physical-dimensions, keyup .mirador-image-view-physical-dimensions': (e, tpl) ->
     #_this.dimensionChange(e)
@@ -223,7 +223,7 @@ Template.mirador_imageView_statusbar.events
       else
         tpl.$('.x').val(width)
 
-    ActiveWidgets.update tpl.data._id,
+    DeskWidgets.update tpl.data._id,
       $set:
         scaleWidth: width
         scaleHeight: height
