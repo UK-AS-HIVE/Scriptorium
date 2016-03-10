@@ -6,7 +6,7 @@ Template.header.helpers
     Session.get('current_project') is projectId
 
   isntPersonalProject: ->
-    Projects.findOne(Session.get("current_project")).personal isnt Meteor.userId()
+    Projects.findOne(Session.get("current_project"))?.personal isnt Meteor.userId()
 
 Template.header.events
   "change #projectSelector": (e, tpl) ->
