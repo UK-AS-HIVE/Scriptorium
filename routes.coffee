@@ -114,7 +114,6 @@ Router.map ->
         Meteor.subscribe 'projects'
         Meteor.subscribe 'project', Session.get('current_project')
         Meteor.subscribe('availablemanifests'),
-        Meteor.subscribe('workspaces'),
         Meteor.subscribe('annotations'),
         Meteor.subscribe('folioitems')
       ]
@@ -131,7 +130,6 @@ Router.map ->
         Meteor.subscribe 'projects'
         Meteor.subscribe 'project', Session.get('current_project')
         Meteor.subscribe('availablemanifests'),
-        Meteor.subscribe('workspaces'),
         Meteor.subscribe('annotations'),
         Meteor.subscribe('folioitems')
       ]

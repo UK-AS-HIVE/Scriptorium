@@ -93,41 +93,6 @@
     type: Number
     decimal: true
 
-@Workspaces = new Meteor.Collection('workspaces')
-@Workspaces.attachSchema new SimpleSchema
-  user:
-    label: "User"
-    type: String
-  project:
-    label: "Project"
-    type: String
-  manifestUri:
-    label: "Manifest URI"
-    type: String
-  widgets:
-    label: "Workspace Widgets"
-    type: [ Object ]
-  'widgets.$.height':
-    type: Number
-    decimal: true
-  'widgets.$.type':
-    type: String
-  'widgets.$.width':
-    type: Number
-    decimal: true
-  'widgets.$.position':
-    type: Object
-  'widgets.$.position.at':
-    type: String
-  'widgets.$.position.collision':
-    type: String
-  'widgets.$.position.my':
-    type: String
-  'widgets.$.position.of':
-    type: String
-  'widgets.$.position.within':
-    type: String
-
 @FileCabinet = new Meteor.Collection('filecabinet')
 @FileCabinet.attachSchema new SimpleSchema
   # TODO: this stores either text from CKEditor, or a FileRegistry ID reference

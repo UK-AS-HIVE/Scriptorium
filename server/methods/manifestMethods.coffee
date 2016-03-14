@@ -49,14 +49,3 @@ Meteor.methods
     }
     Projects.update projectId, { $push: { "miradorData": manifestData } }
 
-  saveWorkSpace: (workspace, user, project) ->
-    workspaceJSON = JSON.parse(workspace)
-    i = 0
-    while i < workspaceJSON.data.length
-      Workspaces.upsert {
-        user: user
-        project: project
-        manifestUri: workspaceJSON.data[i].manifestUri
-      }, { $set: { widgets: workspaceJSON.data[i].widgets } }
-      i++
-

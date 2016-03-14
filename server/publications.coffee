@@ -51,9 +51,6 @@ Meteor.publish 'fileregistry', ->
 Meteor.publish 'availablemanifests', ->
   [AvailableManifests.find(), ImageMetadata.find()]
 
-Meteor.publish 'workspaces', ->
-  Workspaces.find()
-
 Meteor.publish 'annotations', ->
   Annotations.find()
 
