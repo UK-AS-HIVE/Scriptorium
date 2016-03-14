@@ -47,6 +47,12 @@ Template.mirador_editorView_content.onRendered ->
     if ready.get()
       @editor.resize Template.currentData().width-2, Template.currentData().height-75
 
+  @autorun =>
+    content = FileCabinet.findOne({ _id: @data.fileCabinetId }, { fields: { 'content': 1 } })?.content
+    if @.$('.cke_wysiwyg_div').html() isnt content
+      @.$('.cke_wysiwyg_div').html content
+
+
 Template.mirador_editorView_content.helpers
   editorId: ->
     @fileCabinetId
@@ -60,3 +66,6 @@ Template.mirador_editorView_content.helpers
     content = FileCabinet.findOne({'_id': @fileCabinetId}).content
     return FileRegistry.findOne("_id": content)?.filenameOnDisk
 
+Template.mirador_editorView_content.events
+  'keyup .cke_wysiwyg_div': (e, tpl) ->
+    FileCabinet.update tpl.data.fileCabinetId, { $set: { content: tpl.$('.cke_wysiwyg_div').html() } }
