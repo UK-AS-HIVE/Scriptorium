@@ -19,6 +19,7 @@ check@1.1.0
 cmather:handlebars-server@2.0.0
 coffeescript@1.0.11
 copleykj:jquery-autosize@1.17.8
+cosmos:browserify@0.5.1
 dandv:caret-position@2.1.1
 dburles:collection-helpers@1.0.4
 ddp@1.2.2
@@ -29,6 +30,7 @@ ddp-server@1.2.2
 deps@1.0.9
 diff-sequence@1.0.1
 differential:cluster@1.0.1
+djedi:sanitize-html-client@1.11.2
 ecmascript@0.1.6
 ecmascript-runtime@0.2.6
 ejson@1.0.7

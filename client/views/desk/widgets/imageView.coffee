@@ -284,3 +284,7 @@ Template.mirador_imageView_annotationStats.helpers
         $not: 'commenting'
     ).count()
 
+Template.mirador_imageView_annotationListing.helpers
+  sanitized: (html) ->
+    sanitizeHtml html
+
