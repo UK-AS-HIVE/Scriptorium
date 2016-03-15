@@ -128,6 +128,10 @@
   user:
     label: "User ID"
     type: String
+  editorLockedBy:
+    label: "Editor Locked By User ID"
+    type: String
+    optional: true
 
 # class @folioItems extends Minimongoid
 # 	 @_collection: new Meteor.Collection('folioitems')

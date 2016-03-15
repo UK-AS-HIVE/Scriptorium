@@ -11,12 +11,17 @@
 <template name="mirador_editorView_statusbar">
   {{#unless fileIsType 'pdf'}}
     <div class="editor-view-statusbar col-xs-12" style="display: inline-block;">
-      <button class="btn btn-xs btn-primary" data-action="save">
+      <button class="btn btn-xs btn-primary" data-action="save" {{disabled}}>
         <span class="fa fa-floppy-o editor-save"></span> Save
       </button>
-      {{#if saved}}
-        <span class="saved-file pull-right">File saved.</span>
+      {{#if locked}}
+        <small>This file is currently locked for editing by {{owner}}.</small>
       {{/if}}
+      <div class="saved-file-container pull-right">
+        {{#if saved}}
+          <span class="saved-file">File saved.</span>
+        {{/if}}
+      </div>
     </div>
   {{/unless}}
 </template>
