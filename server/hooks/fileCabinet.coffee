@@ -1,9 +1,9 @@
 if Npm.require('cluster').isMaster
-  handle = null
+  handles = {}
   FileCabinet.after.update (userId, doc, fieldNames, modifier, options) ->
     if _.contains(fieldNames, 'content')
-      if handle then Meteor.clearTimeout(handle)
-      handle = Meteor.setTimeout ->
+      if handles[doc._id] then Meteor.clearTimeout(handles[doc._id])
+      handles[doc._id] = Meteor.setTimeout ->
         FileCabinet.update doc._id, { $set: { editorLockedBy: null } }
       , 30000
       FileCabinet.update doc._id, { $set: { editorLockedBy: userId } }
