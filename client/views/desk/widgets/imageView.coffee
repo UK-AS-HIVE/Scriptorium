@@ -171,14 +171,6 @@ Template.mirador_imageView_navToolbar.events
       $set:
         annotationPanelOpen: !tpl.data.annotationPanelOpen
 
-  'click .mirador-icon-annotorius': (e, tpl) ->
-    # _this.openAnnotoriusWindow();
-    #miradorFunctions.mirador_viewer_loadView 'openLayersAnnotoriusView', @manifestId, @imageId
-    DeskWidgets.update tpl.data._id,
-      $set:
-        'newAnnotation.isActive': true
-
-
 ### Status Bar ###
 Template.mirador_imageView_statusbar.events
   'click a[data-action=toggleLock]': (e, tpl) ->
@@ -260,6 +252,14 @@ Template.mirador_imageView_annotationPanel.helpers
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
+
+Template.mirador_imageView_annotationStats.events
+  'click .mirador-icon-annotorius': (e, tpl) ->
+    # _this.openAnnotoriusWindow();
+    #miradorFunctions.mirador_viewer_loadView 'openLayersAnnotoriusView', @manifestId, @imageId
+    DeskWidgets.update tpl.data._id,
+      $set:
+        'newAnnotation.isActive': true
 
 Template.mirador_imageView_annotationStats.helpers
   annotationCount: ->

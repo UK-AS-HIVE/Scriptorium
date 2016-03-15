@@ -13,7 +13,7 @@
     <a href="#" class="mirador-btn mirador-icon-thumbnails-view" title="Thumbnails View"></a>
     <a href="#" class="mirador-btn mirador-icon-previous" title="Previous Image"></a>
     <a href="#" class="mirador-btn mirador-icon-next" title="Next Image"></a>
-    <a href="#" class="mirador-btn mirador-icon-annotorius" title="Create Annotation"></a>
+
     <a href="#" class="mirador-btn mirador-icon-load-editor" title="Create New Document"></a>
     <a href="#" class="mirador-btn mirador-icon-send-folio" title="Send to Folio"></a>
   </div>
@@ -55,13 +55,15 @@
 
 <template name="mirador_imageView_annotationStats">
   <div class="annotationPanelHeader">
-    <h4>Annotation List (<span class="annotationsTotal">{{annotationCount}}</span>)</h4>
+    <h4>Annotations (<span class="annotationsTotal">{{annotationCount}}</span>)</h4>
+    <a href="#" class="mirador-btn mirador-icon-annotorius" title="Create Annotation"></a>
+    <a href="#" class="mirador-btn mirador-icon-download" title="Download Annotations"></a>
     <div class="annoSearch">
-    <select id="annotationTypeSelector" name="annotationTypes">
-      <option value="">All (<span class="annotationCount">{{annotationCount}}</span>)</option>
-      <option value="commenting">Commentary (<span class="imageAnnotationCount">{{imageAnnotationCount}}</span>)</option>
-      <option value="painting">Transcription (<span class="textAnnotationCount">{{textAnnotationCount}}</span>)</option>
-    </select>
+      <select id="annotationTypeSelector" name="annotationTypes">
+        <option value="">All (<span class="annotationCount">{{annotationCount}}</span>)</option>
+        <option value="commenting">Commentary (<span class="imageAnnotationCount">{{imageAnnotationCount}}</span>)</option>
+        <option value="painting">Transcription (<span class="textAnnotationCount">{{textAnnotationCount}}</span>)</option>
+      </select>
     </div>
   </div>
 </template>

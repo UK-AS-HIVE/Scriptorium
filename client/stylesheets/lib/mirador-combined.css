@@ -2938,7 +2938,7 @@ text {
 .annotationListPanel ul {
   position:absolute;
   bottom:0;
-  top:80px;
+  top:102px;
   border-top:1px solid white;
   list-style: none;
   overflow:scroll;
@@ -3331,6 +3331,15 @@ a.mirador-icon-add-mani:hover {
 }
 
 .mirador-viewer a.mirador-icon-send-folio:hover {
+  background-position: 0px -20px;
+}
+
+.mirador-viewer a.mirador-icon-download {
+  background-image: url('/images/mirador-download.png');
+  box-sizing: border-box;
+}
+
+.mirador-viewer a.mirador-icon-download:hover {
   background-position: 0px -20px;
 }
 
