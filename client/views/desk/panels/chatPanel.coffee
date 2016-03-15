@@ -12,7 +12,6 @@ Template.chatPanel.events
       userId: Meteor.userId()
       type: 'chat'
       message: tpl.$('input[name=chat]').val()
-      timestamp: new Date()
 
     tpl.$('input[name=chat]').val('')
 

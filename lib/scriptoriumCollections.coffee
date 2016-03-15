@@ -264,6 +264,7 @@
   timestamp:
     label: "Timestamp"
     type: new Date()
+    autoValue: -> new Date()
   type:
     # TODO: Figure out what these are actually going to be
     # Potential information to want to store: chat messages, document creation, save revision, user added to project, manifest added?
