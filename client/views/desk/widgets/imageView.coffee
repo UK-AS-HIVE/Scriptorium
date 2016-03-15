@@ -59,7 +59,15 @@ Template.mirador_imageView_content_osd.onRendered ->
       Template.instance().osd.viewport?.ensureVisible()
 
   @autorun =>
-    @osd.setMouseNavEnabled !DeskWidgets.findOne(@data._id, { fields: { 'zoomLocked': 1 } }).zoomLocked
+    zoomLocked = DeskWidgets.findOne(@data._id, { fields: { 'zoomLocked': 1 } }).zoomLocked
+    if zoomLocked
+      @osd.zoomPerScroll = 1
+      @osd.zoomPerClick = 1
+      @osd.panHorizontal = @osd.panVertical = false
+    else
+      @osd.zoomPerScroll = 1.2
+      @osd.zoomPerClick = 2
+      @osd.panHorizontal = @osd.panVertical = true
 
 
   @osd.addHandler 'open', =>
