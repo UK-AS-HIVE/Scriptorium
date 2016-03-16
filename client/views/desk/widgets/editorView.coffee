@@ -16,9 +16,9 @@ Template.mirador_editorView_statusbar.onRendered ->
   tpl = @
   tpl.find('.saved-file-container')._uihooks =
     insertElement: (node, next) ->
-        $(node).hide().insertBefore(next).fadeIn(100).delay(3000).fadeOut 500, ->
-          @remove()
-          tpl.saved.set false
+      $(node).hide().insertBefore(next).fadeIn(100).delay(3000).fadeOut 500, ->
+        @remove()
+        tpl.saved.set false
 
 Template.mirador_editorView_statusbar.events
   'click button[data-action=save]': (e, tpl) ->
