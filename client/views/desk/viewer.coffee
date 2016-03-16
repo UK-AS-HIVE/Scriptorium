@@ -25,6 +25,7 @@ Template.mirador_viewer.onRendered ->
   mirador_viewer_loadView: (type, properties) ->
     console.log 'loadView', arguments
     widgetProps =
+      userId:     Meteor.userId()
       projectId:  Session.get('current_project')
       type:       type
       width:      miradorWidgetProperties[type].width
