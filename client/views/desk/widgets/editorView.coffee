@@ -22,7 +22,8 @@ Template.mirador_editorView_statusbar.onRendered ->
 
 Template.mirador_editorView_statusbar.events
   'click button[data-action=save]': (e, tpl) ->
-    FileCabinet.update @fileCabinetId, { $set: { content: CKEDITOR.instances["editor-" + @fileCabinetId].getData() } }
+    # TODO: If widget templates are combined, getting content via tpl.$('.cke_wysiwyg_div') is probably more reliable
+    Meteor.call 'updateAndUnlockEditorFile', @fileCabinetId, CKEDITOR.instances["editor-#{@fileCabinetId}"].getData()
     tpl.saved.set true
 
 Template.mirador_editorView_statusbar.helpers

@@ -22,3 +22,8 @@ Meteor.methods
       handles[id] = Meteor.setTimeout ->
         FileCabinet.update id, { $set: { editorLockedByUserId: null, editorLockedByConnectionId: null } }
       , 30000
+
+  updateAndUnlockEditorFile: (id, content) ->
+    if FileCabinet.findOne { _id: id, editorLockedByUserId: @userId }
+      if handles[id] then Meteor.clearTimeout handles[id]
+      FileCabinet.update id, { $set: { content: content, editorLockedByUserId: null, editorLockedByConnectionId: null } }
