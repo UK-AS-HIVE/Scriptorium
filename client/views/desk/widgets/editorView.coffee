@@ -28,13 +28,15 @@ Template.mirador_editorView_statusbar.events
 Template.mirador_editorView_statusbar.helpers
   disabled: ->
     # TODO: Use the locked ReactiveVar when widget templates are more reasonable
-    editorLockedBy = FileCabinet.findOne(@fileCabinetId)?.editorLockedBy
-    if editorLockedBy? and editorLockedBy isnt Meteor.userId() then "disabled"
+    file = FileCabinet.findOne(@fileCabinetId)
+    if file?.editorLockedByUserId? and (file?.editorLockedByUserId isnt Meteor.userId() or file?.editorLockedByConnectionId isnt Meteor.connection._lastSessionId)
+      "disabled"
   locked: ->
     # TODO: Use the locked ReactiveVar when widget templates are more reasonable
-    editorLockedBy = FileCabinet.findOne(@fileCabinetId)?.editorLockedBy
-    editorLockedBy? and editorLockedBy isnt Meteor.userId()
-  owner: -> User.first(@editorLockedBy).fullName()
+    file = FileCabinet.findOne(@fileCabinetId)
+    file?.editorLockedByUserId? and (file?.editorLockedByUserId isnt Meteor.userId() or file?.editorLockedByConnectionId isnt Meteor.connection._lastSessionId)
+  owner: ->
+    User.first(FileCabinet.findOne(@fileCabinetId)?.editorLockedByUserId).fullName()
   saved: -> Template.instance().saved.get()
   fileIsType: (type) ->
     fileName = FileCabinet.findOne(@fileCabinetId)?.title
@@ -60,8 +62,8 @@ Template.mirador_editorView_content.onRendered ->
   @locked = new ReactiveVar(false)
 
   @autorun =>
-    lockedBy = FileCabinet.findOne(@data.fileCabinetId, { fields: { 'editorLockedBy': 1 , 'lastEdit': 1} })?.editorLockedBy
-    @locked.set lockedBy? and lockedBy isnt Meteor.userId()
+    file = FileCabinet.findOne(@data.fileCabinetId, { fields: { 'editorLockedByUserId': 1, 'editorLockedByConnectionId': 1 } })
+    @locked.set file?.editorLockedByUserId? and (file?.editorLockedByUserId isnt Meteor.userId() or file?.editorLockedByConnectionId isnt Meteor.connection._lastSessionId)
     if ready.get()
       @.$('.cke_wysiwyg_div').prop 'contenteditable', !@locked.get()
 
@@ -86,5 +88,5 @@ Template.mirador_editorView_content.helpers
 Template.mirador_editorView_content.events
   'keyup .cke_wysiwyg_div': (e, tpl) ->
     unless tpl.locked.get()
-      FileCabinet.update tpl.data.fileCabinetId, { $set: { content: tpl.$('.cke_wysiwyg_div').html() } }
+      Meteor.call 'updateEditorFile', tpl.data.fileCabinetId, tpl.$('.cke_wysiwyg_div').html()
 

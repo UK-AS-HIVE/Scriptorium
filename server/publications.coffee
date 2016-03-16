@@ -5,7 +5,13 @@ Meteor.publishComposite 'project', (projectId) ->
       Projects.find { _id: projectId }
     children: [
       { find: -> Annotations.find { projectId: projectId } }
-      { find: -> FileCabinet.find { project: projectId } }
+      { find: ->
+        FileCabinet.find { project: projectId , editorLockedByUserId: { $in: [ @userId, null ] } }, { fields: { 'editorLockedByConnectionId': 1 } }
+      }
+      {
+        find: ->
+          FileCabinet.find { project: projectId }, { fields: { 'editorLockedByConnectionId': 0 } }
+      }
       {
         find: -> AvailableManifests.find { project: projectId }
         children: [

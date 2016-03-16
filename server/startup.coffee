@@ -8,7 +8,9 @@ Meteor.startup ->
   }, {
     "language": "none"
   })
-
+  
+  # Make sure any previously locked files are unlocked
+  FileCabinet.update {}, { $set: { editorLockedByUserId: null, editorLockedByConnectionId: null } }, { multi: true }
 
   #fix db changes for Folio Items
   folioItems.update({"metadata.scriptLanguage": "Ge'ez"}, {$set: {"metadata.scriptLanguage": "Gǝʿǝz"}}, {multi: true})

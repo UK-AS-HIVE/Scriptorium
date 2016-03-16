@@ -128,8 +128,12 @@
   user:
     label: "User ID"
     type: String
-  editorLockedBy:
+  editorLockedByUserId:
     label: "Editor Locked By User ID"
+    type: String
+    optional: true
+  editorLockedByConnectionId:
+    label: "Editor Locked By Connection ID"
     type: String
     optional: true
 
