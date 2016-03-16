@@ -2577,7 +2577,7 @@ button.ui-button::-moz-focus-inner {
 .mirador-viewer {
   box-sizing: border-box;
   -moz-border-sizing: border-box;
-  height: 100%;
+  height: calc(100% - 55px); /* 30px for mainMenu, 25px for statusbar */
   margin: auto;
   width: 100%;
 }
