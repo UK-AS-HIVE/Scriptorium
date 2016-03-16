@@ -3051,6 +3051,10 @@ text {
   cursor: pointer;
 }
 
+.annotation-text {
+  min-height: 340px;
+}
+
 .displayBottomPanelButton {
   box-sizing: border-box;
   position: absolute;
