@@ -10,7 +10,7 @@ Template.fileUploadModal.helpers
   
 Template.fileUploadModal.events
   'click button[data-action=upload]': (e, tpl) ->
-    Media.pickLocalFile (fileId) ->
+    Media.pickLocalFile {accept: '.pdf'}, (fileId) ->
       tpl.uploadedFileId.set fileId
 
   'click button[data-action=save]': (e, tpl) ->
