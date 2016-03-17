@@ -23,6 +23,7 @@ Meteor.publishComposite 'project', (projectId) ->
       { find: -> Messages.find { roomId: projectId } }
       { find: -> EventStream.find { projectId: projectId } }
       { find: -> DeskWidgets.find { userId: @userId, projectId: projectId } }
+      { find: -> DeskSnapshots.find { projectId: projectId }, {fields: {widgets: 0}} }
       {
         find: -> Bookshelves.find { project: projectId }
         children: [

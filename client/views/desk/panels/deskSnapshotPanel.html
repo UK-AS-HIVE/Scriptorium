@@ -1,0 +1,26 @@
+<template name="deskSnapshotPanel">
+  <div class="desk-panel desk-snapshot-panel">
+    <i class="fa fa-times js-close-panel"></i>
+    <a href="#" class="save-snapshot" title="Save Snapshot">Save Snapshot</a>
+    <ul class="page-list file-cabinet">
+      {{#each savedDesks}}
+        <li>
+          <div class="desk-snapshot-item">
+            <i class="fa fa-share-alt"></i>
+            <div class="meta">
+              <strong>{{title}}</strong>
+              <small>{{description}}</small>
+            </div>
+          </div>
+          <div class="document-panel-actions">
+            <!--
+            <span name="rename"><small><i class="fa fa-pencil"></i> rename</small></span>
+            <span name="delete"><small><i class="fa fa-times"></i> delete</small></span>
+            -->
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</template>
+

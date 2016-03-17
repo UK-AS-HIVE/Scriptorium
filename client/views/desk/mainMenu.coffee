@@ -57,6 +57,9 @@ Template.mirador_mainMenu_menuItems.events
   'click a[data-action=toggle-desk-panel]': ->
     $('.desk-document-panel').toggleClass('is-open')
 
+  'click a[data-action=toggle-desk-snapshot-panel]': ->
+    $('.desk-snapshot-panel').toggleClass('is-open')
+
 Template.mirador_mainMenu_loadWindowContent.events
   # attach onChange event handler for collections select list
   'change .mirador-listing-collections select': (e, tpl) ->

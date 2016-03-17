@@ -32,6 +32,23 @@
 
 @DeskWidgets = new Mongo.Collection 'deskWidgets'
 
+@DeskSnapshots = new Mongo.Collection 'deskSnapshots'
+@DeskSnapshots.attachSchema new SimpleSchema
+  projectId:
+    type: String
+  userId:
+    type: String
+  title:
+    type: String
+  description:
+    type: String
+    optional: true
+  timestamp:
+    type: new Date()
+  widgets:
+    type: [Object]
+    blackbox: true
+
 @Projects = new Meteor.Collection('projects')
 @Projects.attachSchema new SimpleSchema
   projectName:
