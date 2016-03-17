@@ -154,26 +154,18 @@ div[id^='editorWindow-'] {
 .desk-chat-panel {
   overflow: hidden;
 }
-.desk-chat-panel .chat-container {
+
+.desk-chat-panel .chat-area {
+  min-height: 0;
+  padding-left: 0px;
   height: calc(~'100% - 30px');
   border-top: 1px solid #E6E6E6;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.desk-chat-panel .chat-container .chat-area {
-  padding-left: 0px;
-  flex-direction: column-reverse;
-  display: flex;
   overflow-y: auto;
-  overflow-x: hidden;
 
   li {
-    flex: 1;
     list-style: none;
     border-bottom: 1px solid #E6E6E6;
-    margin: 5px;
+    margin: 10px 5px;
 
     .meta {
       display: block;
@@ -187,7 +179,6 @@ div[id^='editorWindow-'] {
 
     small {
       display: block;
-      margin-bottom: 2px;
     }
 
     i.file-icon {
@@ -210,5 +201,12 @@ div[id^='editorWindow-'] {
         margin-bottom: 8px;
       }
     }
+
+    .time {
+      font-size: small;
+      float: right;
+      color: #aaa;
+    }
   }
 }
+

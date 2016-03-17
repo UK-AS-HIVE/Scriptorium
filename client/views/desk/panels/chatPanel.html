@@ -1,25 +1,23 @@
 <template name="chatPanel">
   <div class="desk-panel desk-chat-panel">
     <a class="js-close-panel" data-action="close"><i class="fa fa-times"></i></a>
-    <div class="chat-container">
-      <ul class="chat-area">
-        <div class="input-group">
-          <input type="text" class="form-control" name="chat">
-          <span class="input-group-btn">
-            <button class="btn btn-primary" type="button" data-action="send">Send</button>
-          </span>
-        </div>
-        {{#each events}}
-          <li>
-            <div class="changelog-item">
-              <strong><small>{{fullName}}:</small></strong>
-              {{message}}
-              <small class="chat-timestamp">{{> timeFromNow timestamp}}</small>
-            </div>
-          </li>
-        {{/each}}
-      </ul>
-    </div>
+    <ul class="chat-area">
+      {{#each events}}
+        <li>
+          <div class="changelog-item">
+            <strong><small>{{fullName}}:</small></strong>
+            {{message}}
+            {{> timeFromNow timestamp}}
+          </div>
+        </li>
+      {{/each}}
+      <div class="input-group">
+        <input type="text" class="form-control" name="chat">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" data-action="send">Send</button>
+        </span>
+      </div>
+    </ul>
   </div>
 </template>
 
