@@ -25,6 +25,6 @@ Template.chatPanel.onRendered ->
   tpl = @
   EventStream.find().observe
     added: ->
-      if tpl.$('.chat-area')[0].scrollHeight - tpl.$('.chat-area').scrollTop() < $(window).height() or
+      if tpl.$('.chat-area')[0]?.scrollHeight - tpl.$('.chat-area').scrollTop() < $(window).height() or
       $('.chat-area').scrollTop() is 0 and not tpl.$('.desk-chat-panel').hasClass('is-open')
         tpl.$('.chat-area').scrollTop tpl.$('.chat-area')[0].scrollHeight
