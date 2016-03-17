@@ -17,9 +17,14 @@ Template.chatPanel.events
       tpl.$('input[name=chat]').val('')
       tpl.$('.chat-area').scrollTop tpl.$('.chat-area')[0].scrollHeight
 
+  'click button[data-action=loadSnapshot]': (e, tpl) ->
+    Meteor.call 'loadDeskSnapshot', @otherId
+
 Template.chatPanel.helpers
   events: -> EventStream.find {}, { sort: { timestamp: 1 } }
   fullName: -> User.first(@userId)?.fullName()
+  eventIsType: (type) -> @type is type
+  snapshot: -> DeskSnapshots.findOne(@otherId)
 
 Template.chatPanel.onRendered ->
   tpl = @

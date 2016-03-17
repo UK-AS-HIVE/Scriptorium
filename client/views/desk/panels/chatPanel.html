@@ -3,12 +3,22 @@
     <a class="js-close-panel" data-action="close"><i class="fa fa-times"></i></a>
     <ul class="chat-area">
       {{#each events}}
-        <li>
-          <div class="changelog-item">
-            <strong><small>{{fullName}}:</small></strong>
-            {{message}}
-            {{> timeFromNow timestamp}}
-          </div>
+        <li class="clearfix">
+          {{#if eventIsType 'chat'}}
+            <div class="changelog-item">
+              <strong><small>{{fullName}}:</small></strong>
+              {{message}}
+              {{> timeFromNow timestamp}}
+            </div>
+          {{/if}}
+          {{#if eventIsType 'snapshot'}}
+            <div class="changelog-item">
+              <i class="panel-icon fa fa-share-alt"></i>
+              <small class="snapshot-message"><strong>{{fullName}}</strong> created snapshot <strong>{{snapshot.title}}</strong>.</small>
+              <button type="button" class="snapshot-btn btn btn-default btn-xs" data-action="loadSnapshot">Load Snapshot?</button>
+              {{> timeFromNow timestamp}}
+            </div>
+          {{/if}}
         </li>
       {{/each}}
       <div class="input-group">

@@ -1,7 +1,7 @@
 Meteor.methods
   saveDeskSnapshot: (projectId, title, description) ->
     console.log 'saveDeskSnapshot', projectId, title, description
-    DeskSnapshots.insert
+    snapshotId = DeskSnapshots.insert
       projectId: projectId
       userId: @userId
       title: title
@@ -12,6 +12,14 @@ Meteor.methods
         delete w.projectId
         delete w.userId
         return w
+
+    EventStream.insert
+      projectId: projectId
+      userId: @userId
+      timestamp: new Date()
+      otherId: snapshotId
+      type: "snapshot"
+
 
   loadDeskSnapshot: (snapshotId) ->
     snapshot = DeskSnapshots.findOne snapshotId
