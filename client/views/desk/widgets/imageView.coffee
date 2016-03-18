@@ -25,7 +25,7 @@ Template.mirador_imageView_content_osd.onDestroyed ->
 
 Template.mirador_imageView_content_osd.onRendered ->
   elemOsd = @.$('.mirador-osd')
-    
+
   # Get information for OSD
   @data.image = AvailableManifests.findOne(@data.manifestId).manifestPayload.sequences[0].canvases[@data.imageId]
   osdToolbarId = "mirador-osd-#{@data._id}-toolbar"
@@ -152,7 +152,6 @@ Template.mirador_imageView_navToolbar.events
           ]
 
     Session.set "editFolioItem", newFolioId
-    Router.go('folioEdit')
 
   'click .mirador-icon-scroll-view': (e, tpl) ->
     miradorFunctions.mirador_viewer_loadView 'scrollView',
