@@ -98,8 +98,8 @@ Template.folioEdit.onRendered ->
 
 Template.folioEdit.helpers
   editThumbnail: ->
-    image = folioItems.findOne({_id: Session.get("editFolioItem")})
-    image.imageURL + "/full/200,/0/native.jpg"
+    retrievalUrl = folioItems.findOne({_id: Session.get("editFolioItem")}).canvas.images[0].resource.service['@id'] + '/info.json'
+    miradorFunctions.iiif_getUriWithHeight ImageMetadata.findOne({retrievalUrl: retrievalUrl}).payload, 200
   folioTitle: ->
     image = folioItems.findOne({_id: Session.get("editFolioItem")})
     image.canvas.label
@@ -200,7 +200,7 @@ Template.folioEdit.events
 
     if $("#folioNumber-field").val() == ''
       emptyFields.push("Folio Number")
-    
+
     if CKEDITOR.instances.description.getData() == ''
       emptyFields.push("Paleographic Description")
 
