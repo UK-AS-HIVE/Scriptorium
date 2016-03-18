@@ -12,7 +12,7 @@ Template.fileUploadModal.events
   'click button[data-action=upload]': (e, tpl) ->
     Media.pickLocalFile {accept: '.pdf'}, (fileId) ->
       tpl.uploadedFileId.set fileId
-      Meteor.subscribe 'unsavedFile', fileId
+      tpl.subscribe 'unsavedFile', fileId
 
   'click button[data-action=save]': (e, tpl) ->
     Meteor.call 'saveFileToProject', tpl.uploadedFileId.get(), Session.get('current_project'), tpl.$('textarea[name=description]').val()
