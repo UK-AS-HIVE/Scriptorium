@@ -41,6 +41,12 @@ Meteor.publishComposite 'project', (projectId) ->
         children: [
           {
             find: (bookshelf) -> Books.find { bookshelfId: bookshelf._id }
+            children: [
+              {
+                find: (book) ->
+                  FileRegistry.find { _id: book.fileRegistryId }
+              }
+            ]
           }
         ]
       }

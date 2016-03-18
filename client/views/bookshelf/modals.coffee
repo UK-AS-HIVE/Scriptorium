@@ -97,8 +97,8 @@ Template.uploadPdfModal.onCreated ->
 Template.uploadPdfModal.events
   'click button[data-action=uploadFile]': (e, tpl) ->
     Media.pickLocalFile {multiple: false, accept: '.pdf'}, (fileId) ->
-      fileName = FileRegistry.findOne({"_id": fileId})
       tpl.uploadedFileId.set fileId
+      tpl.subscribe 'unsavedFile', fileId
 
   'click button[data-action=saveFile]': (e, tpl)->
     file = FileRegistry.findOne tpl.uploadedFileId.get()
