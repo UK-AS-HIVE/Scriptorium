@@ -15,11 +15,11 @@ Meteor.methods
   saveFileToProject: (fileId, project, desc) ->
     file = FileRegistry.findOne(fileId)
     FileCabinet.insert
-      'project': project
-      'fileType': 'upload'
-      'user': @userId
-      'date': new Date()
-      'content': fileId
-      'open': false
-      'title': file.filename
-      'description': desc
+      project: project
+      fileType: 'upload'
+      user: @userId
+      date: new Date()
+      fileRegistryId: file._id
+      open: false
+      title: file.filename
+      description: desc

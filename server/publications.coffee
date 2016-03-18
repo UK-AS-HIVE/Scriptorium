@@ -10,7 +10,7 @@ Meteor.publishComposite 'project', (projectId) ->
         children: [
           {
             find: (fc) ->
-              FileRegistry.find { _id: fc.content }
+              FileRegistry.find { _id: fc.fileRegistryId }
           }
         ]
       }
@@ -20,7 +20,7 @@ Meteor.publishComposite 'project', (projectId) ->
         children: [
           {
             find: (fc) ->
-              FileRegistry.find { _id: fc.content }
+              FileRegistry.find { _id: fc.fileRegistryId }
           }
         ]
       }
@@ -55,6 +55,10 @@ Meteor.publish 'projects', ->
         { "permissions.user": @userId }
     ] }
 
+Meteor.publish 'unsavedFile', (fileId) ->
+  # For getting file information after upload, but before file is saved to FileCabinet.
+  unless FileCabinet.findOne({ fileRegistryId: fileId })
+    FileRegistry.find { _id: fileId }
 
 Meteor.publish 'userData', ->
   Meteor.users.find { _id: @userId }

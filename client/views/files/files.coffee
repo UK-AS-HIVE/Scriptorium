@@ -16,7 +16,7 @@ Template.files.helpers
     @fileType is "editor"
 
   getFileName: ->
-    FileRegistry.findOne(@content)?.filenameOnDisk
+    FileRegistry.findOne(@fileRegistryId)?.filenameOnDisk
 
   otherProject: ->
     Projects.find { _id: { $ne: Session.get('current_project') } }
