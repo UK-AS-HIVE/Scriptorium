@@ -28,24 +28,3 @@ Meteor.methods
       catch e
         throw new Meteor.Error e.message
 
-  shareManifests: (user, newProject, sharedManifest, widgets) ->
-    newManifest = AvailableManifests.insert
-      user: user
-      project: newProject
-      manifestPayload: sharedManifest.payload
-      manifestLocation: sharedManifest.location
-      manifestTitle: sharedManifest.title
-
-    return {
-      id: newManifest
-      widgets: widgets
-      project: newProject
-    }
-
-  addDataToProject: (projectId, manifestId, widgets) ->
-    manifestData = {
-      manifestId: manifestId,
-      widgets: widgets
-    }
-    Projects.update projectId, { $push: { "miradorData": manifestData } }
-
