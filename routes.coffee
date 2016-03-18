@@ -41,7 +41,6 @@ Router.map ->
       [
         Meteor.subscribe 'projects'
         Meteor.subscribe 'project', Session.get('current_project')
-        Meteor.subscribe('fileregistry'),
       ]
     action: ->
       if !Meteor.userId()
@@ -57,7 +56,6 @@ Router.map ->
       [
         Meteor.subscribe 'projects'
         Meteor.subscribe 'project', Session.get('current_project')
-        Meteor.subscribe('fileregistry')
       ]
     action: ->
       if !Meteor.userId()
@@ -71,7 +69,6 @@ Router.map ->
       [
         Meteor.subscribe 'projects'
         Meteor.subscribe 'project', Session.get('current_project')
-        Meteor.subscribe('fileregistry')
       ]
     action: ->
       if !Meteor.userId()

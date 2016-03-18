@@ -6,11 +6,23 @@ Meteor.publishComposite 'project', (projectId) ->
     children: [
       { find: -> Annotations.find { projectId: projectId } }
       { find: ->
-        FileCabinet.find { project: projectId , editorLockedByUserId: { $in: [ @userId, null ] } }, { fields: { 'editorLockedByConnectionId': 1 } }
+          FileCabinet.find { project: projectId , editorLockedByUserId: { $in: [ @userId, null ] } }, { fields: { 'editorLockedByConnectionId': 1, content: 1 } }
+        children: [
+          {
+            find: (fc) ->
+              FileRegistry.find { _id: fc.content }
+          }
+        ]
       }
       {
         find: ->
           FileCabinet.find { project: projectId }, { fields: { 'editorLockedByConnectionId': 0 } }
+        children: [
+          {
+            find: (fc) ->
+              FileRegistry.find { _id: fc.content }
+          }
+        ]
       }
       {
         find: -> AvailableManifests.find { project: projectId }
@@ -53,8 +65,6 @@ Meteor.publish 'allUserData', ->
 Meteor.publish "getFolioRecords", ->
   folioItems.find { published: true }, { fields: { canvas: 0 } }
 
-Meteor.publish 'fileregistry', ->
-  FileRegistry.find()
 Meteor.publish 'availablemanifests', ->
   [AvailableManifests.find(), ImageMetadata.find()]
 
