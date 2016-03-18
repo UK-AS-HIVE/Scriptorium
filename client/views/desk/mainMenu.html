@@ -8,15 +8,15 @@
 <template name="mirador_mainMenu_menuItems">
   <ul class="mirador-main-menu">
     <li>
-      <a href="#" data-action="toggle-chat-panel"><i class="fa fa-comment-o"></i> Chat 
+      <a href="#" data-action="toggle-panel" data-panel="#desk-chat-panel"><i class="fa fa-comment-o"></i> Chat 
         {{#if count}}<span class="label label-danger chat-badge">{{count}}</span>{{/if}}
      </a>
     </li>
     <li>
-      <a href="#" data-action="toggle-desk-panel"><i class="fa fa-file-text-o"></i> Open Documents</a>
+      <a href="#" data-action="toggle-panel" data-panel="#desk-document-panel"><i class="fa fa-file-text-o"></i> Open Documents</a>
     </li>
     <li>
-      <a href="#" data-action="toggle-desk-snapshot-panel"><i class="fa fa-share-alt"></i> Snapshots</a>
+      <a href="#" data-action="toggle-panel" data-panel="#desk-snapshot-panel"><i class="fa fa-share-alt"></i> Snapshots</a>
     </li>
     <li>
       <a href="#" class="load-window" title="Load Window">

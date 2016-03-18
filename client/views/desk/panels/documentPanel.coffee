@@ -1,7 +1,4 @@
 Template.documentPanel.events
-  "click .js-close-panel": ->
-    $('.desk-document-panel').removeClass('is-open')
-
   "click .editorItem": ->
     unless DeskWidgets.findOne({fileCabinetId: @_id})?
       miradorFunctions.mirador_viewer_loadView "editorView",

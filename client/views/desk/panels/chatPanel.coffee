@@ -1,7 +1,4 @@
 Template.chatPanel.events
-  'click a[data-action=close]': (e, tpl) ->
-    tpl.$('.desk-chat-panel').removeClass('is-open')
-
   'keyup input[name=chat]': (e, tpl) ->
     if e.keyCode is 13
       tpl.$('button[data-action=send]').click()
@@ -31,5 +28,5 @@ Template.chatPanel.onRendered ->
   EventStream.find().observe
     added: ->
       if tpl.$('.chat-area')[0]?.scrollHeight - tpl.$('.chat-area').scrollTop() < $(window).height() or
-      $('.chat-area').scrollTop() is 0 and not tpl.$('.desk-chat-panel').hasClass('is-open')
+      tpl.$('.chat-area').scrollTop() is 0 and not tpl.$('#desk-chat-panel').hasClass('is-open')
         tpl.$('.chat-area').scrollTop tpl.$('.chat-area')[0].scrollHeight

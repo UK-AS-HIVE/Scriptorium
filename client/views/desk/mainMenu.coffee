@@ -47,15 +47,13 @@ Template.mirador_mainMenu_loadWindowContent.helpers
     @manifestPayload.sequences[0].canvases
 
 Template.mirador_mainMenu_menuItems.events
-  'click a[data-action=toggle-chat-panel]': (e, tpl) ->
-    tpl.chatBadgeCount.set 0
-    $('.desk-chat-panel').toggleClass('is-open')
+  'click a[data-action=toggle-panel]': (e, tpl) ->
+    panelId = tpl.$(e.target).data('panel')
+    if panelId is '#desk-chat-panel'
+      tpl.chatBadgeCount.set 0
+    $('.desk-panel').not(panelId).removeClass('is-open')
+    $(panelId).toggleClass('is-open')
 
-  'click a[data-action=toggle-desk-panel]': ->
-    $('.desk-document-panel').toggleClass('is-open')
-
-  'click a[data-action=toggle-desk-snapshot-panel]': ->
-    $('.desk-snapshot-panel').toggleClass('is-open')
 
 Template.mirador_mainMenu_menuItems.helpers
   count: -> Template.instance().chatBadgeCount.get()
@@ -66,7 +64,7 @@ Template.mirador_mainMenu_menuItems.onCreated ->
   tpl = @
   EventStream.find( {timestamp: { $gt: loadedTime } }).observe
     added: (doc) ->
-      unless doc.userId is Meteor.userId() or $('.desk-chat-panel').hasClass('is-open')
+      unless doc.userId is Meteor.userId() or $('#desk-chat-panel').hasClass('is-open')
         tpl.chatBadgeCount.set tpl.chatBadgeCount.get()+1
       
 

@@ -1,6 +1,5 @@
 <template name="deskSnapshotPanel">
-  <div class="desk-panel desk-snapshot-panel">
-    <i class="fa fa-times js-close-panel"></i>
+  {{#deskPanel id="desk-snapshot-panel"}}
     <a href="#" class="save-snapshot" title="Save Snapshot">Save Snapshot</a>
     <ul class="page-list file-cabinet">
       {{#each savedDesks}}
@@ -21,6 +20,6 @@
         </li>
       {{/each}}
     </ul>
-  </div>
+  {{/deskPanel}}
 </template>
 

@@ -1,6 +1,5 @@
 <template name="documentPanel">
-  <div class="desk-panel desk-document-panel">
-    <i class="fa fa-times js-close-panel"></i>
+  {{#deskPanel id="desk-document-panel"}}
     <ul class="page-list file-cabinet">
       {{#each documents}}
         <li>
@@ -23,6 +22,5 @@
         </li>
       {{/each}}
     </ul>
-  </div>
+  {{/deskPanel}}
 </template>
-

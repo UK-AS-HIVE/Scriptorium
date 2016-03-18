@@ -1,6 +1,5 @@
 <template name="chatPanel">
-  <div class="desk-panel desk-chat-panel">
-    <a class="js-close-panel" data-action="close"><i class="fa fa-times"></i></a>
+  {{#deskPanel id="desk-chat-panel"}}
     <ul class="chat-area">
       {{#each events}}
         <li class="clearfix">
@@ -28,6 +27,6 @@
         </span>
       </div>
     </ul>
-  </div>
+  {{/deskPanel}}
 </template>
 
