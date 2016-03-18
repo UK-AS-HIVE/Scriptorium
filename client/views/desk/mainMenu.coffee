@@ -38,10 +38,6 @@ Template.mirador_mainMenu.onRendered ->
     interactive: true
     theme: '.tooltipster-mirador'
 
-Template.mirador_mainMenu.events
-  'click .bookmark-workspace': ->
-    #TODO
-
 Template.mirador_mainMenu_loadWindowContent.helpers
   imageIndex: ->
     Template.parentData(1).manifestPayload.sequences[0].canvases.indexOf(this)
@@ -51,7 +47,8 @@ Template.mirador_mainMenu_loadWindowContent.helpers
     @manifestPayload.sequences[0].canvases
 
 Template.mirador_mainMenu_menuItems.events
-  'click a[data-action=toggle-chat-panel]': ->
+  'click a[data-action=toggle-chat-panel]': (e, tpl) ->
+    tpl.chatBadgeCount.set 0
     $('.desk-chat-panel').toggleClass('is-open')
 
   'click a[data-action=toggle-desk-panel]': ->
@@ -59,6 +56,19 @@ Template.mirador_mainMenu_menuItems.events
 
   'click a[data-action=toggle-desk-snapshot-panel]': ->
     $('.desk-snapshot-panel').toggleClass('is-open')
+
+Template.mirador_mainMenu_menuItems.helpers
+  count: -> Template.instance().chatBadgeCount.get()
+
+Template.mirador_mainMenu_menuItems.onCreated ->
+  @chatBadgeCount = new ReactiveVar(0)
+  loadedTime = new Date()
+  tpl = @
+  EventStream.find( {timestamp: { $gt: loadedTime } }).observe
+    added: (doc) ->
+      unless doc.userId is Meteor.userId() or $('.desk-chat-panel').hasClass('is-open')
+        tpl.chatBadgeCount.set tpl.chatBadgeCount.get()+1
+      
 
 Template.mirador_mainMenu_loadWindowContent.events
   # attach onChange event handler for collections select list

@@ -8,7 +8,9 @@
 <template name="mirador_mainMenu_menuItems">
   <ul class="mirador-main-menu">
     <li>
-      <a href="#" data-action="toggle-chat-panel"><i class="fa fa-comment-o"></i> Chat</a>
+      <a href="#" data-action="toggle-chat-panel"><i class="fa fa-comment-o"></i> Chat 
+        {{#if count}}<span class="label label-danger chat-badge">{{count}}</span>{{/if}}
+     </a>
     </li>
     <li>
       <a href="#" data-action="toggle-desk-panel"><i class="fa fa-file-text-o"></i> Open Documents</a>
