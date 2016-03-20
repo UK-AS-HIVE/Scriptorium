@@ -104,3 +104,31 @@ Template.removeUserModal.events
         tpl.$('#removeUserModal').modal('hide')
 
   'hidden.bs.modal': (e, tpl) -> Blaze.remove tpl.view
+
+
+Template.renameProjectModal.events
+  'click button[data-action=rename]': (e, tpl) ->
+    Projects.update Session.get('current_project'), { $set: { projectName: tpl.$('input[name=projectName]').val() } }
+    tpl.$('#renameProjectModal').modal('hide')
+
+  'hidden.bs.modal': (e, tpl) -> Blaze.remove tpl.view
+
+Template.deleteProjectModal.onCreated ->
+  @error = new ReactiveVar
+Template.deleteProjectModal.helpers
+  error: -> Template.instance().error.get()
+Template.deleteProjectModal.events
+  'click button[data-action=delete]': (e, tpl) ->
+    if tpl.$('input[name=projectName]').val() is Projects.findOne(Session.get('current_project'))?.projectName
+      Meteor.call 'deleteProject', Session.get('current_project'), (err, res) ->
+        if err
+          tpl.error.set err.error
+        else
+          Session.set 'current_project', Projects.findOne()._id
+          tpl.$('#deleteProjectModal').modal('hide')
+
+    else
+      tpl.error.set 'Project name does not match the current project.'
+
+  'hidden.bs.modal': (e, tpl) -> Blaze.remove tpl.view
+
