@@ -2601,6 +2601,9 @@ button.ui-button::-moz-focus-inner {
   top: 0;
 }
 
+.mirador-main-menu.menu-left {
+  float: left;
+}
 .mirador-main-menu {
   float: right;
   list-style: none;
@@ -2707,7 +2710,6 @@ button.ui-button::-moz-focus-inner {
 
 .mirador-listing-collections ul {
   display: none;
-  height: 300px;
   overflow: auto;
   padding: 0;
 }
