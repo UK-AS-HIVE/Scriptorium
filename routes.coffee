@@ -6,15 +6,21 @@ Router.configure
       to: 'header'
     footer:
       to: 'footer'
-
-Router.onBeforeAction("loading")
+  onBeforeAction: ->
+    if !Meteor.userId()
+      @redirect 'home'
+      @next()
+    else
+      Meteor.subscribe 'projects'
+      Meteor.subscribe 'project', Session.get('current_project')
+      @next()
 
 Router.map ->
   @route 'home',
     path: '/'
     action: ->
       if Meteor.userId()
-        @redirect "welcome"
+        @redirect 'welcome'
       else
         @render()
 
@@ -23,118 +29,43 @@ Router.map ->
 
   @route 'welcome',
     path: '/welcome'
-    action: ->
-      if !Meteor.userId()
-        @redirect "home"
-      else
-        @render()
 
   @route 'desk',
     path: '/desk'
-    onBeforeAction: ->
-      if !@ready()
-        @render
-        @next()
-      else
-        @next()
-    waitOn: ->
-      [
-        Meteor.subscribe 'projects'
-        Meteor.subscribe 'project', Session.get('current_project')
-      ]
-    action: ->
-      if !Meteor.userId()
-        @redirect "home"
-      else
-        @render()
-    onStop: ->
-      #delete Mirador
 
   @route 'files',
     path: '/files'
-    waitOn: ->
-      [
-        Meteor.subscribe 'projects'
-        Meteor.subscribe 'project', Session.get('current_project')
-      ]
-    action: ->
-      if !Meteor.userId()
-        @redirect "home"
-      else
-        @render()
 
   @route 'bookshelf',
     path: '/bookshelf'
-    waitOn: ->
-      [
-        Meteor.subscribe 'projects'
-        Meteor.subscribe 'project', Session.get('current_project')
-      ]
-    action: ->
-      if !Meteor.userId()
-        @redirect "home"
-      else
-        @render()
 
   @route 'collaboration',
     path: '/collaboration',
-    waitOn: ->
-      [
-        Meteor.subscribe 'projects'
-        Meteor.subscribe 'project', Session.get('current_project')
-      ]
     action: ->
-      if !Meteor.userId()
-        @redirect "home"
+      if Projects.findOne(Session.get('current_project'))?.personal is Meteor.userId()
+        @redirect 'welcome'
+        @next()
       else
         @render()
 
   @route 'collaborationThread',
     path: '/collaboration/thread/:_id'
-    action: ->
-      if !Meteor.userId()
-        @redirect "home"
-      else
-        @render()
-    waitOn: ->
-      [
-        Meteor.subscribe 'projects'
-        Meteor.subscribe 'project', Session.get('current_project')
-      ]
     data: ->
-      Messages.findOne({_id: @params._id})
+      Messages.findOne @params._id
 
   @route 'folio',
     path: '/folio'
     waitOn: ->
       [
-        Meteor.subscribe 'projects'
-        Meteor.subscribe 'project', Session.get('current_project')
-        Meteor.subscribe('availablemanifests'),
-        Meteor.subscribe('annotations'),
         Meteor.subscribe('folioitems')
       ]
-    action: ->
-      if !Meteor.userId()
-        @redirect "home"
-      else
-        @render()
 
   @route 'folioEdit',
     path: '/folio/edit'
     waitOn: ->
       [
-        Meteor.subscribe 'projects'
-        Meteor.subscribe 'project', Session.get('current_project')
-        Meteor.subscribe('availablemanifests'),
-        Meteor.subscribe('annotations'),
         Meteor.subscribe('folioitems')
       ]
-    action: ->
-      if !Meteor.userId()
-        @redirect "home"
-      else
-        @render()
 
   @route 'folioAPI',
     path :'/folio/manifest.json',
