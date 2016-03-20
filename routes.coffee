@@ -11,9 +11,13 @@ Router.configure
       @redirect 'home'
       @next()
     else
-      Meteor.subscribe 'projects'
-      Meteor.subscribe 'project', Session.get('current_project')
       @next()
+  waitOn: ->
+    if Meteor.userId()
+      [
+        Meteor.subscribe 'projects'
+        Meteor.subscribe 'project', Session.get('current_project')
+      ]
 
 Router.map ->
   @route 'home',
