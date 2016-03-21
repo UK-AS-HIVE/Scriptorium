@@ -158,6 +158,8 @@
 # 	 @_collection: new Meteor.Collection('folioitems')
 @folioItems = new Meteor.Collection('folioitems')
 @folioItems.attachSchema new SimpleSchema
+  projectId:
+    type: String
   addedBy: # user id
     type: String
   lastUpdatedBy: # user id
@@ -181,7 +183,7 @@
   'metadata.dateRange':
     type: [Number]
   'metadata.scriptName':
-    type: String
+    type: [String]
   'metadata.scriptFamily':
     type: String
   'metadata.scriptLanguage':

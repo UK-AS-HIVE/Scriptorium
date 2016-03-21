@@ -118,6 +118,7 @@ Template.mirador_imageView_navToolbar.events
     now = new Date()
 
     newFolioId = folioItems.insert
+      projectId: Session.get('current_project')
       addedBy: Meteor.userId()
       lastUpdatedBy: Meteor.userId()
       imageURL: imageId

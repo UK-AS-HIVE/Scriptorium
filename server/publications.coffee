@@ -50,6 +50,9 @@ Meteor.publishComposite 'project', (projectId) ->
           }
         ]
       }
+      {
+        find: -> folioItems.find { projectId: projectId }
+      }
     ]
     }
 
@@ -72,9 +75,6 @@ Meteor.publish 'userData', ->
 Meteor.publish 'allUserData', ->
   Meteor.users.find {}, { fields: { _id: 1, emails: 1, profile: 1 } }
 
-Meteor.publish "getFolioRecords", ->
-  folioItems.find { published: true }, { fields: { canvas: 0 } }
-
 Meteor.publish 'availablemanifests', ->
   [AvailableManifests.find(), ImageMetadata.find()]
 
@@ -90,9 +90,6 @@ Meteor.publish 'filecabinetsearch', (searchVal) ->
     FileCabinet.find()
   else
     FileCabinet.find { $text: { $search: searchVal } }
-
-Meteor.publish 'folioitems', ->
-  folioItems.find()
 
 Meteor.publish 'bookshelves', ->
   Bookshelves.find()
