@@ -3,7 +3,7 @@ Template.addManifestModal.events
 
   'click button[data-action=addManifest]': (e, tpl) ->
     tpl.loading.set true
-    Meteor.call "getManifest", tpl.$("#newManifestURL").val(), tpl.$("#newManifestLocation").val(), tpl.$("#newManifestTitle").val(), Session.get("current_project"), (err, res) ->
+    Meteor.call "getManifest", tpl.$("#newManifestURL").val().trim(), tpl.$("#newManifestLocation").val(), tpl.$("#newManifestTitle").val(), Session.get("current_project"), (err, res) ->
       if err
         tpl.error.set err.message
         tpl.loading.set false
