@@ -57,6 +57,7 @@ Template.mirador_editorView_content.onRendered ->
   ready = new ReactiveVar(false)
   Meteor.setTimeout ->
     ready.set true
+    @.$('.cke_wysiwyg_div').focus()
   , 500
 
   @autorun =>
