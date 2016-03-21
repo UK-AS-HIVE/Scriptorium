@@ -52,6 +52,7 @@ Template.mirador_editorView_content.onRendered ->
   @editor = CKEDITOR.replace "editor-" + @data.fileCabinetId, {
     customConfig: '/plugins/ckeditor/custom.js'
   }
+
   # HACK: calling editor.resize after instantiation throws an error.
   # This ensures we wait 500ms before the first call...
   ready = new ReactiveVar(false)
@@ -76,6 +77,9 @@ Template.mirador_editorView_content.onRendered ->
     if @locked.get()
       @.$('.cke_wysiwyg_div').html FileCabinet.findOne({ _id: @data.fileCabinetId }, { fields: { 'content': 1 } })?.content
 
+  @editor.on 'change', =>
+    unless @locked.get()
+      Meteor.call 'updateEditorFile', @data.fileCabinetId, @.$('.cke_wysiwyg_div').html()
 
 Template.mirador_editorView_content.helpers
   editorId: ->
@@ -89,9 +93,3 @@ Template.mirador_editorView_content.helpers
   getFileName: ->
     content = FileCabinet.findOne({'_id': @fileCabinetId}).content
     return FileRegistry.findOne("_id": content)?.filenameOnDisk
-
-Template.mirador_editorView_content.events
-  'keyup .cke_wysiwyg_div': (e, tpl) ->
-    unless tpl.locked.get()
-      Meteor.call 'updateEditorFile', tpl.data.fileCabinetId, tpl.$('.cke_wysiwyg_div').html()
-
