@@ -36,6 +36,9 @@ Template.mirador_editorView_statusbar.helpers
     # TODO: Use the locked ReactiveVar when widget templates are more reasonable
     file = FileCabinet.findOne(@fileCabinetId)
     file?.editorLockedByUserId? and (file?.editorLockedByUserId isnt Meteor.userId() or file?.editorLockedByConnectionId isnt Meteor.connection._lastSessionId)
+  lockedByCurrentUser: ->
+    file = FileCabinet.findOne(@fileCabinetId)
+    file?.editorLockedByUserId is Meteor.userId() and file?.editorLockedByConnectionId is Meteor.connection._lastSessionId
   owner: ->
     User.first(FileCabinet.findOne(@fileCabinetId)?.editorLockedByUserId).fullName()
   saved: -> Template.instance().saved.get()
