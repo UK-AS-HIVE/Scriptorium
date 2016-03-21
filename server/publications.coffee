@@ -75,15 +75,6 @@ Meteor.publish 'userData', ->
 Meteor.publish 'allUserData', ->
   Meteor.users.find {}, { fields: { _id: 1, emails: 1, profile: 1 } }
 
-Meteor.publish 'availablemanifests', ->
-  [AvailableManifests.find(), ImageMetadata.find()]
-
-Meteor.publish 'annotations', ->
-  Annotations.find()
-
-Meteor.publish 'filecabinet', ->
-  FileCabinet.find()
-
 Meteor.publish 'filecabinetsearch', (searchVal) ->
   console.log searchVal
   if searchVal == ""
@@ -91,17 +82,3 @@ Meteor.publish 'filecabinetsearch', (searchVal) ->
   else
     FileCabinet.find { $text: { $search: searchVal } }
 
-Meteor.publish 'bookshelves', ->
-  Bookshelves.find()
-
-Meteor.publish 'books', ->
-  Books.find()
-
-
-Meteor.publish 'collaboration', (projectId) ->
-  project = Projects.findOne(projectId)
-  if project
-    [
-      Meteor.users.find()
-      Messages.find {roomId: projectId}
-    ]
