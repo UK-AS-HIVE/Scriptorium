@@ -5,6 +5,7 @@
     'Metadata View : ' + AvailableManifests.findOne(@manifestId).manifestPayload.label
   height: 400
   width: 600
+  contentClass: "mirador-widget-content-metadata-view"
 
 Template.mirador_metadataView_content.helpers
   localized: (v) ->
