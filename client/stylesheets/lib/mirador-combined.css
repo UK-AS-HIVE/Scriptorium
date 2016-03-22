@@ -3270,6 +3270,10 @@ text {
   margin-right: 5px;
 }
 
+.mirador-widget-content-metadata-view {
+  overflow-y: auto;
+}
+
 /* editor view
 ---------------------------------------------------------------------------- */
 

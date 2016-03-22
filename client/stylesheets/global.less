@@ -188,8 +188,30 @@ header {
       cursor: pointer;
       line-height: 1;
 
+      ul.menu-list {
+        li:nth-child(1) {
+          background-color: #8083AE;
+        }
+
+        li:nth-child(2) {
+          background-color: #899E7D;
+        }
+
+        li:nth-child(3) {
+          background-color: #9D6362;
+        }
+
+        li:nth-child(4) {
+          background-color: #94BAC5;
+        }
+
+        li:nth-child(5) {
+          background-color: #DBCF95;
+        }
+      }
+
       &:hover .menu-list {
-        .transform(translateY(0px));
+        display: block;
       }
     }
 
@@ -227,8 +249,7 @@ header {
       list-style: none;
       right: 0;
       float: right;
-      .transform(translateY(-264px));
-      .transition();
+      display: none;
 
       a {
         display: block;

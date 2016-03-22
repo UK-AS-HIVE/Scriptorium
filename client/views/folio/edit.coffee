@@ -151,11 +151,18 @@ Template.folioEdit.events
     folioItem.manuscriptLink = $("#link-field").val()
     folioItem.info = CKEDITOR.instances.info.getData()
 
-    theDate = new Date
+    setter =
+      lastUpdated: new Date()
+      lastUpdatedBy: Meteor.userId()
 
+    # Need to do this because Simple-Schema doesn't treat updating a subobject
+    # the same as individual keys It converts empty-string subobjects to
+    # $unset, rather than $set, so we need to specify them all explicitly
+    for k,v of folioItem
+      setter["metadata.#{k}"] = v
 
+    folioItems.update({_id: Session.get("editFolioItem")}, {$set: setter})
     $("#folioSaveConfirm").modal('show')
-    folioItems.update({_id: Session.get("editFolioItem")}, {$set: {metadata: folioItem, lastUpdated: theDate, lastUpdatedBy: Meteor.userId()}})
 
   "click #folioSaveOkBtn": ->
     $("#folioSaveConfirm").modal('hide')

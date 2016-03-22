@@ -36,6 +36,9 @@ Template.mirador_editorView_statusbar.helpers
     # TODO: Use the locked ReactiveVar when widget templates are more reasonable
     file = FileCabinet.findOne(@fileCabinetId)
     file?.editorLockedByUserId? and (file?.editorLockedByUserId isnt Meteor.userId() or file?.editorLockedByConnectionId isnt Meteor.connection._lastSessionId)
+  lockedByCurrentUser: ->
+    file = FileCabinet.findOne(@fileCabinetId)
+    file?.editorLockedByUserId is Meteor.userId() and file?.editorLockedByConnectionId is Meteor.connection._lastSessionId
   owner: ->
     User.first(FileCabinet.findOne(@fileCabinetId)?.editorLockedByUserId).fullName()
   saved: -> Template.instance().saved.get()
@@ -49,11 +52,13 @@ Template.mirador_editorView_content.onRendered ->
   @editor = CKEDITOR.replace "editor-" + @data.fileCabinetId, {
     customConfig: '/plugins/ckeditor/custom.js'
   }
+
   # HACK: calling editor.resize after instantiation throws an error.
   # This ensures we wait 500ms before the first call...
   ready = new ReactiveVar(false)
   Meteor.setTimeout ->
     ready.set true
+    @.$('.cke_wysiwyg_div').focus()
   , 500
 
   @autorun =>
@@ -72,6 +77,9 @@ Template.mirador_editorView_content.onRendered ->
     if @locked.get()
       @.$('.cke_wysiwyg_div').html FileCabinet.findOne({ _id: @data.fileCabinetId }, { fields: { 'content': 1 } })?.content
 
+  @editor.on 'change', =>
+    unless @locked.get()
+      Meteor.call 'updateEditorFile', @data.fileCabinetId, @.$('.cke_wysiwyg_div').html()
 
 Template.mirador_editorView_content.helpers
   editorId: ->
@@ -85,9 +93,3 @@ Template.mirador_editorView_content.helpers
   getFileName: ->
     content = FileCabinet.findOne({'_id': @fileCabinetId}).content
     return FileRegistry.findOne("_id": content)?.filenameOnDisk
-
-Template.mirador_editorView_content.events
-  'keyup .cke_wysiwyg_div': (e, tpl) ->
-    unless tpl.locked.get()
-      Meteor.call 'updateEditorFile', tpl.data.fileCabinetId, tpl.$('.cke_wysiwyg_div').html()
-

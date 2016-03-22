@@ -59,17 +59,9 @@ Router.map ->
 
   @route 'folio',
     path: '/folio'
-    waitOn: ->
-      [
-        Meteor.subscribe('folioitems')
-      ]
 
   @route 'folioEdit',
     path: '/folio/edit'
-    waitOn: ->
-      [
-        Meteor.subscribe('folioitems')
-      ]
 
   @route 'folioAPI',
     path :'/folio/manifest.json',
