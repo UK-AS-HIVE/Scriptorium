@@ -22,6 +22,14 @@ Template.chatPanel.helpers
   fullName: -> User.first(@userId)?.fullName()
   eventIsType: (type) -> @type is type
   snapshot: -> DeskSnapshots.findOne(@otherId)
+  manifest: -> AvailableManifests.findOne(@otherId)
+  file: -> FileCabinet.findOne(@otherId)
+  fileIsType: (type) -> @fileType is type
+  annotation: -> Annotations.findOne(@otherId)
+  annotationImage: ->
+    AvailableManifests.findOne(@manifestId)?.manifestPayload.sequences[0].canvases[@canvasIndex].label
+  annotationManifest: -> AvailableManifests.findOne(Annotations.findOne(@otherId)?.manifestId)
+  addedUserFullName: -> User.first(@otherId).fullName()
 
 Template.chatPanel.onRendered ->
   tpl = @

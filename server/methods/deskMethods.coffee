@@ -13,14 +13,6 @@ Meteor.methods
         delete w.userId
         return w
 
-    EventStream.insert
-      projectId: projectId
-      userId: @userId
-      timestamp: new Date()
-      otherId: snapshotId
-      type: "snapshot"
-
-
   loadDeskSnapshot: (snapshotId) ->
     snapshot = DeskSnapshots.findOne snapshotId
 

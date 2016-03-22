@@ -3,21 +3,47 @@
     <ul class="chat-area">
       {{#each events}}
         <li class="clearfix">
-          {{#if eventIsType 'chat'}}
-            <div class="changelog-item">
+          <div class="changelog-item">
+            {{#if eventIsType 'chat'}}
               <strong><small>{{fullName}}:</small></strong>
               {{message}}
               {{> timeFromNow timestamp}}
-            </div>
-          {{/if}}
-          {{#if eventIsType 'snapshot'}}
-            <div class="changelog-item">
+            {{/if}}
+            {{#if eventIsType 'deskSnapshot'}}
               <i class="panel-icon fa fa-share-alt"></i>
               <small class="snapshot-message"><strong>{{fullName}}</strong> created snapshot <strong>{{snapshot.title}}</strong>.</small>
               <button type="button" class="snapshot-btn btn btn-default btn-xs" data-action="loadSnapshot">Load Snapshot?</button>
               {{> timeFromNow timestamp}}
-            </div>
-          {{/if}}
+            {{/if}}
+            {{#if eventIsType 'availablemanifests'}}
+              <small class="snapshot-message"><strong>{{fullName}}</strong> added manifest <strong>{{manifest.manifestTitle}}</strong>.</small>
+              {{> timeFromNow timestamp}}
+            {{/if}}
+            {{#if eventIsType 'annotations'}}
+              {{#with annotation}}
+                <small class="snapshot-message">
+                  <strong>{{fullName}}</strong> annotated <strong>{{annotationImage}}</strong> in manifest <strong>{{annotationManifest.manifestTitle}}</strong>.
+                </small>
+              {{/with}}
+              {{> timeFromNow timestamp}}
+            {{/if}}
+            {{#if eventIsType 'filecabinet'}}
+              {{#with file}}
+                {{#if fileIsType 'upload'}}
+                  <i class="panel-icon fa fa-file-o"></i>
+                  <small class="snapshot-message"><strong>{{fullName}}</strong> uploaded file <strong>{{title}}</strong>.</small>
+                {{else}}
+                  <i class="panel-icon fa fa-file-text-o"></i>
+                  <small class="snapshot-message"><strong>{{fullName}}</strong> created editor document <strong>{{title}}</strong>.</small>
+                {{/if}}
+              {{/with}}
+              {{> timeFromNow timestamp}}
+            {{/if}}
+            {{#if eventIsType 'user'}}
+              <small class="snapshot-message"><strong>{{fullName}}</strong> added user <strong>{{addedUserFullName}}</strong> to the project.</small>
+              {{> timeFromNow timestamp}}
+            {{/if}}
+          </div>
         </li>
       {{/each}}
       <div class="input-group">

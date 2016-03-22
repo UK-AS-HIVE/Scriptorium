@@ -295,7 +295,7 @@
   type:
     # TODO: Figure out what these are actually going to be
     # Potential information to want to store: chat messages, document creation, save revision, user added to project, manifest added?
-    allowedValues: [ 'chat', 'document', 'snapshot' ]
+    allowedValues: [ 'deskSnapshot', 'filecabinet', 'annotations', 'availablemanifests', 'chat', 'user' ]
     type: String
     label: "Event Type"
   message:
