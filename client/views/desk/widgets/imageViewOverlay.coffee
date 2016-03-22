@@ -78,6 +78,9 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
   @addHandler 'animation', (e) ->
     resize()
 
+  @addHandler 'resize', (e) ->
+    resize()
+
   @addHandler 'canvas-drag', (e) ->
     {x, y} = viewer.viewport.pointFromPixel e.position
     x = x*imageWidth
