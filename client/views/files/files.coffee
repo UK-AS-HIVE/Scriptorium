@@ -21,6 +21,9 @@ Template.files.helpers
   otherProject: ->
     Projects.find { _id: { $ne: Session.get('current_project') } }
 
+  formattedDate: ->
+    moment(@date).format('LLL')
+
 Template.files.events
   'click [data-toggle=batchModal]': (e, tpl) ->
     modal = tpl.$(e.currentTarget).data('modal')

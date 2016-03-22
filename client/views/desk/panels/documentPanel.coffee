@@ -23,4 +23,7 @@ Template.documentPanel.helpers
   isEditor: ->
     @fileType is 'editor'
 
+  formattedDate: ->
+    moment(@date).format('LLL')
+
 
