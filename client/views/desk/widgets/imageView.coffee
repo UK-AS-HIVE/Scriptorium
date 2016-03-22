@@ -65,7 +65,7 @@ Template.mirador_imageView_content_osd.onRendered ->
       @osd.zoomPerClick = 1
       @osd.panHorizontal = @osd.panVertical = false
     else
-      @osd.zoomPerScroll = 1.2
+      @osd.zoomPerScroll = 1.15
       @osd.zoomPerClick = 2
       @osd.panHorizontal = @osd.panVertical = true
 
