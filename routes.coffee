@@ -7,7 +7,7 @@ Router.configure
     footer:
       to: 'footer'
   onBeforeAction: ->
-    if !Meteor.userId()
+    if !Meteor.userId() and @route.getName() isnt 'signUp'
       @redirect 'home'
       @next()
     else
