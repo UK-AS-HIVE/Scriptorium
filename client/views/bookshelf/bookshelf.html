@@ -5,13 +5,13 @@
       <h2><i class="fa fa-book"></i> Bookshelf</h2>
       <p>Bookshelf allows you to drag and drop resources into categories for easy reference and organization.</p>
       <p>Bookshelf items will be opened in a new browser window, so that you may continue to work on Desk while consulting Books.</p>
-      <!--       <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-text-o"></i> Upload New Document</a>
+      <!--       <a class="btn btn-primary btn-block" data-toggle="modal" data-target="#filesUpload"><i class="fa fa-file-text-o"></i> Upload New Document</a>
       -->      
       {{#if bookshelf.count}}
-        <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-modal="addLinkModal"><i class="fa fa-globe"></i> Add External Link</a>
-        <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-modal="uploadPdfModal"><i class="fa fa-cloud-upload"></i> Upload PDF</a>
+        <a class="btn btn-primary btn-block" data-toggle="modal" data-modal="addLinkModal"><i class="fa fa-globe"></i> Add External Link</a>
+        <a class="btn btn-primary btn-block" data-toggle="modal" data-modal="uploadPdfModal"><i class="fa fa-cloud-upload"></i> Upload PDF</a>
       {{/if}}
-      <a href="#" class="btn btn-default btn-block" data-toggle="modal" data-modal="newCategoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
+      <a class="btn btn-default btn-block" data-toggle="modal" data-modal="newCategoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
     </div>
     {{initSortable}}
     <!-- CONTENT CONTAINER -->
@@ -22,7 +22,7 @@
             <li class="shelf" style="background: {{color}}; color: {{foregroundColor}}">
               {{category}}
               <div class="actions">
-                <a href="#" data-toggle="modal" data-modal="editCategoryModal" style="color: {{foregroundColor}}"><i class="fa fa-pencil edit-category-btn"></i></a>
+                <a data-toggle="modal" data-modal="editCategoryModal" style="color: {{foregroundColor}}"><i class="fa fa-pencil edit-category-btn"></i></a>
               </div>
             </li>
             <li class="book" draggable="true" style="display:none">
@@ -31,8 +31,8 @@
               <li class="book" draggable="true" style="border-left-color:{{../color}}" parentId ="{{../_id}}">
                 <h3><a href="{{fileUrl}}" target="_blank"><i class="fa fa-globe"></i> {{name}}</a></h3>
                 <div class="actions">
-                  <a href="#" class="black"><i class="fa fa-pencil edit-link-btn" data-toggle="modal" data-modal="editLinkModal"></i></a>
-                  <a href="#" class="red"><i class="fa fa-times delete-link-btn" data-toggle="modal" data-modal="deleteLinkModal"></i></a>
+                  <a class="black"><i class="fa fa-pencil edit-link-btn" data-toggle="modal" data-modal="editLinkModal"></i></a>
+                  <a class="red"><i class="fa fa-times delete-link-btn" data-toggle="modal" data-modal="deleteLinkModal"></i></a>
                 </div>
               </li>
             {{/each}}
@@ -42,7 +42,7 @@
         <!-- IF NO FILES -->
         <div class="nofiles">
           <p>You don't have any categories yet.</p>
-          <a href="#" class="btn btn-default btn-block" data-toggle="modal" data-modal="newCategoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
+          <a class="btn btn-default btn-block" data-toggle="modal" data-modal="newCategoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
         </div>
       {{/if}}
     </div>

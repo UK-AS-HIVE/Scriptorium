@@ -165,20 +165,20 @@
 
           <!-- IF UNPUBLISHED -->
           <!-- IF PUBLISHED
-          <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Save & Publish</a>
-          <a href="#" class="btn btn-lg btn-default"><i class="fa fa-history"></i> Unpublish</a> -->
-          <a href="#" id="submitFolioItem" class="btn btn-lg btn-primary"><i class="fa fa-save"></i> Save</a>
+          <a class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Save & Publish</a>
+          <a class="btn btn-lg btn-default"><i class="fa fa-history"></i> Unpublish</a> -->
+          <a id="submitFolioItem" class="btn btn-lg btn-primary"><i class="fa fa-save"></i> Save</a>
 
 
-          <a href="#" class="btn btn-lg btn-danger pull-right" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-o"></i> Delete</a>
+          <a class="btn btn-lg btn-danger pull-right" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-o"></i> Delete</a>
 
           <p style="margin-top: 50px;">*Please ask your HMML staff collaborator to click the Publish button, after you have saved your work.</p>
           {{#if isPublished false}}
-            <a href="#" id="publish" class="btn btn-default"><i class="fa fa-lock"></i> Admin Publish</a>
+            <a id="publish" class="btn btn-default"><i class="fa fa-lock"></i> Admin Publish</a>
           {{/if}}
 
           {{#if isPublished true}}
-            <a href="#" id="publish" class="btn btn-default"><i class="fa fa-history"></i> Unpublish</a>
+            <a id="publish" class="btn btn-default"><i class="fa fa-history"></i> Unpublish</a>
           {{/if}}
         </div>
       </form>
@@ -191,7 +191,7 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <p>Are you sure you want to delete?</p>
-          <a href="#" id="deleteFolioRecord" class="btn btn-block btn-danger"><i class="fa fa-trash-o"></i> Yes, Delete</a>
+          <a id="deleteFolioRecord" class="btn btn-block btn-danger"><i class="fa fa-trash-o"></i> Yes, Delete</a>
         </div>
       </div>
     </div>
@@ -203,7 +203,7 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <p>Folio entry for {{folioTitle}} has been saved!</p>
-          <a href="#" id="folioSaveOkBtn" class="btn btn-lg btn-default"><i class="fa fa-thumbs-o-up"></i> OK</a>
+          <a id="folioSaveOkBtn" class="btn btn-lg btn-default"><i class="fa fa-thumbs-o-up"></i> OK</a>
         </div>
       </div>
     </div>
@@ -216,7 +216,7 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <p>Folio entry for {{folioTitle}} has been saved but could not be published.  Please complete all required fields</p>
-          <a href="#" id="folioInvalidOkBtn" class="btn btn-lg btn-default"><i class="fa fa-thumbs-o-up"></i> OK</a>
+          <a id="folioInvalidOkBtn" class="btn btn-lg btn-default"><i class="fa fa-thumbs-o-up"></i> OK</a>
         </div>
       </div>
     </div>
@@ -228,7 +228,7 @@
       <div class="modal-content">
         <div class="modal-body text-center">
           <p>Folio entry for {{folioTitle}} has been {{#if isPublished false}}unpublished{{/if}}{{#if isPublished true}}published{{/if}}!</p>
-          <a href="#" id="folioPublishOkBtn" class="btn btn-lg btn-default ok-btn"><i class="fa fa-thumbs-o-up"></i> OK</a>
+          <a id="folioPublishOkBtn" class="btn btn-lg btn-default ok-btn"><i class="fa fa-thumbs-o-up"></i> OK</a>
         </div>
       </div>
     </div>

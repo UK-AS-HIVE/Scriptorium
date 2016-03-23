@@ -11,7 +11,7 @@
       {{#each this}}
         <div id="mirador-scroll-item-{{../manifestId}}-{{index}}" class="item">
           <div class="image-instance">
-            <a href="#" data-image-id="{{index}}">
+            <a data-image-id="{{index}}">
               <img class="static-thumb" src={{uriWithHeight}} style="height: {{height}}px; width: {{width}}px;">
             </a>
           </div>
@@ -25,8 +25,8 @@
 <!-- template for rendering tool bar with nav links -->
 <template name="mirador_scrollView_navToolbar">
   <div class="mirador-scroll-view-nav-toolbar">
-    <a href="#" class="mirador-btn mirador-icon-metadata-view"></a>
-    <a href="#" class="mirador-btn mirador-icon-thumbnails-view"></a>
+    <a class="mirador-btn mirador-icon-metadata-view"></a>
+    <a class="mirador-btn mirador-icon-thumbnails-view"></a>
   </div>
 </template>
 

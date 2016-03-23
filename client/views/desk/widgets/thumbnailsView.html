@@ -8,7 +8,7 @@
   <ul class="{{listingCssCls}} listing-thumbs">
     {{#each thumbs}}
       <li>
-        <a href="#">
+        <a>
           <img title="{{title}}" data-image-id="{{id}}" src="{{thumbUrl}}" height="{{thumbsDefaultHeight}}">
           <div class="thumb-label">{{title}}</div>
         </a>
@@ -20,8 +20,8 @@
 <!-- template for rendering tool bar with nav links -->
 <template name="mirador_thumbnailsView_navToolbar">
   <div class="mirador-thumbnails-view-nav-toolbar">
-    <a href="#" class="mirador-btn mirador-icon-metadata-view"></a>
-    <a href="#" class="mirador-btn mirador-icon-scroll-view"></a>
+    <a class="mirador-btn mirador-icon-metadata-view"></a>
+    <a class="mirador-btn mirador-icon-scroll-view"></a>
   </div>
 </template>
 

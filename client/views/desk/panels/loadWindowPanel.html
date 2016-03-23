@@ -9,14 +9,14 @@
           </optgroup>
         {{/each}}
       </select><br/>
-      <a href="#" class="mirador-btn mirador-icon-thumbnails-view" title="Thumbnails View"></a>
-      <a href="#" class="mirador-btn mirador-icon-scroll-view" title="Scroll View"></a>
-      <a href="#" class="mirador-btn mirador-icon-metadata-view" title="Metadata View"></a>
-      <a href="#" class="mirador-btn mirador-icon-add-mani" title="Add Manifest"></a>
+      <a class="mirador-btn mirador-icon-thumbnails-view" title="Thumbnails View"></a>
+      <a class="mirador-btn mirador-icon-scroll-view" title="Scroll View"></a>
+      <a class="mirador-btn mirador-icon-metadata-view" title="Metadata View"></a>
+      <a class="mirador-btn mirador-icon-add-mani" title="Add Manifest"></a>
       {{#each collections}}
         <ul class="ul-{{_id}}">
           {{#each imageData}}
-            <li class="load-window-li"><a href="#" data-image-id="{{imageIndex}}" data-manifest-id="{{../_id}}">{{trimTitlePrefix label}}</a></li>
+            <li class="load-window-li"><a data-image-id="{{imageIndex}}" data-manifest-id="{{../_id}}">{{trimTitlePrefix label}}</a></li>
           {{/each}}
         </ul>
       {{/each}}

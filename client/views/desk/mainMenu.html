@@ -8,30 +8,30 @@
 <template name="mirador_mainMenu_menuItems">
   <ul class="mirador-main-menu menu-left">
     <li>
-      <a href="#" class="clear-local-storage" title="Clear saved workspace and reload">
+      <a class="clear-local-storage" title="Clear saved workspace and reload">
         <span class="icon-clear-local-storage"></span>
       </a>
     </li>
     <li>
-      <a href="#" class="window-options" title="Window Options">
+      <a class="window-options" title="Window Options">
         <span class="icon-window-options"></span>Window Options
       </a>
     </li>
   </ul>
   <ul class="mirador-main-menu">
     <li>
-      <a href="#" data-action="toggle-panel" data-panel="#desk-chat-panel"><i class="fa fa-comment-o"></i> Chat 
+      <a data-action="toggle-panel" data-panel="#desk-chat-panel"><i class="fa fa-comment-o"></i> Chat 
         {{#if count}}<span class="label label-danger chat-badge">{{count}}</span>{{/if}}
      </a>
     </li>
     <li>
-      <a href="#" data-action="toggle-panel" data-panel="#desk-document-panel"><i class="fa fa-file-text-o"></i> Open Documents</a>
+      <a data-action="toggle-panel" data-panel="#desk-document-panel"><i class="fa fa-file-text-o"></i> Open Documents</a>
     </li>
     <li>
-      <a href="#" data-action="toggle-panel" data-panel="#desk-snapshot-panel"><i class="fa fa-share-alt"></i> Snapshots</a>
+      <a data-action="toggle-panel" data-panel="#desk-snapshot-panel"><i class="fa fa-share-alt"></i> Snapshots</a>
     </li>
     <li>
-      <a href="#" data-action="toggle-panel" data-panel="#desk-load-window-panel">
+      <a data-action="toggle-panel" data-panel="#desk-load-window-panel">
         <span class="icon-load-window"></span>Load Window
       </a>
     </li>
@@ -41,13 +41,13 @@
 <!-- template for rendering window options menu -->
 <template name="mirador_mainMenu_windowOptionsMenu">
   <ul class="window-options-menu">
-    <li><a class="cascade-all" href="#">Cascade All</a></li>
-    <li><a class="tile-all-vertically" href="#">Tile All Vertically</a></li>
-    <li><a class="tile-all-horizontally" href="#">Tile All Horizontally</a></li>
-    <li><a class="stack-all-vertically-2-cols" href="#">Stack Vertically (2 columns)</a></li>
-    <li><a class="stack-all-vertically-3-cols" href="#">Stack Vertically (3 columns)</a></li>
-    <li class="ui-state-disabled"><a href="#">Open Recent</a></li>
-    <li><a class="close-all" href="#">Close All</a></li>
+    <li><a class="cascade-all">Cascade All</a></li>
+    <li><a class="tile-all-vertically">Tile All Vertically</a></li>
+    <li><a class="tile-all-horizontally">Tile All Horizontally</a></li>
+    <li><a class="stack-all-vertically-2-cols">Stack Vertically (2 columns)</a></li>
+    <li><a class="stack-all-vertically-3-cols">Stack Vertically (3 columns)</a></li>
+    <li class="ui-state-disabled"><a>Open Recent</a></li>
+    <li><a class="close-all">Close All</a></li>
   </ul>
 </template>
 
