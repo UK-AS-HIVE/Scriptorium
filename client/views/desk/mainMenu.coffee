@@ -22,7 +22,7 @@ Template.mirador_mainMenu.onRendered ->
 
 Template.mirador_mainMenu_menuItems.events
   'click a[data-action=toggle-panel]': (e, tpl) ->
-    panelId = tpl.$(e.target).data('panel')
+    panelId = tpl.$(e.currentTarget).data('panel')
     if panelId is '#desk-chat-panel'
       tpl.chatBadgeCount.set 0
     $('.desk-panel').not(panelId).removeClass('is-open')
