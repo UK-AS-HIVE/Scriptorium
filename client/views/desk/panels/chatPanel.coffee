@@ -21,10 +21,15 @@ Template.chatPanel.events
     Meteor.call 'loadDeskSnapshot', @otherId
 
   'click button[data-action=loadImage]': (e, tpl) ->
+    annotation = Annotations.findOne(@otherId)
     miradorFunctions.mirador_viewer_loadView 'imageView',
-      manifestId: @manifestId
-      imageId: @canvasIndex
+      manifestId: annotation.manifestId
+      imageId: annotation.canvasIndex
       annotationPanelOpen: true
+
+  'click button[data-action=loadDocument]': (e, tpl) ->
+    miradorFunctions.mirador_viewer_loadView 'editorView',
+      fileCabinetId: @otherId
 
   'click .dropdown-menu': (e, tpl) ->
     # Prevent dropdown from closing on click
@@ -42,16 +47,13 @@ Template.chatPanel.events
 
 Template.chatPanel.helpers
   events: -> EventStream.find { type: { $in: Template.instance().filter.get() } }, { sort: { timestamp: 1 } }
-  fullName: -> User.first(@userId)?.fullName()
   eventIsType: (type) -> @type is type
-  snapshot: -> DeskSnapshots.findOne(@otherId)
-  manifest: -> AvailableManifests.findOne(@otherId)
-  file: -> FileCabinet.findOne(@otherId)
+  snapshot: -> DeskSnapshots.findOne(@otherId)?
+  manifest: -> AvailableManifests.findOne(@otherId)?
+  file: -> FileCabinet.findOne(@otherId)?
   fileIsType: (type) -> @fileType is type
-  annotation: -> Annotations.findOne(@otherId)
-  annotationImage: ->
-    AvailableManifests.findOne(@manifestId)?.manifestPayload.sequences[0].canvases[@canvasIndex].label
-  annotationManifest: -> AvailableManifests.findOne(@manifestId).manifestTitle
+  annotation: -> Annotations.findOne(@otherId)?
+  fullName: -> User.first(@userId)?.fullName()
   addedUserFullName: -> User.first(@otherId).fullName()
 
 Template.chatPanel.onCreated ->
