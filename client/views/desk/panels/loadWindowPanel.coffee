@@ -1,8 +1,13 @@
+Template.loadWindowPanel.onCreated ->
+  @selectedCollectionId = new ReactiveVar(AvailableManifests.findOne()?._id)
+
 Template.loadWindowPanel.helpers
   imageIndex: ->
     Template.parentData(1).manifestPayload.sequences[0].canvases.indexOf(this)
   collections: ->
     return AvailableManifests.find()
+  selectedCollection: ->
+    AvailableManifests.findOne(Template.instance().selectedCollectionId.get())
   imageData: ->
     @manifestPayload.sequences[0].canvases
 
@@ -10,9 +15,7 @@ Template.loadWindowPanel.events
   # attach onChange event handler for collections select list
   'change .mirador-listing-collections select': (e, tpl) ->
     manifestId = tpl.$('option:selected').data('manifest-id')
-
-    tpl.$('.mirador-listing-collections ul').hide()
-    tpl.$('.mirador-listing-collections ul.ul-'+manifestId).show()
+    tpl.selectedCollectionId.set manifestId
 
   # attach click event handler for images in the list
   'click .mirador-listing-collections li a': (e, tpl) ->
