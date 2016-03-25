@@ -15,6 +15,30 @@
   </div>
 
   <div class="panel panel-default">
+    {{#helpPanelHeading id="help-desk-using-collaboratively"}}
+      Using Desk Collaboratively
+    {{/helpPanelHeading}}
+    {{#helpPanelBody id="help-desk-using-collaboratively"}}
+      <p>When collaborators are working on a shared project, each has his or her own arrangement and selection of images and documents on Desk. Each collaborator can create new documents and can annotate images. When two or more collaborators are working on the same document, the document is shared in real time, and all additions, deletions, and changes are visible to those with the document open.</p>
+      <p>Only one person can type in any given moment. Another collaborator can type after a.) there is inactivity in the document for 30 seconds, or b.) the typing collaborator clicks "Save". "Save" unlocks the document so that others can edit it. A message appears next to the "Save" button informing all collaborators who is typing at any given moment.</p>
+      <p>Documents created in Desk for a project are available to all collaborators and are updated for all collaborators: any changes, made by any collaborator, update the document for all collaborators. If a collaborator wants an independent document, he or she should create a new one.</p>
+      <p>Documents are automatically named with the shelfmark and folio or page number of the image whose Document Editor icon was clicked. They can be renamed. There is no inherent or persistent association of the document with the image; the pre-populated name is intended to be only for convenience.</p>
+      <p>Any document created in Desk is automatically saved in File Cabinet, along with any documents that collaborators may have uploaded to File Cabinet. To find project documents, you may either go to File Cabinet, or you can click on "Open Document" when you are in desk. "Open Document" launches a side panel in Desk that lists the contents of File Cabinet.</p>
+      <p>To share views of each collaborator's Desk, use Snapshot.</p>
+    {{/helpPanelBody}}
+  </div>
+
+  <div class="panel panel-default">
+    {{#helpPanelHeading id="help-desk-snapshot"}}
+      Snapshots
+    {{/helpPanelHeading}}
+    {{#helpPanelBody id="help-desk-snapshot"}}
+      <p>Snapshot allows collaborators to display views of their individual Desk arrangements, so that useful combinations of images and documents can be shared. When a collaborator clicks Create Snapshot, a dialogue box appears for naming the image of that collaborator's Desk, as it is arranged at that moment (image selection, position, zoom status, open documents). The named Snapshot will automatically be reported in the Chat stream for all collaborators. NOTE: Clicking on the Snapshot name in the Chat stream will transform one's own Desk into the Snapshot arrangement of the collaborator's Desk! If you want to preserve your own Desk arrangement before looking at the named Snapshot, Create Snapshot of your own Desk so that you can return to it by clicking on your own, named Snapshot.</p>
+      <p>Once you have switched to a Snapshot arrangement of Desk, all elements are dynamic, as usual. You may resize image and document frames, and drag them around, and close them. You may annotate images, create new documents, and work on existing documents. NOTE: Documents continue to be updated synchronously for all collaborators, regardless of Desk arrangement. That is, whether or not you choose to view a Snapshot arrangement, you will see updated documents, and can edit a document that two or more collaborators have open at the same time.</p>
+    {{/helpPanelBody}}
+  </div>
+
+  <div class="panel panel-default">
     {{#helpPanelHeading id="help-desk-image-interaction"}}
       Interacting With Images
     {{/helpPanelHeading}}
@@ -23,13 +47,13 @@
 
       <p>In the top border of the viewer window are icons for viewer actions.</p>
 
-      <p>On the left are <img src="/help/icons/zoom_in.png"> zoom to enlarge image, <img src="/help/icons/zoom_out.png"> zoom to reduce image, <img src="/images/openseadragon/fit-hover.png"> to return to the initial view of the image.  You can also zoom in and out, and pan the image, by mouse movements over the image itself.</p>
+      <p>On the left are <img src="/images/openseadragon/zoom-in.png"> zoom to enlarge image, <img src="/images/openseadragon/zoom-out.png"> zoom to reduce image, <img src="/images/openseadragon/fit-hover.png"> to return to the initial view of the image.  You can also zoom in and out, and pan the image, by mouse movements over the image itself.</p>
 
       <p>On the right, the icons are:</p>
       <div class="panel-group" id="help-desk-icons-accordtion" role="tablist">
         <div class="panel panel-default">
           {{#helpPanelHeading id="help-desk-annotations"}}
-            <img src="/help/icons/comments.png"> Annotation Panel
+            <a class="mirador-btn mirador-icon-annotations"></a> Annotation Panel
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-annotations"}}
             Clicking this icon will open a side panel, displaying any annotations you or your collaborators have drawn on the image (see below for the icon [icon for Create Annotations] to create annotations on the image).  Clicking the icon again returns the image to the view without visible annotations.
@@ -38,7 +62,7 @@
 
         <div class="panel panel-default">
           {{#helpPanelHeading id="help-desk-metadata"}}
-            <img src="/help/icons/information.png"> Metadata View
+            <img class="mirador-btn mirador-icon-metadata-view"> Metadata View
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-metadata"}}
             Clicking this icon displays information about the manuscript image you are viewing, such as a short notice of the content, the holding repository, permissions, and technical information about the IIIF manifest for image delivery. 
@@ -47,7 +71,7 @@
 
         <div class="panel panel-default">
           {{#helpPanelHeading id="help-desk-scroll"}}
-            <img src="/help/icons/scroll_view.png"> Scroll View
+            <img class="mirador-btn mirador-icon-scroll-view"> Scroll View
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-scroll"}}
             Clicking this icon will load a panel with thumbnail images of all the pages in the manuscript you are viewing.  It may take a few seconds to load, and you should click it only once. This “scroll view” panel allows you to browse all the pages in your manuscript.  [NOTE: IT MAY TAKE A FEW MINUTES TO LOAD THE THUMBNAIL IMAGES].  Once the thumbnail images are visible, you can select one to open it in an image view.
@@ -56,7 +80,7 @@
 
         <div class="panel panel-default">
           {{#helpPanelHeading id="help-desk-thumbnail"}}
-            <img src="/help/icons/thumbnails_view.png"> Thumbnail View
+            <img class="mirador-btn mirador-icon-thumbnails-view"> Thumbnail View
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-thumbnail"}}
             Clicking on this icon opens a new panel of thumbnail images of the pages of the manuscript you are viewing.  Clicking on one of those thumbnails opens the image of that page in a new viewer window on your desk.  You cannot zoom in the thumbnails, but there is an icon in the top right of the “Thumbnails View” panel for the “Scroll View”, which displays the thumbnail images with the words “Enable Zoom” for each one (see the description above of the functions and limits of the “Scroll View” panel).
@@ -65,7 +89,7 @@
 
         <div class="panel panel-default">
           {{#helpPanelHeading id="help-desk-paging"}}
-            <img src="/help/icons/left_arrow.png"> <img src="/help/icons/right_arrow.png"> Previous / Next Page
+            <img class="mirador-btn mirador-icon-previous"> <img class="mirador-btn mirador-icon-next"> Previous / Next Page
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-paging"}}
             Clicking on these icons places the previous or subsequent page of the manuscript you are viewing in the viewer frame you have open.  You can page through your manuscript easily this way.
@@ -74,7 +98,7 @@
 
         <div class="panel panel-default">
           {{#helpPanelHeading id="help-desk-editor-icon"}}
-            <img src="/help/icons/document_editor.png"> Document Editor
+            <img class="mirador-btn mirador-icon-load-editor"> Document Editor
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-editor-icon"}}
             Clicking this icon will prompt you to name a new free-form document, to be opened in a new widget window. In the document editor, you can create rich text documents, much as you would with a text editor such as Word. These documents may be named for a manuscript, but will have no inherent connection to a specific manuscript or page.
@@ -83,7 +107,7 @@
 
         <div class="panel panel-default">
           {{#helpPanelHeading id="help-desk-folio"}}
-            <img src="/help/icons/folio_manager.png"> Send to Folio
+            <img class="mirador-btn mirador-icon-send-folio"> Send to Folio
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-folio"}}
           {{/helpPanelBody}}
