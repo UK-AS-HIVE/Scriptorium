@@ -3318,40 +3318,6 @@ a.mirador-icon-annotations [class^="icon-"] {
   display:block;
   position:absolute;
 }
-.mirador-viewer a.mirador-icon-annotations {
-  background-image: url('/images/mirador-annotations.png');
-  box-sizing: border-box;
-}
-.mirador-viewer a.mirador-icon-annotations:hover {
-  background-position: 0px -20px;
-}
-
-a.mirador-icon-add-mani {
-  background-image: url('/images/mirador-add-mani.png');
-  box-sizing: border-box;
-}
-
-a.mirador-icon-add-mani:hover {
-  background-position: 0px -20px;
-}
-
-.mirador-viewer a.mirador-icon-send-folio {
-  background-image: url('/images/mirador-folio.png');
-  box-sizing: border-box;
-}
-
-.mirador-viewer a.mirador-icon-send-folio:hover {
-  background-position: 0px -20px;
-}
-
-.mirador-viewer a.mirador-icon-download {
-  background-image: url('/images/mirador-download.png');
-  box-sizing: border-box;
-}
-
-.mirador-viewer a.mirador-icon-download:hover {
-  background-position: 0px -20px;
-}
 
 a.mirador-icon-annotationDetail-toggle [class^="icon-"] {
   display: block;
@@ -3417,6 +3383,18 @@ a.mirador-icon-annotationDetail-toggle.hidden {
 
 .mirador-icon-load-editor { background-image: url('/images/mirador-editor.png'); }
 .mirador-icon-load-editor:hover { background-position: 0px -20px; }
+
+.mirador-icon-annotations { background-image: url('/images/mirador-annotations.png'); }
+.mirador-icon-annotations:hover { background-position: 0px -20px; }
+
+.mirador-icon-add-mani { background-image: url('/images/mirador-add-mani.png'); }
+.mirador-icon-add-mani:hover { background-position: 0px -20px; }
+
+.mirador-icon-send-folio {  background-image: url('/images/mirador-folio.png'); }
+.mirador-icon-send-folio:hover { background-position: 0px -20px; }
+
+.mirador-icon-download { background-image: url('/images/mirador-download.png'); }
+.mirador-icon-download:hover { background-position: 0px -20px; }
 
 /* jquery-ui css overrides
 ---------------------------------------------------------------------------- */

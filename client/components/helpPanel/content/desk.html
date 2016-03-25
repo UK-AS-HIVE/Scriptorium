@@ -5,6 +5,17 @@
   </p>
 
   <div class="panel panel-default">
+    {{#helpPanelHeading id="help-desk-add-manifest"}}
+      Repositories
+    {{/helpPanelHeading}}
+    {{#helpPanelBody id="help-desk-add-manifest"}}
+      <p>Scriptorium can only display images for which there is a IIIF manifest. Use of the IIIF standard is increasing, and a number of digital repositories are generously publishing their manifests. The environment is changing rapidly and unpredictably. "Repositories" offers a few suggestions to help project leaders quickly find a few major repositories that in 2016 have published manifests.</p>
+
+      <p>To add images to a project, go to a digital repository that has published IIIF manifests (the link to a manifest has a red and blue icon: <img style="height: 20px; width: 22px;" src="/help/icons/iiif.png">), and copy the manifest link for a particular manuscript. Then go to Desk --&gt; Load Window, and click on the + below the drop-down list of available images. A dialogue box will appear. Paste the manifest URL into the URL box, name the manuscript, and enter location (we recommend noting the name of the digital repository, but this is a free-form field). Click save. The manuscript images will be added to the drop-down list in Load Window for that project. Because the list can become unwieldy and is primitive in organization, we recommend restraint in populating it.</p>
+    {{/helpPanelBody}}
+  </div>
+
+  <div class="panel panel-default">
     {{#helpPanelHeading id="help-desk-load-window"}}
       Loading a Manuscript
     {{/helpPanelHeading}}
@@ -53,7 +64,7 @@
       <div class="panel-group" id="help-desk-icons-accordtion" role="tablist">
         <div class="panel panel-default">
           {{#helpPanelHeading id="help-desk-annotations"}}
-            <a class="mirador-btn mirador-icon-annotations"></a> Annotation Panel
+            <img class="mirador-btn mirador-icon-annotations">Annotation Panel
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-annotations"}}
             Clicking this icon will open a side panel, displaying any annotations you or your collaborators have drawn on the image (see below for the icon [icon for Create Annotations] to create annotations on the image).  Clicking the icon again returns the image to the view without visible annotations.
