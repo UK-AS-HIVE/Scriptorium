@@ -458,3 +458,35 @@ header {
   display: inline;
 }
 
+.help-panel {
+  position: absolute;
+  height: calc(~"100% - 84px");
+  right: -400px;
+  width: 400px;
+  z-index: 103;
+  background: #fff;
+  padding: 8px;
+  .transition(all 0.2s ease);
+  overflow: hidden;
+}
+.help-panel.is-open {
+  .translateX(-400px);
+}
+
+.help-panel .help-panel-close-button {
+  position: absolute;
+  padding-bottom: 5px;
+  top: 5px;
+  left: 5px;
+}
+
+.help-panel .help-panel-content {
+  overflow: scroll;
+  height: 100%;
+  margin-top: 15px;
+}
+.help-panel .js-close-panel {
+  color: #bbb;
+  font-size: 22px;
+  cursor: pointer;
+}
