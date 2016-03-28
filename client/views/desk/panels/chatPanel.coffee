@@ -57,7 +57,7 @@ Template.chatPanel.helpers
   addedUserFullName: -> User.first(@otherId).fullName()
 
 Template.chatPanel.onCreated ->
-  @filter = new ReactiveVar [ 'deskSnapshots', 'filecabinet', 'annotations', 'availablemanifests', 'chat', 'user' ]
+  @filter = new ReactiveVar [ 'deskSnapshots', 'filecabinet', 'annotations', 'availablemanifests', 'chat', 'project' ]
 
 Template.chatPanel.onRendered ->
   tpl = @

@@ -30,7 +30,7 @@ Projects.after.update (userId, doc, fn, modifier, options) ->
       <strong>#{User.first(modifier.$addToSet.permissions.user).fullName()}</strong> to the project."
     EventStream.insert
       projectId: doc._id
-      type: 'user'
+      type: 'project'
       userId: userId
       timestamp: new Date()
       message: message

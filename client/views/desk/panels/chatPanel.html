@@ -33,7 +33,7 @@
         </li>
         <li>
           <a class="checkbox">
-            <label><input type="checkbox" value="user" checked><i class="fa fa-users"></i> User Events</label>
+            <label><input type="checkbox" value="project" checked><i class="fa fa-users"></i> Project Settings</label>
           </a>
         </li>
       </ul>
@@ -82,7 +82,7 @@
               {{/if}}
             {{/if}}
 
-            {{#if eventIsType 'user'}}
+            {{#if eventIsType 'project'}}
               <i class="panel-icon fa fa-users"></i>
               <small class="chat-panel-message">{{{message}}}</small>
             {{/if}}
