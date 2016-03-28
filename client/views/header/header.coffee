@@ -19,6 +19,9 @@ Template.header.events
   "click a[data-action=toggleHelp]": ->
     $('.help-panel').toggleClass('is-open')
 
+  'click a[data-action=signOut]': ->
+    Meteor.logout()
+
 Template.header.onRendered ->
   @autorun ->
     if Session.get('current_project')
