@@ -1,14 +1,4 @@
 Meteor.startup ->
-
-  #index file cabinet items for search
-  FileCabinet._ensureIndex({
-    "$**": "text"
-  }, {
-    "name": "File Cabinet Search"
-  }, {
-    "language": "none"
-  })
-  
   # Make sure any previously locked files are unlocked
   FileCabinet.update {}, { $set: { editorLockedByUserId: null, editorLockedByConnectionId: null } }, { multi: true }
 
