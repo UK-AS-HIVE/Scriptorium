@@ -414,20 +414,21 @@ header {
 }
 
 /***************************** SVG SPINNER *****************************/
+.loading { 
+  height: 100vw;
+  vertical-align: center;
+  text-align: center;
+}
+
 .loader {
-  height: 40px;
-  width: 40px;
+  height: 140px;
+  width: 50px;
   margin:0px auto;
   position:relative;
   -webkit-animation: rotation .6s infinite linear;
   -moz-animation: rotation .6s infinite linear;
   -o-animation: rotation .6s infinite linear;
   animation: rotation .6s infinite linear;
-  border-left:4px solid rgba(50,50,50,.8);
-  border-right:4px solid rgba(50,50,50,.8);
-  border-bottom:4px solid rgba(50,50,50,.8);
-  border-top:4px solid rgba(255,255,255,.0);
-  border-radius:100%;
 }
 @-webkit-keyframes rotation {
   from {-webkit-transform: rotate(0deg);}
