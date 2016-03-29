@@ -1,8 +1,5 @@
 Template.files.onCreated ->
   @searchVal = new ReactiveVar ""
-Template.files.onRendered ->
-  @autorun =>
-    Meteor.subscribe 'filecabinetsearch', @searchVal.get()
 
 Template.files.helpers
   docAuthor: ->
@@ -10,7 +7,14 @@ Template.files.helpers
     author.firstName + " " + author.lastName
 
   files: ->
-    FileCabinet.find({'project': Session.get('current_project')})
+    search = Template.instance().searchVal.get().trim()
+    search = new RegExp _.escapeRegExp(search), 'i'
+    FileCabinet.find
+      $or: [
+        {title: search},
+        {description: search},
+        {content: search}
+      ]
 
   isEditorFile: ->
     @fileType is "editor"
