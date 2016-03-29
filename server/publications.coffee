@@ -75,10 +75,3 @@ Meteor.publish 'userData', ->
 Meteor.publish 'allUserData', ->
   Meteor.users.find {}, { fields: { _id: 1, emails: 1, profile: 1 } }
 
-Meteor.publish 'filecabinetsearch', (searchVal) ->
-  console.log searchVal
-  if searchVal == ""
-    FileCabinet.find()
-  else
-    FileCabinet.find { $text: { $search: searchVal } }
-
