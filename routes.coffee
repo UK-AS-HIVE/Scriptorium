@@ -40,6 +40,8 @@ Router.map ->
   @route 'welcome',
     path: '/welcome'
     onBeforeAction: defaults.onBeforeAction
+    subscriptions: ->
+      Meteor.subscribe 'project', Session.get('current_project')
     waitOn: ->
       # Don't subscribe to full project here to speed up initial render.
       if Meteor.userId()
