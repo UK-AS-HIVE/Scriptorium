@@ -1,3 +1,16 @@
+defaults =
+  # Router.configure behavior is completely unpredictable, so we use a defaults object.
+  onBeforeAction: ->
+    if !Meteor.userId() and @route.getName() isnt 'signUp'
+      @redirect 'home'
+    @next()
+  waitOn: ->
+    if Meteor.userId()
+      [
+        Meteor.subscribe 'projects'
+        Meteor.subscribe 'project', Session.get('current_project')
+      ]
+
 Router.configure
   layoutTemplate: 'layout'
   loadingTemplate: 'loading'
@@ -6,45 +19,51 @@ Router.configure
       to: 'header'
     footer:
       to: 'footer'
-  onBeforeAction: ->
-    if !Meteor.userId() and @route.getName() isnt 'signUp'
-      @redirect 'home'
-      @next()
-    else
-      @next()
-  waitOn: ->
-    if Meteor.userId()
-      [
-        Meteor.subscribe 'projects'
-        Meteor.subscribe 'project', Session.get('current_project')
-      ]
 
 Router.map ->
   @route 'home',
     path: '/'
-    action: ->
+    onBeforeAction: ->
       if Meteor.userId()
         @redirect 'welcome'
       else
-        @render()
+        @next()
 
   @route 'signUp',
     path: '/signup'
+    onBeforeAction: ->
+      if Meteor.userId()
+        @redirect 'welcome'
+      else
+        @next()
 
   @route 'welcome',
     path: '/welcome'
+    onBeforeAction: defaults.onBeforeAction
+    waitOn: ->
+      # Don't subscribe to full project here to speed up initial render.
+      if Meteor.userId()
+        Meteor.subscribe 'projects'
 
   @route 'desk',
     path: '/desk'
+    waitOn: defaults.waitOn
+    onBeforeAction: defaults.onBeforeAction
 
   @route 'files',
     path: '/files'
+    waitOn: defaults.waitOn
+    onBeforeAction: defaults.onBeforeAction
 
   @route 'bookshelf',
     path: '/bookshelf'
+    waitOn: defaults.waitOn
+    onBeforeAction: defaults.onBeforeAction
 
   @route 'collaboration',
     path: '/collaboration',
+    waitOn: defaults.waitOn
+    onBeforeAction: defaults.onBeforeAction
     action: ->
       if Projects.findOne(Session.get('current_project'))?.personal is Meteor.userId()
         @redirect 'welcome'
@@ -54,14 +73,20 @@ Router.map ->
 
   @route 'collaborationThread',
     path: '/collaboration/thread/:_id'
+    waitOn: defaults.waitOn
+    onBeforeAction: defaults.onBeforeAction
     data: ->
       Messages.findOne @params._id
 
   @route 'folio',
     path: '/folio'
+    waitOn: defaults.waitOn
+    onBeforeAction: defaults.onBeforeAction
 
   @route 'folioEdit',
     path: '/folio/edit'
+    waitOn: defaults.waitOn
+    onBeforeAction: defaults.onBeforeAction
 
   @route 'folioAPI',
     path :'/folio/manifest.json',
