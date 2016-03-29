@@ -14,7 +14,7 @@ Template.mirador_editorView_statusbar.onCreated ->
 
 Template.mirador_editorView_statusbar.onRendered ->
   tpl = @
-  tpl.find('.saved-file-container')._uihooks =
+  tpl.find('.saved-file-container')?._uihooks =
     insertElement: (node, next) ->
       $(node).hide().insertBefore(next).fadeIn(100).delay(3000).fadeOut 500, ->
         @remove()
@@ -48,7 +48,7 @@ Template.mirador_editorView_statusbar.helpers
     return ext is type
 
 ### EDITOR VIEW CONTENT ###
-Template.mirador_editorView_content.onRendered ->
+Template.editorView_content_editor.onRendered ->
   @editor = CKEDITOR.replace "editor-" + @data.fileCabinetId, {
     customConfig: '/plugins/ckeditor/custom.js'
   }
@@ -82,14 +82,18 @@ Template.mirador_editorView_content.onRendered ->
       Meteor.call 'updateEditorFile', @data.fileCabinetId, @.$('.cke_wysiwyg_div').html()
 
 Template.mirador_editorView_content.helpers
-  editorId: ->
-    @fileCabinetId
+  fileIsEditor: ->
+    FileCabinet.findOne(@fileCabinetId)?.fileType is 'editor'
+
+Template.mirador_editorView_statusbar.helpers
+  fileIsEditor: ->
+    FileCabinet.findOne(@fileCabinetId)?.fileType is 'editor'
+
+Template.editorView_content_editor.helpers
   content: ->
     FileCabinet.findOne(@fileCabinetId)?.content
-  fileIsType: (type) ->
-    fileName = FileCabinet.findOne(@fileCabinetId)?.title
-    ext = fileName.substr(fileName.lastIndexOf('.') + 1)
-    return ext is type
-  getFileName: ->
-    content = FileCabinet.findOne({'_id': @fileCabinetId}).content
-    return FileRegistry.findOne("_id": content)?.filenameOnDisk
+
+Template.editorView_content_pdf.helpers
+  filename: ->
+    fr = FileCabinet.findOne({'_id': @fileCabinetId}).fileRegistryId
+    FileRegistry.findOne(fr)?.filenameOnDisk

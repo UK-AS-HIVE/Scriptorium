@@ -4,7 +4,11 @@
       {{#each documents}}
         <li>
           <div class="editorItem">
-            <i class="file-icon fa fa-file-o"></i>
+            {{#if isEditor}}
+              <i class="file-icon fa fa-file-text-o"></i>
+              {{else}}
+              <i class="file-icon fa fa-file-o"></i>
+            {{/if}}
             <div class="meta">
               <strong>{{title}}</strong>
               <small>{{description}}</small>

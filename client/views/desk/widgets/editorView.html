@@ -1,15 +1,15 @@
 <template name="mirador_editorView_content">
-  <div id="editorDiv-{{editorId}}" class="mirador-editor-content">
-    {{#if fileIsType "pdf"}}
-      <embed class="attachment-pdf" src="/file/{{getFileName}}" type="application/pdf">
+  <div id="editorDiv-{{fileCabinetId}}" class="mirador-editor-content">
+    {{#if fileIsEditor}}
+      {{> editorView_content_editor}}
       {{else}} 
-      <textarea name="editor-{{editorId}}" id="editor-{{editorId}}">{{content}}</textarea>
+      {{> editorView_content_pdf}}
     {{/if}}
   </div>
 </template>
 
 <template name="mirador_editorView_statusbar">
-  {{#unless fileIsType 'pdf'}}
+  {{#if fileIsEditor}}
     <div class="editor-view-statusbar col-xs-12" style="display: inline-block;">
       <button class="btn btn-xs btn-primary" data-action="save" {{disabled}}>
         <span class="fa fa-floppy-o editor-save"></span> Save and Unlock
@@ -26,5 +26,13 @@
         {{/if}}
       </div>
     </div>
-  {{/unless}}
+  {{/if}}
+</template>
+
+<template name="editorView_content_pdf">
+  <embed class="attachment-pdf" src="/file/{{filename}}" type="application/pdf">
+</template>
+
+<template name="editorView_content_editor">
+  <textarea name="editor-{{fileCabinetId}}" id="editor-{{fileCabinetId}}">{{content}}</textarea>
 </template>
