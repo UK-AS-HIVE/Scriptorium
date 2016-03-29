@@ -13,7 +13,7 @@ Template.mirador_scrollView_content.helpers
     manifest = AvailableManifests.findOne(@manifestId).manifestPayload
     thumbHeight = @height - 150
     _.map manifest.sequences[0].canvases, (c, idx) ->
-      imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}).payload
+      imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}, {reactive: false}).payload
       index: idx
       title: c.label
       uriWithHeight: miradorFunctions.iiif_getUriWithHeight imageInfo, thumbHeight

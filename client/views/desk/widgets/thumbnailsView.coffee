@@ -15,7 +15,7 @@ Template.mirador_thumbnailsView_listImages.helpers
     console.log 'getting thumbs list for ', @
     manifest = AvailableManifests.findOne(@manifestId).manifestPayload
     _.map manifest.sequences[0].canvases, (c, index) ->
-      imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}).payload
+      imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}, {reactive: false}).payload
       thumbUrl: miradorFunctions.iiif_getUriWithHeight imageInfo, 150
       title:    c.label
       id:       index
