@@ -33,9 +33,11 @@
 
 <template name="osd_blaze_overlay_annotation_tooltip">
   <textarea id="editor-{{_id}}" class="annotation-text">{{text}}</textarea>
-  <ul>
-    <li><a class="save-annotation">Save</a></li>
-    <li><a class="delete-annotation">Delete</a></li>
-  </ul>
+  <button class="btn btn-xs btn-primary" data-action="save-annotation" {{disabled}}>
+    <span class="fa fa-floppy-o"></span> Save
+  </button>
+  <button class="btn btn-xs btn-default" data-action="delete-annotation" {{disabled}}>
+    <span class="fa fa-times"></span> Delete
+  </button>
 </template>
 

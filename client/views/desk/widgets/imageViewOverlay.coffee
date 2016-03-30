@@ -224,10 +224,10 @@ Template.osd_blaze_overlay_annotation.helpers
   borderSize: -> 0.002 * @transform.scale
 
 Template.osd_blaze_overlay_annotation_tooltip.events
-  'click a.save-annotation': (e, tpl) ->
+  'click button[data-action=save-annotation]': (e, tpl) ->
     Annotations.update @_id,
       $set:
         text: CKEDITOR.instances["editor-#{this._id}"].getData()
-  'click a.delete-annotation': (e, tpl) ->
+  'click button[data-action=delete-annotation]': (e, tpl) ->
     Annotations.remove @_id
 
