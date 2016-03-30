@@ -104,6 +104,7 @@ Template.mirador_widget_initialLayout.onRendered ->
     .dialog(options)
     .dialog(options.dialogOptions)
     .dialogExtend(options.dialogExtendOptions)
+    .show()
 
     # Settings that will execute when resized.
     .parent().resizable
