@@ -1,23 +1,94 @@
 <template name="chatPanel">
-  {{#deskPanel id="desk-chat-panel"}}
+  <div class="desk-panel" id="desk-chat-panel">
+    <i class="fa fa-times js-close-panel"></i>
+    <div class="dropdown pull-right">
+      <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+        Filter <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="checkbox">
+            <label><input type="checkbox" value="chat" checked><i class="fa fa-comment-o"></i> Messages</label>
+          </a>
+        </li>
+        <li>
+          <a class="checkbox">
+            <label><input type="checkbox" value="deskSnapshots" checked><i class="fa fa-share-alt"></i> Snapshots</label>
+          </a>
+        </li>
+        <li>
+          <a class="checkbox">
+            <label><input type="checkbox" value="annotations" checked><i class="fa fa-tag"></i> Annotations</label>
+          </a>
+        </li>
+        <li>
+          <a class="checkbox">
+            <label><input type="checkbox" value="availablemanifests" checked><i class="fa fa-book"></i> Manifests</label>
+          </a>
+        </li>
+        <li>
+          <a class="checkbox">
+            <label><input type="checkbox" value="filecabinet" checked><i class="fa fa-file-text-o"></i> Documents and Uploads</label>
+          </a>
+        </li>
+        <li>
+          <a class="checkbox">
+            <label><input type="checkbox" value="project" checked><i class="fa fa-users"></i> Project Settings</label>
+          </a>
+        </li>
+      </ul>
+    </div>
     <ul class="chat-area">
       {{#each events}}
         <li class="clearfix">
-          {{#if eventIsType 'chat'}}
-            <div class="changelog-item">
+          <div class="changelog-item">
+            {{#if eventIsType 'chat'}}
               <strong><small>{{fullName}}:</small></strong>
               {{message}}
-              {{> timeFromNow timestamp}}
-            </div>
-          {{/if}}
-          {{#if eventIsType 'snapshot'}}
-            <div class="changelog-item">
+            {{/if}}
+
+            {{#if eventIsType 'deskSnapshots'}}
               <i class="panel-icon fa fa-share-alt"></i>
-              <small class="snapshot-message"><strong>{{fullName}}</strong> created snapshot <strong>{{snapshot.title}}</strong>.</small>
-              <button type="button" class="snapshot-btn btn btn-default btn-xs" data-action="loadSnapshot">Load Snapshot?</button>
-              {{> timeFromNow timestamp}}
-            </div>
-          {{/if}}
+              <small class="chat-panel-message">{{{message}}}</small>
+              {{#if snapshot}}
+                <button type="button" class="chat-panel-btn btn btn-default btn-xs" data-action="loadSnapshot">Load Snapshot?</button>
+              {{/if}}
+            {{/if}}
+
+            {{#if eventIsType 'availablemanifests'}}
+              <i class="panel-icon fa fa-book"></i>
+              <small class="chat-panel-message">{{{message}}}</small>
+            {{/if}}
+
+            {{#if eventIsType 'annotations'}}
+              <i class="panel-icon fa fa-tag"></i>
+              <small class="chat-panel-message">{{{message}}}</small>
+              {{#if annotation}}
+                <button type="button" class="chat-panel-btn btn btn-default btn-xs" data-action="loadImage">Load Image?</button>
+                {{else}}<small>This annotation has since been deleted.</small>
+              {{/if}}
+            {{/if}}
+
+            {{#if eventIsType 'filecabinet'}}
+              {{#if fileIsType 'upload'}}
+                <i class="panel-icon fa fa-file-o"></i>
+              {{else}}
+                <i class="panel-icon fa fa-file-text-o"></i>
+              {{/if}}
+              <small class="chat-panel-message">{{{message}}}</small>
+              {{#if file}}
+                <button type="button" class="chat-panel-btn btn btn-default btn-xs" data-action="loadDocument">Load Document?</button>
+                {{else}}<small>This file has since been deleted.</small>
+              {{/if}}
+            {{/if}}
+
+            {{#if eventIsType 'project'}}
+              <i class="panel-icon fa fa-users"></i>
+              <small class="chat-panel-message">{{{message}}}</small>
+            {{/if}}
+
+            {{> timeFromNow timestamp}}
+          </div>
         </li>
       {{/each}}
       <div class="input-group">
@@ -27,6 +98,6 @@
         </span>
       </div>
     </ul>
-  {{/deskPanel}}
+  </div>
 </template>
 
