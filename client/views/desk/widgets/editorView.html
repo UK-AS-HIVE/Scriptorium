@@ -1,11 +1,9 @@
 <template name="mirador_editorView_content">
-  <div id="editorDiv-{{fileCabinetId}}" class="mirador-editor-content">
-    {{#if fileIsEditor}}
-      {{> editorView_content_editor}}
-      {{else}} 
-      {{> editorView_content_pdf}}
-    {{/if}}
-  </div>
+  {{#if fileIsEditor}}
+    {{> editorView_content_editor}}
+    {{else}}
+    {{> editorView_content_pdf}}
+  {{/if}}
 </template>
 
 <template name="mirador_editorView_statusbar">
@@ -34,5 +32,7 @@
 </template>
 
 <template name="editorView_content_editor">
-  <textarea name="editor-{{fileCabinetId}}" id="editor-{{fileCabinetId}}">{{content}}</textarea>
+  <div id="editorDiv-{{fileCabinetId}}" class="mirador-editor-content">
+    <textarea name="editor-{{fileCabinetId}}" id="editor-{{fileCabinetId}}">{{content}}</textarea>
+  </div>
 </template>
