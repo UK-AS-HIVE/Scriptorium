@@ -10,18 +10,24 @@
   thumbsMinHeight: 50
   thumbsDefaultZoom: 0.5
 
-Template.mirador_thumbnailsView_listImages.helpers
-  thumbs: ->
-    console.log 'getting thumbs list for ', @
-    manifest = AvailableManifests.findOne(@manifestId).manifestPayload
-    _.map manifest.sequences[0].canvases, (c, index) ->
-      imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}, {reactive: false}).payload
-      thumbUrl: miradorFunctions.iiif_getUriWithHeight imageInfo, 150
-      title:    c.label
-      id:       index
-  thumbsDefaultHeight: ->
-    p = miradorWidgetProperties.thumbnailsView
-    p.thumbsMinHeight + (p.thumbsMaxHeight - p.thumbsMinHeight) * p.thumbsDefaultZoom
+# Optimization: would prefer to do this using {{#each...}}, but
+# since Blaze renders synchronously, that blocks the event loop for far too long,
+# and freezes the browser.  Instead, spread out adding these nodes to the DOM over
+# time.
+Template.mirador_thumbnailsView_listImages.onRendered ->
+  tpl = @
+  manifest = AvailableManifests.findOne(@data.manifestId).manifestPayload
+  _.each manifest.sequences[0].canvases, (c, index) ->
+    Meteor.setTimeout ->
+      imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}).payload
+      data =
+        thumbUrl: miradorFunctions.iiif_getUriWithHeight imageInfo, 150
+        title:    c.label
+        id:       index
+        width:    imageInfo.width * (150 / imageInfo.height)
+
+      Blaze.renderWithData Template.mirador_thumbnailsView_thumb, data, tpl.$('ul.listing-thumbs').get(0)
+    , index
 
 Template.mirador_thumbnailsView_listImages.events
   'click .listing-thumbs li a': (e, tpl) ->

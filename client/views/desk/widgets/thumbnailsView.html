@@ -6,16 +6,23 @@
 <!-- template for rendering images in thumbnails view -->
 <template name="mirador_thumbnailsView_listImages">
   <ul class="{{listingCssCls}} listing-thumbs">
+    <!--
     {{#each thumbs}}
-      <li>
-        <a>
-          <img title="{{title}}" data-image-id="{{id}}" src="{{thumbUrl}}" height="{{thumbsDefaultHeight}}">
-          <div class="thumb-label">{{title}}</div>
-        </a>
-      </li>
+      {{> mirador_thumbnailsView_thumb }}
     {{/each}}
+    -->
   </ul>
 </template>
+
+<template name="mirador_thumbnailsView_thumb">
+  <li>
+    <a>
+      <img title="{{title}}" data-image-id="{{id}}" src="{{thumbUrl}}" height="150" width="{{width}}">
+      <div class="thumb-label">{{title}}</div>
+    </a>
+  </li>
+</template>
+
 
 <!-- template for rendering tool bar with nav links -->
 <template name="mirador_thumbnailsView_navToolbar">
