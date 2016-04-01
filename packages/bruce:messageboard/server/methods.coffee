@@ -1,25 +1,22 @@
-Meteor.methods({
+Meteor.methods
   addThread: (roomId, subject, message) ->
-    Messages.insert({
-        subject: subject,
-        roomId: roomId,
-        startedBy: @userId
-        posts: [
-          {
-            user: @userId,
-            message: message,
-            timestamp: new Date()
-          }
-        ]
-    })
+    Messages.insert
+      subject: subject,
+      roomId: roomId,
+      startedBy: @userId
+      posts: [
+        {
+          user: @userId,
+          message: message,
+          timestamp: new Date()
+        }
+      ]
 
   postToThread: (roomId, message) ->
-    Messages.update({_id: roomId},
-                    {$addToSet: {
-                      posts: {
-                        user: @userId,
-                        message: message,
-                        timestamp: new Date()
-                      }
-                    }})
-})
+    Messages.update roomId, { $addToSet: { posts: { user: @userId, message: message, timestamp: new Date() } } }
+
+  deletePost: (roomId, post) ->
+    console.log "Deleting forum post:"
+    console.log post
+    Messages.update roomId, { $pull: { posts: post } }
+

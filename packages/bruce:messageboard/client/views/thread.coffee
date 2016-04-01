@@ -7,11 +7,19 @@ Template.mbThread.rendered = ->
       Router.go('collaboration')
 
 Template.mbThread.helpers
-  oldestFirst: () ->
+  oldestFirst: ->
     !Session.get('mbSortThreadAsc')
 
-  newestFirst: () ->
+  newestFirst: ->
     Session.get('mbSortThreadAsc')
+
+  posts: ->
+    posts = _.sortBy(@posts, (p) -> p.timestamp)
+
+    if Session.get('mbSortThreadAsc')
+      posts.reverse()
+    else
+      posts
 
 Template.mbThread.events
   'click .reply button': (e, t) ->
@@ -25,7 +33,12 @@ Template.mbThread.events
     e.preventDefault()
     Session.set('mbSortThreadAsc', t.$('select').val() == "true")
 
-Template.mbPosts.helpers
+
+Template.mbPost.helpers
+  deleting: ->
+    Template.instance().deleting.get()
+  userIsAuthor: ->
+    @user is Meteor.userId()
   paragraphs: ->
     @message.split('\n')
 
@@ -37,20 +50,23 @@ Template.mbPosts.helpers
     emailAddressPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim
 
     replacedText = text
-              .replace(urlPattern, '<a href="$&" target="_blank">$&</a>')
-              .replace(pseudoUrlPattern, '$1<a href="http://$2" target="_blank">$2</a>')
-              .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>')
+      .replace(urlPattern, '<a href="$&" target="_blank">$&</a>')
+      .replace(pseudoUrlPattern, '$1<a href="http://$2" target="_blank">$2</a>')
+      .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>')
    
     return Spacebars.SafeString replacedText
 
-  posts: ->
-    posts = _.sortBy(@posts, (p) -> p.timestamp)
+Template.mbPost.events
+  'click a[data-action=deletePost]': (e, tpl) ->
+    tpl.deleting.set true
+  'click a[data-action=cancelDelete]': (e, tpl) ->
+    tpl.deleting.set false
+  'click a[data-action=confirmDelete]': (e, tpl) ->
+    Meteor.call 'deletePost', Template.parentData(1)._id, @
+    tpl.deleting.set false
 
-    if Session.get('mbSortThreadAsc')
-      posts.reverse()
-    else
-      posts
-
+Template.mbPost.onCreated ->
+  @deleting = new ReactiveVar false
 
 escape = (str) ->
   str.replace(/&/g, '&amp;')

@@ -13,24 +13,33 @@
       </div>
     </li>
   {{#if oldestFirst}}
-    {{> mbPosts}}
+    {{#each posts}}
+      {{> mbPost}}
+    {{/each}}
     {{> mbReply}}
-  {{else}}
+    {{else}}
     {{> mbReply}}
-    {{> mbPosts}}
+    {{#each posts}}
+      {{> mbPost}}
+    {{/each}}
   {{/if}}
-  </ul>
+</ul>
 </template>
 
-<template name="mbPosts">
-  {{#each posts}}
-    <li>
-      <p><strong>{{../postAuthor user}}</strong><small>{{> timeago timestamp}}</small></p>
-      {{#each paragraphs}}
-        <p>{{linkify this}}</p>
-      {{/each}}
-    </li>
-  {{/each}}
+<template name="mbPost">
+  <li>
+    <p><strong>{{../postAuthor user}}</strong><small>{{> timeago timestamp}}</small></p>
+    {{#each paragraphs}}
+      <p>{{linkify this}}</p>
+    {{/each}}
+    {{#if userIsAuthor}}
+      {{#if deleting}}
+        <small class="pull-right">Are you sure? <a data-action="confirmDelete">yes</a> / <a data-action="cancelDelete">no</a></small>
+      {{else}}
+        <small class="pull-right"><a data-action="deletePost"><i class="fa fa-times"></i> delete</a></small>
+      {{/if}}
+    {{/if}}
+  </li>
 </template>
 
 <template name="mbReply">
