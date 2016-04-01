@@ -16,7 +16,8 @@ Meteor.methods
     Messages.update roomId, { $addToSet: { posts: { user: @userId, message: message, timestamp: new Date() } } }
 
   deletePost: (roomId, post) ->
-    console.log "Deleting forum post:"
-    console.log post
-    Messages.update roomId, { $pull: { posts: post } }
+    if @userId is post.user
+      console.log "Deleting forum post:"
+      console.log post
+      Messages.update roomId, { $pull: { posts: post } }
 
