@@ -28,15 +28,15 @@
 
 <template name="mbPost">
   <li>
-    <p><strong>{{../postAuthor user}}</strong><small>{{> timeago timestamp}}</small></p>
+    <p><strong>{{fullName}}</strong><small>{{> timeFromNow timestamp}}</small></p>
     {{#each paragraphs}}
       <p>{{linkify this}}</p>
     {{/each}}
-    {{#if userIsAuthor}}
+    {{#if canDeletePost}}
       {{#if deleting}}
-        <small class="pull-right">Are you sure? <a data-action="confirmDelete">yes</a> / <a data-action="cancelDelete">no</a></small>
+        <small class="pull-right">Are you sure? <a class="delete-link" data-action="confirmDelete">yes</a> / <a data-action="cancelDelete">no</a></small>
       {{else}}
-        <small class="pull-right"><a data-action="deletePost"><i class="fa fa-times"></i> delete</a></small>
+        <small class="pull-right"><a class="delete-link" data-action="deletePost"><i class="fa fa-times"></i> delete</a></small>
       {{/if}}
     {{/if}}
   </li>

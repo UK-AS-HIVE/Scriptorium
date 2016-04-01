@@ -13,6 +13,9 @@ Template.mbThread.helpers
   newestFirst: ->
     Session.get('mbSortThreadAsc')
 
+  author: ->
+    User.first @startedBy
+
   posts: ->
     posts = _.sortBy(@posts, (p) -> p.timestamp)
 
@@ -22,23 +25,29 @@ Template.mbThread.helpers
       posts
 
 Template.mbThread.events
-  'click .reply button': (e, t) ->
-    e.preventDefault()
-    textarea = t.$('.reply textarea')
-    message = textarea.val()
-    Meteor.call('postToThread', @_id, message)
-    textarea.val('')
+  'click .reply button': (e, tpl) ->
+    message = tpl.$('.reply textarea').val()
+    if message.length
+      Meteor.call('postToThread', @_id, message)
+      tpl.$('.reply textarea').val('')
 
-  'change .sort-by select': (e, t) ->
-    e.preventDefault()
-    Session.set('mbSortThreadAsc', t.$('select').val() == "true")
+  'change .sort-by select': (e, tpl) ->
+    Session.set('mbSortThreadAsc', tpl.$('select').val() == "true")
 
 
 Template.mbPost.helpers
   deleting: ->
     Template.instance().deleting.get()
-  userIsAuthor: ->
-    @user is Meteor.userId()
+  fullName: ->
+    User.first(@user)?.fullName()
+  canDeletePost: ->
+    project = Projects.findOne {
+      _id: Session.get('current_project'),
+      permissions: { $elemMatch: { user: Meteor.userId(), level: 'admin' } }
+    }
+
+    @user is Meteor.userId() or project?
+
   paragraphs: ->
     @message.split('\n')
 
