@@ -26,7 +26,9 @@
   {{#each posts}}
     <li>
       <p><strong>{{../postAuthor user}}</strong><small>{{> timeago timestamp}}</small></p>
-      {{{breaklines message}}}
+      {{#each paragraphs}}
+        <p>{{linkify this}}</p>
+      {{/each}}
     </li>
   {{/each}}
 </template>

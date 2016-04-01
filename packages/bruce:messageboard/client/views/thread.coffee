@@ -26,10 +26,22 @@ Template.mbThread.events
     Session.set('mbSortThreadAsc', t.$('select').val() == "true")
 
 Template.mbPosts.helpers
-  breaklines: (text) ->
-    if text
-      t = text.trim()
-      '<p>'+t.replace(/[\r\n]+/g,'</p><p>')+'</p>'
+  paragraphs: ->
+    @message.split('\n')
+
+  linkify: (text) ->
+    text = escape(text)
+
+    urlPattern = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim
+    pseudoUrlPattern = /(^|[^\/])(www\.[-A-Z0-9+&@#\/%=~_|.]*[-A-Z0-9+&@#\/%=~_|])/gim
+    emailAddressPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim
+
+    replacedText = text
+              .replace(urlPattern, '<a href="$&" target="_blank">$&</a>')
+              .replace(pseudoUrlPattern, '$1<a href="http://$2" target="_blank">$2</a>')
+              .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>')
+   
+    return Spacebars.SafeString replacedText
 
   posts: ->
     posts = _.sortBy(@posts, (p) -> p.timestamp)
@@ -38,3 +50,12 @@ Template.mbPosts.helpers
       posts.reverse()
     else
       posts
+
+
+escape = (str) ->
+  str.replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\`/g, '&#96;')
