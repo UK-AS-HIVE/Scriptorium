@@ -15,6 +15,9 @@
           <a href="#" data-toggle="modal" data-target="#newTopicModal" class="btn btn-default btn-block newTopic"><i class="fa fa-edit"></i> New Topic</a>
         </div>
       </div>
+      {{#if searchText}}
+        <small class="search-result-message">{{topics.count}} result(s) found.</small>
+      {{/if}}
     </li>
   {{#unless topics}}
     <li>
