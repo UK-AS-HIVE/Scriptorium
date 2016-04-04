@@ -28,7 +28,7 @@ Meteor.methods
           userId: @userId
           timestamp: new Date()
           otherId: id
-          message: "User <strong>#{User.first(@userId).fullName()} edited document <strong>#{title}</strong>."
+          message: "User <strong>#{User.first(@userId).fullName()}</strong> edited document <strong>#{title}</strong>."
       , 30000
 
   updateAndUnlockEditorFile: (id, content) ->
@@ -43,4 +43,4 @@ Meteor.methods
         userId: @userId
         timestamp: new Date()
         otherId: id
-        message: "User <strong>#{User.first(@userId).fullName()} edited document <strong>#{title}</strong>."
+        message: "User <strong>#{User.first(@userId).fullName()}</strong> edited document <strong>#{title}</strong>."
