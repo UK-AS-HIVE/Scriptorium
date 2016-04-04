@@ -2,7 +2,6 @@ accounts-base@1.2.2
 accounts-password@1.1.4
 aldeed:collection2@2.2.0
 aldeed:simple-schema@1.0.3
-anti:i18n@0.4.3
 autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4
@@ -15,7 +14,6 @@ caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 callback-hook@1.0.4
 check@1.1.0
-cmather:handlebars-server@2.0.0
 coffeescript@1.0.11
 copleykj:jquery-autosize@1.17.8
 cosmos:browserify@0.5.1
@@ -35,7 +33,6 @@ ejson@1.0.7
 email@1.0.8
 fastclick@1.0.7
 geojson-utils@1.0.4
-handlebars@1.0.4
 hive:file-registry@0.9.14
 hive:workers@2.0.5
 html-tools@1.0.5
@@ -87,8 +84,6 @@ reload@1.1.4
 retry@1.0.4
 reywood:publish-composite@1.4.2
 routepolicy@1.0.6
-selaias:accounts-entry@0.9.0
-selaias:alerts@0.3.1
 service-configuration@1.0.5
 session@1.1.1
 sha@1.0.4

@@ -9,14 +9,12 @@ iron:router
 coffeescript
 less
 accounts-password
-cmather:handlebars-server
 kaptron:minimongoid
 http
 hive:file-registry
 mrt:jquery-ui-sortable
 
 standard-minifiers
-selaias:accounts-entry
 
 
 aldeed:simple-schema
