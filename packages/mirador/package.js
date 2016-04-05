@@ -11,7 +11,7 @@ Package.onUse(function(api) {
     'underscore',
   ], 'client');
   api.addFiles([
-    'lib/jquery-ui-no-slider.custom.js',
+    'lib/jquery-ui.js',
     'lib/jquery-ui.touch-punch.min.js',
     'lib/jquery-ui.dialogextend.coffee',
     'lib/jquery-ui.dialogextend.collapse.coffee',
