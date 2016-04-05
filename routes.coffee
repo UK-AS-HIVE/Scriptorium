@@ -38,6 +38,13 @@ Router.map ->
       else
         @next()
 
+  @route 'signOut',
+    path: '/signOut'
+    action: ->
+      @render()
+      Meteor.logout ->
+        Router.go('/')
+
   @route 'welcome',
     path: '/welcome'
     onBeforeAction: defaults.onBeforeAction
