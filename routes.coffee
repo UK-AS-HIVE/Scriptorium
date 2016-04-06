@@ -38,6 +38,21 @@ Router.map ->
       else
         @next()
 
+  @route 'approvedSignup',
+    path: '/signUp/:id'
+    onBeforeAction: ->
+      if Meteor.userId()
+        @redirect 'welcome'
+      else
+        @next()
+    waitOn: -> Meteor.subscribe 'requestedAccountForSignup', @params.id
+    data: -> RequestedAccounts.findOne @params.id
+
+  @route 'pendingAccounts',
+    path: '/pendingAccounts',
+    subscriptions: ->
+      Meteor.subscribe 'requestedAccounts'
+
   @route 'signOut',
     path: '/signOut'
     action: ->

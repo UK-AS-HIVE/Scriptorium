@@ -1,0 +1,44 @@
+<template name="pendingAccounts">
+  <div class="container-fluid pending-accounts-container">
+    <table class="table table-condensed">
+      <thead>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Institutional Affiliation</th>
+        <th>Area of Research</th>
+        <th>Requesting New Project? (If Yes, names listed)</th>
+        <th>Requesting Existing Project? (If Yes, Project Leader)</th>
+        <th>Approve/Deny</th>
+      </thead>
+      <tbody>
+        {{#each accounts}}
+          <tr>
+            <td>{{email}}</td>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td>{{institution}}</td>
+            <td>{{research}}</td>
+            <td>{{newProjectRequest}}</td>
+            <td>{{existingProjectRequest}}</td>
+            <td>
+              {{#if approved}}
+                {{#if created}}
+                  Account creation complete
+                  {{else}}
+                  Approved; waiting on account creation
+                {{/if}}
+                {{else}}
+                {{#if denied}}
+                  Denied
+                  {{else}}
+                  <button class="btn btn-success" data-action="approve">Approve</button><button class="btn btn-danger" data-action="deny">Deny</button>
+                {{/if}}
+              {{/if}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>

@@ -334,3 +334,40 @@
   'posts.$.timestamp':
     label: "Post Timestamp"
     type: new Date()
+
+@RequestedAccounts = new Mongo.Collection 'requestedAccounts'
+@RequestedAccounts.attachSchema new SimpleSchema
+  email:
+    unique: true
+    label: "Email"
+    type: String
+  firstName:
+    label: "First Name"
+    type: String
+  lastName:
+    label: "Last Name"
+    type: String
+  institution:
+    label: "Institutional Affiliation"
+    type: String
+    optional: true
+  research:
+    label: "Area of Research"
+    type: String
+  newProjectRequest:
+    label: "New Project Request Information"
+    type: String
+    optional: true
+  existingProjectRequest:
+    label: "Existing Project Request Information"
+    type: String
+    optional: true
+  denied:
+    type: Boolean
+    defaultValue: false
+  approved:
+    type: Boolean
+    defaultValue: false
+  created:
+    type: Boolean
+    defaultValue: false

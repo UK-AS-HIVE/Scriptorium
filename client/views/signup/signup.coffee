@@ -1,21 +1,25 @@
 Template.signUp.helpers
   error: -> Template.instance().error.get()
+  success: -> Template.instance().success.get()
 
 Template.signUp.events
   "submit form": (e, tpl) ->
-    Accounts.createUser
+    Meteor.call 'requestAccount',
       email: tpl.$('input[name=email]').val()
-      password: tpl.$('input[name=password]').val()
-      profile:
-        firstName: tpl.$('input[name=firstName]').val()
-        lastName: tpl.$('input[name=lastName]').val()
-        institution: tpl.$('input[name=instAffiliation]').val()
-        research: tpl.$('textarea[name=description]').val()
+      firstName: tpl.$('input[name=firstName]').val()
+      lastName: tpl.$('input[name=lastName]').val()
+      institution: tpl.$('input[name=institution]').val()
+      research: tpl.$('textarea[name=research]').val()
+      newProjectRequest: tpl.$('textarea[name=newProjectRequest]').val()
+      existingProjectRequest: tpl.$('input[name=existingProjectRequest]').val()
     , (err) ->
 
       if err
         tpl.error.set "Error creating user: #{err}"
       else
+        tpl.success.set true
+
+        ###
         # Create a new project as the new user's personal space
         newProjectId = Projects.insert {
           projectName: Meteor.user().profile.lastName + ", " + Meteor.user().profile.firstName
@@ -28,8 +32,10 @@ Template.signUp.events
         }
         Session.set "current_project", newProjectId
         Router.go('/welcome')
+        ###
 
     e.preventDefault()
 
 Template.signUp.onCreated ->
   @error = new ReactiveVar()
+  @success = new ReactiveVar(false)

@@ -1,0 +1,9 @@
+{
+  "approverEmails": [
+    "asdf@asdf.com", 
+    "jkl@jkl.com"
+  ],
+  "email": {
+    "fromEmail": "scriptoriumbot@scriptorium.com"
+  }
+}

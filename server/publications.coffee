@@ -75,3 +75,10 @@ Meteor.publish 'userData', ->
 Meteor.publish 'allUserData', ->
   Meteor.users.find {}, { fields: { _id: 1, emails: 1, profile: 1 } }
 
+Meteor.publish 'requestedAccounts', ->
+  if Meteor.users.findOne { _id: @userId, 'emails.address': { $in: Meteor.settings.approverEmails } }
+    RequestedAccounts.find { }
+  else return null
+
+Meteor.publish 'requestedAccountForSignup', (id) ->
+  RequestedAccounts.find { _id: id, approved: true, created: false }

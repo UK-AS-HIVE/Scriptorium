@@ -1,57 +1,55 @@
-<template name="signUp">
+<template name="approvedSignup">
   <div class="container signup-container">
     <div class="row">
       <div class="entry col-md-8 col-md-offset-2" style="margin-top: 50px;">
-        {{#if success}}
+        {{#if this}}
           <h2>
-            Your request has been received. You should receive an email confirming receipt of your request.
-            Thank you for your interest in using Scriptorium.
+            Your request has been approved. You may finish your account creation below.
           </h2>
-          {{else}}
-          <h3>Request for Scriptorium Account (all requests are reviewed and approved by real people)</h3>
+          <h3>Create Scriptorium Account</h3>
           {{#if error}}
             <div class="alert alert-danger">{{error}}</div>
           {{/if}}
           <form>
             <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" name="password">
+            </div>
+            <div class="form-group">
               <label>First Name</label>
-              <input type="text" class="form-control" name="firstName">
+              <input type="text" class="form-control" name="firstName" disabled value="{{firstName}}">
             </div>
             <div class="form-group">
               <label>Last Name</label>
-              <input type="text" class="form-control" name="lastName">
+              <input type="text" class="form-control" name="lastName" disabled value="{{lastName}}">
             </div>
             <div class="form-group">
               <label>Email Address</label>
-              <input type="email" class="form-control" name="email">
+              <input type="email" class="form-control" name="email" disabled value="{{email}}">
             </div>
             <div class="form-group">
               <label>Are you requesting an account because you have been invited to an existing Scriptorium project? If Yes, please provide the name of the project leader.</label>
-              <input type="text" class="form-control" name="existingProjectRequest">
+              <input type="text" class="form-control" name="existingProjectRequest" disabled value="{{existingProjectRequest}}">
             </div>
             <div class="form-group">
               <label>Are you requesting an account to create a new project? If yes, please provide an estimate of the likely number of collaborators,
                 and the names of those you intend to invite to collaborate at this point.
                 Recording collaborators' names accelerates the approval process; estimating the number helps us maintain sufficient space.
               </label>
-              <textarea class="form-control" rows="4" name="newProjectRequest"></textarea>
+              <textarea class="form-control" rows="4" name="newProjectRequest" disabled value="{{newProjectRequest}}"></textarea>
             </div>
             <div class="form-group">
               <label>Institutional Affiliation (if any)</label>
-              <input type="text" class="form-control" name="institution">
+              <input type="text" class="form-control" name="institution" disabled value="{{institution}}">
             </div>
             <div class="form-group">
               <label>
                 Area of research. It is especially helpful for us to know some of the shelfmarks of manuscripts you will be studying, or the digital repositories you will be using,
                 so we can strengthen our digital conduits to manuscript images.
               </label>
-              <textarea class="form-control" rows="4" name="research"></textarea>
+              <textarea class="form-control" rows="4" name="research" disabled value="{{research}}"></textarea>
             </div>
-            <p>
-              For security reasons, we may contact you with additional questions. We respect privacy and try not to pry, but we need to protect the data and resources
-              of all Scriptorium users. We trust that you will understand and respect the application process.
-            </p>
-            <button type="submit" class="btn btn-lg btn-primary btn-block" id="signup-submit">Request Account</button>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" id="signup-submit">Create Account</button>
           </form>
         {{/if}}
       </div>
