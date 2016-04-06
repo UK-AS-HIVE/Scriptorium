@@ -95,3 +95,35 @@ Meteor.methods
       miradorData: []
     }
     Projects.insert newProject
+
+  addThread: (roomId, subject, message) ->
+    if Projects.findOne({_id: roomId, 'permissions.user': @userId })?
+      Messages.insert
+        subject: subject,
+        roomId: roomId,
+        startedBy: @userId
+        timestamp: new Date()
+        posts: [
+          {
+            user: @userId,
+            message: message,
+            timestamp: new Date()
+          }
+        ]
+
+  postToThread: (postId, message) ->
+    Messages.update postId, { $addToSet: { posts: { user: @userId, message: message, timestamp: new Date() } } }
+
+  deletePost: (postId, post) ->
+    project = Projects.findOne({_id: Messages.findOne(postId)?.roomId, permissions: {$elemMatch: {user: @userId, level: 'admin'}}})
+    if @userId is post.user or project?
+      console.log "#{@userId} deleting forum post:"
+      console.log post
+      Messages.update postId, { $pull: { posts: post } }
+
+  deleteThread: (postId) ->
+    if @userId is Messages.findOne(postId)?.startedBy or Projects.findOne({_id: Messages.findOne(postId)?.roomId, permissions: {$elemMatch: {user: @userId, level: 'admin'}}})?
+      console.log "#{@userId} deleting forum thread:"
+      console.log Messages.findOne(postId, { fields: { posts: 0 } })
+      Messages.remove postId
+

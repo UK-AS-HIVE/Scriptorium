@@ -14,6 +14,7 @@ defaults =
 Router.configure
   layoutTemplate: 'layout'
   loadingTemplate: 'loading'
+  notFoundTemplate: '404'
   yieldTemplates:
     header:
       to: 'header'
@@ -36,6 +37,13 @@ Router.map ->
         @redirect 'welcome'
       else
         @next()
+
+  @route 'signOut',
+    path: '/signOut'
+    action: ->
+      @render()
+      Meteor.logout ->
+        Router.go('/')
 
   @route 'welcome',
     path: '/welcome'
@@ -183,12 +191,3 @@ Router.map ->
     path: '/file/:filename'
     where: 'server'
     action: FileRegistry.serveFile
-
-  @route 'notFound',
-    path: '*'
-    where: 'server'
-    action: ->
-      @response.statusCode = 404
-      @response.end Handlebars.templates['404']()
-    onBeforeAction: ->
-      AccountsEntry.signInRequired(@)

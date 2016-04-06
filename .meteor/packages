@@ -9,15 +9,12 @@ iron:router
 coffeescript
 less
 accounts-password
-cmather:handlebars-server
 kaptron:minimongoid
-bruce:messageboard
 http
 hive:file-registry
 mrt:jquery-ui-sortable
 
 standard-minifiers
-selaias:accounts-entry
 
 
 aldeed:simple-schema
@@ -32,3 +29,4 @@ copleykj:jquery-autosize
 reywood:publish-composite
 djedi:sanitize-html-client
 matb33:collection-hooks
+mrt:moment

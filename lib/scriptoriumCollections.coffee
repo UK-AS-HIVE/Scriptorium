@@ -307,3 +307,30 @@
     type: String
     label: "Other ID"
     optional: true
+
+@Messages = new Mongo.Collection 'messages'
+@Messages.attachSchema new SimpleSchema
+  subject:
+    label: "Subject"
+    type: String
+  roomId:
+    label: "Room/Project Id"
+    type: String
+  startedBy:
+    label: "Thread Started By"
+    type: String
+  timestamp:
+    type: new Date()
+  posts:
+    label: "Posts"
+    type: [ Object ]
+    optional: true
+  'posts.$.user':
+    label: "Post Author"
+    type: String
+  'posts.$.message':
+    label: "Post"
+    type: String
+  'posts.$.timestamp':
+    label: "Post Timestamp"
+    type: new Date()
