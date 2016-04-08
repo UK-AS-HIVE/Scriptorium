@@ -1,6 +1,6 @@
 Template.mirador_viewer.helpers
   widgets: ->
-    DeskWidgets.find()
+    DeskWidgets.find { projectId: Session.get('current_project') }
 
 Template.mirador_viewer.onRendered ->
   $(window).on 'resizestart', (event) ->
