@@ -4,8 +4,10 @@ Template.loadWindowPanel.onCreated ->
 Template.loadWindowPanel.helpers
   imageIndex: ->
     Template.parentData(1).manifestPayload.sequences[0].canvases.indexOf(this)
-  collections: ->
-    return AvailableManifests.find()
+  collectionLocations: ->
+    _.uniq _.pluck AvailableManifests.find().fetch(), 'manifestLocation'
+  manifestsByLocation: ->
+    AvailableManifests.find { manifestLocation: @valueOf() }
   selectedCollection: ->
     AvailableManifests.findOne(Template.instance().selectedCollectionId.get())
   imageData: ->
