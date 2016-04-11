@@ -26,7 +26,7 @@ Template.mirador_thumbnailsView_listImages.onRendered ->
 
       thumbs = tpl.thumbs.get()
       thumbs.push
-        thumbUrl: miradorFunctions.iiif_getUriWithHeight imageInfo, 160
+        thumbUrl: miradorFunctions.iiif_getUriWithHeight imageInfo, 240
         title:    c.label
         id:       index
         width:    imageInfo.width * (150 / imageInfo.height)
