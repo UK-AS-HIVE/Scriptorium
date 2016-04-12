@@ -223,6 +223,10 @@ Template.osd_blaze_overlay_annotation.helpers
   h: -> @h * @transform.scale
   borderSize: -> 0.002 * @transform.scale
 
+Template.osd_blaze_overlay_annotation_tooltip.helpers
+  selectedIf: (type) ->
+    if @type == type then 'selected'
+
 Template.osd_blaze_overlay_annotation_tooltip.events
   'click button[data-action=save-annotation]': (e, tpl) ->
     Annotations.update @_id,
@@ -230,4 +234,9 @@ Template.osd_blaze_overlay_annotation_tooltip.events
         text: CKEDITOR.instances["editor-#{this._id}"].getData()
   'click button[data-action=delete-annotation]': (e, tpl) ->
     Annotations.remove @_id
+  'change select': (e, tpl) ->
+    console.log 'setting annotation type to', $(e.target).val()
+    Annotations.update @_id,
+      $set:
+        type: $(e.target).val()
 

@@ -206,20 +206,19 @@ Template.mirador_imageView_annotationStats.helpers
       manifestId: @manifestId
       canvasIndex: @imageId
     ).count()
-  imageAnnotationCount: ->
+  commentaryAnnotationCount: ->
     Annotations.find(
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
-      type: 'commenting'
+      type: 'commentary'
     ).count()
-  textAnnotationCount: ->
+  transcriptionAnnotationCount: ->
     Annotations.find(
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
-      type:
-        $not: 'commenting'
+      type: 'transcription'
     ).count()
 
 Template.mirador_imageView_annotationListing.helpers

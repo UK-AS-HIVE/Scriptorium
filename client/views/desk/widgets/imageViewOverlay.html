@@ -33,6 +33,10 @@
 
 <template name="osd_blaze_overlay_annotation_tooltip">
   <textarea id="editor-{{_id}}" class="annotation-text">{{text}}</textarea>
+  <select name="annotation-type">
+    <option value="commentary" selected={{selectedIf 'commentary'}}>Commentary</option>
+    <option value="transcription" selected={{selectedIf 'transcription'}}>Transcription</option>
+  </select>
   <button class="btn btn-xs btn-primary" data-action="save-annotation" {{disabled}}>
     <span class="fa fa-floppy-o"></span> Save
   </button>
