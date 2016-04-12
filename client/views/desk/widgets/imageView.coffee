@@ -47,14 +47,17 @@ Template.mirador_imageView_content_osd.onRendered ->
   @autorun ->
     #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
     osd.panHorizontal = osd.panVertical = !Template.currentData().newAnnotation.isActive
+  
+  @autorun =>
+    # Limit reactivity scope here to make sure we're not calling ensureVisible everytime OSD zoom changes.
+    data = DeskWidgets.findOne(@data._id, { fields: { 'height': 1, 'width': 1, 'annotationPanelOpen': 1 } } )
 
-  @autorun ->
     # TODO: make sure pixel offsets are accurate
-    if Template.currentData().annotationPanelOpen
-      elemOsd.width(Template.currentData().width - 200)
+    if data.annotationPanelOpen
+      elemOsd.width(data.width - 200)
     else
-      elemOsd.width(Template.currentData().width-2)
-    elemOsd.height(Template.currentData().height-100)
+      elemOsd.width(data.width-2)
+    elemOsd.height(data.height-100)
     if Template.instance().osd
       Template.instance().osd.viewport?.ensureVisible()
 
