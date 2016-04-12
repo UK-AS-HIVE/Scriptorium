@@ -130,6 +130,7 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
       manifestId: data.manifestId
       canvasIndex: data.imageId
       text: 'Annotation'
+      type: aw.annotationTypeFilter || 'transcription'
       x: Math.min(aw.newAnnotation.x1, aw.newAnnotation.x2)
       y: Math.min(aw.newAnnotation.y1, aw.newAnnotation.y2)
       w: Math.abs(aw.newAnnotation.x2 - aw.newAnnotation.x1)
@@ -158,14 +159,18 @@ Template.osd_blaze_overlay.helpers
   annotationPanelOpen: ->
     DeskWidgets.findOne(@_id)?.annotationPanelOpen
   annotations: ->
+
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
     imageWidth = parseInt(canvas.images[0].resource.width)
     transform = @transform.get()
-    return Annotations.find({
+    selector =
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
-    }).map (a) ->
+    w = DeskWidgets.findOne(@_id)
+    if w.annotationTypeFilter isnt ''
+      selector.type = w.annotationTypeFilter
+    return Annotations.find(selector).map (a) ->
       _.extend a,
         transform: transform
         x: a.x / imageWidth
@@ -235,7 +240,6 @@ Template.osd_blaze_overlay_annotation_tooltip.events
   'click button[data-action=delete-annotation]': (e, tpl) ->
     Annotations.remove @_id
   'change select': (e, tpl) ->
-    console.log 'setting annotation type to', $(e.target).val()
     Annotations.update @_id,
       $set:
         type: $(e.target).val()

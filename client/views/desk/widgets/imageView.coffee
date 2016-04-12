@@ -2,6 +2,7 @@
 @miradorWidgetProperties.imageView =
   extendedData: ->
     annotationPanelOpen: false
+    annotationTypeFilter: ''
     newAnnotation:
       isActive: false
       isDragging: false
@@ -186,20 +187,27 @@ Template.mirador_imageView_content.helpers
 
 Template.mirador_imageView_annotationPanel.helpers
   annotations: ->
-    Annotations.find
+    selector =
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
+    if @annotationTypeFilter isnt ''
+      selector.type = @annotationTypeFilter
+    Annotations.find selector
 
 Template.mirador_imageView_annotationStats.events
   'click .mirador-icon-annotorius': (e, tpl) ->
-    # _this.openAnnotoriusWindow();
-    #miradorFunctions.mirador_viewer_loadView 'openLayersAnnotoriusView', @manifestId, @imageId
     DeskWidgets.update tpl.data._id,
       $set:
         'newAnnotation.isActive': true
+  'change select.annotationTypeSelector': (e, tpl) ->
+    DeskWidgets.update tpl.data._id,
+      $set:
+        'annotationTypeFilter': $(e.target).val()
 
 Template.mirador_imageView_annotationStats.helpers
+  selectedAnnotationType: (type) ->
+    if @annotationTypeFilter == type then 'selected'
   annotationCount: ->
     Annotations.find(
       projectId: Session.get('current_project')
