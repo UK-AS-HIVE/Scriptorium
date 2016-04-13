@@ -231,11 +231,7 @@ Template.mirador_imageView_annotationStats.helpers
       canvasIndex: @imageId
       type: 'transcription'
     ).count()
-Template.mirador_imageView_annotationListing.events
-  'mouseenter .annotationListing': (e, tpl) ->
-    $("#annotation-box-#{tpl.data._id}").tooltipster('show')
-  'mouseleave .annotationListing': (e, tpl) ->
-    $("#annotation-box-#{tpl.data._id}").tooltipster('hide')
+
 Template.mirador_imageView_annotationListing.helpers
   sanitized: (html) ->
     sanitizeHtml html
