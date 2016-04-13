@@ -22,12 +22,12 @@
 </template>
 
 <template name="osd_blaze_overlay_new_annotation">
-  <div class="annotation-box" style="position: absolute; left: {{x}}px; top: {{y}}px; width: {{w}}px; height: {{h}}px; border: {{borderSize}}px solid #00ff00; background-color: rgba(0,0,0,0.25)">
+  <div id="annotation-box-{{_id}}" class="annotation-box" style="position: absolute; left: {{x}}px; top: {{y}}px; width: {{w}}px; height: {{h}}px; border: {{borderSize}}px solid #00ff00; background-color: rgba(0,0,0,0.25)">
   </div>
 </template>
 
 <template name="osd_blaze_overlay_annotation">
-  <div class="annotation-box" style="position: absolute; left: {{x}}px; top: {{y}}px; width: {{w}}px; height: {{h}}px; border: {{borderSize}}px solid red; background-color: rgba(0,0,0,0.25)">
+  <div id="annotation-box-{{_id}}" class="annotation-box" style="position: absolute; left: {{x}}px; top: {{y}}px; width: {{w}}px; height: {{h}}px; border: {{borderSize}}px solid red; background-color: rgba(0,0,0,0.25)">
   </div>
 </template>
 
