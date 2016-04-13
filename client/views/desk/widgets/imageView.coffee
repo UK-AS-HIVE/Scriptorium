@@ -199,6 +199,10 @@ Template.mirador_imageView_annotationPanel.helpers
     Annotations.find selector
 
 Template.mirador_imageView_annotationStats.events
+  'click .close-anno-panel': (e, tpl) ->
+    DeskWidgets.update tpl.data._id,
+      $set:
+        'annotationPanelOpen': false
   'click .mirador-icon-annotorius': (e, tpl) ->
     DeskWidgets.update tpl.data._id,
       $set:

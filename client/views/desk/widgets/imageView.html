@@ -43,7 +43,6 @@
 
 <template name="mirador_imageView_annotationPanel">
   <div class="annotationListPanel">
-  <div class="resizeGrip"></div>
   {{> mirador_imageView_annotationStats}}
     <ul class="annotationList">
     {{#each annotations}}
@@ -55,7 +54,7 @@
 
 <template name="mirador_imageView_annotationStats">
   <div class="annotationPanelHeader">
-    <h4>Annotations (<span class="annotationsTotal">{{annotationCount}}</span>)</h4>
+    <h4>Annotations (<span class="annotationsTotal">{{annotationCount}}</span>) <a class="pull-right close-anno-panel"><i class="fa fa-times"></i></a></h4>
     <a class="mirador-btn mirador-icon-annotorius" title="Create Annotation"></a>
     <a class="mirador-btn mirador-icon-download" title="Download Annotations"></a>
     <div class="annoSearch">
