@@ -229,6 +229,8 @@ Template.osd_blaze_overlay_annotation.helpers
   borderSize: -> 0.002 * @transform.scale
 
 Template.osd_blaze_overlay_annotation_tooltip.helpers
+  reactiveAnnotation: ->
+    Annotations.findOne @_id
   selectedIf: (type) ->
     if @type == type then 'selected'
 
