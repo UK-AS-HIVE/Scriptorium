@@ -227,6 +227,7 @@ Template.osd_blaze_overlay_annotation.helpers
   w: -> @w * @transform.scale
   h: -> @h * @transform.scale
   borderSize: -> 0.002 * @transform.scale
+  isHovered: -> Session.get('hoveredAnnotationId') is @_id
 
 Template.osd_blaze_overlay_annotation_tooltip.helpers
   reactiveAnnotation: ->

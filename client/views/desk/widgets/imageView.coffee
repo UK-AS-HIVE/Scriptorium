@@ -232,6 +232,12 @@ Template.mirador_imageView_annotationStats.helpers
       type: 'transcription'
     ).count()
 
+Template.mirador_imageView_annotationListing.events
+  'mouseenter .annotationListing': (e, tpl) ->
+    Session.set 'hoveredAnnotationId', tpl.data._id
+  'mouseleave .annotationListing': (e, tpl) ->
+    Session.set 'hoveredAnnotationId', null
+
 Template.mirador_imageView_annotationListing.helpers
   sanitized: (html) ->
     sanitizeHtml html
