@@ -192,7 +192,9 @@ Template.osd_blaze_overlay.helpers
 
 Template.osd_blaze_overlay_annotation.onRendered ->
   div = $('<div/>')
-  Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, @data, div.get(0)
+  data = _.extend @data,
+    annotationBoxElement: @.$('.annotation-box')
+  Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, data, div.get(0)
   #@.$('rect').tooltipster
   editorRendered = false
   @.$('.annotation-box').tooltipster
@@ -201,6 +203,7 @@ Template.osd_blaze_overlay_annotation.onRendered ->
     contentCloning: false
     interactive: true
     position: 'right'
+    autoClose: false
     theme: '.tooltipster-mirador'
 
     functionReady: (origin, tooltip) =>
@@ -242,6 +245,8 @@ Template.osd_blaze_overlay_annotation_tooltip.events
         text: CKEDITOR.instances["editor-#{this._id}"].getData()
   'click button[data-action=delete-annotation]': (e, tpl) ->
     Annotations.remove @_id
+  'click .close-anno-tooltip': (e, tpl) ->
+    tpl.data.annotationBoxElement.tooltipster('hide')
   'change select': (e, tpl) ->
     Annotations.update @_id,
       $set:
