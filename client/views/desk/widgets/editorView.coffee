@@ -69,11 +69,10 @@ Template.editorView_content_editor.onRendered ->
 
   @autorun =>
     file = FileCabinet.findOne(@data.fileCabinetId, { fields: { 'editorLockedByUserId': 1, 'editorLockedByConnectionId': 1 } })
-    @locked.set file?.editorLockedByUserId? and
-      (
-        file?.editorLockedByUserId isnt Meteor.userId() or
-        (file?.editorLockedByConnectionId? and file?.editorLockedByConnectionId isnt Meteor.connection._lastSessionId)
-      )
+    @locked.set file?.editorLockedByUserId? and (
+      file?.editorLockedByUserId isnt Meteor.userId() or
+      (file?.editorLockedByConnectionId? and file?.editorLockedByConnectionId isnt Meteor.connection._lastSessionId)
+    )
 
     if ready.get()
       @.$('.cke_wysiwyg_div').prop 'contenteditable', !@locked.get()
