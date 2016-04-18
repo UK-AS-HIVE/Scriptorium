@@ -2,6 +2,11 @@ Meteor.methods
   requestAccount: (user) ->
     console.log "New user requested account: "
     console.log user
+
+    if RequestedAccounts.findOne({email: user.email})
+      # SimpleSchema doesn't provide very meaningful error messages.
+      throw new Meteor.Error "This email has already been registered."
+
     id = RequestedAccounts.insert user
 
     if not Meteor.users.findOne()? or user.email in Meteor.settings.approverEmails

@@ -15,7 +15,7 @@ Template.signUp.events
     , (err) ->
 
       if err
-        tpl.error.set "Error creating user: #{err}"
+        tpl.error.set "Error creating user: #{err.message}"
       else
         tpl.success.set true
 
