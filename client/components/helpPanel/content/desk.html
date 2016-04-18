@@ -48,7 +48,7 @@
       <p>Once you have switched to a Snapshot arrangement of Desk, all elements are dynamic, as usual. You may resize image and document frames, and drag them around, and close them. You may annotate images, create new documents, and work on existing documents. NOTE: Documents continue to be updated synchronously for all collaborators, regardless of Desk arrangement. That is, whether or not you choose to view a Snapshot arrangement, you will see updated documents, and can edit a document that two or more collaborators have open at the same time.</p>
     {{/helpPanelBody}}
   </div>
-
+  
   <div class="panel panel-default">
     {{#helpPanelHeading id="help-desk-image-interaction"}}
       Interacting With Images
@@ -67,7 +67,11 @@
             <img class="mirador-btn mirador-icon-annotations">Annotation Panel
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-annotations"}}
-          Clicking this icon will open a side panel, displaying any annotations you or your collaborators have drawn on the image (see below for the icon <img class="mirador-btn mirador-icon-annotorius"> to create annotations on the image).  Clicking the icon again returns the image to the view without visible annotations.
+            <p>To annotate an image by drawing boxes around particular features or areas in the image and associating textual description with that box, click on the Annotation icon <img class="mirador-btn mirador-icon-annotations"> in the image frame. An Annotation Panel will open to the right of the image. In the Panel, you will see a list of all annotations that have been made on the image you are viewing. The list is only of annotations for that page; to see annotations on another page of the manuscript, advance the image to the new page. The list of annotations can be filtered with the dropdown menu in the Annotation Panel, so that you can view only "commentary" annotations (likely to be used for comments on paleographic features or problems) or "transcriptions" (for those who wish to use Annotations, rather than regular documents, for transcriptions), or you may view all types. Mousing over an annotation in the list highlights the annotation box on the image, for ready location of the feature. Mousing over the box on the image displays the annotation in its editor frame. The editor frame can be opened for further editing (some may wish to have collaborative discussion in these annotations).</p>
+
+            <p>To create an annotation, click on the <img class="mirador-btn mirador-icon-annotorius"> in the Annotation Panel, right below the dropdown menu. Each new annotation requires a new click on that icon. You will be prompted to click and drag your cursor to form the desired box, which will be green as you position it, and will turn red when you release the cursor to set the final form of the box. To add description, mouse over the box: a document editor will appear. Type your annotation in the editing box. At the bottom of the editor frame, you are offered a choice of "commentary" or "transcription": this is the category in which your annotation will be displayed in the Annotation List (see above). When you are satisfied with your description, click Save. The box and description will appear when you or a collaborator mouse over that region, or when you open the Annotations list by clicking on the Annotations icon <img class="mirador-btn mirador-icon-annotations"> in the image frame.</p>
+
+            <p>Future features, not yet implemented: To publish annotated images in a public exhibit, click on the paper airplane of an image frame that has annotations: the image and its annotations will be copied to Exhibit Builder, where you can add the metadata and longer commentaries for the images you want to publish. In the future, it will also be possible to download annotations, with the co-ordinates of the box on the image, although it will not be possible to download the image itself.</p>
           {{/helpPanelBody}}
         </div>
 
