@@ -30,10 +30,8 @@ Template.bookshelf.helpers
       "#000"
      
   bookshelf: ->
-    enableSortable()
     return Bookshelves.find { project: Session.get("current_project") }, { sort: { rank: 1 } }
   books:  ->
-    enableSortable()
     return Books.find { bookshelfId: @_id }, { sort: { rank: 1 } }
   fileUrl: ->
     @url or "file/" + FileRegistry.findOne(@fileRegistryId).filenameOnDisk
@@ -54,7 +52,7 @@ enableSortable = ->
 
       beforeData = Blaze.getData(before)
       after = ui.item.next().get(0)
-      afterData = Blaze.getData(after)
+      if after then afterData = Blaze.getData(after)
 
       newRank = 0
       if (elData)
@@ -75,14 +73,13 @@ enableSortable = ->
 
         #calculate new rank based on before and after elements
         if (!before || beforeData.category)
-          if afterData.rank then newRank = afterData.rank - 1
+          if !afterData.category then newRank = afterData.rank - 1
 
         else if (!after || afterData.category)
-          if beforeData.rank then newRank = beforeData.rank + 1
+          if !beforeData.category then newRank = beforeData.rank + 1
 
         else
           newRank = (beforeData.rank + afterData.rank)/2
-
         # Update new rank
         Books.update elData._id, { $set: { rank: newRank } }
 

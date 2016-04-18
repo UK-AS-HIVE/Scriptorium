@@ -95,6 +95,9 @@
   projectId:
     label: "Project"
     type: String
+  type:
+    type: String
+    allowedValues: ['commentary', 'transcription']
   text:
     type: String
   x:

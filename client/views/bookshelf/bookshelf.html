@@ -13,7 +13,6 @@
       {{/if}}
       <a class="btn btn-default btn-block" data-toggle="modal" data-modal="newCategoryModal" style="margin-top: 20px;"><i class="fa fa-plus"></i> Add New Category</a>
     </div>
-    {{initSortable}}
     <!-- CONTENT CONTAINER -->
     <div class="page-content">
       {{#if bookshelf.count}}
@@ -24,8 +23,6 @@
               <div class="actions">
                 <a data-toggle="modal" data-modal="editCategoryModal" style="color: {{foregroundColor}}"><i class="fa fa-pencil edit-category-btn"></i></a>
               </div>
-            </li>
-            <li class="book" draggable="true" style="display:none">
             </li>
             {{#each books}}
               <li class="book" draggable="true" style="border-left-color:{{../color}}" parentId ="{{../_id}}">

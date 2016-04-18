@@ -4,16 +4,19 @@ Template.loadWindowPanel.onCreated ->
 Template.loadWindowPanel.helpers
   imageIndex: ->
     Template.parentData(1).manifestPayload.sequences[0].canvases.indexOf(this)
-  collections: ->
-    return AvailableManifests.find()
+  collectionLocations: ->
+    _.uniq _.pluck AvailableManifests.find().fetch(), 'manifestLocation'
+  manifestsByLocation: ->
+    AvailableManifests.find { manifestLocation: @valueOf() }
   selectedCollection: ->
-    AvailableManifests.findOne(Template.instance().selectedCollectionId.get())
+    AvailableManifests.findOne(Template.instance().selectedCollectionId.get()) || AvailableManifests.findOne()
   imageData: ->
     @manifestPayload.sequences[0].canvases
   trimTitlePrefix: (title) ->
     title = title.replace(/^Beinecke MS \w+,? \[?/, '')
     title = title.replace(/\]$/, '')
     return title
+
 Template.loadWindowPanel.events
   # attach onChange event handler for collections select list
   'change .mirador-listing-collections select': (e, tpl) ->

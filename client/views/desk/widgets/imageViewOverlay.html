@@ -32,12 +32,21 @@
 </template>
 
 <template name="osd_blaze_overlay_annotation_tooltip">
-  <textarea id="editor-{{_id}}" class="annotation-text">{{text}}</textarea>
-  <button class="btn btn-xs btn-primary" data-action="save-annotation" {{disabled}}>
-    <span class="fa fa-floppy-o"></span> Save
-  </button>
-  <button class="btn btn-xs btn-default" data-action="delete-annotation" {{disabled}}>
-    <span class="fa fa-times"></span> Delete
-  </button>
+    <i class="pull-right fa fa-times close-anno-tooltip"></i>
+    <div style="clear: both;">
+    {{#with reactiveAnnotation}}
+      <textarea id="editor-{{_id}}" class="annotation-text">{{text}}</textarea>
+      <select name="annotation-type">
+        <option value="commentary" selected={{selectedIf 'commentary'}}>Commentary</option>
+        <option value="transcription" selected={{selectedIf 'transcription'}}>Transcription</option>
+      </select>
+      <button class="btn btn-xs btn-primary" data-action="save-annotation" {{disabled}}>
+        <span class="fa fa-floppy-o"></span> Save
+      </button>
+      <button class="btn btn-xs btn-default" data-action="delete-annotation" {{disabled}}>
+        <span class="fa fa-times"></span> Delete
+      </button>
+    {{/with}}
+    </div>
 </template>
 

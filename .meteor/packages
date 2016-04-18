@@ -12,7 +12,6 @@ accounts-password
 kaptron:minimongoid
 http
 hive:file-registry
-mrt:jquery-ui-sortable
 
 standard-minifiers
 

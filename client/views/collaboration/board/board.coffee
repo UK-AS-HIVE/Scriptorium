@@ -71,6 +71,9 @@ Template.mbBoard.events
     Blaze.renderWithData Template.mbDeleteThreadModal, { postId: @_id }, $('body').get(0)
     $('#mbDeleteThreadModal').modal('show')
 
+  'click a[data-action=clear]': ->
+    Session.set 'message_search', null
+
 Template.mbDeleteThreadModal.events
   'hidden.bs.modal': (e, tpl) -> Blaze.remove tpl.view
   'click button[data-action=delete]': (e, tpl) ->

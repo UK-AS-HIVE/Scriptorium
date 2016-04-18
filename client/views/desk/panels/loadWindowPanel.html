@@ -3,9 +3,11 @@
     <fieldset class="mirador-listing-collections">
       <legend>Available/Loaded manuscripts</legend>
       <select name="manifest-select">
-        {{#each collections}}
-          <optgroup label="{{manifestLocation}}">
-            <option data-manifest-id="{{_id}}">{{manifestPayload.label}}</option>
+        {{#each collectionLocations}}
+          <optgroup label="{{this}}">
+            {{#each manifestsByLocation}}
+              <option data-manifest-id="{{_id}}">{{manifestPayload.label}}</option>
+            {{/each}}
           </optgroup>
         {{/each}}
       </select><br/>

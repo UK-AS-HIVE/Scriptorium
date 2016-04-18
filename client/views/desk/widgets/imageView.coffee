@@ -2,6 +2,7 @@
 @miradorWidgetProperties.imageView =
   extendedData: ->
     annotationPanelOpen: false
+    annotationTypeFilter: ''
     newAnnotation:
       isActive: false
       isDragging: false
@@ -47,14 +48,17 @@ Template.mirador_imageView_content_osd.onRendered ->
   @autorun ->
     #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
     osd.panHorizontal = osd.panVertical = !Template.currentData().newAnnotation.isActive
+  
+  @autorun =>
+    # Limit reactivity scope here to make sure we're not calling ensureVisible everytime OSD zoom changes.
+    data = DeskWidgets.findOne(@data._id, { fields: { 'height': 1, 'width': 1, 'annotationPanelOpen': 1 } } )
 
-  @autorun ->
     # TODO: make sure pixel offsets are accurate
-    if Template.currentData().annotationPanelOpen
-      elemOsd.width(Template.currentData().width - 200)
+    if data.annotationPanelOpen
+      elemOsd.width(data.width - 200)
     else
-      elemOsd.width(Template.currentData().width-2)
-    elemOsd.height(Template.currentData().height-100)
+      elemOsd.width(data.width-2)
+    elemOsd.height(data.height-100)
     if Template.instance().osd
       Template.instance().osd.viewport?.ensureVisible()
 
@@ -186,41 +190,57 @@ Template.mirador_imageView_content.helpers
 
 Template.mirador_imageView_annotationPanel.helpers
   annotations: ->
-    Annotations.find
+    selector =
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
+    if @annotationTypeFilter isnt ''
+      selector.type = @annotationTypeFilter
+    Annotations.find selector
 
 Template.mirador_imageView_annotationStats.events
+  'click .close-anno-panel': (e, tpl) ->
+    DeskWidgets.update tpl.data._id,
+      $set:
+        'annotationPanelOpen': false
   'click .mirador-icon-annotorius': (e, tpl) ->
-    # _this.openAnnotoriusWindow();
-    #miradorFunctions.mirador_viewer_loadView 'openLayersAnnotoriusView', @manifestId, @imageId
     DeskWidgets.update tpl.data._id,
       $set:
         'newAnnotation.isActive': true
+  'change select.annotationTypeSelector': (e, tpl) ->
+    DeskWidgets.update tpl.data._id,
+      $set:
+        'annotationTypeFilter': $(e.target).val()
 
 Template.mirador_imageView_annotationStats.helpers
+  selectedAnnotationType: (type) ->
+    if @annotationTypeFilter == type then 'selected'
   annotationCount: ->
     Annotations.find(
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
     ).count()
-  imageAnnotationCount: ->
+  commentaryAnnotationCount: ->
     Annotations.find(
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
-      type: 'commenting'
+      type: 'commentary'
     ).count()
-  textAnnotationCount: ->
+  transcriptionAnnotationCount: ->
     Annotations.find(
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
-      type:
-        $not: 'commenting'
+      type: 'transcription'
     ).count()
+
+Template.mirador_imageView_annotationListing.events
+  'mouseenter .annotationListing': (e, tpl) ->
+    Session.set 'hoveredAnnotationId', tpl.data._id
+  'mouseleave .annotationListing': (e, tpl) ->
+    Session.set 'hoveredAnnotationId', null
 
 Template.mirador_imageView_annotationListing.helpers
   sanitized: (html) ->

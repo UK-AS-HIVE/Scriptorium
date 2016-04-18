@@ -16,7 +16,11 @@
         </div>
       </div>
       {{#if searchText}}
-        <small class="search-result-message">{{topics.count}} result(s) found.</small>
+        <small class="search-result-message">
+          {{topics.count}} result(s) found.
+          <a data-action="clear">Clear search?</a>
+        </small>
+
       {{/if}}
     </li>
   {{#unless topics}}

@@ -48,7 +48,7 @@
       <p>Once you have switched to a Snapshot arrangement of Desk, all elements are dynamic, as usual. You may resize image and document frames, and drag them around, and close them. You may annotate images, create new documents, and work on existing documents. NOTE: Documents continue to be updated synchronously for all collaborators, regardless of Desk arrangement. That is, whether or not you choose to view a Snapshot arrangement, you will see updated documents, and can edit a document that two or more collaborators have open at the same time.</p>
     {{/helpPanelBody}}
   </div>
-
+  
   <div class="panel panel-default">
     {{#helpPanelHeading id="help-desk-image-interaction"}}
       Interacting With Images
@@ -67,7 +67,11 @@
             <img class="mirador-btn mirador-icon-annotations">Annotation Panel
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-annotations"}}
-            Clicking this icon will open a side panel, displaying any annotations you or your collaborators have drawn on the image (see below for the icon [icon for Create Annotations] to create annotations on the image).  Clicking the icon again returns the image to the view without visible annotations.
+            <p>To annotate an image by drawing boxes around particular features or areas in the image and associating textual description with that box, click on the Annotation icon <img class="mirador-btn mirador-icon-annotations"> in the image frame. An Annotation Panel will open to the right of the image. In the Panel, you will see a list of all annotations that have been made on the image you are viewing. The list is only of annotations for that page; to see annotations on another page of the manuscript, advance the image to the new page. The list of annotations can be filtered with the dropdown menu in the Annotation Panel, so that you can view only "commentary" annotations (likely to be used for comments on paleographic features or problems) or "transcriptions" (for those who wish to use Annotations, rather than regular documents, for transcriptions), or you may view all types. Mousing over an annotation in the list highlights the annotation box on the image, for ready location of the feature. Mousing over the box on the image displays the annotation in its editor frame. The editor frame can be opened for further editing (some may wish to have collaborative discussion in these annotations).</p>
+
+            <p>To create an annotation, click on the <img class="mirador-btn mirador-icon-annotorius"> in the Annotation Panel, right below the dropdown menu. Each new annotation requires a new click on that icon. You will be prompted to click and drag your cursor to form the desired box, which will be green as you position it, and will turn red when you release the cursor to set the final form of the box. To add description, mouse over the box: a document editor will appear. Type your annotation in the editing box. At the bottom of the editor frame, you are offered a choice of "commentary" or "transcription": this is the category in which your annotation will be displayed in the Annotation List (see above). When you are satisfied with your description, click Save. The box and description will appear when you or a collaborator mouse over that region, or when you open the Annotations list by clicking on the Annotations icon <img class="mirador-btn mirador-icon-annotations"> in the image frame.</p>
+
+            <p>Future features, not yet implemented: To publish annotated images in a public exhibit, click on the paper airplane of an image frame that has annotations: the image and its annotations will be copied to Exhibit Builder, where you can add the metadata and longer commentaries for the images you want to publish. In the future, it will also be possible to download annotations, with the co-ordinates of the box on the image, although it will not be possible to download the image itself.</p>
           {{/helpPanelBody}}
         </div>
 
@@ -85,16 +89,16 @@
             <img class="mirador-btn mirador-icon-scroll-view"> Scroll View
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-scroll"}}
-            Clicking this icon will load a panel with thumbnail images of all the pages in the manuscript you are viewing.  It may take a few seconds to load, and you should click it only once. This “scroll view” panel allows you to browse all the pages in your manuscript.  [NOTE: IT MAY TAKE A FEW MINUTES TO LOAD THE THUMBNAIL IMAGES].  Once the thumbnail images are visible, you can select one to open it in an image view.
+            Clicking this icon will load a scrollable panel with thumbnail images of all the pages in the manuscript you are viewing. This panel allows you to browse all the pages in your manuscript. Once the thumbnail images are visible, you can select one to open it in the usual full, zoomable view for study or annotation. NOTE: The Scroll View requests a large amount of data from the repository's server, and may take several seconds to load fully.
           {{/helpPanelBody}}
         </div>
 
         <div class="panel panel-default">
           {{#helpPanelHeading id="help-desk-thumbnail"}}
-            <img class="mirador-btn mirador-icon-thumbnails-view"> Thumbnail View
+            <img class="mirador-btn mirador-icon-thumbnails-view"> Thumbnails View
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-thumbnail"}}
-            Clicking on this icon opens a new panel of thumbnail images of the pages of the manuscript you are viewing.  Clicking on one of those thumbnails opens the image of that page in a new viewer window on your desk.  You cannot zoom in the thumbnails, but there is an icon in the top right of the “Thumbnails View” panel for the “Scroll View”, which displays the thumbnail images with the words “Enable Zoom” for each one (see the description above of the functions and limits of the “Scroll View” panel).
+            Clicking on this icon opens a new panel of tiled, thumbnail images of the pages of the manuscript you are viewing. Clicking on one of those thumbnails opens the image of that page in a new viewer window on your desk. NOTE: Much like the Scroll View, the Thumbnails View loads a number of images at once from the repository's server, and will take some time to load.
           {{/helpPanelBody}}
         </div>
 
@@ -112,7 +116,7 @@
             <img class="mirador-btn mirador-icon-load-editor"> Document Editor
           {{/helpPanelHeading}}
           {{#helpPanelBody id="help-desk-editor-icon"}}
-            Clicking this icon will prompt you to name a new free-form document, to be opened in a new widget window. In the document editor, you can create rich text documents, much as you would with a text editor such as Word. These documents may be named for a manuscript, but will have no inherent connection to a specific manuscript or page.
+            Clicking this icon will prompt you to name a new document, to be opened in a document editor on your Desk. In the document editor, you can create rich text documents (that is, documents with various fonts and formatting features, including the option to type right-to-left for Hebrew, Syriac, etc.), much as you would with a text editor such as Word. These documents are by default named for the shelfmark of the manuscript you are viewing, but will have no inherent connection to a specific manuscript or page displayed in the image viewer. You may rename the document at any time.
           {{/helpPanelBody}}
         </div>
 

@@ -1,12 +1,12 @@
-Template.deskSnapshotPanel.events
-  "click a.save-snapshot": ->
+Template.snapshotPanel.events
+  "click button.save-snapshot": ->
     Blaze.render Template.newSnapshotModal, $('body').get(0)
     $('#new-snapshot-modal').modal('show')
 
   "click .desk-snapshot-item": ->
     Meteor.call 'loadDeskSnapshot', @_id
 
-Template.deskSnapshotPanel.helpers
+Template.snapshotPanel.helpers
   savedDesks: ->
     DeskSnapshots.find()
 

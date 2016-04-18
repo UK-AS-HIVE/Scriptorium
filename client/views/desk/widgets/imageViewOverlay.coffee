@@ -130,6 +130,7 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
       manifestId: data.manifestId
       canvasIndex: data.imageId
       text: 'Annotation'
+      type: aw.annotationTypeFilter || 'transcription'
       x: Math.min(aw.newAnnotation.x1, aw.newAnnotation.x2)
       y: Math.min(aw.newAnnotation.y1, aw.newAnnotation.y2)
       w: Math.abs(aw.newAnnotation.x2 - aw.newAnnotation.x1)
@@ -158,14 +159,18 @@ Template.osd_blaze_overlay.helpers
   annotationPanelOpen: ->
     DeskWidgets.findOne(@_id)?.annotationPanelOpen
   annotations: ->
+
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
     imageWidth = parseInt(canvas.images[0].resource.width)
     transform = @transform.get()
-    return Annotations.find({
+    selector =
       projectId: Session.get('current_project')
       manifestId: @manifestId
       canvasIndex: @imageId
-    }).map (a) ->
+    w = DeskWidgets.findOne(@_id)
+    if w.annotationTypeFilter isnt ''
+      selector.type = w.annotationTypeFilter
+    return Annotations.find(selector).map (a) ->
       _.extend a,
         transform: transform
         x: a.x / imageWidth
@@ -187,7 +192,9 @@ Template.osd_blaze_overlay.helpers
 
 Template.osd_blaze_overlay_annotation.onRendered ->
   div = $('<div/>')
-  Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, @data, div.get(0)
+  data = _.extend @data,
+    annotationBoxElement: @.$('.annotation-box')
+  Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, data, div.get(0)
   #@.$('rect').tooltipster
   editorRendered = false
   @.$('.annotation-box').tooltipster
@@ -196,6 +203,7 @@ Template.osd_blaze_overlay_annotation.onRendered ->
     contentCloning: false
     interactive: true
     position: 'right'
+    autoClose: false
     theme: '.tooltipster-mirador'
 
     functionReady: (origin, tooltip) =>
@@ -214,14 +222,21 @@ Template.osd_blaze_overlay_new_annotation.helpers
   y: -> (@y * @transform.scale) + @transform.translate.y
   w: -> @w * @transform.scale
   h: -> @h * @transform.scale
-  borderSize: -> 0.002 * @transform.scale
+  borderSize: -> 1
 
 Template.osd_blaze_overlay_annotation.helpers
   x: -> (@x * @transform.scale) + @transform.translate.x
   y: -> (@y * @transform.scale) + @transform.translate.y
   w: -> @w * @transform.scale
   h: -> @h * @transform.scale
-  borderSize: -> 0.002 * @transform.scale
+  borderSize: ->
+    if Session.get('hoveredAnnotationId') is @_id then 3 else 1
+
+Template.osd_blaze_overlay_annotation_tooltip.helpers
+  reactiveAnnotation: ->
+    Annotations.findOne @_id
+  selectedIf: (type) ->
+    if @type == type then 'selected'
 
 Template.osd_blaze_overlay_annotation_tooltip.events
   'click button[data-action=save-annotation]': (e, tpl) ->
@@ -230,4 +245,10 @@ Template.osd_blaze_overlay_annotation_tooltip.events
         text: CKEDITOR.instances["editor-#{this._id}"].getData()
   'click button[data-action=delete-annotation]': (e, tpl) ->
     Annotations.remove @_id
+  'click .close-anno-tooltip': (e, tpl) ->
+    tpl.data.annotationBoxElement.tooltipster('hide')
+  'change select': (e, tpl) ->
+    Annotations.update @_id,
+      $set:
+        type: $(e.target).val()
 
