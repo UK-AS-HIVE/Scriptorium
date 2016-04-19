@@ -11,6 +11,11 @@ hexToRgb = (hex) ->
   ]
 
 Template.bookshelf.rendered = ->
+  @autorun ->
+    Meteor.subscribe 'bookshelves', Session.get('current_project')
+    bookshelfIds = _.pluck Books.find().fetch(), '_id'
+    Meteor.subscribe 'booksByBookshelfId', bookshelfIds
+
   @autorun =>
     if Bookshelves.find({project: Session.get("current_project")})
       enableSortable.call @
