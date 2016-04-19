@@ -9,7 +9,7 @@ Meteor.methods
 
     id = RequestedAccounts.insert user
 
-    if not Meteor.users.findOne()? or user.email in Meteor.settings.approverEmails
+    if !Meteor.settings.approval.enabled or !Meteor.users.findOne()? or user.email in Meteor.settings.approval.approverEmails
       # First user or emails who are selected as approvers are automatically approved.
       Meteor.call 'approveAccount', id
     else
@@ -20,7 +20,7 @@ Meteor.methods
         html: "Your request for a Scriptorium account has been recorded. You should receive a response within 48 hours. Thank you for your interest in using Scriptorium."
       Email.send
         from: Meteor.settings.email.fromEmail
-        to: Meteor.settings.approverEmails
+        to: Meteor.settings.approval.approverEmails
         subject: "New Scriptorium Account Request"
         html: "A new account request has been received. Review account requests at https://#{Meteor.absoluteUrl()}pendingAccounts"
 

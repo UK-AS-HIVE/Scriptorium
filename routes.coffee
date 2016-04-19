@@ -50,6 +50,7 @@ Router.map ->
 
   @route 'pendingAccounts',
     path: '/pendingAccounts',
+    onBeforeAction: defaults.onBeforeAction
     subscriptions: ->
       Meteor.subscribe 'requestedAccounts'
 

@@ -1,8 +1,11 @@
 {
-  "approverEmails": [
-    "asdf@asdf.com", 
-    "jkl@jkl.com"
-  ],
+  "approval": {
+    "enabled": true,
+    "approverEmails": [
+      "asdf@asdf.com", 
+      "jkl@jkl.com"
+    ]
+  },
   "email": {
     "fromEmail": "scriptoriumbot@scriptorium.com"
   }
