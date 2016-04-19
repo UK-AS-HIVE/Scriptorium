@@ -76,6 +76,8 @@ Meteor.publish 'allUserData', ->
   Meteor.users.find {}, { fields: { _id: 1, emails: 1, profile: 1 } }
 
 Meteor.publish 'bookshelves', (projectId) ->
+  # Called from client/views/bookshelf.coffee
+  # Intentionally overlaps the 'project' subscription to compensate for a publishComposite bug
   if Projects.findOne({_id: projectId, $or: [ { personal: @userId }, { 'permissions.user': @userId } ] })?
     Bookshelves.find { project: projectId }
 
