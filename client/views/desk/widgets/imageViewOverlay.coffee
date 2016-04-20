@@ -107,7 +107,6 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
           'newAnnotation.y2': y
     
   @addHandler 'canvas-drag-end', (e) ->
-    #TODO: prompt for annotation text, and add as annotation
     aw = DeskWidgets.findOne data._id
     if not aw.newAnnotation.isActive
       return
@@ -135,23 +134,6 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
       y: Math.min(aw.newAnnotation.y1, aw.newAnnotation.y2)
       w: Math.abs(aw.newAnnotation.x2 - aw.newAnnotation.x1)
       h: Math.abs(aw.newAnnotation.y2 - aw.newAnnotation.y1)
-
-    # TODO: do we want annotation text to live in file cabinet?
-    ###
-    fileCabinetId = FileCabinet.insert
-      title: "Annotation on #{data.manifestId} image #{data.imageId}.anno"
-      description: "Annotation on #{data.manifestId} image #{data.imageId}"
-      fileType: "annotation"
-      content: ''
-      open: true
-      date: new Date()
-      project: Session.get('current_project')
-      user: Meteor.userId()
-
-    miradorFunctions.mirador_viewer_loadView 'editorView',
-      manifestId: data.manifestId
-      fileCabinetId: fileCabinetId
-    ###
 
 Template.osd_blaze_overlay.helpers
   transform: ->
