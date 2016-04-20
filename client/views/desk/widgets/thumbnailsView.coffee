@@ -43,12 +43,6 @@ Template.mirador_thumbnailsView_listImages.events
       manifestId: Template.currentData().manifestId
       imageId: @id
 
-  # TODO: the slider seems to have been removed at some point.
-  # We can probably remove this.
-  'slide': (e, ui, tpl) ->
-    # Not sure how jquery UI handles these events - might have to put them in onRendered
-    $(e.target).attr('height', ui.value)
-
 Template.mirador_thumbnailsView_navToolbar.events
   'click .mirador-icon-metadata-view': (e, tpl) ->
     miradorFunctions.mirador_viewer_loadView 'metadataView',
