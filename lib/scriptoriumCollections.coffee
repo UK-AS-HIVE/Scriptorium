@@ -135,7 +135,7 @@
   fileType:
     label: "File Type"
     type: String
-    allowedValues: [ "upload", "editor", "annotation" ]
+    allowedValues: [ "upload", "editor" ]
   open:
     label: "File Open?"
     type: Boolean

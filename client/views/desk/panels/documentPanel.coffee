@@ -14,8 +14,7 @@ Template.documentPanel.events
 
 Template.documentPanel.helpers
   documents: ->
-    # TODO: If Annotations are going to be their own collection, the fileType selector here is irrelevant.
-    FileCabinet.find { project: Session.get('current_project') , fileType: { $in: [ 'editor', 'upload' ] } }
+    FileCabinet.find { project: Session.get('current_project') }
 
   isOpen: ->
     DeskWidgets.findOne({fileCabinetId: @_id})?
