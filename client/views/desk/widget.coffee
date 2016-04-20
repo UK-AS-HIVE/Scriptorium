@@ -38,7 +38,7 @@ Template.mirador_widget_initialLayout.onRendered ->
     content:              null
     draggable:            true
     element:              null
-    height:               @data.height
+    height:               Math.min(@data.height, $('.mirador-viewer').height()-2)
     id:                   null
     metadataDetails:      null
     openAt:               null
@@ -52,7 +52,7 @@ Template.mirador_widget_initialLayout.onRendered ->
     widgetContentCls:     'mirador-widget-content'
     widgetStatusbarCls:   'mirador-widget-statusbar'
     widgetToolbarCls:     'mirador-widget-toolbar'
-    width:                @data.width
+    width:                Math.min(@data.width, $('.mirador-viewer').width()-2)
     position:
       'my': 'left top'
       'at': getWidgetPosition @data
@@ -85,6 +85,15 @@ Template.mirador_widget_initialLayout.onRendered ->
             height: ui.size.height
 
       'collapsable': true
+      'collapse': (e, ui) ->
+        DeskWidgets.update widgetId,
+          $set:
+            height: ui.size.height
+      'collapseRestore': (e, ui) ->
+        DeskWidgets.update widgetId,
+          $set:
+            height: ui.size.height
+
       'icons':
         'maximize': 'ui-icon-arrow-4-diag'
         'collapse': 'ui-icon-minus'
@@ -133,8 +142,8 @@ Template.mirador_widget_initialLayout.onRendered ->
       'of': '.mirador-viewer'
       'collision': 'fit'
       'within': '.mirador-viewer'
-    w.dialog 'option', 'width', d.width
-    w.dialog 'option', 'height', d.height
+    w.dialog 'option', 'width', Math.min(d.width, $('.mirador-viewer').width()-2)
+    w.dialog 'option', 'height', Math.min(d.height, $('.mirador-viewer').height()-2)
 
 Template.mirador_widget_toolbar.helpers
   hidden: ->

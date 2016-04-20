@@ -52,7 +52,7 @@ $.extend true,$.ui.dialogExtend.prototype,
     # modify dialog buttons according to new state
     @_toggleButtons()
     # trigger custom event
-    @_trigger "collapse"
+    @_trigger "collapse", null, { size: { height: newHeight } }
 
   _restore_collapsed:()->
     original = @_loadSnapshot()
@@ -81,6 +81,7 @@ $.extend true,$.ui.dialogExtend.prototype,
         }
       )
       .off('dialogclose',@_collapse_restore)
+    @_trigger 'collapseRestore', null, { size: { height: original.size.height } }
 
   _initStyles_collapse:()->
     if not $(".dialog-extend-collapse-css").length
