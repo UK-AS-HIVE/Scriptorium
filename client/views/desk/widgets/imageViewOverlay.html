@@ -31,6 +31,20 @@
   </div>
 </template>
 
+<template name="osd_blaze_overlay_annotation_tooltip_preview">
+  {{#with reactiveAnnotation}}
+  <div class="annotation-preview" style="max-width: 300px; max-height: 300px; overflow-y: scroll; overflow-x: none;">
+    {{{text}}}
+  </div>
+  {{/with}}
+
+  <div class="center-block">
+    <button class="btn btn-xs btn-primary center-block" data-action="edit" {{disabled}}>
+      <span class="fa fa-edit"></span> Edit
+    </button>
+  </div>
+</template>
+
 <template name="osd_blaze_overlay_annotation_tooltip">
     <i class="pull-right fa fa-times close-anno-tooltip"></i>
     <div style="clear: both;">

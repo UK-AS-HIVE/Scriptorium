@@ -177,6 +177,7 @@ Template.osd_blaze_overlay.helpers
         y: a.y / imageWidth
         w: a.w / imageWidth
         h: a.h / imageWidth
+        widgetId: w._id
   newAnnotation: ->
     aw = DeskWidgets.findOne(@_id)
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
@@ -194,28 +195,17 @@ Template.osd_blaze_overlay_annotation.onRendered ->
   div = $('<div/>')
   data = _.extend @data,
     annotationBoxElement: @.$('.annotation-box')
-  Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, data, div.get(0)
-  #@.$('rect').tooltipster
-  editorRendered = false
+  Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip_preview, data, div.get(0)
+
   @.$('.annotation-box').tooltipster
     arrow: true
     content: div
     contentCloning: false
     interactive: true
     position: 'right'
-    autoClose: false
+    trigger: 'hover'
+    autoClose: true
     theme: '.tooltipster-mirador'
-
-    functionReady: (origin, tooltip) =>
-      unless editorRendered
-        editorRendered = true
-        CKEDITOR.replace "editor-#{this.data._id}",
-          customConfig: '/plugins/ckeditor/custom.js'
-
-    functionAfter: (origin) =>
-      if editorRendered
-        editorRendered = false
-        CKEDITOR.instances["editor-#{this.data._id}"].destroy()
 
 Template.osd_blaze_overlay_new_annotation.helpers
   x: -> (@x * @transform.scale) + @transform.translate.x
@@ -240,15 +230,83 @@ Template.osd_blaze_overlay_annotation_tooltip.helpers
 
 Template.osd_blaze_overlay_annotation_tooltip.events
   'click button[data-action=save-annotation]': (e, tpl) ->
-    Annotations.update @_id,
+    Annotations.update tpl.data._id,
       $set:
-        text: CKEDITOR.instances["editor-#{this._id}"].getData()
+        text: CKEDITOR.instances["editor-#{tpl.data._id}"].getData()
   'click button[data-action=delete-annotation]': (e, tpl) ->
     Annotations.remove @_id
   'click .close-anno-tooltip': (e, tpl) ->
-    tpl.data.annotationBoxElement.tooltipster('hide')
+    div = $('<div/>')
+    Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip_preview, tpl.data, div.get(0)
+
+    tpl.data.annotationBoxElement.tooltipster 'destroy'
+
+    tpl.data.annotationBoxElement.tooltipster
+      arrow: true
+      content: div
+      contentCloning: false
+      interactive: true
+      position: 'right'
+      trigger: 'hover'
+      autoClose: true
+      theme: '.tooltipster-mirador'
+
   'change select': (e, tpl) ->
+    DeskWidgets.update tpl.data.widgetId,
+      $set:
+        annotationTypeFilter: ''
     Annotations.update @_id,
       $set:
         type: $(e.target).val()
+
+Template.osd_blaze_overlay_annotation_tooltip_preview.onRendered ->
+    # Special behavior to accomodate CKEDITOR
+  editorRendered = false
+
+Template.osd_blaze_overlay_annotation_tooltip_preview.helpers
+  reactiveAnnotation: ->
+    Annotations.findOne @_id
+
+Template.osd_blaze_overlay_annotation_tooltip_preview.events
+  'click button[data-action=edit]': (e, tpl) ->
+    div = $('<div/>')
+    data = _.extend tpl.data,
+      editButtonElement: $(e.target)
+    Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, data, div.get(0)
+
+    buttonOffset = $(e.target).offset()
+
+    # Special behavior to accomodate CKEDITOR
+    tpl.editorRendered = false
+
+    tpl.data.annotationBoxElement.tooltipster 'hide'
+
+    Meteor.setTimeout ->
+      tpl.data.annotationBoxElement.tooltipster 'destroy'
+
+      tpl.data.annotationBoxElement.tooltipster
+        arrow: true
+        content: div
+        contentCloning: false
+        interactive: true
+        position: 'right'
+        trigger: 'click'
+        autoClose: false
+        #offsetY: -0.5 * buttonOffset.y
+        #offsetX: -0.5 * buttonOffset.x
+        theme: '.tooltipster-mirador'
+
+        functionReady: (origin, tooltip) =>
+          unless tpl.editorRendered
+            tpl.editorRendered = true
+            CKEDITOR.replace "editor-#{tpl.data._id}",
+              customConfig: '/plugins/ckeditor/custom.js'
+
+        functionAfter: (origin) =>
+          if tpl.editorRendered
+            tpl.editorRendered = false
+            CKEDITOR.instances["editor-#{tpl.data._id}"].destroy()
+
+      tpl.data.annotationBoxElement.tooltipster 'show'
+    , 20
 
