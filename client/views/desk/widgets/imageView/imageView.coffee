@@ -27,32 +27,42 @@ Template.mirador_imageView_content_osd.onDestroyed ->
 Template.mirador_imageView_content_osd.onRendered ->
   elemOsd = @.$('.mirador-osd')
 
-  # Get information for OSD
   @data.image = AvailableManifests.findOne(@data.manifestId).manifestPayload.sequences[0].canvases[@data.imageId]
-  osdToolbarId = "mirador-osd-#{@data._id}-toolbar"
+  @osd = null
+  parent = Template.parentData()
+  Meteor.call 'getMetadataPayloadFromUrl', @data.image.images[0].resource.service['@id']+'/info.json', (err, res) =>
+    # Get image metadata, and instantiate OpenSeadragon once we've done so.
+    
+    osdToolbarId = "mirador-osd-#{@data._id}-toolbar"
 
-  imgRes = @data.image.images[0].resource
-  tileSources = ImageMetadata.findOne({retrievalUrl: imgRes.service['@id']+'/info.json'}).payload
+    # Create osd at element
+    window.osd = @osd = miradorFunctions.openSeadragon
+      id: elemOsd.attr('id')
+      toolbar: osdToolbarId
+      tileSources: res
 
-  # Create osd at element
-  @osd = miradorFunctions.openSeadragon
-    id: elemOsd.attr('id')
-    toolbar: osdToolbarId
-    tileSources: tileSources
+    @osd.addBlazeOverlay @data
 
-  @osd.addBlazeOverlay @data
+    @osd.addHandler 'open', =>
+      if @data.zoom
+        @osd.viewport.zoomTo @data.zoom, null, true
+      if @data.center
+        @osd.viewport.panTo @data.center, true
 
-  # TODO: This isn't very good, but we need a way to
-  # access the OpenSeadragon instance from the
-  # annotations panel template.
-  Template.parentData().osd = @osd
+    @osd.addHandler 'animation-finish', (e) =>
+      DeskWidgets.update @data._id, { $set: { zoom: @osd.viewport.getZoom(), center: @osd.viewport.getCenter() } }
 
-  osd = @osd
+    # TODO: This isn't very good, but we need a way to
+    # access the OpenSeadragon instance from the
+    # annotations panel template.
+    parent.osd = @osd
+
 
   # When adding an annotation, disable the mouse from dragging the OSD canvas
-  @autorun ->
+  @autorun =>
+    active = DeskWidgets.findOne(@data._id, { fields: { 'newAnnotation.isActive': 1 } })
     #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
-    osd.panHorizontal = osd.panVertical = !Template.currentData().newAnnotation.isActive
+    @osd?.panHorizontal = @osd?.panVertical = !active
   
   @autorun =>
     # Limit reactivity scope here to make sure we're not calling ensureVisible everytime OSD zoom changes.
@@ -70,23 +80,15 @@ Template.mirador_imageView_content_osd.onRendered ->
   @autorun =>
     zoomLocked = DeskWidgets.findOne(@data._id, { fields: { 'zoomLocked': 1 } }).zoomLocked
     if zoomLocked
-      @osd.zoomPerScroll = 1
-      @osd.zoomPerClick = 1
-      @osd.panHorizontal = @osd.panVertical = false
+      @osd?.zoomPerScroll = 1
+      @osd?.zoomPerClick = 1
+      @osd?.panHorizontal = @osd?.panVertical = false
     else
-      @osd.zoomPerScroll = 1.15
-      @osd.zoomPerClick = 2
-      @osd.panHorizontal = @osd.panVertical = true
+      @osd?.zoomPerScroll = 1.15
+      @osd?.zoomPerClick = 2
+      @osd?.panHorizontal = @osd?.panVertical = true
 
 
-  @osd.addHandler 'open', =>
-    if @data.zoom
-      @osd.viewport.zoomTo @data.zoom, null, true
-    if @data.center
-      @osd.viewport.panTo @data.center, true
-
-  @osd.addHandler 'animation-finish', (e) =>
-    DeskWidgets.update @data._id, { $set: { zoom: @osd.viewport.getZoom(), center: @osd.viewport.getCenter() } }
 
 Template.mirador_imageView_content_osd.helpers
   osdId: ->

@@ -18,19 +18,19 @@ Template.mirador_thumbnailsView_listImages.onCreated ->
   @thumbs = new ReactiveVar([])
 
 Template.mirador_thumbnailsView_listImages.onRendered ->
+  @subscribe 'metadataByManifest', @data.manifestId
   tpl = @
   manifest = AvailableManifests.findOne(@data.manifestId).manifestPayload
   _.each manifest.sequences[0].canvases, (c, index) ->
     Meteor.setTimeout ->
-      imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}).payload
-
-      thumbs = tpl.thumbs.get()
-      thumbs.push
-        thumbUrl: miradorFunctions.iiif_getUriWithHeight imageInfo, 240
-        title:    c.label
-        id:       index
-        width:    imageInfo.width * (150 / imageInfo.height)
-      tpl.thumbs.set thumbs
+      Meteor.call 'getMetadataPayloadFromUrl', c.images[0].resource.service['@id']+'/info.json', (err, res) ->
+        thumbs = tpl.thumbs.get()
+        thumbs.push
+          thumbUrl: miradorFunctions.iiif_getUriWithHeight res, 240
+          title:    c.label
+          id:       index
+          width:    res.width * (150 / res.height)
+        tpl.thumbs.set thumbs
     , index
 
 Template.mirador_thumbnailsView_listImages.helpers

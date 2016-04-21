@@ -24,14 +24,7 @@ Meteor.publishComposite 'project', (projectId) ->
           }
         ]
       }
-      {
-        find: -> AvailableManifests.find { project: projectId }
-        children: [
-          {
-            find: (manifest) -> ImageMetadata.find { manifestId: manifest._id }
-          }
-        ]
-      }
+      { find: -> AvailableManifests.find { project: projectId } }
       { find: -> Messages.find { roomId: projectId } }
       { find: -> EventStream.find { projectId: projectId } }
       { find: -> DeskWidgets.find { userId: @userId, projectId: projectId } }

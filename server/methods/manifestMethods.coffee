@@ -28,3 +28,5 @@ Meteor.methods
       catch e
         throw new Meteor.Error e.message
 
+  getMetadataPayloadFromUrl: (url) ->
+    ImageMetadata.findOne({retrievalUrl: url}).payload

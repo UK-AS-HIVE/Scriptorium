@@ -14,6 +14,7 @@ Template.mirador_scrollView_content.onCreated ->
 Template.mirador_scrollView_content.onRendered ->
   tpl = @
 
+
   @autorun ->
     h = Template.currentData().height - 150
     scrollWidth = 0
@@ -28,19 +29,18 @@ Template.mirador_scrollView_content.onRendered ->
   thumbHeight = @data.height - 150
   _.each manifest.sequences[0].canvases, (c, idx) ->
     setTimeout ->
-      imageInfo = ImageMetadata.findOne({retrievalUrl: c.images[0].resource.service['@id']+'/info.json'}, {reactive: false, fields: {payload: 1}}).payload
+      Meteor.call 'getMetadataPayloadFromUrl', c.images[0].resource.service['@id']+'/info.json', (err, res) ->
+        images = tpl.images.get()
 
-      images = tpl.images.get()
+        images.push
+          index: idx
+          title: c.label
+          uriWithHeight: miradorFunctions.iiif_getUriWithHeight res, thumbHeight
+          aspectRatio: c.width / c.height
+          height: thumbHeight
+          width: Math.round(c.width * thumbHeight / c.height)
 
-      images.push
-        index: idx
-        title: c.label
-        uriWithHeight: miradorFunctions.iiif_getUriWithHeight imageInfo, thumbHeight
-        aspectRatio: c.width / c.height
-        height: thumbHeight
-        width: Math.round(c.width * thumbHeight / c.height)
-
-      tpl.images.set images
+        tpl.images.set images
     , idx
 
 Template.mirador_scrollView_content.helpers
