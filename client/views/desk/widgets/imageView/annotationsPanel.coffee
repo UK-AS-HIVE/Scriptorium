@@ -47,6 +47,19 @@ Template.mirador_imageView_annotationStats.helpers
     ).count()
 
 Template.mirador_imageView_annotationListing.events
+  'click .annotationListing': (e, tpl) ->
+    osd = Template.parentData(2).osd
+    widgetData = Template.parentData()
+
+    # Zoom OpenSeadragon to annotation
+    canvas = AvailableManifests.findOne(widgetData.manifestId).manifestPayload.sequences[0].canvases[widgetData.imageId]
+    imageWidth = parseInt(canvas.images[0].resource.width)
+
+    osd.viewport.zoomTo (imageWidth / Math.max(@w, @h))
+    osd.viewport.panTo
+      x: (@x + @w / 2) / imageWidth
+      y: (@y + @h / 2) / imageWidth
+
   'mouseenter .annotationListing': (e, tpl) ->
     Session.set 'hoveredAnnotationId', tpl.data._id
   'mouseleave .annotationListing': (e, tpl) ->

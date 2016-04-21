@@ -40,7 +40,12 @@ Template.mirador_imageView_content_osd.onRendered ->
     toolbar: osdToolbarId
     tileSources: tileSources
 
-  @osd.addBlazeOverlay Template.osd_blaze_overlay, @data
+  @osd.addBlazeOverlay @data
+
+  # TODO: This isn't very good, but we need a way to
+  # access the OpenSeadragon instance from the
+  # annotations panel template.
+  Template.parentData().osd = @osd
 
   osd = @osd
 

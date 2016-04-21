@@ -50,8 +50,7 @@
       }, options)
 }
 
-OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
-  viewer = @
+OpenSeadragon.Viewer.prototype.addBlazeOverlay = (data) ->
   transform = new ReactiveVar
     translate:
       x: 0
@@ -60,6 +59,7 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
 
   imageWidth = AvailableManifests.findOne(data.manifestId).manifestPayload.sequences[0].canvases[data.imageId].images[0].resource.width
 
+  viewer = @
   resize = ->
     p =  viewer.viewport.pixelFromPoint new OpenSeadragon.Point(0,0), true
     zoom = viewer.viewport.getZoom true
