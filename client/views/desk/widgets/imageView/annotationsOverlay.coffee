@@ -70,7 +70,7 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
 
   data = _.extend data,
     transform: transform
-  svg = Blaze.renderWithData(Template.osd_blaze_overlay, data, @canvas)
+  svg = Blaze.renderWithData(Template.annotationsOverlay, data, @canvas)
 
   @addHandler 'open', (e) ->
     resize()
@@ -153,7 +153,7 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
       fileCabinetId: fileCabinetId
     ###
 
-Template.osd_blaze_overlay.helpers
+Template.annotationsOverlay.helpers
   transform: ->
     @transform.get()
   annotationPanelOpen: ->
@@ -191,11 +191,11 @@ Template.osd_blaze_overlay.helpers
       w: Math.abs(aw.newAnnotation.x2 - aw.newAnnotation.x1) / imageWidth
       h: Math.abs(aw.newAnnotation.y2 - aw.newAnnotation.y1) / imageWidth
 
-Template.osd_blaze_overlay_annotation.onRendered ->
+Template.annotationBoundingBox.onRendered ->
   div = $('<div/>')
   data = _.extend @data,
     annotationBoxElement: @.$('.annotation-box')
-  Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip_preview, data, div.get(0)
+  Blaze.renderWithData Template.annotationPreviewTooltip, data, div.get(0)
 
   @.$('.annotation-box').tooltipster
     arrow: true
@@ -207,14 +207,7 @@ Template.osd_blaze_overlay_annotation.onRendered ->
     autoClose: true
     theme: '.tooltipster-mirador'
 
-Template.osd_blaze_overlay_new_annotation.helpers
-  x: -> (@x * @transform.scale) + @transform.translate.x
-  y: -> (@y * @transform.scale) + @transform.translate.y
-  w: -> @w * @transform.scale
-  h: -> @h * @transform.scale
-  borderSize: -> 1
-
-Template.osd_blaze_overlay_annotation.helpers
+Template.annotationBoundingBox.helpers
   x: -> (@x * @transform.scale) + @transform.translate.x
   y: -> (@y * @transform.scale) + @transform.translate.y
   w: -> @w * @transform.scale
@@ -222,91 +215,10 @@ Template.osd_blaze_overlay_annotation.helpers
   borderSize: ->
     if Session.get('hoveredAnnotationId') is @_id then 3 else 1
 
-Template.osd_blaze_overlay_annotation_tooltip.helpers
-  reactiveAnnotation: ->
-    Annotations.findOne @_id
-  selectedIf: (type) ->
-    if @type == type then 'selected'
-
-Template.osd_blaze_overlay_annotation_tooltip.events
-  'click button[data-action=save-annotation]': (e, tpl) ->
-    Annotations.update tpl.data._id,
-      $set:
-        text: CKEDITOR.instances["editor-#{tpl.data._id}"].getData()
-  'click button[data-action=delete-annotation]': (e, tpl) ->
-    Annotations.remove @_id
-  'click .close-anno-tooltip': (e, tpl) ->
-    div = $('<div/>')
-    Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip_preview, tpl.data, div.get(0)
-
-    tpl.data.annotationBoxElement.tooltipster 'destroy'
-
-    tpl.data.annotationBoxElement.tooltipster
-      arrow: true
-      content: div
-      contentCloning: false
-      interactive: true
-      position: 'right'
-      trigger: 'hover'
-      autoClose: true
-      theme: '.tooltipster-mirador'
-
-  'change select': (e, tpl) ->
-    DeskWidgets.update tpl.data.widgetId,
-      $set:
-        annotationTypeFilter: ''
-    Annotations.update @_id,
-      $set:
-        type: $(e.target).val()
-
-Template.osd_blaze_overlay_annotation_tooltip_preview.onRendered ->
-    # Special behavior to accomodate CKEDITOR
-  editorRendered = false
-
-Template.osd_blaze_overlay_annotation_tooltip_preview.helpers
-  reactiveAnnotation: ->
-    Annotations.findOne @_id
-
-Template.osd_blaze_overlay_annotation_tooltip_preview.events
-  'click button[data-action=edit]': (e, tpl) ->
-    div = $('<div/>')
-    data = _.extend tpl.data,
-      editButtonElement: $(e.target)
-    Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, data, div.get(0)
-
-    buttonOffset = $(e.target).offset()
-
-    # Special behavior to accomodate CKEDITOR
-    tpl.editorRendered = false
-
-    tpl.data.annotationBoxElement.tooltipster 'hide'
-
-    Meteor.setTimeout ->
-      tpl.data.annotationBoxElement.tooltipster 'destroy'
-
-      tpl.data.annotationBoxElement.tooltipster
-        arrow: true
-        content: div
-        contentCloning: false
-        interactive: true
-        position: 'right'
-        trigger: 'click'
-        autoClose: false
-        #offsetY: -0.5 * buttonOffset.y
-        #offsetX: -0.5 * buttonOffset.x
-        theme: '.tooltipster-mirador'
-
-        functionReady: (origin, tooltip) =>
-          unless tpl.editorRendered
-            tpl.editorRendered = true
-            CKEDITOR.replace "editor-#{tpl.data._id}",
-              customConfig: '/plugins/ckeditor/custom.js'
-
-        functionAfter: (origin) =>
-          if tpl.editorRendered
-            tpl.editorRendered = false
-            CKEDITOR.instances["editor-#{tpl.data._id}"].destroy()
-
-      tpl.data.annotationBoxElement.tooltipster 'show'
-    , 20
+Template.newAnnotationBoundingBox.helpers
+  x: -> (@x * @transform.scale) + @transform.translate.x
+  y: -> (@y * @transform.scale) + @transform.translate.y
+  w: -> @w * @transform.scale
+  h: -> @h * @transform.scale
+  borderSize: -> 1
 

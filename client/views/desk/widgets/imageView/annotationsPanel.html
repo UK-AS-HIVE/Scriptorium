@@ -1,0 +1,36 @@
+<template name="mirador_imageView_annotationPanel">
+  <div class="annotationListPanel">
+  {{> mirador_imageView_annotationStats}}
+    <ul class="annotationList">
+    {{#each annotations}}
+      {{> mirador_imageView_annotationListing}}
+    {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name="mirador_imageView_annotationStats">
+  <div class="annotationPanelHeader">
+    <h4>Annotations (<span class="annotationsTotal">{{annotationCount}}</span>) <a class="pull-right close-anno-panel"><i class="fa fa-times"></i></a></h4>
+    <a class="mirador-btn mirador-icon-annotorius" title="Create Annotation"></a>
+    <a class="mirador-btn mirador-icon-download" title="Download Annotations"></a>
+    <div class="annoSearch">
+      <select class="annotationTypeSelector" name="annotationTypes">
+        <option value="" selected={{selectedAnnotationType ''}}>All (<span class="annotationCount">{{annotationCount}}</span>)</option>
+        <option value="commentary" selected={{selectedAnnotationType 'commentary'}}>Commentary (<span class="commentaryAnnotationCount">{{commentaryAnnotationCount}}</span>)</option>
+        <option value="transcription" selected={{selectedAnnotationType 'transcription'}}>Transcription (<span class="transcriptionAnnotationCount">{{transcriptionAnnotationCount}}</span>)</option>
+      </select>
+    </div>
+  </div>
+</template>
+
+<template name="mirador_imageView_annotationListing">
+  <li id="listing_{{id}}" class="annotationListing">
+    {{#if title}}
+    <h3>{{title}}</h3>
+    {{/if}}
+    <p>{{{sanitized text}}}</p>
+  </li>
+</template>
+
+
