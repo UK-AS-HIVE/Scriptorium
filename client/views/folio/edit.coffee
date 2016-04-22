@@ -1,4 +1,10 @@
+Template.folioEdit.onCreated ->
+  @thumbnail = new ReactiveVar
 Template.folioEdit.onRendered ->
+  # Get thumbnail URL and set in a ReactiveVar on load so Blaze will update when it receives the data.
+  retrievalUrl = folioItems.findOne({_id: Session.get("editFolioItem")}).canvas.images[0].resource.service['@id'] + '/info.json'
+  Meteor.call 'getMetadataPayloadFromUrl', retrievalUrl, (err, res) =>
+    @thumbnail.set miradorFunctions.iiif_getUriWithHeight res, 200
 
   #get database record for this item to populate special fields
   item = folioItems.findOne({_id: Session.get("editFolioItem")}, {fields: {'metadata' : 1}})
@@ -98,8 +104,7 @@ Template.folioEdit.onRendered ->
 
 Template.folioEdit.helpers
   editThumbnail: ->
-    retrievalUrl = folioItems.findOne({_id: Session.get("editFolioItem")}).canvas.images[0].resource.service['@id'] + '/info.json'
-    miradorFunctions.iiif_getUriWithHeight ImageMetadata.findOne({retrievalUrl: retrievalUrl}).payload, 200
+    Template.instance().thumbnail.get()
   folioTitle: ->
     image = folioItems.findOne({_id: Session.get("editFolioItem")})
     image.canvas.label
