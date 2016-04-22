@@ -42,8 +42,10 @@ Router.map ->
     path: '/signOut'
     action: ->
       @render()
-      Meteor.logout ->
-        Router.go('/')
+      Meteor.logout()
+      Accounts.makeClientLoggedOut()
+      localStorage.clear()
+      Router.go('/')
 
   @route 'welcome',
     path: '/welcome'
