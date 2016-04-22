@@ -48,7 +48,7 @@ Template.mirador_imageView_annotationStats.helpers
 
 Template.mirador_imageView_annotationListing.events
   'click .annotationListing': (e, tpl) ->
-    osd = Template.parentData(2).osd
+    osd = Template.parentData().osd.get()
     widgetData = Template.parentData()
 
     # Zoom OpenSeadragon to annotation

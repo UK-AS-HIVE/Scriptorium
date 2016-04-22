@@ -29,19 +29,22 @@ Template.mirador_imageView_content_osd.onRendered ->
 
   @data.image = AvailableManifests.findOne(@data.manifestId).manifestPayload.sequences[0].canvases[@data.imageId]
   @osd = null
-  parent = Template.parentData()
+
   Meteor.call 'getMetadataPayloadFromUrl', @data.image.images[0].resource.service['@id']+'/info.json', (err, res) =>
     # Get image metadata, and instantiate OpenSeadragon once we've done so.
     
     osdToolbarId = "mirador-osd-#{@data._id}-toolbar"
 
     # Create osd at element
-    window.osd = @osd = miradorFunctions.openSeadragon
+    osd = @osd = miradorFunctions.openSeadragon
       id: elemOsd.attr('id')
       toolbar: osdToolbarId
       tileSources: res
 
     @osd.addBlazeOverlay @data
+
+    # Make OSD accessible annotationsPanel
+    @data.osd.set @osd
 
     @osd.addHandler 'open', =>
       if @data.zoom
@@ -51,12 +54,6 @@ Template.mirador_imageView_content_osd.onRendered ->
 
     @osd.addHandler 'animation-finish', (e) =>
       DeskWidgets.update @data._id, { $set: { zoom: @osd.viewport.getZoom(), center: @osd.viewport.getCenter() } }
-
-    # TODO: This isn't very good, but we need a way to
-    # access the OpenSeadragon instance from the
-    # annotations panel template.
-    parent.osd = @osd
-
 
   # When adding an annotation, disable the mouse from dragging the OSD canvas
   @autorun =>
@@ -190,9 +187,15 @@ Template.mirador_imageView_statusbar.helpers
     '___'
 
 ### Content ###
+Template.mirador_imageView_content.onCreated ->
+  @osd = new ReactiveVar null
+
 Template.mirador_imageView_content.helpers
   isOdd: (number) ->
     # Hack to make sure Blaze fully re-renders template on page change.
     _.isNull(number) or number % 2 != 0
+  dataWithOsdReactiveVar: ->
+    _.extend Template.currentData(),
+      osd: Template.instance().osd
 
 
