@@ -1,4 +1,7 @@
 Template.header.helpers
+  disconnected: ->
+    !Meteor.status().connected
+
   availableProjects: ->
     Projects.find()
 

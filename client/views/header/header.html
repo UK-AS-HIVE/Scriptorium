@@ -1,7 +1,15 @@
 <template name="header">
   <header>
     <div class="top">
-      <a href="/" class="title">Scriptorium</a>
+      <a class="title" href="/">
+        Scriptorium
+        {{#if disconnected}}
+          <div class="disconnected-tooltip">
+            <span class="label label-danger">!</span>
+            <span class="tooltip-content">Your connection to Scriptorium has been lost. Some features may behave unexpectedly, and changes will not be saved.</span>
+          </div>
+        {{/if}}
+      </a>
       <a href="http://www.rch.uky.edu" class="logo">
         <img src="/img/rch-logo.png"/>
       </a>
