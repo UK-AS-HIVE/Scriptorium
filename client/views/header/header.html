@@ -1,15 +1,13 @@
 <template name="header">
   <header>
     <div class="top">
-      <a class="title" href="/">
-        Scriptorium
-        {{#if disconnected}}
-          <div class="disconnected-tooltip">
-            <span class="label label-danger">!</span>
-            <span class="tooltip-content">Your connection to Scriptorium has been lost. Some features may behave unexpectedly, and changes will not be saved.</span>
-          </div>
-        {{/if}}
-      </a>
+      <a class="title" href="/">Scriptorium</a>
+      {{#if disconnected}}
+        <div class="disconnected-tooltip alert alert-warning">
+          Your connection to Scriptorium has been lost. Some features may behave unexpectedly, and changes will not be saved.
+          <br><button type="button" class="btn btn-sm btn-default" data-action="reconnect">Reconnect</button>
+        </div>
+      {{/if}}
       <a href="http://www.rch.uky.edu" class="logo">
         <img src="/img/rch-logo.png"/>
       </a>

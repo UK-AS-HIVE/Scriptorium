@@ -22,6 +22,9 @@ Template.header.events
   "click a[data-action=toggleHelp]": ->
     $('.help-panel').toggleClass('is-open')
 
+  'click button[data-action=reconnect]': ->
+    Meteor.connection.reconnect()
+
 Template.header.onRendered ->
   @autorun ->
     if Session.get('current_project')
