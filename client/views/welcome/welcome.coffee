@@ -7,3 +7,8 @@ Template.welcome.helpers
 Template.welcome.events
   'click area[data-action=openHelp]': ->
     $('.help-panel').toggleClass('is-open')
+
+  'click area': (e, tpl) ->
+    if tpl.$(e.currentTarget).attr('href')
+      e.preventDefault()
+      Router.go tpl.$(e.currentTarget).attr('href')
