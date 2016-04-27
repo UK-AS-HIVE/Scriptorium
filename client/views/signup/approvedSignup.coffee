@@ -19,10 +19,7 @@ Template.approvedSignup.events
           projectName: Meteor.user().profile.lastName + ", " + Meteor.user().profile.firstName
           personal: Meteor.userId()
           permissions: [ { user: Meteor.userId(), level: "admin" } ]
-          miradorData: [
-            { "manifestUri": "http://iiif.as.uky.edu/manifests/folio/folio.json", "location": "HMML", "title": "Folio", "widgets": [] },
-            { "manifestUri": "http://loris.as.uky.edu/manifests/Canones_Apostolorum.json", "location": "UK", "title": "Canones_Apostolorum", "widgets": [] }
-          ]
+          miradorData: []
 
         Session.set "current_project", newProjectId
         Router.go('/welcome')
