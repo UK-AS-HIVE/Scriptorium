@@ -22,7 +22,7 @@ Meteor.methods
         from: Meteor.settings.email.fromEmail
         to: Meteor.settings.approval.approverEmails
         subject: "New Scriptorium Account Request"
-        html: "A new account request has been received. Review account requests at https://#{Meteor.absoluteUrl()}pendingAccounts"
+        html: "A new account request has been received. Review account requests at #{Meteor.absoluteUrl()}pendingAccounts"
 
   approveAccount: (id) ->
     console.log "Account for #{RequestedAccounts.findOne(id).email} approved by #{@userId}"
