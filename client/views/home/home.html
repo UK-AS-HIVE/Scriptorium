@@ -16,19 +16,35 @@
           <div class="col-md-5">
             <div class="row">
               <div class="col-md-10 col-md-offset-1">
-                <p>Already a member? Sign in.</p>
-                <form>
-                  <div class="form-group">
-                    <label>Email Address</label>
-                    <input name="email" type="email" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label>Password</label>
-                    <input name="password" type="password" class="form-control">
-                  </div>
-                  <span class="error">{{error}}</span>
-                  <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-lock"></i> Sign In</button>
-                </form>
+                {{#if reset}}
+                  <span class="text-success">Password reset sent.</span>
+                {{/if}}
+                {{#if forgot}}
+                  <form name="forgot">
+                    <div class="form-group">
+                      <label>Email Address</label>
+                      <input name="email" type="email" class="form-control">
+                    </div>
+                    <span class="error">{{error}}</span>
+                    <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
+                    <a class="pull-right" data-action="cancel">Cancel</a>
+                  </form>
+                  {{else}}
+                  <p>Already a member? Sign in.</p>
+                  <form name="login">
+                    <div class="form-group">
+                      <label>Email Address</label>
+                      <input name="email" type="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Password</label>
+                      <input name="password" type="password" class="form-control">
+                    </div>
+                    <span class="error">{{error}}</span>
+                    <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-lock"></i> Sign In</button>
+                    <a class="pull-right" data-action="forgot">Forgot Password?</a>
+                  </form>
+                {{/if}}
               </div>
             </div>
           </div>
