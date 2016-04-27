@@ -24,14 +24,7 @@ Meteor.publishComposite 'project', (projectId) ->
           }
         ]
       }
-      {
-        find: -> AvailableManifests.find { project: projectId }
-        children: [
-          {
-            find: (manifest) -> ImageMetadata.find { manifestId: manifest._id }
-          }
-        ]
-      }
+      { find: -> AvailableManifests.find { project: projectId } }
       { find: -> Messages.find { roomId: projectId } }
       { find: -> EventStream.find { projectId: projectId } }
       { find: -> DeskWidgets.find { userId: @userId, projectId: projectId } }
@@ -82,3 +75,14 @@ Meteor.publish 'requestedAccounts', ->
 
 Meteor.publish 'requestedAccountForSignup', (id) ->
   RequestedAccounts.find { _id: id, approved: true, created: false }
+
+Meteor.publish 'bookshelves', (projectId) ->
+  # Called from client/views/bookshelf.coffee
+  # Intentionally overlaps the 'project' subscription to compensate for a publishComposite bug
+  if Projects.findOne({_id: projectId, $or: [ { personal: @userId }, { 'permissions.user': @userId } ] })?
+    Bookshelves.find { project: projectId }
+
+Meteor.publish 'booksByBookshelfId', (bookshelfIds) ->
+  bookshelfIds = _.filter bookshelfIds, (b) =>
+    Projects.findOne({ _id: Bookshelves.findOne(b)?.projectId, $or: [ { personal: @userId }, { 'permissions.user': @userId } ] })?
+  Books.find { bookshelfId: { $in: bookshelfIds } }

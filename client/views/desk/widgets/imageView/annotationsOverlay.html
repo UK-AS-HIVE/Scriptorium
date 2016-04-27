@@ -1,0 +1,33 @@
+<!-- Blaze overlay for annotations on OpenSeadragon -->
+<template name="annotationsOverlay">
+  <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%;">
+    {{#if annotationPanelOpen}}
+      {{#if newAnnotation}}
+      {{else}}
+        <div style="color: white; text-align: center;">Annotations</div>
+      {{/if}}
+      {{#each annotations}}
+        {{> annotationBoundingBox}}
+      {{/each}}
+    {{/if}}
+    {{#if newAnnotation}}
+      <div style="color: white; text-align: center;">Click and Drag to Add Annotation</div>
+      {{#if newAnnotation.isDragging}}
+        {{#with newAnnotation}}
+          {{> newAnnotationBoundingBox}}
+        {{/with}}
+      {{/if}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="annotationBoundingBox">
+  <div class="annotation-box" style="position: absolute; left: {{x}}px; top: {{y}}px; width: {{w}}px; height: {{h}}px; border: {{borderSize}}px solid red; background-color: rgba(0,0,0,0.25)">
+  </div>
+</template>
+
+<template name="newAnnotationBoundingBox">
+  <div class="annotation-box" style="position: absolute; left: {{x}}px; top: {{y}}px; width: {{w}}px; height: {{h}}px; border: {{borderSize}}px solid #00ff00; background-color: rgba(0,0,0,0.25)">
+  </div>
+</template>
+

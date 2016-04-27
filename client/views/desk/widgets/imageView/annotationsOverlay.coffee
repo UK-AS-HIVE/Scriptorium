@@ -50,8 +50,7 @@
       }, options)
 }
 
-OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
-  viewer = @
+OpenSeadragon.Viewer.prototype.addBlazeOverlay = (data) ->
   transform = new ReactiveVar
     translate:
       x: 0
@@ -60,6 +59,7 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
 
   imageWidth = AvailableManifests.findOne(data.manifestId).manifestPayload.sequences[0].canvases[data.imageId].images[0].resource.width
 
+  viewer = @
   resize = ->
     p =  viewer.viewport.pixelFromPoint new OpenSeadragon.Point(0,0), true
     zoom = viewer.viewport.getZoom true
@@ -70,7 +70,7 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
 
   data = _.extend data,
     transform: transform
-  svg = Blaze.renderWithData(Template.osd_blaze_overlay, data, @canvas)
+  svg = Blaze.renderWithData(Template.annotationsOverlay, data, @canvas)
 
   @addHandler 'open', (e) ->
     resize()
@@ -153,7 +153,7 @@ OpenSeadragon.Viewer.prototype.addBlazeOverlay = (template, data) ->
       fileCabinetId: fileCabinetId
     ###
 
-Template.osd_blaze_overlay.helpers
+Template.annotationsOverlay.helpers
   transform: ->
     @transform.get()
   annotationPanelOpen: ->
@@ -177,6 +177,7 @@ Template.osd_blaze_overlay.helpers
         y: a.y / imageWidth
         w: a.w / imageWidth
         h: a.h / imageWidth
+        widgetId: w._id
   newAnnotation: ->
     aw = DeskWidgets.findOne(@_id)
     canvas = AvailableManifests.findOne(@manifestId).manifestPayload.sequences[0].canvases[@imageId]
@@ -190,41 +191,23 @@ Template.osd_blaze_overlay.helpers
       w: Math.abs(aw.newAnnotation.x2 - aw.newAnnotation.x1) / imageWidth
       h: Math.abs(aw.newAnnotation.y2 - aw.newAnnotation.y1) / imageWidth
 
-Template.osd_blaze_overlay_annotation.onRendered ->
+Template.annotationBoundingBox.onRendered ->
   div = $('<div/>')
   data = _.extend @data,
     annotationBoxElement: @.$('.annotation-box')
-  Blaze.renderWithData Template.osd_blaze_overlay_annotation_tooltip, data, div.get(0)
-  #@.$('rect').tooltipster
-  editorRendered = false
+  Blaze.renderWithData Template.annotationPreviewTooltip, data, div.get(0)
+
   @.$('.annotation-box').tooltipster
     arrow: true
     content: div
     contentCloning: false
     interactive: true
     position: 'right'
-    autoClose: false
+    trigger: 'hover'
+    autoClose: true
     theme: '.tooltipster-mirador'
 
-    functionReady: (origin, tooltip) =>
-      unless editorRendered
-        editorRendered = true
-        CKEDITOR.replace "editor-#{this.data._id}",
-          customConfig: '/plugins/ckeditor/custom.js'
-
-    functionAfter: (origin) =>
-      if editorRendered
-        editorRendered = false
-        CKEDITOR.instances["editor-#{this.data._id}"].destroy()
-
-Template.osd_blaze_overlay_new_annotation.helpers
-  x: -> (@x * @transform.scale) + @transform.translate.x
-  y: -> (@y * @transform.scale) + @transform.translate.y
-  w: -> @w * @transform.scale
-  h: -> @h * @transform.scale
-  borderSize: -> 1
-
-Template.osd_blaze_overlay_annotation.helpers
+Template.annotationBoundingBox.helpers
   x: -> (@x * @transform.scale) + @transform.translate.x
   y: -> (@y * @transform.scale) + @transform.translate.y
   w: -> @w * @transform.scale
@@ -232,23 +215,10 @@ Template.osd_blaze_overlay_annotation.helpers
   borderSize: ->
     if Session.get('hoveredAnnotationId') is @_id then 3 else 1
 
-Template.osd_blaze_overlay_annotation_tooltip.helpers
-  reactiveAnnotation: ->
-    Annotations.findOne @_id
-  selectedIf: (type) ->
-    if @type == type then 'selected'
-
-Template.osd_blaze_overlay_annotation_tooltip.events
-  'click button[data-action=save-annotation]': (e, tpl) ->
-    Annotations.update @_id,
-      $set:
-        text: CKEDITOR.instances["editor-#{this._id}"].getData()
-  'click button[data-action=delete-annotation]': (e, tpl) ->
-    Annotations.remove @_id
-  'click .close-anno-tooltip': (e, tpl) ->
-    tpl.data.annotationBoxElement.tooltipster('hide')
-  'change select': (e, tpl) ->
-    Annotations.update @_id,
-      $set:
-        type: $(e.target).val()
+Template.newAnnotationBoundingBox.helpers
+  x: -> (@x * @transform.scale) + @transform.translate.x
+  y: -> (@y * @transform.scale) + @transform.translate.y
+  w: -> @w * @transform.scale
+  h: -> @h * @transform.scale
+  borderSize: -> 1
 

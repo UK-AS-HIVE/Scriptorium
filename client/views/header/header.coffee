@@ -1,4 +1,7 @@
 Template.header.helpers
+  disconnected: ->
+    !Meteor.status().connected
+
   availableProjects: ->
     Projects.find()
 
@@ -18,6 +21,9 @@ Template.header.events
 
   "click a[data-action=toggleHelp]": ->
     $('.help-panel').toggleClass('is-open')
+
+  'click button[data-action=reconnect]': ->
+    Meteor.connection.reconnect()
 
 Template.header.onRendered ->
   @autorun ->

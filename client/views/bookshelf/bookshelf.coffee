@@ -11,6 +11,11 @@ hexToRgb = (hex) ->
   ]
 
 Template.bookshelf.rendered = ->
+  @autorun ->
+    Meteor.subscribe 'bookshelves', Session.get('current_project')
+    bookshelfIds = _.pluck Books.find().fetch(), '_id'
+    Meteor.subscribe 'booksByBookshelfId', bookshelfIds
+
   @autorun =>
     if Bookshelves.find({project: Session.get("current_project")})
       enableSortable.call @
@@ -28,14 +33,15 @@ Template.bookshelf.helpers
       "#fff"
     else
       "#000"
-     
+
   bookshelf: ->
-    return Bookshelves.find { project: Session.get("current_project") }, { sort: { rank: 1 } }
-  books:  ->
-    return Books.find { bookshelfId: @_id }, { sort: { rank: 1 } }
+    enableSortable()
+    Bookshelves.find { project: Session.get("current_project") }, { sort: { rank: 1 } }
+  books: ->
+    Books.find { bookshelfId: @_id }, { sort: { rank: 1 } }
   fileUrl: ->
     @url or "file/" + FileRegistry.findOne(@fileRegistryId).filenameOnDisk
- 
+
 
 enableSortable = ->
   tpl = @
@@ -46,7 +52,7 @@ enableSortable = ->
       elData = Blaze.getData(el)
 
       before = ui.item.prev().get(0)
-      if (!before)
+      if !before
         tpl.$(this).sortable('cancel')
         return
 
@@ -55,9 +61,8 @@ enableSortable = ->
       if after then afterData = Blaze.getData(after)
 
       newRank = 0
-      if (elData)
-        fromId = elData.bookshelfId
-        toId = 0
+      if elData
+        fromId = toId = elData.bookshelfId
 
         # If there is a book before the entry
         if beforeData.bookshelfId
@@ -66,21 +71,17 @@ enableSortable = ->
         # if there is a category before the entry
         else if beforeData.category
           toId = beforeData._id
-        
-        # Update category if moved
-        if (toId and fromId != toId)
-          Books.update elData._id, { $set: { bookshelfId: toId } }
 
         #calculate new rank based on before and after elements
-        if (!before || beforeData.category)
-          if !afterData.category then newRank = afterData.rank - 1
+        if (!before || beforeData.category) && afterData
+          unless afterData.category then newRank = afterData.rank - 1
 
         else if (!after || afterData.category)
-          if !beforeData.category then newRank = beforeData.rank + 1
+          unless beforeData.category then newRank = beforeData.rank + 1
 
         else
           newRank = (beforeData.rank + afterData.rank)/2
         # Update new rank
-        Books.update elData._id, { $set: { rank: newRank } }
+        Books.update elData._id, { $set: { bookshelfId: toId, rank: newRank } }
 
   tpl.$('.shelf').disableSelection()

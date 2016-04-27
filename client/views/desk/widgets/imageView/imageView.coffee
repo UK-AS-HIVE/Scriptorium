@@ -27,27 +27,39 @@ Template.mirador_imageView_content_osd.onDestroyed ->
 Template.mirador_imageView_content_osd.onRendered ->
   elemOsd = @.$('.mirador-osd')
 
-  # Get information for OSD
   @data.image = AvailableManifests.findOne(@data.manifestId).manifestPayload.sequences[0].canvases[@data.imageId]
-  osdToolbarId = "mirador-osd-#{@data._id}-toolbar"
+  @osd = null
 
-  imgRes = @data.image.images[0].resource
-  tileSources = ImageMetadata.findOne({retrievalUrl: imgRes.service['@id']+'/info.json'}).payload
+  Meteor.call 'getMetadataPayloadFromUrl', @data.image.images[0].resource.service['@id']+'/info.json', (err, res) =>
+    # Get image metadata, and instantiate OpenSeadragon once we've done so.
+    
+    osdToolbarId = "mirador-osd-#{@data._id}-toolbar"
 
-  # Create osd at element
-  @osd = miradorFunctions.openSeadragon
-    id: elemOsd.attr('id')
-    toolbar: osdToolbarId
-    tileSources: tileSources
+    # Create osd at element
+    osd = @osd = miradorFunctions.openSeadragon
+      id: elemOsd.attr('id')
+      toolbar: osdToolbarId
+      tileSources: res
 
-  @osd.addBlazeOverlay Template.osd_blaze_overlay, @data
+    @osd.addBlazeOverlay @data
 
-  osd = @osd
+    # Make OSD accessible annotationsPanel
+    @data.osd.set @osd
+
+    @osd.addHandler 'open', =>
+      if @data.zoom
+        @osd.viewport.zoomTo @data.zoom, null, true
+      if @data.center
+        @osd.viewport.panTo @data.center, true
+
+    @osd.addHandler 'animation-finish', (e) =>
+      DeskWidgets.update @data._id, { $set: { zoom: @osd.viewport.getZoom(), center: @osd.viewport.getCenter() } }
 
   # When adding an annotation, disable the mouse from dragging the OSD canvas
-  @autorun ->
+  @autorun =>
+    active = DeskWidgets.findOne(@data._id, { fields: { 'newAnnotation.isActive': 1 } })
     #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
-    osd.panHorizontal = osd.panVertical = !Template.currentData().newAnnotation.isActive
+    @osd?.panHorizontal = @osd?.panVertical = !active
   
   @autorun =>
     # Limit reactivity scope here to make sure we're not calling ensureVisible everytime OSD zoom changes.
@@ -65,23 +77,15 @@ Template.mirador_imageView_content_osd.onRendered ->
   @autorun =>
     zoomLocked = DeskWidgets.findOne(@data._id, { fields: { 'zoomLocked': 1 } }).zoomLocked
     if zoomLocked
-      @osd.zoomPerScroll = 1
-      @osd.zoomPerClick = 1
-      @osd.panHorizontal = @osd.panVertical = false
+      @osd?.zoomPerScroll = 1
+      @osd?.zoomPerClick = 1
+      @osd?.panHorizontal = @osd?.panVertical = false
     else
-      @osd.zoomPerScroll = 1.15
-      @osd.zoomPerClick = 2
-      @osd.panHorizontal = @osd.panVertical = true
+      @osd?.zoomPerScroll = 1.15
+      @osd?.zoomPerClick = 2
+      @osd?.panHorizontal = @osd?.panVertical = true
 
 
-  @osd.addHandler 'open', =>
-    if @data.zoom
-      @osd.viewport.zoomTo @data.zoom, null, true
-    if @data.center
-      @osd.viewport.panTo @data.center, true
-
-  @osd.addHandler 'animation-finish', (e) =>
-    DeskWidgets.update @data._id, { $set: { zoom: @osd.viewport.getZoom(), center: @osd.viewport.getCenter() } }
 
 Template.mirador_imageView_content_osd.helpers
   osdId: ->
@@ -183,66 +187,15 @@ Template.mirador_imageView_statusbar.helpers
     '___'
 
 ### Content ###
+Template.mirador_imageView_content.onCreated ->
+  @osd = new ReactiveVar null
+
 Template.mirador_imageView_content.helpers
   isOdd: (number) ->
     # Hack to make sure Blaze fully re-renders template on page change.
     _.isNull(number) or number % 2 != 0
+  dataWithOsdReactiveVar: ->
+    _.extend Template.currentData(),
+      osd: Template.instance().osd
 
-Template.mirador_imageView_annotationPanel.helpers
-  annotations: ->
-    selector =
-      projectId: Session.get('current_project')
-      manifestId: @manifestId
-      canvasIndex: @imageId
-    if @annotationTypeFilter isnt ''
-      selector.type = @annotationTypeFilter
-    Annotations.find selector
-
-Template.mirador_imageView_annotationStats.events
-  'click .close-anno-panel': (e, tpl) ->
-    DeskWidgets.update tpl.data._id,
-      $set:
-        'annotationPanelOpen': false
-  'click .mirador-icon-annotorius': (e, tpl) ->
-    DeskWidgets.update tpl.data._id,
-      $set:
-        'newAnnotation.isActive': true
-  'change select.annotationTypeSelector': (e, tpl) ->
-    DeskWidgets.update tpl.data._id,
-      $set:
-        'annotationTypeFilter': $(e.target).val()
-
-Template.mirador_imageView_annotationStats.helpers
-  selectedAnnotationType: (type) ->
-    if @annotationTypeFilter == type then 'selected'
-  annotationCount: ->
-    Annotations.find(
-      projectId: Session.get('current_project')
-      manifestId: @manifestId
-      canvasIndex: @imageId
-    ).count()
-  commentaryAnnotationCount: ->
-    Annotations.find(
-      projectId: Session.get('current_project')
-      manifestId: @manifestId
-      canvasIndex: @imageId
-      type: 'commentary'
-    ).count()
-  transcriptionAnnotationCount: ->
-    Annotations.find(
-      projectId: Session.get('current_project')
-      manifestId: @manifestId
-      canvasIndex: @imageId
-      type: 'transcription'
-    ).count()
-
-Template.mirador_imageView_annotationListing.events
-  'mouseenter .annotationListing': (e, tpl) ->
-    Session.set 'hoveredAnnotationId', tpl.data._id
-  'mouseleave .annotationListing': (e, tpl) ->
-    Session.set 'hoveredAnnotationId', null
-
-Template.mirador_imageView_annotationListing.helpers
-  sanitized: (html) ->
-    sanitizeHtml html
 

@@ -9,7 +9,7 @@ Meteor.methods
 
     id = RequestedAccounts.insert user
 
-    if !Meteor.settings.approval.enabled or !Meteor.users.findOne()? or user.email in Meteor.settings.approval.approverEmails
+    if !Meteor.settings.approval?.enabled or !Meteor.users.findOne()? or user.email in Meteor.settings.approval.approverEmails
       # First user or emails who are selected as approvers are automatically approved.
       Meteor.call 'approveAccount', id
     else
