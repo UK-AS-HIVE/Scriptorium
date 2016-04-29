@@ -8,5 +8,7 @@ Template.snapshotPanel.events
 
 Template.snapshotPanel.helpers
   savedDesks: ->
-    DeskSnapshots.find()
-
+    DeskSnapshots.find {}, { sort: { timestamp: -1 } }
+  formattedTimestamp: ->
+    moment(@timestamp).format('lll')
+  fullName: -> User.first(@userId)?.fullName()
