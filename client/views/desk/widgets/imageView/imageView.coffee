@@ -57,7 +57,7 @@ Template.mirador_imageView_content_osd.onRendered ->
 
   # When adding an annotation, disable the mouse from dragging the OSD canvas
   @autorun =>
-    active = DeskWidgets.findOne(@data._id, { fields: { 'newAnnotation.isActive': 1 } })
+    active = DeskWidgets.findOne(@data._id, { fields: { 'newAnnotation.isActive': 1 } })?.newAnnotation.isActive
     #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
     @osd?.panHorizontal = @osd?.panVertical = !active
   
