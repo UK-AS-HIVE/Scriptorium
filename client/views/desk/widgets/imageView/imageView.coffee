@@ -55,12 +55,6 @@ Template.mirador_imageView_content_osd.onRendered ->
     @osd.addHandler 'animation-finish', (e) =>
       DeskWidgets.update @data._id, { $set: { zoom: @osd.viewport.getZoom(), center: @osd.viewport.getCenter() } }
 
-  # When adding an annotation, disable the mouse from dragging the OSD canvas
-  @autorun =>
-    active = DeskWidgets.findOne(@data._id, { fields: { 'newAnnotation.isActive': 1 } })?.newAnnotation.isActive
-    #osd.setMouseNavEnabled !Template.currentData().annotationPanelOpen
-    @osd?.panHorizontal = @osd?.panVertical = !active
-  
   @autorun =>
     # Limit reactivity scope here to make sure we're not calling ensureVisible everytime OSD zoom changes.
     data = DeskWidgets.findOne(@data._id, { fields: { 'height': 1, 'width': 1, 'annotationPanelOpen': 1 } } )
@@ -75,17 +69,21 @@ Template.mirador_imageView_content_osd.onRendered ->
       Template.instance().osd.viewport?.ensureVisible()
 
   @autorun =>
-    zoomLocked = DeskWidgets.findOne(@data._id, { fields: { 'zoomLocked': 1 } }).zoomLocked
-    if zoomLocked
+    w = DeskWidgets.findOne @data._id,
+      fields:
+        'newAnnotation.isActive': 1
+        zoomLocked: 1
+
+    # If lock is activated, disable zoom and pan
+    if w.zoomLocked
       @osd?.zoomPerScroll = 1
       @osd?.zoomPerClick = 1
-      @osd?.panHorizontal = @osd?.panVertical = false
     else
       @osd?.zoomPerScroll = 1.15
       @osd?.zoomPerClick = 2
-      @osd?.panHorizontal = @osd?.panVertical = true
 
-
+    # Disable mouse pan either when lock activated or when adding an annotation
+    @osd?.panHorizontal = @osd?.panVertical = !w.zoomLocked and !w.newAnnotation.isActive
 
 Template.mirador_imageView_content_osd.helpers
   osdId: ->
