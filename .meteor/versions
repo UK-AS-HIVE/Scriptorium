@@ -4,6 +4,7 @@ accounts-ui@1.1.6
 accounts-ui-unstyled@1.1.8
 aldeed:collection2@2.2.0
 aldeed:simple-schema@1.0.3
+anti:gagarin@0.4.12
 autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4
