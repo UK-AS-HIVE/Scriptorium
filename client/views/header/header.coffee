@@ -1,6 +1,6 @@
 Template.header.helpers
   disconnected: ->
-    !Meteor.status().connected
+    Session.get('wasConnected') and !Meteor.status().connected
 
   availableProjects: ->
     Projects.find()
@@ -32,7 +32,5 @@ Template.header.onRendered ->
     else
       Session.set 'current_project', Meteor.user()?.lastProjectId || Projects.findOne()?._id
 
-
-
-
-
+Tracker.autorun ->
+  if Meteor.status().connected then Session.set('wasConnected', true)
