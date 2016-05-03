@@ -84,5 +84,5 @@ Meteor.publish 'bookshelves', (projectId) ->
 
 Meteor.publish 'booksByBookshelfId', (bookshelfIds) ->
   bookshelfIds = _.filter bookshelfIds, (b) =>
-    Projects.findOne({ _id: Bookshelves.findOne(b)?.projectId, $or: [ { personal: @userId }, { 'permissions.user': @userId } ] })?
+    Projects.findOne({ _id: Bookshelves.findOne(b)?.project, $or: [ { personal: @userId }, { 'permissions.user': @userId } ] })?
   Books.find { bookshelfId: { $in: bookshelfIds } }
