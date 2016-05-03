@@ -29,23 +29,7 @@ Meteor.publishComposite 'project', (projectId) ->
       { find: -> EventStream.find { projectId: projectId } }
       { find: -> DeskWidgets.find { userId: @userId, projectId: projectId } }
       { find: -> DeskSnapshots.find { projectId: projectId }, {fields: {widgets: 0}} }
-      {
-        find: -> Bookshelves.find { project: projectId }
-        children: [
-          {
-            find: (bookshelf) -> Books.find { bookshelfId: bookshelf._id }
-            children: [
-              {
-                find: (book) ->
-                  FileRegistry.find { _id: book.fileRegistryId }
-              }
-            ]
-          }
-        ]
-      }
-      {
-        find: -> folioItems.find { projectId: projectId }
-      }
+      { find: -> folioItems.find { projectId: projectId } }
     ]
     }
 
@@ -82,7 +66,14 @@ Meteor.publish 'bookshelves', (projectId) ->
   if Projects.findOne({_id: projectId, $or: [ { personal: @userId }, { 'permissions.user': @userId } ] })?
     Bookshelves.find { project: projectId }
 
-Meteor.publish 'booksByBookshelfId', (bookshelfIds) ->
+Meteor.publishComposite 'booksByBookshelfId', (bookshelfIds) ->
   bookshelfIds = _.filter bookshelfIds, (b) =>
     Projects.findOne({ _id: Bookshelves.findOne(b)?.project, $or: [ { personal: @userId }, { 'permissions.user': @userId } ] })?
-  Books.find { bookshelfId: { $in: bookshelfIds } }
+  {
+    find: ->
+      Books.find { bookshelfId: { $in: bookshelfIds } }
+    children: [
+      { find: (book) -> FileRegistry.find { _id: book.fileRegistryId } }
+    ]
+  }
+

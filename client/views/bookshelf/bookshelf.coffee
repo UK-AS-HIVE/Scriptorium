@@ -14,7 +14,9 @@ Template.bookshelf.rendered = ->
   @autorun ->
     Meteor.subscribe 'bookshelves', Session.get('current_project')
     bookshelfIds = _.pluck Bookshelves.find().fetch(), '_id'
-    Meteor.subscribe 'booksByBookshelfId', bookshelfIds
+    Meteor.subscribe 'booksByBookshelfId', bookshelfIds,
+      onReady: ->
+        enableSortable()
 
   @autorun =>
     if Bookshelves.find({project: Session.get("current_project")})
