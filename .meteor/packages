@@ -13,7 +13,6 @@ kaptron:minimongoid
 http
 hive:file-registry
 
-standard-minifiers
 
 
 aldeed:simple-schema
@@ -30,3 +29,5 @@ matb33:collection-hooks
 mrt:moment
 email
 accounts-ui
+standard-minifier-css
+standard-minifier-js
