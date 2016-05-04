@@ -1,8 +1,4 @@
-Scriptorium repository is licensed under the GNU Affero GPL v3, with the
-exception of the images welcome-scriptorium.jpg and man.png, which are licensed
-Creative Commons Attribution-NonCommercial-ShareAlike 3.0
-
-==============================================================================
+Scriptorium code is licensed under the GNU Affero GPL v3:
 
  GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007
 
@@ -620,6 +616,9 @@ information on this, and how to apply and follow the GNU AGPL, see
 
 ==============================================================================
 
+The images welcome-scriptorium.jpg and man.png are licensed
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0:
+
 License
 
 THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE
@@ -896,4 +895,23 @@ of rights granted under applicable copyright law includes additional rights not
 granted under this License, such additional rights are deemed to be included in
 the License; this License is not intended to restrict the license of any rights
 under applicable law.
+
+==============================================================================
+
+Significant portions of Scriptorium's image viewer are based on Mirador version
+1, licensed under the Apache License:
+
+Copyright © 2014 The Board of Trustees of the Leland Stanford Junior University
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+<http://www.apache.org/licenses/LICENSE-2.0>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
