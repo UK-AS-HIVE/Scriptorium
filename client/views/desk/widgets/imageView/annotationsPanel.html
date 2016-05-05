@@ -13,7 +13,7 @@
   <div class="annotationPanelHeader">
     <h4>Annotations (<span class="annotationsTotal">{{annotationCount}}</span>) <a class="pull-right close-anno-panel"><i class="fa fa-times"></i></a></h4>
     <a class="mirador-btn mirador-icon-annotorius" title="Create Annotation"></a>
-    <a class="mirador-btn mirador-icon-download" title="Download Annotations"></a>
+    <a href="/export/annotations/{{projectId}}/{{manifestId}}/{{imageId}}" target="_blank" class="mirador-btn mirador-icon-download" title="Download Annotations"></a>
     <div class="annoSearch">
       <select class="annotationTypeSelector" name="annotationTypes">
         <option value="" selected={{selectedAnnotationType ''}}>All (<span class="annotationCount">{{annotationCount}}</span>)</option>

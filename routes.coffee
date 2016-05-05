@@ -209,3 +209,10 @@ Router.map ->
     path: '/file/:filename'
     where: 'server'
     action: FileRegistry.serveFile
+
+  @route 'exportAnnotations',
+    path: '/export/annotations/:projectId/:manifestId/:canvasIndex'
+    where: 'server'
+    action: ->
+      {exportAnnotations} = require '/imports/server/exportAnnotations.coffee'
+      exportAnnotations @params.projectId, @params.manifestId, parseInt(@params.canvasIndex), @response
