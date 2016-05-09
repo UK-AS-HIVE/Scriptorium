@@ -11,8 +11,8 @@
 
 
   <div class="wrapper">
-    {{> yield region="header"}}
-      {{> yield}}
-    {{> yield region="footer"}}
+    {{> Template.dynamic template="header"}}
+      {{> Template.dynamic template=content}}
+    {{> Template.dynamic template="footer"}}
   </div>
 </template>

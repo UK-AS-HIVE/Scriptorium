@@ -6,7 +6,6 @@
 standard-app-packages
 modules
 insecure
-iron:router
 coffeescript
 less
 accounts-password
@@ -32,3 +31,5 @@ email
 accounts-ui
 standard-minifier-css
 standard-minifier-js
+kadira:blaze-layout
+kadira:flow-router
