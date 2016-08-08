@@ -1,4 +1,12 @@
 Template.mbThread.rendered = ->
+  @autorun ->
+    if Router.current().params?.query?.post
+      post = Router.current().params.query.post
+      $('html, body').animate {
+        scrollTop: $("#post-#{post}").offset().top
+      }, 200
+
+
   @.autorun ->
     currentProject = Session.get('current_project')
     data = Router.current().data()
@@ -18,6 +26,7 @@ Template.mbThread.helpers
 
   posts: ->
     posts = _.sortBy(@posts, (p) -> p.timestamp)
+    posts = _.map posts, (p, i) -> _.extend p, { index: i+1 }
 
     if Session.get('mbSortThreadAsc')
       posts.reverse()
@@ -71,7 +80,8 @@ Template.mbPost.events
   'click a[data-action=cancelDelete]': (e, tpl) ->
     tpl.deleting.set false
   'click a[data-action=confirmDelete]': (e, tpl) ->
-    Meteor.call 'deletePost', Template.parentData(1)._id, @
+    # Have to take out the index we added for Blaze.
+    Meteor.call 'deletePost', Template.parentData(1)._id, _.omit(@, 'index')
     tpl.deleting.set false
 
 Template.mbPost.onCreated ->

@@ -17,37 +17,50 @@
       </div>
       {{#if searchText}}
         <small class="search-result-message">
-          {{topics.count}} result(s) found.
+          {{topics.count}} thread(s) found.
           <a data-action="clear">Clear search?</a>
         </small>
-
       {{/if}}
     </li>
-  {{#unless topics}}
-    <li>
-      <div class="pull-left post-meta">
-        <div><strong>No messages yet. Add one above.</strong></div>
-      </div>
-    </li>
-  {{/unless}}
-  {{#each topics}}
-    <li>
-      <!--
-      <span class="post-unread">3</span>
-      -->
-      <div class="pull-left post-meta">
-        <div><strong><a href="/collaboration/thread/{{_id}}">{{subject}}</a></strong></div>
-        <div><small>Started by {{fullName startedBy}}</small></div>
-        <div><small>Last post by {{fullName lastPost.user}} {{> timeFromNow lastPost.timestamp}}</small></div>
-      </div>
-      <div class="pull-right post-count">
-        {{postCount}} {{#if onlyOnePost}}Post{{else}}Posts{{/if}}
-        {{#if canDeleteThread}}
-          <small><a class="delete-link" data-action="deleteThread"><i class="fa fa-times"></i> delete</a></small>
-        {{/if}}
-      </div>
-    </li>
-  {{/each}}
+    {{#unless topics}}
+      <li>
+        <div class="pull-left post-meta">
+          <div><strong>No messages yet. Add one above.</strong></div>
+        </div>
+      </li>
+    {{/unless}}
+    {{#each topics}}
+      <li>
+        <!--
+        <span class="post-unread">3</span>
+        -->
+        <div class="pull-left post-meta">
+          <div><strong><a href="/collaboration/thread/{{_id}}">{{subject}}</a></strong></div>
+          <div><small>Started by {{fullName startedBy}}</small></div>
+          <div><small>Last post by {{fullName lastPost.user}} {{> timeFromNow lastPost.timestamp}}</small></div>
+        </div>
+        <div class="pull-right post-count">
+          {{postCount}} {{#if onlyOnePost}}Post{{else}}Posts{{/if}}
+          {{#if canDeleteThread}}
+            <small><a class="delete-link" data-action="deleteThread"><i class="fa fa-times"></i> delete</a></small>
+          {{/if}}
+        </div>
+      </li>
+      {{#if searchText}}
+        {{#each comment}}
+          <li class="comment-search-result">
+            <div class="post-meta">
+              <div><strong>{{fullName user}}</strong></div>
+              <div>
+                <a  href="/collaboration/thread/{{../_id}}?post={{index this ..}}">Post #{{index this ..}}</a>
+              </div>
+              <div><small>{{> timeFromNow timestamp}}</small></div>
+                <div>{{message}}</div>
+            </div>
+          </li>
+        {{/each}}
+      {{/if}}
+    {{/each}}
   </ul>
   {{> mbNewTopic}}
 </template>

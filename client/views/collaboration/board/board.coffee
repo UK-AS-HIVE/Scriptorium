@@ -30,6 +30,13 @@ Template.mbBoard.helpers
 
   searchText: ->
     Session.get('message_search')
+  comment: ->
+    search = new RegExp Session.get('message_search'), 'i'
+    _.filter @posts, (p) ->
+      search.test p.message
+  index: (comment, thread) ->
+    thread = _.sortBy thread.posts, 'timestamp'
+    thread.indexOf(comment) + 1
 
 Template.mbBoard.events
   'shown.bs.modal #newTopicModal': (e, tpl) ->

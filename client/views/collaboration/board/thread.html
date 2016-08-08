@@ -27,7 +27,7 @@
 </template>
 
 <template name="mbPost">
-  <li>
+  <li id="post-{{index}}">
     <p><strong>{{fullName}}</strong><small>{{> timeFromNow timestamp}}</small></p>
     {{#each paragraphs}}
       <p>{{linkify this}}</p>
