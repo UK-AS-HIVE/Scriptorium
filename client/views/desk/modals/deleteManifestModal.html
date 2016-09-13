@@ -1,0 +1,47 @@
+<template name="deleteManifestModal">
+  <div class="modal fade" id="deleteManifestModal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          {{#with manifest}}
+            <div class="row">
+              <div class="form-group col-xs-12">
+                <label>Manifest URL</label>
+                <input type="text" class="form-control" value="{{manifestPayload.@context}}" disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12">
+                <label>Location</label>
+                <input type="text" class="form-control" value="{{manifestLocation}}" disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12">
+                <label>Title</label>
+                <input type="text" class="form-control" value="{{manifestPayload.label}}" disabled>
+              </div>
+            </div>
+          {{/with}}
+          <div class="form-group col-xs-12">
+            <label class="text-left">Are you sure you want to delete this manifest? All associated images and annotations will be deleted.
+              All open images from the manifest will be closed for any users currently working.
+              Please confirm the above information and enter "Delete" in the box below to confirm.</label>
+            <input type="text" class="form-control" name="confirmDelete">
+          </div>
+          {{#if error}}
+            <span class="error">{{error}}</span>
+          {{/if}}
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+          {{#if loading}}
+            <button class="btn btn-primary">{{> spinner}}</button>
+            {{else}}
+            <button class="btn btn-danger" data-action="deleteManifest">Delete Manifest</button>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -3390,6 +3390,9 @@ a.mirador-icon-annotationDetail-toggle.hidden {
 .mirador-icon-add-mani { background-image: url('/images/mirador-add-mani.png'); }
 .mirador-icon-add-mani:hover { background-position: 0px -20px; }
 
+.mirador-icon-del-mani { background-image: url('/images/mirador-del-mani.png'); }
+.mirador-icon-del-mani:hover { background-position: 0px -20px; }
+
 .mirador-icon-send-folio {  background-image: url('/images/mirador-folio.png'); }
 .mirador-icon-send-folio:hover { background-position: 0px -20px; }
 

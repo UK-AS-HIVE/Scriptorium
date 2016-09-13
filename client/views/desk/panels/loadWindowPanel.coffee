@@ -60,3 +60,7 @@ Template.loadWindowPanel.events
     miradorFunctions.mirador_viewer_loadView "metadataView",
       manifestId: manifestId
 
+  'click .mirador-listing-collections a.mirador-icon-del-mani': (e, tpl) ->
+    manifestId = tpl.$('.mirador-listing-collections select').find('option:selected').data('manifest-id')
+    Blaze.renderWithData Template.deleteManifestModal, { manifestId: manifestId }, $('body').get(0)
+    $('#deleteManifestModal').modal('show')
