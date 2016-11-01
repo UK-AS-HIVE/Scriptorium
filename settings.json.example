@@ -1,9 +1,11 @@
 {
+  "public": {
+    "accountApproval": false
+  },
   "approval": {
-    "enabled": true,
     "approverEmails": [
-      "asdf@asdf.com", 
-      "jkl@jkl.com"
+      "foo@bar.com",
+      "bar@foo.com"
     ]
   },
   "email": {

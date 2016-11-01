@@ -25,6 +25,12 @@
               <label>Email Address</label>
               <input type="email" class="form-control" name="email">
             </div>
+            {{#unless accountApproval}}
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password">
+              </div>
+            {{/unless}}
             <div class="form-group">
               <label>Are you requesting an account because you have been invited to an existing Scriptorium project? If Yes, please provide the name of the project leader.</label>
               <input type="text" class="form-control" name="existingProjectRequest">
