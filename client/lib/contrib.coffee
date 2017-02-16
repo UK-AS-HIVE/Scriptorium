@@ -12,4 +12,7 @@ require '/imports/contrib/bootstrap-slider/bootstrap-slider.js'
 require '/imports/contrib/bootstrap-slider/css/bootstrap-slider.min.css'
 require '/imports/contrib/color-picker/js/bootstrap-colorpicker.min.js'
 require '/imports/contrib/color-picker/css/bootstrap-colorpicker.min.css'
+require '/imports/contrib/select2/select2.js'
+require '/imports/contrib/select2/select2.css'
+require '/imports/contrib/select2/select2-bootstrap.css'
 
