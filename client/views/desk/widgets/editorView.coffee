@@ -23,8 +23,9 @@ Template.mirador_editorView_statusbar.onRendered ->
 Template.mirador_editorView_statusbar.events
   'click button[data-action=save]': (e, tpl) ->
     # TODO: If widget templates are combined, getting content via tpl.$('.cke_wysiwyg_div') is probably more reliable
-    Meteor.call 'updateAndUnlockEditorFile', @fileCabinetId, CKEDITOR.instances["editor-#{@fileCabinetId}"].getData()
-    tpl.saved.set true
+    tpl.saved.set 'saving'
+    Meteor.call 'updateAndUnlockEditorFile', @fileCabinetId, CKEDITOR.instances["editor-#{@fileCabinetId}"].getData(), (err, res) ->
+      tpl.saved.set 'saved'
 
 Template.mirador_editorView_statusbar.helpers
   disabled: ->
@@ -41,7 +42,8 @@ Template.mirador_editorView_statusbar.helpers
     file?.editorLockedByUserId is Meteor.userId() and file?.editorLockedByConnectionId is Meteor.connection._lastSessionId
   owner: ->
     User.first(FileCabinet.findOne(@fileCabinetId)?.editorLockedByUserId).fullName()
-  saved: -> Template.instance().saved.get()
+  saved: -> Template.instance().saved.get() == 'saved'
+  saving: -> Template.instance().saved.get() == 'saving'
   fileIsType: (type) ->
     fileName = FileCabinet.findOne(@fileCabinetId)?.title
     ext = fileName.substr(fileName.lastIndexOf('.') + 1)

@@ -19,6 +19,9 @@
         <small>You are currently locking this file for editing by other users.</small>
       {{/if}}
       <div class="saved-file-container pull-right">
+        {{#if saving}}
+          <span class="saving-file">Saving file...</span>
+        {{/if}}
         {{#if saved}}
           <span class="saved-file">File saved.</span>
         {{/if}}
