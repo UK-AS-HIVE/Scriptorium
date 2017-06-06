@@ -9,6 +9,7 @@ Template.folioEdit.onRendered ->
   #get database record for this item to populate special fields
   item = folioItems.findOne({_id: Session.get("editFolioItem")}, {fields: {'metadata' : 1}})
 
+  schema = folioItems.simpleSchema()._schema
 
   if item.metadata?.dateRange
     dateLow = item.metadata.dateRange[0]
@@ -69,11 +70,12 @@ Template.folioEdit.onRendered ->
   CKEDITOR.instances['transcription'].setData(item.metadata?.transcription)
 
   #SELECT FIELDS
-  $("#scriptName").select2 tags: []
+  $("#scriptName").select2 tags: schema['metadata.scriptName.$'].allowedValues
   $("#scriptName").select2("val", item.metadata?.scriptName)
 
   $("#scriptSelect").select2 {
     placeholder: "Select a Script Family"
+    tags: schema['metadata.scriptFamily'].allowedValues
     allowClear: true
   }
   $("#scriptSelect").select2("val", item.metadata?.scriptFamily)
@@ -115,6 +117,8 @@ Template.folioEdit.helpers
     item.published == published
   languages: ->
     Manuscript.languages
+  regions: ->
+    Manuscript.regions
   scripts: ->
     Manuscript.scripts
   alphabet: ->

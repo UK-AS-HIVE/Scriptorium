@@ -31,6 +31,19 @@ class @Manuscript extends Minimongoid
     "Ukrainian" #changed from "Ukranian" - changed in db
   ]
 
+  @regions: [
+    "All"
+    "Paris Basin"
+    "Lombardy"
+    "Southern France"
+    "Lorraine and Franconia"
+    "Swabia and Bavaria"
+    "Jura"
+    "Saxony and the eastern Marches"
+    "Central Italy and Rome"
+    "Other"
+  ]
+
   @alphabet: [
     "Arabic"
     "Armenian"

@@ -40,8 +40,9 @@
         </div>
         <h3>Details</h3>
         <div class="form-group">
-          <label>Common (“pet”) Name (if any)</label>
+          <label>Content of this Manuscript Page or Document<span>*</span></label>
           <input type="text" class="form-control" id="commonName-field" value="{{getFolioById.metadata.commonName}}"/>
+          <span class="help-block">Examples: “Charter of Frederick II”; “Collectio Hispana”; “Gratian, Decretum, Distinction 5”; “Theodosian Code, Book XIX”</span>
         </div>
 
         <div class="row">
@@ -80,12 +81,12 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Script<span>*</span></label>
+          <label>Type of Document<span>*</span></label>
           <input id="scriptName" type="text" class="form-control" required/>
         </div>
         <div class="row">
           <div class="form-group col-xs-6">
-            <label>Script Tradition<span>*</span></label>
+            <label>Traditional Classification</label>
             <select id="traditionSelect" class="form-control" required>
               <option></option>
               {{#each traditions}}
@@ -94,7 +95,7 @@
             </select>
           </div>
           <div class="form-group col-xs-6">
-            <label>Script Family<span>*</span></label>
+            <label>Community Context</label>
             <select id="scriptSelect" class="form-control" required>
               <option></option>
               {{#each scripts}}
@@ -105,10 +106,10 @@
         </div>
         <div class="row">
           <div class="form-group col-xs-6">
-            <label>Language<span>*</span></label>
+            <label>Region<span>*</span></label>
             <select id="languageSelect" class="form-control" required>
               <option></option>
-              {{#each languages}}
+              {{#each regions}}
                 <option>{{this}}</option>
               {{/each}}
             </select>
@@ -125,9 +126,9 @@
         </div>
         <div class="row">
           <div class="form-group col-xs-6">
-            <label>Contributor(s)</label>
+            <label>Associated with Person</label>
             <input type="text" class="form-control" id="contributor-field" value="{{getFolioById.metadata.contributors}}"/>
-            <span class="help-block">e.g., scribe, illuminator, etc.</span>
+            <span class="help-block">Names of persons might be those who owned, copied, wrote, used, signed, sanctioned, or used a text or manuscript.</span>
           </div>
           <div class="form-group col-xs-6">
             <label>Link to full manuscript (URL)</label>
@@ -145,11 +146,12 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Paleographic Description<span>*</span></label>
+          <label>Content and Context<span>*</span></label>
           <textarea id="description" required></textarea>
+          <span class="help-block">used for brief historical contextualization, explanation of text type, circumstances of composition, transmission, etc.</span>
         </div>
         <div class="form-group">
-          <label>Special Paleographic Features<span>*</span></label>
+          <label>Special Legal Features<span>*</span></label>
           <textarea id="features" required></textarea>
         </div>
         <div class="form-group">
@@ -157,8 +159,8 @@
           <textarea id="info"></textarea>
         </div>
         <div class="form-group">
-          <label>Transcription<span>*</span></label>
-          <textarea id="transcription" required></textarea>
+          <label>Transcription</label>
+          <textarea id="transcription"></textarea>
         </div>
 
         <div class="folio-form-footer">

@@ -186,15 +186,22 @@
   'metadata.dateRange':
     type: [Number]
   'metadata.scriptName':
+    label: 'Type of Document'
     type: [String]
+    allowedValues: ['All', 'Teaching Text', 'Administrative Document', 'Pastoral Care', 'Used in Dispute, Litigation, or Judgment', 'Legal Theory', 'Instrument of Government', 'For Private Use', 'Other']
   'metadata.scriptFamily':
+    label: 'Community Context'
     type: String
+    allowedValues: ['All', 'School or University', 'Manor or Village', 'Monastery', 'Cathedral and Episcopal Court', 'Royal or Imperial Court', 'Papal Curia', 'Town', 'Other']
+    optional: true
   'metadata.scriptLanguage':
+    label: 'Region'
     type: String
   'metadata.scriptAlphabet':
     type: String
   'metadata.scriptTradition':
     type: String
+    optional: true
   'metadata.specificText':
     type: String
   'metadata.folioNumber':
@@ -210,7 +217,7 @@
     optional: true
   'metadata.commonName':
     type: String
-    optional: true
+    optional: false
   'metadata.origin':
     type: String
     optional: true
