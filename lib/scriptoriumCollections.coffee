@@ -177,6 +177,7 @@
   metadata:
     type: Object
     optional: true
+    blackbox: true
   'metadata.city':
     type: String
   'metadata.repository':
