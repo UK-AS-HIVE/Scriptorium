@@ -212,6 +212,7 @@
     type: String
   'metadata.transcription':
     type: String
+    optional: true
   'metadata.collection':
     type: String
     optional: true

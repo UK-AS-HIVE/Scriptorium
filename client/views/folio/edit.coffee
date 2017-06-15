@@ -75,7 +75,7 @@ Template.folioEdit.onRendered ->
 
   $("#scriptSelect").select2 {
     placeholder: "Select a Script Family"
-    tags: schema['metadata.scriptFamily'].allowedValues
+    #tags: schema['metadata.scriptFamily'].allowedValues
     allowClear: true
   }
   $("#scriptSelect").select2("val", item.metadata?.scriptFamily)
@@ -121,6 +121,8 @@ Template.folioEdit.helpers
     Manuscript.regions
   scripts: ->
     Manuscript.scripts
+  scriptFamily: ->
+    folioItems.simpleSchema()._schema['metadata.scriptFamily'].allowedValues
   alphabet: ->
     Manuscript.alphabet
   traditions: ->
