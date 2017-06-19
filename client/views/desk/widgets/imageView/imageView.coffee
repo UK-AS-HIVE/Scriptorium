@@ -133,6 +133,11 @@ Template.mirador_imageView_navToolbar.events
       published: false
       manifest: Meteor.absoluteUrl "folio/manifest.json"
       canvas: null
+      annotations: Annotations.find({
+        projectId: Session.get('current_project')
+        manifestId: @manifestId
+        canvasIndex: @imageId
+      }, {fields: {type: 1, text: 1, x: 1, y: 1, w: 1, h: 1}}).fetch()
 
     folioItems.update newFolioId,
       $set:

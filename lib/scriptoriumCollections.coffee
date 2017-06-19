@@ -251,6 +251,26 @@
     type: new Date()
   published:
     type: Boolean
+  annotations:
+    type: [Object]
+    optional: true
+  'annotations.$.type':
+    type: String
+    allowedValues: ['commentary', 'transcription']
+  'annotations.$.text':
+    type: String
+  'annotations.$.x':
+    type: Number
+    decimal: true
+  'annotations.$.y':
+    type: Number
+    decimal: true
+  'annotations.$.w':
+    type: Number
+    decimal: true
+  'annotations.$.h':
+    type: Number
+    decimal: true
   manifest:
     type: String
     label: "Absolute URL to manifest json"
