@@ -225,10 +225,6 @@ Template.folioEdit.events
     if CKEDITOR.instances.features.getData() == ''
       emptyFields.push("Special Paleographic Features")
 
-    if CKEDITOR.instances.transcription.getData() == ''
-      emptyFields.push("Transcription")
-
-
     #save everything
     folioItem = {}
 
