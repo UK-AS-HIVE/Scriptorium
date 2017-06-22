@@ -80,11 +80,11 @@ Template.folioEdit.onRendered ->
   }
   $("#scriptSelect").select2("val", item.metadata?.scriptFamily)
 
-  $("#languageSelect").select2 {
-    placeholder: "Select a Language"
+  $("#regionSelect").select2 {
+    placeholder: "Select a Region"
     allowClear: true
   }
-  $("#languageSelect").select2("val", item.metadata?.scriptLanguage)
+  $("#regionSelect").select2("val", item.metadata?.scriptRegion)
 
   $("#alphabetSelect").select2 {
     placeholder: "Select an Alphabet"
@@ -115,8 +115,6 @@ Template.folioEdit.helpers
   isPublished: (published) ->
     item = folioItems.findOne({_id: Session.get("editFolioItem")}, {fields: {published: 1}})
     item.published == published
-  languages: ->
-    Manuscript.languages
   regions: ->
     Manuscript.regions
   scripts: ->
@@ -141,7 +139,7 @@ Template.folioEdit.events
     folioItem.dateRange = $("#dateSlider").slider('getValue')
     folioItem.scriptName = $("#scriptName").select2('val')
     folioItem.scriptFamily = $("#scriptSelect").select2('val')
-    folioItem.scriptLanguage = $("#languageSelect").select2('val')
+    folioItem.scriptRegion = $("#regionSelect").select2('val')
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
     folioItem.scriptTradition = $("#traditionSelect").select2('val')
     folioItem.specificText = $("#folioText-field").val()
@@ -207,8 +205,8 @@ Template.folioEdit.events
     if $("#scriptSelect").select2('val') == ''
       emptyFields.push("Script Family")
 
-    if $("#languageSelect").select2('val') == ''
-      emptyFields.push("Language")
+    if $("#regionSelect").select2('val') == ''
+      emptyFields.push("Region")
 
     if $("#alphabetSelect").select2('val') == ''
       emptyFields.push("Alphabet")
@@ -235,7 +233,7 @@ Template.folioEdit.events
     folioItem.dateRange = $("#dateSlider").slider('getValue')
     folioItem.scriptName = $("#scriptName").select2('val')
     folioItem.scriptFamily = $("#scriptSelect").select2('val')
-    folioItem.scriptLanguage = $("#languageSelect").select2('val')
+    folioItem.scriptRegion = $("#regionSelect").select2('val')
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
     folioItem.scriptTradition = $("#traditionSelect").select2('val')
     folioItem.specificText = $("#folioText-field").val()

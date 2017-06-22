@@ -195,7 +195,7 @@
     type: String
     allowedValues: ['All', 'School or University', 'Manor or Village', 'Monastery', 'Cathedral and Episcopal Court', 'Royal or Imperial Court', 'Papal Curia', 'Town', 'Other']
     optional: true
-  'metadata.scriptLanguage':
+  'metadata.scriptRegion':
     label: 'Region'
     type: String
   'metadata.scriptAlphabet':
