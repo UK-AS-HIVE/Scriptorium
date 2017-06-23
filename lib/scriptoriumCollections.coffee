@@ -186,7 +186,7 @@
     type: String
   'metadata.dateRange':
     type: [Number]
-  'metadata.scriptName':
+  'metadata.typeOfDocument':
     label: 'Type of Document'
     type: [String]
     allowedValues: ['All', 'Teaching Text', 'Administrative Document', 'Pastoral Care', 'Used in Dispute, Litigation, or Judgment', 'Legal Theory', 'Instrument of Government', 'For Private Use', 'Other']

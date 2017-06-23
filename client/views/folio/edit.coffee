@@ -70,8 +70,8 @@ Template.folioEdit.onRendered ->
   CKEDITOR.instances['transcription'].setData(item.metadata?.transcription)
 
   #SELECT FIELDS
-  $("#scriptName").select2 tags: schema['metadata.scriptName.$'].allowedValues
-  $("#scriptName").select2("val", item.metadata?.scriptName)
+  $("#typeOfDocument").select2 tags: schema['metadata.typeOfDocument.$'].allowedValues
+  $("#typeOfDocument").select2("val", item.metadata?.typeOfDocument)
 
   $("#scriptSelect").select2 {
     placeholder: "Select a Script Family"
@@ -137,7 +137,7 @@ Template.folioEdit.events
     folioItem.repository = $("#repository-field").val()
     folioItem.collectionNumber = $("#collectionNumber-field").val()
     folioItem.dateRange = $("#dateSlider").slider('getValue')
-    folioItem.scriptName = $("#scriptName").select2('val')
+    folioItem.typeOfDocument = $("#typeOfDocument").select2('val')
     folioItem.scriptFamily = $("#scriptSelect").select2('val')
     folioItem.scriptRegion = $("#regionSelect").select2('val')
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
@@ -199,8 +199,8 @@ Template.folioEdit.events
     if $("#collectionNumber-field").val() == ''
       emptyFields.push("Collection Number")
 
-    if $("#scriptName").select2('val') == ''
-      emptyFields.push("Script")
+    if $("#typeOfDocument").select2('val') == ''
+      emptyFields.push("Type of Document")
 
     if $("#scriptSelect").select2('val') == ''
       emptyFields.push("Script Family")
@@ -231,7 +231,7 @@ Template.folioEdit.events
     folioItem.repository = $("#repository-field").val()
     folioItem.collectionNumber = $("#collectionNumber-field").val()
     folioItem.dateRange = $("#dateSlider").slider('getValue')
-    folioItem.scriptName = $("#scriptName").select2('val')
+    folioItem.typeOfDocument = $("#typeOfDocument").select2('val')
     folioItem.scriptFamily = $("#scriptSelect").select2('val')
     folioItem.scriptRegion = $("#regionSelect").select2('val')
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
