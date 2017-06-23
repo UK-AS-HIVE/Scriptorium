@@ -200,7 +200,7 @@
     type: String
   'metadata.scriptAlphabet':
     type: String
-  'metadata.scriptTradition':
+  'metadata.traditionalClassification':
     type: String
     optional: true
   'metadata.specificText':

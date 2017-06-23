@@ -71,7 +71,8 @@ Template.folioEdit.onRendered ->
 
   #SELECT FIELDS
   $("#typeOfDocument").select2 tags: schema['metadata.typeOfDocument.$'].allowedValues
-  $("#typeOfDocument").select2("val", item.metadata?.typeOfDocument)
+  if item.metadata?.typeOfDocument?
+    $("#typeOfDocument").select2("val", item.metadata.typeOfDocument)
 
   $("#communityContextSelect").select2 {
     placeholder: "Select a Community Context"
@@ -91,12 +92,6 @@ Template.folioEdit.onRendered ->
     allowClear: true
   }
   $("#alphabetSelect").select2("val", item.metadata?.scriptAlphabet)
-
-  $("#traditionSelect").select2 {
-    placeholder: "Select an Tradition"
-    allowClear: true
-  }
-  $("#traditionSelect").select2("val", item.metadata?.scriptTradition)
 
   # FIX SIDEBAR ON SCROLL
   $('.sidebar-affix').affix
@@ -123,9 +118,6 @@ Template.folioEdit.helpers
     folioItems.simpleSchema()._schema['metadata.communityContext'].allowedValues
   alphabet: ->
     Manuscript.alphabet
-  traditions: ->
-    Manuscript.traditions
-
 
 Template.folioEdit.events
   "click #submitFolioItem": ->
@@ -141,7 +133,7 @@ Template.folioEdit.events
     folioItem.communityContext = $("#communityContextSelect").select2('val')
     folioItem.scriptRegion = $("#regionSelect").select2('val')
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
-    folioItem.scriptTradition = $("#traditionSelect").select2('val')
+    folioItem.traditionalClassification = $("#traditionalClassification").val()
     folioItem.specificText = $("#folioText-field").val()
     folioItem.folioNumber = $("#folioNumber-field").val()
     folioItem.description = CKEDITOR.instances.description.getData()
@@ -199,7 +191,7 @@ Template.folioEdit.events
     if $("#collectionNumber-field").val() == ''
       emptyFields.push("Collection Number")
 
-    if $("#typeOfDocument").select2('val') == ''
+    if $("#typeOfDocument").select2('val').length == 0
       emptyFields.push("Type of Document")
 
     if $("#communityContextSelect").select2('val') == ''
@@ -210,9 +202,6 @@ Template.folioEdit.events
 
     if $("#alphabetSelect").select2('val') == ''
       emptyFields.push("Alphabet")
-
-    if $("#traditionSelect").select2('val') == ''
-      emptyFields.push("Script Tradition")
 
     if $("#folioNumber-field").val() == ''
       emptyFields.push("Folio Number")
@@ -235,7 +224,7 @@ Template.folioEdit.events
     folioItem.communityContext = $("#communityContextSelect").select2('val')
     folioItem.scriptRegion = $("#regionSelect").select2('val')
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
-    folioItem.scriptTradition = $("#traditionSelect").select2('val')
+    folioItem.traditionalClassification = $("#traditionalClassification").val()
     folioItem.specificText = $("#folioText-field").val()
     folioItem.folioNumber = $("#folioNumber-field").val()
     folioItem.description = CKEDITOR.instances.description.getData()

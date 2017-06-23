@@ -87,12 +87,8 @@
         <div class="row">
           <div class="form-group col-xs-6">
             <label>Traditional Classification</label>
-            <select id="traditionSelect" class="form-control" required>
-              <option></option>
-              {{#each traditions}}
-                <option>{{this}}</option>
-              {{/each}}
-            </select>
+            <input id="traditionalClassification" type="text" class="form-control">
+            <span class="help-block">Ex. 'Secular Code', 'Canon Law Collection', etc.</span>
           </div>
           <div class="form-group col-xs-6">
             <label>Community Context</label>
