@@ -73,12 +73,12 @@ Template.folioEdit.onRendered ->
   $("#typeOfDocument").select2 tags: schema['metadata.typeOfDocument.$'].allowedValues
   $("#typeOfDocument").select2("val", item.metadata?.typeOfDocument)
 
-  $("#scriptSelect").select2 {
-    placeholder: "Select a Script Family"
-    #tags: schema['metadata.scriptFamily'].allowedValues
+  $("#communityContextSelect").select2 {
+    placeholder: "Select a Community Context"
+    #tags: schema['metadata.communityContext'].allowedValues
     allowClear: true
   }
-  $("#scriptSelect").select2("val", item.metadata?.scriptFamily)
+  $("#communityContextSelect").select2("val", item.metadata?.communityContext)
 
   $("#regionSelect").select2 {
     placeholder: "Select a Region"
@@ -119,8 +119,8 @@ Template.folioEdit.helpers
     Manuscript.regions
   scripts: ->
     Manuscript.scripts
-  scriptFamily: ->
-    folioItems.simpleSchema()._schema['metadata.scriptFamily'].allowedValues
+  communityContext: ->
+    folioItems.simpleSchema()._schema['metadata.communityContext'].allowedValues
   alphabet: ->
     Manuscript.alphabet
   traditions: ->
@@ -138,7 +138,7 @@ Template.folioEdit.events
     folioItem.collectionNumber = $("#collectionNumber-field").val()
     folioItem.dateRange = $("#dateSlider").slider('getValue')
     folioItem.typeOfDocument = $("#typeOfDocument").select2('val')
-    folioItem.scriptFamily = $("#scriptSelect").select2('val')
+    folioItem.communityContext = $("#communityContextSelect").select2('val')
     folioItem.scriptRegion = $("#regionSelect").select2('val')
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
     folioItem.scriptTradition = $("#traditionSelect").select2('val')
@@ -202,8 +202,8 @@ Template.folioEdit.events
     if $("#typeOfDocument").select2('val') == ''
       emptyFields.push("Type of Document")
 
-    if $("#scriptSelect").select2('val') == ''
-      emptyFields.push("Script Family")
+    if $("#communityContextSelect").select2('val') == ''
+      emptyFields.push("Community Context")
 
     if $("#regionSelect").select2('val') == ''
       emptyFields.push("Region")
@@ -232,7 +232,7 @@ Template.folioEdit.events
     folioItem.collectionNumber = $("#collectionNumber-field").val()
     folioItem.dateRange = $("#dateSlider").slider('getValue')
     folioItem.typeOfDocument = $("#typeOfDocument").select2('val')
-    folioItem.scriptFamily = $("#scriptSelect").select2('val')
+    folioItem.communityContext = $("#communityContextSelect").select2('val')
     folioItem.scriptRegion = $("#regionSelect").select2('val')
     folioItem.scriptAlphabet = $("#alphabetSelect").select2('val')
     folioItem.scriptTradition = $("#traditionSelect").select2('val')
