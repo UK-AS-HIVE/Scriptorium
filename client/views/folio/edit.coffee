@@ -148,7 +148,7 @@ Template.folioEdit.events
     folioItem.dateExpression = $("#dateExpression-field").val()
     folioItem.author = $("#author-field").val()
     folioItem.title = $("#title-field").val()
-    folioItem.contributors = $("#contributor-field").val()
+    folioItem.associatedWithPerson = $("#associatedWithPerson-field").val()
     folioItem.manuscriptLink = $("#link-field").val()
     folioItem.info = CKEDITOR.instances.info.getData()
 
@@ -239,7 +239,7 @@ Template.folioEdit.events
     folioItem.dateExpression = $("#dateExpression-field").val()
     folioItem.author = $("#author-field").val()
     folioItem.title = $("#title-field").val()
-    folioItem.contributors = $("#contributor-field").val()
+    folioItem.associatedWithPerson = $("#associatedWithPerson-field").val()
     folioItem.manuscriptLink = $("#link-field").val()
     folioItem.info = CKEDITOR.instances.info.getData()
 

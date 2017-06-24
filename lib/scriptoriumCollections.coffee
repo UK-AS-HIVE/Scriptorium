@@ -235,7 +235,7 @@
   'metadata.title':
     type: String
     optional: true
-  'metadata.contributors':
+  'metadata.associatedWithPerson':
     type: String
     optional: true
   'metadata.manuscriptLink':
