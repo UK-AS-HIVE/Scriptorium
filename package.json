@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "babel-runtime": "^6.23.0"
+    "babel-runtime": "^6.23.0",
+    "core-js": "^2.5.3"
   },
   "devDependencies": {
     "chai": "^3.5.0"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UK-AS-HIVE/Scriptorium.git"
