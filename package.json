@@ -1,0 +1,24 @@
+{
+  "name": "scriptorium",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "babel-runtime": "^6.23.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
+  },
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UK-AS-HIVE/Scriptorium.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/UK-AS-HIVE/Scriptorium/issues"
+  },
+  "homepage": "https://github.com/UK-AS-HIVE/Scriptorium#readme"
+}
