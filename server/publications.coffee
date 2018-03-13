@@ -6,7 +6,7 @@ Meteor.publishComposite 'project', (projectId) ->
     children: [
       { find: -> Annotations.find { projectId: projectId } }
       { find: ->
-          FileCabinet.find { project: projectId , editorLockedByUserId: { $in: [ @userId, null ] } }, { fields: { 'editorLockedByConnectionId': 1, content: 1 } }
+          FileCabinet.find { project: projectId , editorLockedByUserId: { $in: [ @userId, null ] } }, { fields: { 'editorLockedByConnectionId': 1, editVersion: 1, lastEditConnectionId: 1, content: 1 } }
         children: [
           {
             find: (fc) ->

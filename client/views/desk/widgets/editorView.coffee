@@ -24,7 +24,7 @@ Template.mirador_editorView_statusbar.events
   'click button[data-action=save]': (e, tpl) ->
     # TODO: If widget templates are combined, getting content via tpl.$('.cke_wysiwyg_div') is probably more reliable
     tpl.saved.set 'saving'
-    Meteor.call 'updateAndUnlockEditorFile', @fileCabinetId, CKEDITOR.instances["editor-#{@fileCabinetId}"].getData(), (err, res) ->
+    Meteor.call 'updateAndUnlockEditorFile', @fileCabinetId, FileCabinet.findOne(@fileCabinetId).editVersion, CKEDITOR.instances["editor-#{@fileCabinetId}"].getData(), (err, res) ->
       tpl.saved.set 'saved'
 
 Template.mirador_editorView_statusbar.helpers
@@ -48,6 +48,11 @@ Template.mirador_editorView_statusbar.helpers
     fileName = FileCabinet.findOne(@fileCabinetId)?.title
     ext = fileName.substr(fileName.lastIndexOf('.') + 1)
     return ext is type
+  editVersion: ->
+    FileCabinet.findOne(@fileCabinetId)?.editVersion
+
+Template.editorView_content_editor.onDestroyed ->
+  @observeHandle.stop()
 
 ### EDITOR VIEW CONTENT ###
 Template.editorView_content_editor.onRendered ->
@@ -69,6 +74,15 @@ Template.editorView_content_editor.onRendered ->
 
   @locked = new ReactiveVar(false)
 
+  highestEditRevision = 0
+
+  @observeHandle = FileCabinet.find(@data.fileCabinetId).observe
+    changed: (newDoc) =>
+      if newDoc.editVersion > highestEditRevision
+        highestEditRevision = newDoc.editVersion
+        if newDoc.lastEditConnectionId isnt Meteor.connection._lastSessionId
+          @.$('.cke_wysiwyg_div').html newDoc.content
+
   @autorun =>
     file = FileCabinet.findOne(@data.fileCabinetId, { fields: { 'editorLockedByUserId': 1, 'editorLockedByConnectionId': 1 } })
     @locked.set file?.editorLockedByUserId? and (
@@ -79,13 +93,9 @@ Template.editorView_content_editor.onRendered ->
     if ready.get()
       @.$('.cke_wysiwyg_div').prop 'contenteditable', !@locked.get()
 
-  @autorun =>
-    if @locked.get()
-      @.$('.cke_wysiwyg_div').html FileCabinet.findOne({ _id: @data.fileCabinetId }, { fields: { 'content': 1 } })?.content
-
   @editor.on 'change', =>
     unless @locked.get()
-      Meteor.call 'updateEditorFile', @data.fileCabinetId, @.$('.cke_wysiwyg_div').html()
+      Meteor.call 'updateEditorFile', @data.fileCabinetId, FileCabinet.findOne(@data.fileCabinetId).editVersion, @.$('.cke_wysiwyg_div').html()
 
 Template.mirador_editorView_content.helpers
   fileIsEditor: ->
