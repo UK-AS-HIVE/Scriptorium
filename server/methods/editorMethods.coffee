@@ -9,19 +9,20 @@ Meteor.methods
       open: true
       title: title
       description: desc
+      editVersion: 0
 
     return id
 
-  updateEditorFile: (id, content) ->
+  updateEditorFile: (id, currentRev, content) ->
     projectId = FileCabinet.findOne(id, { fields: { 'project': 1 } })?.project
     if Projects.findOne({_id: projectId, $or: [ { personal: @userId }, { 'permissions.user': @userId } ] })?
 
-      FileCabinet.update id, { $set: { content: content, editorLockedByUserId: @userId, editorLockedByConnectionId: @connection?.id } }
+      FileCabinet.update {_id: id, editVersion: currentRev}, { $inc: {editVersion: 1}, $set: { content: content, lastEditConnectionId: @connection?.id, editorLockedByUserId: @userId, editorLockedByConnectionId: @connection?.id } }
       title = FileCabinet.findOne(id, { fields: {'title':1 } }).title
 
       if handles[id] then Meteor.clearTimeout handles[id]
       handles[id] = Meteor.setTimeout =>
-        FileCabinet.update id, { $set: { editorLockedByUserId: null, editorLockedByConnectionId: null } }
+        FileCabinet.update {_id: id}, {$set: { editorLockedByUserId: null, editorLockedByConnectionId: null } }
         EventStream.insert
           type: "filecabinet"
           projectId: projectId
@@ -31,10 +32,10 @@ Meteor.methods
           message: "User <strong>#{User.first(@userId).fullName()}</strong> edited document <strong>#{title}</strong>."
       , 30000
 
-  updateAndUnlockEditorFile: (id, content) ->
-    if FileCabinet.findOne { _id: id, editorLockedByUserId: @userId }
+  updateAndUnlockEditorFile: (id, currentRev, content) ->
+    if FileCabinet.findOne { _id: id, editVersion: currentRev, editorLockedByUserId: @userId }
       if handles[id] then Meteor.clearTimeout handles[id]
-      FileCabinet.update id, { $set: { content: content, editorLockedByUserId: null, editorLockedByConnectionId: null } }
+      FileCabinet.update {_id: id, editVersion: currentRev}, { $inc: {editVersion: 1}, $set: { content: content, lastEditConnectionId: @connection?.id, editorLockedByUserId: null, editorLockedByConnectionId: null } }
       title = FileCabinet.findOne(id, { fields: {'title':1 } }).title
       projectId = FileCabinet.findOne(id, { fields: { 'project': 1 } })?.project
       EventStream.insert

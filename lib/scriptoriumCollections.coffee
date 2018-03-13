@@ -148,6 +148,14 @@
   user:
     label: "User ID"
     type: String
+  editVersion:
+    label: "Monotonically increasing version number"
+    type: Number
+    decimal: true
+    optional: true
+  lastEditConnectionId:
+    type: String
+    optional: true
   editorLockedByUserId:
     label: "Editor Locked By User ID"
     type: String
