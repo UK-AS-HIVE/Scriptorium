@@ -109,12 +109,19 @@ Router.map ->
   @route 'folio',
     path: '/folio'
     waitOn: defaults.waitOn
-    onBeforeAction: defaults.onBeforeAction
+    onBeforeAction: ->
+      if Projects.findOne(Session.get('current_project'))?.projectName != "CC&C"
+        @redirect 'welcome'
+      defaults.onBeforeAction.apply @, arguments
+
 
   @route 'folioEdit',
     path: '/folio/edit'
     waitOn: defaults.waitOn
-    onBeforeAction: defaults.onBeforeAction
+    onBeforeAction: ->
+      if Projects.findOne(Session.get('current_project'))?.projectName != "CC&C"
+        @redirect 'welcome'
+      defaults.onBeforeAction.apply @, arguments
 
   @route 'folioAPI',
     path :'/folio/manifest.json',

@@ -11,6 +11,9 @@ Template.header.helpers
   isntPersonalProject: ->
     Projects.findOne(Session.get("current_project"))?.personal isnt Meteor.userId()
 
+  exhibitManagerEnabled: ->
+    Projects.findOne(Session.get("current_project"))?.projectName == "CC&C"
+
 Template.header.events
   "change #projectSelector": (e, tpl) ->
     Session.set "current_project", tpl.$(e.target).val()

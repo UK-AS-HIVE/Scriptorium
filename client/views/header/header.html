@@ -42,7 +42,9 @@
         {{#if isntPersonalProject}}
           <li><a href="/collaboration">Collaboration</a></li>
         {{/if}}
+        {{#if exhibitManagerEnabled}}
         <li><a href="/folio">Exhibit Manager</a></li>
+        {{/if}}
       </ul>
       <ul class="pull-right">
         <li><a data-action="createNewProject"><i class="fa fa-save"></i> Create New Project</a></li>
