@@ -19,7 +19,9 @@ Meteor.methods
       try
         url = c.images[0].resource.service['@id'] + '/info.json'
         console.log "Caching #{url}"
-        HTTP.get url, (err, res) ->
+        HTTP.get url, {npmRequestOptions: {rejectUnauthorized: false}}, (err, res) ->
+          if err
+            console.log err
           if res.statusCode is 200
             ImageMetadata.upsert {manifestId: manifestId, retrievalUrl: url},
               $set:
