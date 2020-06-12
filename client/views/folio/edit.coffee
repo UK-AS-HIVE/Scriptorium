@@ -1,5 +1,7 @@
 Template.folioEdit.onCreated ->
   @thumbnail = new ReactiveVar
+  @isSaving = new ReactiveVar false
+
 Template.folioEdit.onRendered ->
   # Get thumbnail URL and set in a ReactiveVar on load so Blaze will update when it receives the data.
   retrievalUrl = folioItems.findOne({_id: Session.get("editFolioItem")}).canvas.images[0].resource.service['@id'] + '/info.json'
@@ -110,6 +112,8 @@ Template.folioEdit.helpers
   isPublished: (published) ->
     item = folioItems.findOne({_id: Session.get("editFolioItem")}, {fields: {published: 1}})
     item.published == published
+  isSaving: ->
+    Template.instance().isSaving.get()
   regions: ->
     Manuscript.regions
   scripts: ->
@@ -120,7 +124,7 @@ Template.folioEdit.helpers
     Manuscript.alphabet
 
 Template.folioEdit.events
-  "click #submitFolioItem": ->
+  "click #submitFolioItem": (e, tpl) ->
     folioItem = {}
 
     #required fields
@@ -162,11 +166,20 @@ Template.folioEdit.events
     for k,v of folioItem
       setter["metadata.#{k}"] = v
 
-    folioItems.update({_id: Session.get("editFolioItem")}, {$set: setter})
-    $("#folioSaveConfirm").modal('show')
+    tpl.isSaving.set true
+    folioItems.update {_id: Session.get("editFolioItem")}, {$set: setter}, (err, res) ->
+      tpl.isSaving.set false
+      if res
+        $("#folioSaveConfirm").modal('show')
+      else
+        console.log(err)
+        $("#folioSaveError").modal('show')
 
   "click #folioSaveOkBtn": ->
     $("#folioSaveConfirm").modal('hide')
+
+  "click #folioSaveErrorOkBtn": ->
+    $("#folioSaveError").modal('hide')
 
   "click #folioInvalidOkBtn": ->
     $("#folioInvalidField").modal('hide')

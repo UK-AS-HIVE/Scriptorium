@@ -165,7 +165,13 @@
           <!-- IF PUBLISHED
           <a class="btn btn-lg btn-primary"><i class="fa fa-globe"></i> Save & Publish</a>
           <a class="btn btn-lg btn-default"><i class="fa fa-history"></i> Unpublish</a> -->
-          <a id="submitFolioItem" class="btn btn-lg btn-primary"><i class="fa fa-save"></i> Save</a>
+          <a id="submitFolioItem" class="btn btn-lg btn-primary" disabled="{{#if isSaving}}disabled{{/if}}">
+            {{#if isSaving}}
+              <i class="fa fa-save"></i> Saving...
+            {{else}}
+              <i class="fa fa-save"></i> Save
+            {{/if}}
+          </a>
 
 
           <a class="btn btn-lg btn-danger pull-right" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-o"></i> Delete</a>
@@ -207,6 +213,17 @@
     </div>
   </div>
 
+  <!-- save error modal -->
+  <div class="modal fade" id="folioSaveError">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <p>Could not save folio entry.  Please check your connection, and make sure to back up any unsaved work, then try again.</p>
+          <a id="folioSaveErrorOkBtn" class="btn btn-lg btn-default"><i class="fa fa-exclamation"></i> OK</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Required Field empty -->
   <div class="modal fade" id="folioInvalidField">
